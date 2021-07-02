@@ -61,7 +61,7 @@ CREATE TABLE "contract" (
 	"protein" FLOAT,
 	"oil" FLOAT NOT NULL,
 	"moisture" FLOAT,
-	"contact_quantity" FLOAT NOT NULL,
+	"contract_quantity" FLOAT NOT NULL,
 	"container_serial" integer NOT NULL,
 	"contract_handler" varchar(255) NOT NULL,
 	CONSTRAINT "contract_pk" PRIMARY KEY ("id")
@@ -156,4 +156,17 @@ JOIN "user" ON ("user"."id" = "user_field"."user_id");
 SELECT * FROM "field"
 JOIN "crop" ON ("crop"."id"="field"."crop_id");
 
+
+INSERT INTO "NIR" (field_id, oil, moisture, protein, tested_at) VALUES ('1', '20', '10', '50', '07-02-2021');
+
+INSERT INTO "contract" ("user_id", "commodity", "open_status", "bushel_uid", "quantity_fulfilled", "price", "protein", "oil", "moisture", "contract_quantity", "container_serial", "contract_handler")
+VALUES (1, 4, 1, 222, 100, 1, .3, .5, .6, .7, 200, 'Bushel');
+
+INSERT INTO "transaction_type" ("id", "name") VALUES ('1', 'pre-planting');
+INSERT INTO "transaction_type" ("id", "name") VALUES ('2', 'plant');
+INSERT INTO "transaction_type" ("id", "name") VALUES ('3', 'application');
+INSERT INTO "transaction_type" ("id", "name") VALUES ('4', 'harvest farm');
+INSERT INTO "transaction_type" ("id", "name") VALUES ('5', 'elevator');
+INSERT INTO "transaction_type" ("id", "name") VALUES ('6', 'processing');
+INSERT INTO "transaction_type" ("id", "name") VALUES ('7', 'transit');
 
