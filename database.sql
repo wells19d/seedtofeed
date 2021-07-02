@@ -152,3 +152,8 @@ SELECT * FROM "field"
 JOIN "user_field" ON ("user_field"."field_id" = "field"."id")
 JOIN "user" ON ("user"."id" = "user_field"."user_id");
 
+-- Displaying the crop to the field
+SELECT * FROM "field"
+JOIN "crop" ON ("crop"."id"="field"."crop_id");
+
+
