@@ -231,3 +231,7 @@ SELECT * FROM "contract"
 JOIN "user_field" ON ("user_field"."id"="contract"."user_field_id")
 JOIN "user" ON ("user"."id"="user_field"."user_id")
 JOIN "field" ON ("field"."id"="user_field"."field_id");
+
+INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "image", "field_status", "transaction_type") VALUES ('1', '04-24-2021', 'fertilizer', 'none', 'pre-planting', '3');
+
+SELECT * FROM "field_transactions";
