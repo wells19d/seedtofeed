@@ -50,6 +50,15 @@ router.post('/', (req, res) => {
 });
 
 router.post('/makefield', (req, res) => {
+    const year = req.body.year;
+    const location = req.body.location;
+    const acres = req.body.acres;
+    const field_note = req.body.field_note;
+    const name = req.body.name;
+    const image = req.body.image;
+    const shape_file = req.body.shape_file;
+    const gmo = req.body.gmo;
+    const crop_id = req.body.crop_id;
 
     const queryText = `
     INSERT INTO "field" (
@@ -60,7 +69,22 @@ router.post('/makefield', (req, res) => {
         .then(response => {
             console.log(response.rows);
             // res.send(response.rows);
-            res.sendStatus(201);
+            // res.sendStatus(201);
+
+            const created_field = response.rows[0].id;
+            const insert_field = `
+            INSERT INTO "user_field" ("field_id", user_id)
+            VALUES ($1, $2);`
+
+            pool.query(insert_field, [created_field, req.user.id])
+                .then(result => {
+                    res.sendStatus(201);
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.sendStatus(500);
+                })
+
         }).catch(error => {
             console.log(`Error making database query ${queryText}`, error);
             res.sendStatus(500);
