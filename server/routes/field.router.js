@@ -5,8 +5,19 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get('/test', (req, res) => {
     // GET route code here
+
+    const queryText = `SELECT * FROM "field"
+    JOIN "crop" ON ("crop"."id"="field"."crop_id");`;
+
+    pool.query(queryText).then(response => {
+        console.log(response.rows);
+        res.send(response.rows);
+    }).catch(error => {
+        console.log(`Error making database query ${queryText}`, error);
+        res.sendStatus(500);
+    })
 });
 
 /**
