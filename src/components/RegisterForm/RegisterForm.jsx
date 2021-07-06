@@ -98,7 +98,7 @@ function RegisterForm() {
             <input
               type="checkbox"
               defaultChecked={farmer}
-              onChange={setFarmer(!farmer)}
+              onChange={(event) => setFarmer(!farmer)}
             />
         </label>
         <label>
@@ -106,7 +106,7 @@ function RegisterForm() {
             <input
               type="checkbox"
               defaultChecked={buyer}
-              onChange={setBuyer(!buyer)}
+              onChange={(event) => setBuyer(!buyer)}
             />
         </label>
     </div>
