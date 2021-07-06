@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-// IMPORT THE 'FieldTransactions', 'FieldNIR', AND 'StatusTracker' COMPONENTS HERE
+import FieldNIR from '../FieldNIR/FieldNIR.jsx';
+import ViewTransactions from '../ViewTransactions/ViewTransactions.jsx';
+// NEED TO CREATE AND IMPORT STATUSTRACKER COMPONENT
 
 function ViewFieldDetails() {
 
@@ -24,7 +26,7 @@ function ViewFieldDetails() {
                 </select>
             </div>
 
-            {view ? <FieldTransactions fieldID={fieldID} /> : <FieldNIR fieldID={fieldID} />}
+            {view ? <ViewTransactions fieldID={fieldID} /> : <FieldNIR fieldID={fieldID} />}
         </>
     )
 }
