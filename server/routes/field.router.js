@@ -300,7 +300,7 @@ router.delete('/delete_field/:fieldID', (req, res) => {
 
 
 
-// FOR EDITING COMLUNS INDIVIDUALLY. MAY NOT NEED
+// FOR EDITING COLUMNS INDIVIDUALLY. MAY NOT NEED
 // edit location column
 // router.put('/:fieldID/location', (req, res) => {
 //     console.log('edit the location', req.body);
