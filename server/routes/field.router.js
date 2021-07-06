@@ -280,6 +280,26 @@ router.put('/update/:fieldID', (req, res) => {
     })
 })
 
+// -- DELETES --
+
+router.delete('/delete_field/:fieldID', (req, res) => {
+    const queryText =
+        `DELETE
+        FROM "field"
+        WHERE "id" = $1;
+        `;
+    pool
+        .query(queryText, [req.params.fieldID])
+        .then(() => res.sendStatus(201))
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});
+
+
+
+
 // FOR EDITING COMLUNS INDIVIDUALLY. MAY NOT NEED
 // edit location column
 // router.put('/:fieldID/location', (req, res) => {
@@ -473,22 +493,7 @@ router.put('/update/:fieldID', (req, res) => {
 // })
 
 
-// -- DELETES --
 
-router.delete('/delete_field/:fieldID', (req, res) => {
-    const queryText =
-        `DELETE
-        FROM "field"
-        WHERE "id" = $1;
-        `;
-    pool
-        .query(queryText, [req.params.fieldID])
-        .then(() => res.sendStatus(201))
-        .catch((error) => {
-            console.log(error);
-            res.sendStatus(500);
-        });
-});
 
 
 
