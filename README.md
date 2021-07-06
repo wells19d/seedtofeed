@@ -18,7 +18,7 @@ Farmer's Home View
 ---
 ![farmer home page](image-link)
 
-Teacher's overall view of submitted practice logs
+Farmer's Detailed View of a Field
 ---
 ![farmer detailed view of field selected](image-link)
 
