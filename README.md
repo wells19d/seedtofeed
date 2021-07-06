@@ -23,12 +23,12 @@ npm run server
 npm run client
 
 # Technologies
--- React
--- Node
--- Express
--- PostgreSQL
--- Material
+--React
+--Node
+--Express
+--PostgreSQL
+--Material
 
 # Miscellaneous Technologies Used
--- Trello
--- Heroku
+--Trello
+--Heroku
