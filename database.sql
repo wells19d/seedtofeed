@@ -14,11 +14,13 @@ CREATE TABLE "user" (
 	"buyer" BOOLEAN NOT NULL,
 	"first_name" varchar(255) NOT NULL,
 	"last_name" varchar(255) NOT NULL,
-	"super_admin" BOOLEAN NOT NULL,
+	"super_admin" BOOLEAN DEFAULT FALSE,
 	CONSTRAINT "user_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
+
+-- "access_level" VARCHAR (6) DEFAULT 'Member'
 
 
 CREATE TABLE "field" (
