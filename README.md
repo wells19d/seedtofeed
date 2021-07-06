@@ -23,10 +23,10 @@ npm run server
 npm run client
 
 # Technologies
---React
---Node
+--[React](https://reactjs.org/)
+--[Node](https://nodejs.org/en/)
 --Express
---PostgreSQL
+--[PostgreSQL](https://www.postgresql.org/)
 --Material
 
 # Miscellaneous Technologies Used
