@@ -8,26 +8,25 @@
 
 CREATE TABLE "user" (
 	"id" serial NOT NULL,
-	"username" varchar(60) NOT NULL UNIQUE,
-	"password" varchar(60) NOT NULL,
-	"farmer" BOOLEAN(255) NOT NULL,
-	"buyer" BOOLEAN(255) NOT NULL,
+	"username" varchar(80) NOT NULL UNIQUE,
+	"password" varchar(1000) NOT NULL,
+	"farmer" BOOLEAN NOT NULL,
+	"buyer" BOOLEAN NOT NULL,
 	"first_name" varchar(255) NOT NULL,
 	"last_name" varchar(255) NOT NULL,
-	"super_admin" BOOLEAN(255) NOT NULL,
+	"super_admin" BOOLEAN NOT NULL,
 	CONSTRAINT "user_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
 
 
-
 CREATE TABLE "field" (
 	"id" serial NOT NULL,
 	"year" DATE,
-	"location" TEXT(255),
-	"acres" FLOAT(255),
-	"field_note" TEXT(2000),
+	"location" TEXT,
+	"acres" FLOAT,
+	"field_note" TEXT,
 	"name" varchar(255),
 	"image" VARCHAR(255),
 	"shape_file" TEXT,
@@ -39,7 +38,6 @@ CREATE TABLE "field" (
 );
 
 
-
 CREATE TABLE "crop" (
 	"id" serial NOT NULL,
 	"crop_type" varchar(255) NOT NULL,
@@ -49,15 +47,13 @@ CREATE TABLE "crop" (
 );
 
 
-
 CREATE TABLE "transaction_type" (
 	"id" integer NOT NULL,
-	"name" varchar(255) NOT NULL
+	"name" varchar(255) NOT NULL,
 	CONSTRAINT "transaction_type_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
-
 
 
 CREATE TABLE "contract" (
@@ -80,7 +76,6 @@ CREATE TABLE "contract" (
 );
 
 
-
 CREATE TABLE "NIR" (
 	"id" serial NOT NULL,
 	"field_id" integer NOT NULL,
@@ -96,20 +91,18 @@ CREATE TABLE "NIR" (
 );
 
 
-
 CREATE TABLE "field_transactions" (
 	"id" serial NOT NULL,
 	"field_id" integer NOT NULL,
 	"timestamp" TIMESTAMP NOT NULL,
 	"status_notes" TEXT NOT NULL,
 	"image" varchar(255) NOT NULL,
-	"field_status" TEXT(255) NOT NULL,
+	"field_status" TEXT NOT NULL,
 	"transaction_type" integer NOT NULL,
 	CONSTRAINT "field_transactions_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
-
 
 
 CREATE TABLE "user_field" (
@@ -120,7 +113,6 @@ CREATE TABLE "user_field" (
 ) WITH (
   OIDS=FALSE
 );
-
 
 
 CREATE TABLE "arbitrary_data" (
@@ -134,36 +126,25 @@ CREATE TABLE "arbitrary_data" (
 );
 
 
-
 CREATE TABLE "contract_status" (
 	"id" serial NOT NULL,
-	"name" varchar(255) NOT NULL
+	"name" varchar(255) NOT NULL,
 	CONSTRAINT "contract_status_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
 
 
-
-
-ALTER TABLE "field" ADD CONSTRAINT "field_fk0" FOREIGN KEY ("crop_id") REFERENCES "crop"("id");
-
-
-ALTER TABLE "transaction_type" ADD CONSTRAINT "transaction_type_fk0" FOREIGN KEY ("crop_id") REFERENCES "crop"("id");
-
-ALTER TABLE "contract" ADD CONSTRAINT "contract_fk0" FOREIGN KEY ("user_field_id") REFERENCES "user_field"("id");
-ALTER TABLE "contract" ADD CONSTRAINT "contract_fk1" FOREIGN KEY ("commodity") REFERENCES "crop"("id");
-ALTER TABLE "contract" ADD CONSTRAINT "contract_fk2" FOREIGN KEY ("open_status") REFERENCES "contract_status"("id");
-
-ALTER TABLE "NIR" ADD CONSTRAINT "NIR_fk0" FOREIGN KEY ("field_id") REFERENCES "field"("id");
-
-ALTER TABLE "field_transactions" ADD CONSTRAINT "field_transactions_fk0" FOREIGN KEY ("field_id") REFERENCES "field"("id");
-ALTER TABLE "field_transactions" ADD CONSTRAINT "field_transactions_fk1" FOREIGN KEY ("transaction_type") REFERENCES "transaction_type"("id");
-
-ALTER TABLE "user_field" ADD CONSTRAINT "user_field_fk0" FOREIGN KEY ("field_id") REFERENCES "field"("id");
-ALTER TABLE "user_field" ADD CONSTRAINT "user_field_fk1" FOREIGN KEY ("user_id") REFERENCES "user"("id");
-
-ALTER TABLE "arbitrary_data" ADD CONSTRAINT "arbitrary_data_fk0" FOREIGN KEY ("field_trans_id") REFERENCES "field_transactions"("id");
+ALTER TABLE "field" ADD CONSTRAINT "field_fk0" FOREIGN KEY ("crop_id") REFERENCES "crop"("id") ON DELETE CASCADE;
+ALTER TABLE "contract" ADD CONSTRAINT "contract_fk0" FOREIGN KEY ("user_field_id") REFERENCES "user_field"("id") ON DELETE CASCADE;
+ALTER TABLE "contract" ADD CONSTRAINT "contract_fk1" FOREIGN KEY ("commodity") REFERENCES "crop"("id") ON DELETE CASCADE;
+ALTER TABLE "contract" ADD CONSTRAINT "contract_fk2" FOREIGN KEY ("open_status") REFERENCES "contract_status"("id") ON DELETE CASCADE;
+ALTER TABLE "NIR" ADD CONSTRAINT "NIR_fk0" FOREIGN KEY ("field_id") REFERENCES "field"("id") ON DELETE CASCADE;
+ALTER TABLE "field_transactions" ADD CONSTRAINT "field_transactions_fk0" FOREIGN KEY ("field_id") REFERENCES "field"("id") ON DELETE CASCADE;
+ALTER TABLE "field_transactions" ADD CONSTRAINT "field_transactions_fk1" FOREIGN KEY ("transaction_type") REFERENCES "transaction_type"("id") ON DELETE CASCADE;
+ALTER TABLE "user_field" ADD CONSTRAINT "user_field_fk0" FOREIGN KEY ("field_id") REFERENCES "field"("id") ON DELETE CASCADE;
+ALTER TABLE "user_field" ADD CONSTRAINT "user_field_fk1" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE;
+ALTER TABLE "arbitrary_data" ADD CONSTRAINT "arbitrary_data_fk0" FOREIGN KEY ("field_trans_id") REFERENCES "field_transactions"("id") ON DELETE CASCADE;
 
 
 
@@ -176,13 +157,13 @@ INSERT INTO "crop" (crop_type) VALUES ('barley'), ('corn'), ('oats'), ('soybeans
 
 -- this is the insert for the contract statuses - however you need to change the "order" to nullable, not sure what that is
 
-INSERT INTO "contract_status" (name) VALUES ('created'), ('pending'), ('signed'), ('delivered'), ('paid'), ('fulfilled');
+INSERT INTO "contract_status" ("name") VALUES ('created'), ('pending'), ('signed'), ('delivered'), ('paid'), ('fulfilled');
 
 INSERT INTO "user" ("username", "password", "farmer", "buyer", "first_name", "last_name", "super_admin") VALUES ('jim@field.com','1234','true','true','James','Doe','false');
 
-INSERT INTO "field" ("year", "location", "acres", "field_note", "name", "image", "shape_file", "gmo", "crop_id") VALUES (05-01-2021, 'grandfarm', 5,'testing plot','test plot 1', null , null, 'true','4');
+INSERT INTO "field" ("year", "location", "acres", "field_note", "name", "image", "shape_file", "gmo", "crop_id") VALUES ('05-01-2021', 'grandfarm', 5,'testing plot','test plot 1', null , null, 'true','4');
 
-INSERT INTO "user_field" (field_id, user_id) VALUES ('1', '1');
+INSERT INTO "user_field" ("field_id", "user_id") VALUES ('1', '1');
 
 -- Joining the user to the field table
 SELECT * FROM "field"
@@ -235,3 +216,12 @@ JOIN "field" ON ("field"."id"="user_field"."field_id");
 INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "image", "field_status", "transaction_type") VALUES ('1', '04-24-2021', 'fertilizer', 'none', 'pre-planting', '3');
 
 SELECT * FROM "field_transactions";
+
+/* 
+
+Test Farmers
+
+jim@field.com   1234
+jason@field.com  1234
+
+*/
