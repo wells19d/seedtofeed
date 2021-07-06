@@ -30,7 +30,7 @@ router.get('/fieldList/:userID', (req, res) => { // Get list of fields owned by 
 
     const queryText = `SELECT * FROM "field"
         JOIN "user_field" ON "user_field"."field_id"="field"."id"
-        WHERE "user_field"."id"=$1`;
+        WHERE "user_field"."user_id"=$1`;
 
     pool.query(queryText, [userID]).then(response => {
         console.log(response.rows);
@@ -98,7 +98,7 @@ router.get('/transactions/:fieldID', (req, res) => { // Gets list of transaction
 });
 
 
-
+// -- 
 router.get('/NIR/:fieldID', (req, res) => { // Gets list of NIR results for a field from the database. Eventually will have to make authentication so only people with permission to view said field can make this GET request.
     const fieldID = req.params.fieldID;
 
@@ -211,6 +211,8 @@ router.post('/create_transaction', (req, res) => {
 
 });
 
+
+// Tested
 // CREATE NIR ANALYSIS
 // will need user authentaction
 router.post('/create_NIR', (req, res) => {
