@@ -260,7 +260,7 @@ router.put('/update/:fieldID', (req, res) => {
     const crop_id = req.body.crop_id; //$9
 
 
-    queryText = `
+    const queryText = `
             UPDATE "field"
             SET "year" = $2, "location" = $3, "acres" = $4, "field_note" = $5, "name" = $6, "shape_file" = $7, "gmo" = $8, "crop_id" = $9
             FROM "user_field"
@@ -290,7 +290,7 @@ router.delete('/delete_field/:fieldID', (req, res) => {
         `;
     pool
         .query(queryText, [req.params.fieldID])
-        .then(() => res.sendStatus(201))
+        .then(() => res.sendStatus(204))
         .catch((error) => {
             console.log(error);
             res.sendStatus(500);

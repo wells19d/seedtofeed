@@ -52,7 +52,7 @@ router.post('/add_contract', (req, res) => {
     ("user_field_id", "commodity", "open_status", "bushel_uid", "quantity_fulfilled", "price", "protein", "oil", "moisture", "contract_quantity", "container_serial", "contract_handler")
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`
 
-    pool.query(queryText, [user_field_id, commodity, open_status, bushel_uid, quantity_fulfilled, price, protein, oil, moisture, contract_quantity, contract_serial, contract_handler])
+    pool.query(queryText, [user_field_id, commodity, open_status, bushel_uid, quantity_fulfilled, price, protein, oil, moisture, contract_quantity, container_serial, contract_handler])
         .then(result =>
             res.sendStatus(201)
         )
@@ -60,8 +60,6 @@ router.post('/add_contract', (req, res) => {
             console.log(`Error in creating contract: ${err}`);
             res.sendStatus(500);
         })
-
-
 });
 
 
@@ -71,39 +69,55 @@ router.post('/add_contract', (req, res) => {
 // What is going to be able to be updated on the contract ??? For now bringing in everything.
 
 router.put('/update_contract/:contractID', (req, res) => {
+
+    const contractID = req.params.contractID; // $1
+    const commodity = req.body.commodity; // $2
+    const open_status = req.body.open_status; // $3
+    const bushel_uid = req.body.bushel_uid; // $4
+    const quantity_fulfilled = req.body.quantity_fulfilled; //$5
+    const price = req.body.price; // $6
+    const protein = req.body.protein; // $7
+    const oil = req.body.oil; // $8
+    const moisture = req.body.moisture; // $9
+    const contract_quantity = req.body.contract_quantity; // $10
+    const container_serial = req.body.container_serial; // $11
+    const contract_handler = req.body.contract_handler; // $12
+
+
     const queryText =
-        `
-                                UPDATE "contract"
-                                SET "user_field_id" = $2,
-                                "commodity" = $3,
-                                "open_status" = $4,
-                                "bushel_uid" = $5,
-                                "price" = $6,
-                                "protein" = $7,
-                                "oil" = $8,
-                                "moisture" = $9,
-                                "contract_quantity" = $10,
-                                "container_serial" = $11,
-                                "contract_handler" = $12 WHERE "id" = $1;
-                                `;
+        `UPDATE "contract"
+        SET 
+        "commodity" = $2,
+        "open_status" = $3,
+        "bushel_uid" = $4,
+        "quantity_fulfilled" = $5,
+        "price" = $6,
+        "protein" = $7,
+        "oil" = $8,
+        "moisture" = $9,
+        "contract_quantity" = $10,
+        "container_serial" = $11,
+        "contract_handler" = $12
+        WHERE "id" = $1;
+        `;
 
     pool
         .query(queryText, [
-            req.params.contractID, // $1
-            req.body.user_field_id, // $2
-            req.body.commodity, // $3
-            req.body.open_status, // $4
-            req.body.bushel_uid, // $5
-            req.body.price, // $6
-            req.body.protein, // $7
-            req.body.oil, // $8
-            req.body.moisture, // $9
-            req.body.contract_quantity, // $10
-            req.body.contract_serial, // $11
-            req.body.contract_handler // $12
+            contractID, // $1
+            commodity, // $2
+            open_status, // $3
+            bushel_uid, // $4
+            quantity_fulfilled, // $5
+            price, // $6
+            protein, // $7
+            oil, // $8
+            moisture, // $9
+            contract_quantity, // $10
+            container_serial, // $11
+            contract_handler // $12
         ])
         .then((result) => {
-            console.log('Updating Entry', result.rows);
+            // console.log('Updating Entry', result.rows);
             res.sendStatus(204);
         })
         .catch((error) => {
@@ -119,11 +133,11 @@ router.delete('/delete_contract/:contractID', (req, res) => {
     const queryText =
         `
                                 DELETE FROM "contract"
-                                WHERE "user_field_id" = $1 AND "id" = $2;
+                                WHERE "id" = $1;
                                 `;
     pool
-        .query(queryText, [req.user_field_id, req.params.contractID]) // This time will be changed
-        .then(() => res.sendStatus(201))
+        .query(queryText, [req.params.contractID])
+        .then(() => res.sendStatus(204))
         .catch((error) => {
             console.log(error);
             res.sendStatus(500);
