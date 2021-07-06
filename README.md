@@ -90,6 +90,7 @@ After running the login route above, you can try any other route you've created 
 - npm run client
 
 # Technologies
+
 - React
 - Node
 - Express
@@ -97,6 +98,13 @@ After running the login route above, you can try any other route you've created 
 - Material
 
 (a full list of dependencies can be found in `package.json`).
+=======
+--[React](https://reactjs.org/)
+--[Node](https://nodejs.org/en/)
+--Express
+--[PostgreSQL](https://www.postgresql.org/)
+--Material
+
 
 # Miscellaneous Technologies Used
 - [Trello](https://trello.com)
