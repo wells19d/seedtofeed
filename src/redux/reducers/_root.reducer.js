@@ -2,6 +2,15 @@ import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
 
+import fieldListReducer from './fieldList.reducer';
+import fieldDetailsReducer from './fieldDetails.reducer';
+import fieldTransactionsReducer from './fieldTransactions.reducer';
+import fieldNIRReducer from './fieldNIR.reducer';
+import cropListReducer from './cropList.reducer';
+import contractListReducer from './contractList.reducer';
+import contractDetailsReducer from './contractDetails.reducer';
+import transactionTypesReducer from './transactionTypes.reducer';
+
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -11,6 +20,15 @@ import user from './user.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
+
+  fieldListReducer,
+  fieldDetailsReducer,
+  fieldTransactionsReducer,
+  fieldNIRReducer,
+  cropListReducer,
+  contractListReducer,
+  contractDetailsReducer,
+  transactionTypesReducer,
 });
 
 export default rootReducer;
