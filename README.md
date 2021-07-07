@@ -29,7 +29,7 @@ Buyer's Home view
 
 NIR Table
 ---
-![student detailed practice log ](image-link)   
+![NIR Analysis Table ](image-link)   
 ---
 
 Create a Contract
@@ -98,12 +98,13 @@ After running the login route above, you can try any other route you've created 
 - Material
 
 (a full list of dependencies can be found in `package.json`).
+
 =======
---[React](https://reactjs.org/)
---[Node](https://nodejs.org/en/)
---Express
---[PostgreSQL](https://www.postgresql.org/)
---Material
+- [React](https://reactjs.org/)
+- [Node](https://nodejs.org/en/)
+- Express
+- [PostgreSQL](https://www.postgresql.org/)
+- Material
 
 
 # Miscellaneous Technologies Used
