@@ -1,55 +1,54 @@
 .nav {
-  /* flex box layout */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 0 30px;
-  background-color: #fdb41b;
-  color: #1b1c19;
-  overflow: hidden;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
+    /* flex box layout */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 30px;
+    background-color: #fdb418;
+    color: #1b1c19;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
 }
 
 .nav a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .nav-title {
-  font-size: 24px;
-  color: #1b1c19;
-  padding-left: 10px;
-  margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
+    font-size: 24px;
+    color: #1b1c19;
+    padding-left: 10px;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
 }
 
 .navLink {
-  display: inline-block;
-  color: #1b1c19;
-  background-color: #fdb41b;
-  text-align: center;
-  padding: 24px 10px;
-  text-decoration: none;
-  font-size: 15px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  
-
-  /* these last two make the logout button in
+    display: inline-block;
+    color: #1b1c19;
+    background-color: #fdb41b;
+    text-align: center;
+    padding: 24px 10px;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    /* these last two make the logout button in
   the nav bar look like another link */
-  border: none;
-  cursor: pointer;
-  outline: 0;
+    border: none;
+    cursor: pointer;
+    outline: 0;
 }
 
 .navLink:hover {
-  background-color: #fdb41b;
+    background-color: #f1ad18;
 }
 
-a:visited, a:link {
-  text-decoration: none;
-  color: #1b1c19;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
+a:visited,
+a:link {
+    text-decoration: none;
+    color: #1b1c19;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
