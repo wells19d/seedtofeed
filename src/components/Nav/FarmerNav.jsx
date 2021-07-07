@@ -30,9 +30,21 @@ function FarmerNav() {
                 {user.id && (
 
                     <>
+                        {/* link to view contracts */}
                         <Link className="navLink" to="/contract">
                             View Contracts (need component)
                         </Link>
+
+                        {/* link to add a field */}
+                        <Link className="navLink" to="/">
+                            Add a New Field (need component)
+                        </Link>
+
+                        {/* link to edit field information */}
+                        <Link className="navLink" to="/">
+                            Edit Field Information
+                        </Link>
+                        
                         <Link className="navLink" to="/info">
                             Info Page
                         </Link>

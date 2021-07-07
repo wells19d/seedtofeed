@@ -3,11 +3,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   margin: 0 0 30px;
   background-color: #fdb41b;
   color: #1b1c19;
   overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
 }
 
 .nav a {
@@ -16,10 +17,11 @@
 
 .nav-title {
   font-size: 24px;
-  font-weight: 700;
   color: #1b1c19;
   padding-left: 10px;
   margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
 }
 
 .navLink {
@@ -30,6 +32,8 @@
   padding: 24px 10px;
   text-decoration: none;
   font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
   
 
   /* these last two make the logout button in
@@ -43,7 +47,9 @@
   background-color: #fdb41b;
 }
 
-a:visited {
+a:visited, a:link {
   text-decoration: none;
   color: #1b1c19;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
 }

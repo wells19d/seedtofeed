@@ -20,7 +20,7 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <h2 className="nav-title">Seed to Feed Grain Tracker</h2>
+        <h2 className="nav-title">SEED TO FEED</h2>
       </Link>
       <div>
         <Link className="navLink" to={loginLinkData.path}>
@@ -42,8 +42,7 @@ function Nav() {
 
         <a href="http://www.seedtofeed.info/" target="_blank"
         >
-          Seed to Feed
-        </a>
+          SEED TO FEED        </a>
       </div>
     </div >
   );

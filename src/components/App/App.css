@@ -5,7 +5,8 @@ body,
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
   margin: 0px;
 }
 
@@ -37,6 +38,8 @@ Button
   font-size: 1.1rem;
   outline: 0;
   cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
 }
 
 .btn_sizeMin {
@@ -47,6 +50,8 @@ Button
 .btn_sizeSm {
   padding: 10px 15px;
   font-size: 0.8rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
 }
 
 .btn_sizeFull {
