@@ -7,7 +7,7 @@ import './Footer.css';
 // or even care what the redux state is, so it doesn't need 'connect()'
 
 function Footer() {
-  return <footer>&copy; 2021, Dijkstra Cohort - Emerging Digital Academy </footer>;
+  return <footer>&copy;Copyright 2021 Genesis Feed Technologies • (701) 448-7286 • contact@genesisfeedtech.com</footer>;
 }
 
 export default Footer;
