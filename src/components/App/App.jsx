@@ -46,7 +46,7 @@ function App() {
           >
             <AboutPage />
           </Route>
-          <Route>
+          <Route exact path="/fieldDB">
             <FieldDB />
           </Route>
 
