@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-function ViewContract(){
+function ViewContract() {
 
     const history = useHistory();
     const params = useParams();
@@ -14,10 +14,10 @@ function ViewContract(){
 
     useEffect(() => {
         dispatch({
-          type: 'FETCH_CONTRACT_DETAILS',
-          payload: contractID
+            type: 'FETCH_CONTRACT_DETAILS',
+            payload: contractID
         })
-      }, [])
+    }, [])
 
 
     return (
