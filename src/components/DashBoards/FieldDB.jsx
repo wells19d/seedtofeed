@@ -51,7 +51,7 @@ function FieldDB() {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* {store.field.map((fieldEntry, index) => {
+                    {store.field.map((fieldEntry, index) => {
                         return (
                             <tr>
                                 <td>{fieldEntry.id}</td>
@@ -67,7 +67,7 @@ function FieldDB() {
                                 <td><button onClick={(event) => {deleteButton(entry);}}>Delete</button></td>
                             </tr>
                         )
-                    })} */}
+                    })}
                 </tbody>
             </table>
         </center>
