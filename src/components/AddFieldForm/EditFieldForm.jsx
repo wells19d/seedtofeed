@@ -32,6 +32,8 @@ function EditFieldForm() {
   const updateField = (event) => {
     event.preventDefault();
 
+    alert('Your field has been updated');
+    
     dispatch({
       type: 'UPDATE_FIELD', // Need to double check this is the right dispatch type name in saga
       payload: {
@@ -42,11 +44,11 @@ function EditFieldForm() {
         notes: notes
       }
     });
-  }; // end addField
+  }; // end updateField
 
   return (
     <div>
-      <form className='add-field' onSubmit={updateField}>
+      <form className='update-field' onSubmit={updateField}>
         <h2>{heading}</h2>
 
         <div>
