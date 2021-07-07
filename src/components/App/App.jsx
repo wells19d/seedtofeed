@@ -21,7 +21,6 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import FieldDB from '../DashBoards/FieldDB';
-=======
 import ViewContract from '../ViewContract/ViewContract';
 
 
