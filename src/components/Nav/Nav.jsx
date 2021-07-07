@@ -39,8 +39,13 @@ function Nav() {
         <Link className="navLink" to="/about">
           About
         </Link>
+
+        <a href="http://www.seedtofeed.info/" target="_blank"
+        >
+          Seed to Feed
+        </a>
       </div>
-    </div>
+    </div >
   );
 }
 
