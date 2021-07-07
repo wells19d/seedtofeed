@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import useReduxStore from '../../hooks/useReduxStore';
-import { useHistory } from 'react-router-dom';
-import moment from 'moment';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import '../App/App.css';
 
@@ -32,22 +29,46 @@ function FieldDB() {
     //     );
     // }
 
+    useEffect(() => {
+        dispatch({ type: 'GET_FIELD' });
+      }, [dispatch]);
+
 
     return (
         <center>
             <table>
                 <thead>
+                    <tr>
                     <th>Year</th>
                     <th>Location</th>
                     <th>Acres</th>
                     <th>Field Note(s)</th>
                     <th>Name</th>
-                    <th>Image</th> {/* This will be moved into an image for later display */}
-                    <th>Shape File</th> {/* How will this look? Is it a link? */}
+                    <th>Image</th>
+                    <th>Shape File</th>
                     <th>GMO</th>
-                    <th>Crop ID</th> {/* Need to change the number to the name for display */}
+                    <th>Crop ID</th>
+                    </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    {/* {store.field.map((fieldEntry, index) => {
+                        return (
+                            <tr>
+                                <td>{fieldEntry.id}</td>
+                                <td>{fieldEntry.year}</td>
+                                <td>{fieldEntry.acres}</td>
+                                <td>{fieldEntry.field_note}</td>
+                                <td>{fieldEntry.name}</td>
+                                <td>{fieldEntry.image}</td>
+                                <td>{fieldEntry.shape_file}</td>
+                                <td>{fieldEntry.gmo}</td>
+                                <td>{fieldEntrycrop_id}</td>
+                                <td><button onClick={(event) => {updateButton(entry);}}>Edit</button></td>
+                                <td><button onClick={(event) => {deleteButton(entry);}}>Delete</button></td>
+                            </tr>
+                        )
+                    })} */}
+                </tbody>
             </table>
         </center>
     );
