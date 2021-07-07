@@ -44,7 +44,32 @@ function FarmerNav() {
                         <Link className="navLink" to="/">
                             Edit Field Information
                         </Link>
-                        
+
+                        {/* link to view field transactions */}
+                        <Link className="navLink" to="/">
+                            View Field Transactions
+                        </Link>
+
+                        {/* link to edit field transaction */}
+                        <Link className="navLink" to="/">
+                            Edit Transaction
+                        </Link>
+
+                        {/* link to add field transaction */}
+                        <Link className="navLink" to="/">
+                            Add New Transaction
+                        </Link>
+
+                         {/* link to NIR Analysis */}
+                         <Link className="navLink" to="/">
+                            NIR Analysis
+                        </Link>
+
+                         {/* link to add NIR  */}
+                         <Link className="navLink" to="/">
+                             Add NIR Analysis
+                        </Link>
+
                         <Link className="navLink" to="/info">
                             Info Page
                         </Link>

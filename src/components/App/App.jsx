@@ -9,6 +9,8 @@ import {
 import { useDispatch } from 'react-redux';
 
 import Nav from '../Nav/Nav';
+import FarmerNav from '../Nav/FarmerNav';
+import BuyerNav from '../Nav/BuyerNav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -68,11 +70,19 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows Farmer's Contracts else shows ???
+            // logged in shows Farmer's Navigation else Landing/login page ???
             exact
-            path="/contract"
+            path="/farmer"
           >
-            <ViewContract />
+            <FarmerNav />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Buyers's Navigation else Landing/login page ???
+            exact
+            path="/buyer"
+          >
+            <BuyerNav />
           </ProtectedRoute>
 
           {/* When a value is supplied for the authRedirect prop the user will

@@ -29,6 +29,16 @@ function BuyerNav() {
 
                 {user.id && (
                     <>
+                        {/* link to view buyer contracts */}
+                        <Link className="navLink" to="/">
+                            View Contracts
+                        </Link>
+
+                        {/* link to contract form */}
+                        <Link className="navLink" to="/">
+                            Contract Form
+                        </Link>
+
                         <Link className="navLink" to="/info">
                             Info Page
                         </Link>
