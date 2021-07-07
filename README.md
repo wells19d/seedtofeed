@@ -29,7 +29,7 @@ Buyer's Home view
 
 NIR Table
 ---
-![student detailed practice log ](image-link)   
+![NIR Analysis Table ](image-link)   
 ---
 
 Create a Contract
