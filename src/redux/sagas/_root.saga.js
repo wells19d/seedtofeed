@@ -24,6 +24,8 @@ import deleteFieldSaga from './deleteField.saga';
 import deleteTransactionSaga from './deleteTransaction.saga';
 import deleteContractSaga from './deleteContract.saga';
 
+import transactionTypesSaga from './transactionTypes.saga';
+
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -59,5 +61,7 @@ export default function* rootSaga() {
     deleteTransactionSaga(),
     deleteContractSaga(),
     // Should we have a delete for the NIR???
+
+    transactionTypesSaga(),
   ]);
 }
