@@ -110,3 +110,11 @@ input {
   margin: 5px;
   margin-bottom: 10px;
 }
+
+.landing-page {
+margin-left: 200px;
+max-height: 50%;
+max-width: 50%;
+background-repeat: no-repeat;
+background-size: cover;
+}
