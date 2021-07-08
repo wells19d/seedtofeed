@@ -7,25 +7,28 @@ import { useSelector } from 'react-redux';
 function FarmerNav() {
     const user = useSelector((store) => store.user);
 
-    let loginLinkData = {
-        path: '/login',
-        text: 'Login / Register',
-    };
+    // let loginLinkData = {
+    //     path: '/login',
+    //     text: 'Login / Register',
+    // };
 
-    if (user.id != null) {
-        loginLinkData.path = '/user';
-        loginLinkData.text = 'Home';
-    }
+    // if (user.id != null && user.farmer === true) {
+    //     loginLinkData.path = '/farmer';
+    //     loginLinkData.text = 'Home';
+    // }
+
+    //show Farmer navigation when logged in as farmer
+
 
     return (
         <div className="nav">
             <Link to="/home">
-                <h2 className="nav-title">Seed to Feed Grain Tracker</h2>
+                <h2 className="nav-title">SEED TO FEED</h2>
             </Link>
             <div>
-                <Link className="navLink" to={loginLinkData.path}>
+                {/* <Link className="navLink" to={loginLinkData.path}>
                     {loginLinkData.text}
-                </Link>
+                </Link> */}
 
                 {user.id && (
 
@@ -60,14 +63,14 @@ function FarmerNav() {
                             Add New Transaction
                         </Link>
 
-                         {/* link to NIR Analysis */}
-                         <Link className="navLink" to="/">
+                        {/* link to NIR Analysis */}
+                        <Link className="navLink" to="/">
                             NIR Analysis
                         </Link>
 
-                         {/* link to add NIR  */}
-                         <Link className="navLink" to="/">
-                             Add NIR Analysis
+                        {/* link to add NIR  */}
+                        <Link className="navLink" to="/">
+                            Add NIR Analysis
                         </Link>
 
                         <Link className="navLink" to="/info">

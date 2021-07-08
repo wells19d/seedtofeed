@@ -30,7 +30,8 @@ router.get('/fieldList/:userID', (req, res) => { // Get list of fields owned by 
 
     const queryText = `SELECT * FROM "field"
         JOIN "user_field" ON "user_field"."field_id"="field"."id"
-        WHERE "user_field"."user_id"=$1`;
+        JOIN "field_transactions" ON "field_transactions"."field_id"="field"."id"
+        WHERE "user_field"."user_id"=$1;`;
 
     pool.query(queryText, [userID]).then(response => {
         console.log(response.rows);
