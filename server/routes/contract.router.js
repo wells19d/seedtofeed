@@ -27,6 +27,13 @@ router.get('/getall/:userID', (req, res) => { // Gets list of contracts that the
     })
 });
 
+//GET for the dropdown for the contract form
+router.get('/contractStatus', (req, res) => { // Gets the contract status list
+    const queryText = `
+    SELECT * FROM "contract_status";
+    `;
+})
+
 // -- POSTS
 
 /**
