@@ -10,23 +10,26 @@ function ViewFieldDetails() {
 
     const fieldID = params.fieldID;
 
-    const [view, setView] = useState(true);
+    const [view, setView] = useState("true");
 
     return (
         <>
             <div>
-                <StatusTracker fieldID={fieldID} />
+                {/* <StatusTracker fieldID={fieldID} /> */}
+                INSERT TRACKER HERE
             </div>
 
             <div>
                 <span>View: </span>
-                <select onChange = {(event) => setView(event.target.value)}>
-                            <option value={true}>Transactions</option>
-                            <option value={false}>NIR</option>
+                <select onChange={(event) => setView(event.target.value)}>
+                    <option value={true}>Transactions</option>
+                    <option value={false}>NIR</option>
                 </select>
             </div>
 
-            {view ? <ViewTransactions fieldID={fieldID} /> : <FieldNIR fieldID={fieldID} />}
+            {view === "true" && <ViewTransactions fieldID={fieldID} />}
+            {view === "false" && <FieldNIR fieldID={fieldID} />}
+
         </>
     )
 }

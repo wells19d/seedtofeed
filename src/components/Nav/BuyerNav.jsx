@@ -12,15 +12,15 @@ function BuyerNav() {
         text: 'Login / Register',
     };
 
-    if (user.id != null) {
-        loginLinkData.path = '/user';
+    if (user.id != null && user.buyer === true) {
+        loginLinkData.path = '/buyer';
         loginLinkData.text = 'Home';
     }
 
     return (
         <div className="nav">
             <Link to="/home">
-                <h2 className="nav-title">Seed to Feed Grain Tracker</h2>
+                <h2 className="nav-title">SEED TO FEED</h2>
             </Link>
             <div>
                 <Link className="navLink" to={loginLinkData.path}>

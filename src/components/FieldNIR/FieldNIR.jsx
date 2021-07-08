@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-function FieldNIR(params){
+function FieldNIR(params) {
 
     const fieldID = params.fieldID;
 
@@ -13,14 +13,14 @@ function FieldNIR(params){
 
     useEffect(() => {
         dispatch({
-          type: 'FETCH_FIELD_NIR',
-          payload: fieldID
+            type: 'FETCH_FIELD_NIR',
+            payload: fieldID
         })
-      }, [])
+    }, [])
 
     return (
         <div>
-            <table>
+            <table className="sampleTable">
                 <thead>
                     <tr>
                         <th>

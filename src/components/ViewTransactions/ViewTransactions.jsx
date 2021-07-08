@@ -20,7 +20,7 @@ function ViewTransactions(params) {
 
     return (
         <div>
-            <table>
+            <table className="sampleTable">
                 <thead>
                     <tr>
                         <th>
