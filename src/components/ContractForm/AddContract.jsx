@@ -8,15 +8,19 @@ function AddContract() {
 
     //to be sent along with the contract obj
     const user = useSelector(store => store.user.username);
-    // const contractStatus = useSelector(store => store.contractStatusReducer); //not created yet
+    const contractStatus = useSelector(store => store.contractStatusReducer);
     const crops = useSelector((store) => store.cropListReducer);
 
+    console.log('Here is the contract status list', contractStatus);
+    console.log('Here is the crop list', crops);
 
-    // useEffect(() => {
-    //     dispatch({
-    //         type: 'FETCH_CONTRACT',
-    //     })
-    // }, [])
+
+    useEffect(() => {
+        dispatch({
+            type: 'FETCH_CROP_LIST',
+            type: 'FETCH_CONTRACT_STATUS'
+        })
+    }, [])
 
     // LOCAL STATE
     const [heading, setHeading] = useState('Add Contract');
@@ -28,7 +32,7 @@ function AddContract() {
     const [price, setPrice] = useState('');
     const [contractQuantity, setContractQuantity] = useState('');
     const [containerSerial, setContainerSerial] = useState('');
-    const [contactHandler, setContractHandler] = useState('');
+    const [contractHandler, setContractHandler] = useState('');
 
     // for NIR analysis
     const [protein, setProtein] = useState('');
@@ -89,6 +93,7 @@ function AddContract() {
                         </select>
                     </label>
                 </div>
+
                 <div>
                     <label htmlFor='open-status'>
                         Open Status:
@@ -130,7 +135,7 @@ function AddContract() {
                         Quantity Fulfilled:
                         <input
                             placeholder='Quantity'
-                            type='text'
+                            type='number' min="0"
                             name='Quantity Fulfilled'
                             value={quantityFulfilled}
                             required
@@ -143,7 +148,7 @@ function AddContract() {
                         Price:
                         <input
                             placeholder='Price'
-                            type='text'
+                            type='number' min="0"
                             name='price'
                             value={price}
                             required
@@ -156,7 +161,7 @@ function AddContract() {
                         Protein:
                         <input
                             placeholder='Protein'
-                            type='text'
+                            type='number' min="0"
                             name='protein'
                             value={protein}
                             required
@@ -169,7 +174,7 @@ function AddContract() {
                         Moisture:
                         <input
                             placeholder='Moisture'
-                            type='text'
+                            type='number' min="0"
                             name='Moisture'
                             value={moisture}
                             required
@@ -182,7 +187,7 @@ function AddContract() {
                         Oil:
                         <input
                             placeholder='Oil'
-                            type='text'
+                            type='number' min="0"
                             name='oil'
                             value={oil}
                             required
@@ -195,7 +200,7 @@ function AddContract() {
                         Contract Quantity:
                         <input
                             placeholder='Contract Quantity'
-                            type='text'
+                            type='number' min="0"
                             name='quantity'
                             value={contractQuantity}
                             required
@@ -219,8 +224,9 @@ function AddContract() {
                 <div>
                     <label htmlFor='contract-handler'>
                         Contract Handler:
-                        <textarea
+                        <input
                             placeholder='Contract Handler'
+                            type='text'
                             name='Contract Handler'
                             value={contractHandler}
                             required

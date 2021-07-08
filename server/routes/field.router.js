@@ -172,6 +172,37 @@ router.post('/makefield', (req, res) => {
 
             pool.query(insert_field, [created_field, req.user.id])
                 .then(result => {
+                    console.log(`Field ${created_field} connected to user_field`);
+                    res.sendStatus(201);
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.sendStatus(500);
+                })
+
+            //third query creates entry into the NIR table
+            const insert_NIR =
+                `INSERT INTO "NIR" ("field_id")
+             VALUES ($1);`;
+
+            pool.query(insert_NIR, [created_field])
+                .then(result => {
+                    console.log(`Field ${created_field} connected to NIR`);
+                    res.sendStatus(201);
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.sendStatus(500);
+                })
+
+            //fourth query creates entry into the field_transactions table
+            const insert_FieldTransactions =
+                `INSERT INTO "field_transactions" ("field_id")
+             VALUES ($1);`;
+
+            pool.query(insert_FieldTransactions, [created_field])
+                .then(result => {
+                    console.log(`Field ${created_field} connected to field_transactions`);
                     res.sendStatus(201);
                 })
                 .catch(err => {

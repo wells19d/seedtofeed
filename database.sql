@@ -63,15 +63,15 @@ CREATE TABLE "contract" (
 	"user_field_id" integer NOT NULL,
 	"commodity" integer NOT NULL,
 	"open_status" integer NOT NULL,
-	"bushel_uid" integer NOT NULL UNIQUE,
-	"quantity_fulfilled" varchar(255) NOT NULL,
-	"price" integer NOT NULL,
+	"bushel_uid" integer,
+	"quantity_fulfilled" varchar(255),
+	"price" integer,
 	"protein" FLOAT,
-	"oil" FLOAT NOT NULL,
+	"oil" FLOAT,
 	"moisture" FLOAT,
-	"contract_quantity" FLOAT NOT NULL,
-	"container_serial" integer NOT NULL,
-	"contract_handler" varchar(255) NOT NULL,
+	"contract_quantity" FLOAT,
+	"container_serial" integer,
+	"contract_handler" varchar(255),
 	CONSTRAINT "contract_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -85,8 +85,8 @@ CREATE TABLE "NIR" (
 	"moisture" FLOAT,
 	"protein" FLOAT,
 	"energy" FLOAT,
-	"amino_acids" FLOAT NOT NULL,
-	"tested_at" TIMESTAMP NOT NULL,
+	"amino_acids" FLOAT,
+	"tested_at" TIMESTAMP,
 	CONSTRAINT "NIR_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -96,11 +96,11 @@ CREATE TABLE "NIR" (
 CREATE TABLE "field_transactions" (
 	"id" serial NOT NULL,
 	"field_id" integer NOT NULL,
-	"timestamp" TIMESTAMP NOT NULL,
-	"status_notes" TEXT NOT NULL,
-	"image" varchar(255) NOT NULL,
-	"field_status" TEXT NOT NULL,
-	"transaction_type" integer NOT NULL,
+	"timestamp" TIMESTAMP,
+	"status_notes" TEXT,
+	"image" varchar(255),
+	"field_status" TEXT,
+	"transaction_type" integer DEFAULT 1,
 	CONSTRAINT "field_transactions_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE

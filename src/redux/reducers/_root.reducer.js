@@ -9,6 +9,7 @@ import fieldNIRReducer from './fieldNIR.reducer';
 import cropListReducer from './cropList.reducer';
 import contractListReducer from './contractList.reducer';
 import contractDetailsReducer from './contractDetails.reducer';
+import contractStatusReducer from './contractStatus.reducer';
 import transactionTypesReducer from './transactionTypes.reducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   cropListReducer,
   contractListReducer,
   contractDetailsReducer,
+  contractStatusReducer,
   transactionTypesReducer,
 });
 
