@@ -19,7 +19,7 @@ function FieldNIR(params) {
     }, [])
 
     return (
-        <div>
+        <center>
             <table className="sampleTable">
                 <thead>
                     <tr>
@@ -60,7 +60,7 @@ function FieldNIR(params) {
             <button>
                 Add NIR Data
             </button>
-        </div>
+        </center>
     )
 }
 

@@ -18,7 +18,6 @@ function ViewFieldDetails() {
         <>
             <div>
                 <StatusTracker fieldID={fieldID} />
-                {/* INSERT TRACKER HERE */}
             </div>
 
             <div>
@@ -31,7 +30,6 @@ function ViewFieldDetails() {
 
             {view === "true" && <ViewTransactions fieldID={fieldID} />}
             {view === "false" && <FieldNIR fieldID={fieldID} />}
-
         </>
     )
 }

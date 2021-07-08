@@ -119,7 +119,8 @@ router.get('/NIR/:fieldID', (req, res) => { // Gets list of NIR results for a fi
 
 router.get('/transactionTypes', (req, res) => { // This is to get a dropdown of transaction types for the POST "create_transaction".
 
-    const queryText = `SELECT * FROM "transaction_type";`;
+    const queryText = `SELECT * FROM "transaction_type"
+                        ORDER BY "id" ASC;`;
 
     pool.query(queryText).then(response => {
         console.log(response.rows);

@@ -52,6 +52,7 @@ CREATE TABLE "crop" (
 CREATE TABLE "transaction_type" (
 	"id" integer NOT NULL,
 	"name" varchar(255) NOT NULL,
+	"workflow_images" varchar(255),
 	CONSTRAINT "transaction_type_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -189,6 +190,8 @@ INSERT INTO "transaction_type" ("id", "name") VALUES ('4', 'harvest farm');
 INSERT INTO "transaction_type" ("id", "name") VALUES ('5', 'elevator');
 INSERT INTO "transaction_type" ("id", "name") VALUES ('6', 'processing');
 INSERT INTO "transaction_type" ("id", "name") VALUES ('7', 'transit');
+
+-- need inserts to target images
 
 -- not sure if this is doing what it should be doing
 -- SELECT * FROM "contract"

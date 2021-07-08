@@ -10,7 +10,7 @@ function StatusTracker(params){
     const history = useHistory();
     const dispatch = useDispatch();
 
-    //const statuses = useSelector(store => store.transactionTypesReducer);
+    const statuses = useSelector(store => store.transactionTypesReducer);
 
     const details = useSelector(store => store.fieldDetailsReducer);
 
@@ -22,39 +22,39 @@ function StatusTracker(params){
           payload: fieldID
         })
 
-        // dispatch({
-        //     type: 'FETCH_TRANSACTION_TYPES'
-        // })
+        dispatch({
+            type: 'FETCH_TRANSACTION_TYPES'
+        })
 
 
       }, [])
       
     return (
         <div>
-        <p>{JSON.stringify(details)}</p>
+        {/* <p>{JSON.stringify(statuses)}</p> */}
         <p>{JSON.stringify(detail)}</p>
-        {/* {JSON.stringify(details[0].field_status)} */}
 
-        {/* <div>
-            Current Status: {detail.field_status} 
-        </div> */}
+        {statuses.map(status => {
+            return (
+                <div key={status.id}>
+                    {status.name === detail?.field_status ? <span className="Current_Status"> {` ->`} {status.name} <img src={status.workflow_images}/> </span> : <span> {status.name} </span>}
+                </div>
+            )
+        })}
 
-            <br />
+            <p>Contract Status: {detail?.name}</p>
         </div>
     )
 }
 
 export default StatusTracker;
 
-/*
-        {details.field_status ? 
-        statuses.map(status => {
+
+
+        /* {statuses.map(status => {
             return (
                 <div key={status.id}>
-                    {status.name === details[0].field_status ? <span className="Current_Status"> {` ->`} {status.name} </span> : <span> {status.name} </span>}
+                    {status.name === detail?.field_status && <span> {status.name} <img src={status.workflow_images}/></span>}
                 </div>
             )
-        })
-        :
-        <span>Loading...<button onClick={() => console.log(details[0].field_status)}>Test</button></span>}
-*/
+        })} */
