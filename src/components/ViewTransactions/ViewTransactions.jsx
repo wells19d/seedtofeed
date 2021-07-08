@@ -19,7 +19,7 @@ function ViewTransactions(params) {
       }, [])
 
     return (
-        <div>
+        <center>
             <table className="sampleTable">
                 <thead>
                     <tr>
@@ -44,21 +44,21 @@ function ViewTransactions(params) {
                     {transactions.map(event => {
                         return (
                             <tr key={event.id}>
-                                <th>
+                                <td>
                                     {event.timestamp}
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     {event.field_status}
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     {event.name}
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     {event.status_notes}
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     MAKE BUTTONS HERE
-                                </th>
+                                </td>
                             </tr>
                         )
                     })}
@@ -68,7 +68,7 @@ function ViewTransactions(params) {
             <button>
                 New Event
             </button>
-        </div>
+        </center>
     )
 }
 
