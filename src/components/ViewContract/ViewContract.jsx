@@ -26,7 +26,7 @@ function ViewContract() {
                 <h2>Contract Details</h2>
                 <p>{contract.contract_handler}</p>
 
-                <p><span>Account ID</span>   <span>WHERE IS THIS LOCATED???</span></p>
+                <p><span>Account ID</span>   <span>WHERE IS THIS LOCATED???</span></p> {/* I think this is the Buyer's name but we could make it be the Buyer's ID */}
                 <p><span>Grower</span>   <span>USE JOIN HERE{contract.first_name} {contract.last_name}</span></p>
                 <p><span>Comodity</span>   <span>USE JOIN HERE{contract.crop_type}</span></p>
                 <p><span>Status</span>   <span>{contract.open_status}</span></p>
@@ -40,8 +40,8 @@ function ViewContract() {
                 <p><span>Protein</span>   <span>{contract.protein}</span></p>
                 <p><span>Oil</span>   <span>{contract.oil}</span></p>
                 <p><span>Moisture</span>   <span>{contract.moisture}</span></p>
-                <p><span>Energy</span>   <span>WHERE IS THIS LOCATED???</span></p>
-                <p><span>Amino Acid</span>   <span>WHERE IS THIS LOCATED???</span></p>
+                <p><span>Energy</span>   <span>WHERE IS THIS LOCATED???</span></p> {/* This is living in the NIR table */}
+                <p><span>Amino Acid</span>   <span>WHERE IS THIS LOCATED???</span></p> {/* This is living in the NIR table */}
             </div>
 
             <button>

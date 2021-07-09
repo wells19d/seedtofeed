@@ -25,6 +25,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import FieldDB from '../DashBoards/FieldDB';
 import ViewContract from '../ViewContract/ViewContract';
 import AddContract from '../ContractForm/AddContract';
+import EditContract from '../ContractForm/EditContract';
 
 import ViewFields from '../ViewFields/ViewFields';
 import ViewFieldDetails from '../ViewFieldDetails/ViewFieldDetails';
@@ -67,8 +68,16 @@ function App() {
             <ViewFieldDetails />
           </Route>
 
+          {/* <Route exact path="/contract">
+            <ViewContract />
+          </Route> */}
+
           <Route exact path="/contract_form">
             <AddContract />
+          </Route>
+
+          <Route exact path="/edit_contract">
+            <EditContract />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
