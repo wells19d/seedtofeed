@@ -3,22 +3,8 @@ import { useSelector } from 'react-redux';
 import { HashRouter as Router, Route, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-function EditFieldForm() {
-
+function AddFieldForm() {
   const dispatch = useDispatch();
-
-
-  // LOCAL STATE
-  const [heading, setHeading] = useState('Edit Field');
-
-  const [fieldName, setFieldName] = useState('');
-  const [fieldYear, setFieldYear] = useState('');
-  const [cropType, setCropType] = useState('');
-  const [location, setLocation] = useState('');
-  const [acres, setAcres] = useState('');
-  const [currentStatus, setCurrentStatus] = useState('');
-  const [notes, setNotes] = useState('');
-
 
   useEffect(() => {
     dispatch({
@@ -29,44 +15,52 @@ function EditFieldForm() {
     })
   }, [])
 
-    const crops = useSelector((store) => store.crops); // need to double check to make sure this name lines up with redcucer name
-    const fieldStatus = useSelector((store) => store.transaction_type); // need to double check to make sure this name lines up with redcucer name
+  // LOCAL STATE
+  const [heading, setHeading] = useState('Add a Field');
 
-  // temporary list of crops and transaction_type until reducer store is set up
-  // const crops = ['barley', 'corn', 'oats', 'soybeans', 'sugarbeets', 'wheat'];
-  // const fieldStatus = [
-  //   'pre-planting',
-  //   'plant',
-  //   'application',
-  //   'harvest',
-  //   'processing',
-  //   'transit',
-  //   'feed'
-  // ];
+  const [fieldName, setFieldName] = useState('');
+  const [fieldYear, setFieldYear] = useState('');
+  const [cropType, setCropType] = useState('');
+  const [location, setLocation] = useState('');
+  const [acres, setAcres] = useState('');
+  const [currentStatus, setCurrentStatus] = useState('');
+  const [notes, setNotes] = useState('');
+
+  const crops = useSelector((store) => store.cropListReducer);
+  const fieldStatus = useSelector((store) => store.transactionTypesReducer);
+  console.log('here is the list of crops:', crops);
+  console.log('here is the field status list:', fieldStatus);
 
   // ADD A FIELD
-  const updateField = (event) => {
+  const addField = (event) => {
     event.preventDefault();
 
-    alert('Your field has been updated');
-    
     dispatch({
-      type: 'UPDATE_FIELD', // Need to double check this is the right dispatch type name in saga
+      type: 'SET_FIELD', // Need to double check this is the right dispatch type name in saga
       payload: {
-        fieldName: fieldName,
-        fieldYear: fieldYear,
-        cropType: cropType,
+        name: fieldName,
+        year: fieldYear,
+        crop_id: cropType,
         location: location,
         acres: acres,
-        currentStatus: currentStatus,
-        notes: notes
+        current_status: currentStatus,
+        field_note: notes
       }
     });
-  }; // end updateField
+
+    // clear input fields
+    setFieldName('');
+    setFieldYear('');
+    setCropType('');
+    setLocation('');
+    setAcres('');
+    setCurrentStatus('');
+    setNotes('');
+  }; // end addField
 
   return (
     <div>
-      <form className='update-field' onSubmit={updateField}>
+      <form className='add-field' onSubmit={addField}>
         <h2>{heading}</h2>
 
         <div>
@@ -110,9 +104,9 @@ function EditFieldForm() {
             >
               <option>Select</option>
               {crops?.map((crop) => {
-                console.log('croptype:', crop.crop_type);
+                console.log('croptype:', crop);
                 return (
-                  <option key={crop.id} value={crop.crop_type}>
+                  <option key={crop.id} value={crop.id}>
                     {crop.crop_type}
                   </option>
                 );
@@ -164,7 +158,7 @@ function EditFieldForm() {
                 console.log('current status is:', status);
                 return (
                   <option key={status.id} value={status.name}>
-                    {status}
+                    {status.name}
                   </option>
                 );
               })}
@@ -190,7 +184,7 @@ function EditFieldForm() {
             className='btn'
             type='submit'
             name='submit'
-            value='Edit Field'
+            value='Add Field'
           />
         </div>
       </form>
@@ -198,4 +192,4 @@ function EditFieldForm() {
   );
 }
 
-export default EditFieldForm;
+export default AddFieldForm;

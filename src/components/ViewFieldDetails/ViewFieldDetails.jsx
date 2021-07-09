@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import FieldNIR from '../FieldNIR/FieldNIR.jsx';
+import FieldNIR from '../NIR/FieldNIR.jsx';
 import ViewTransactions from '../ViewTransactions/ViewTransactions.jsx';
+
 
 import StatusTracker from '../StatusTracker/StatusTracker.jsx';
 // NEED TO CREATE AND IMPORT STATUSTRACKER COMPONENT

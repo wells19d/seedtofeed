@@ -32,7 +32,7 @@ router.get('/getall', rejectUnauthenticated, (req, res) => { // Gets list of con
 });
 
 //GET for the dropdown for the contract form
-router.get('/contractStatus', (req, res) => { // Gets the contract status list
+router.get('/contractStatus', rejectUnauthenticated, (req, res) => { // Gets the contract status list
     const queryText = `
     SELECT * FROM "contract_status";
     `;
@@ -54,7 +54,7 @@ router.get('/contractStatus', (req, res) => { // Gets the contract status list
 /**
  * POST route template
  */
-router.post('/add_contract', (req, res) => {
+router.post('/add_contract', rejectUnauthenticated, (req, res) => {
     // POST route code here
     const user_field_id = req.body.user_field_id; // $1
     const commodity = req.body.commodity; // $2
@@ -90,7 +90,7 @@ router.post('/add_contract', (req, res) => {
 
 // What is going to be able to be updated on the contract ??? For now bringing in everything.
 
-router.put('/update_contract/:contractID', (req, res) => {
+router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => {
 
     const contractID = req.params.contractID; // $1
     const commodity = req.body.commodity; // $2
@@ -151,7 +151,7 @@ router.put('/update_contract/:contractID', (req, res) => {
 
 // ---- DELETES ----
 
-router.delete('/delete_contract/:contractID', (req, res) => {
+router.delete('/delete_contract/:contractID', rejectUnauthenticated, (req, res) => {
     const queryText =
         `
                                 DELETE FROM "contract"

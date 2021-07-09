@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import '../App/App.css';
 
-function ViewFields() {
+function ViewFields(params) {
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -14,7 +14,7 @@ function ViewFields() {
     console.log('The fieldList', fieldList);
     
 
-    const params = useParams();
+    //const params = useParams();
     
     const userID = params.userID;
 
@@ -25,6 +25,13 @@ function ViewFields() {
           payload: userID
         })
       }, []);
+
+      function deleteButton(fieldID) {
+          dispatch({
+              type: 'DELETE_FIELD',
+              payload: fieldID
+          });
+      }
 
     return (
         <center>
@@ -68,7 +75,7 @@ function ViewFields() {
                                 </td>
                                 <td>
                                     <button onClick={() => history.push(`/edit_field/${field.id}`)}>Edit</button>
-                                    <button>Delete</button>
+                                    <button onClick={() => deleteButton(field.id)}>Delete</button>
                                 </td>
                             </tr>
                         )

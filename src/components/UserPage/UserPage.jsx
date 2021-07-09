@@ -1,7 +1,7 @@
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector} from 'react-redux';
-import AddFieldForm from '../AddFieldForm/AddFieldForm';
+import ViewFields from '../ViewFields/ViewFields';
 
 function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -11,8 +11,7 @@ function UserPage() {
       <h2>Welcome, {user.username}!</h2>
       <p>Your ID is: {user.id}</p>
       <LogOutButton className="btn" />
-      {/*Temporararily placed here to view on DOM. Will move later*/}
-      <AddFieldForm/>
+      <ViewFields userID={user.id}/>
     </div>
   );
 }

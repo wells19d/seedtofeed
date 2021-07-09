@@ -82,7 +82,7 @@ WHERE "user_field"."user_id" = 1; */
 
 
 
-router.get('/fieldDetails/:fieldID', (req, res) => { // Eventually add authentication. Eventually change the * into the particualr fields we want to GET.
+router.get('/fieldDetails/:fieldID', rejectUnauthenticated, (req, res) => { // Eventually add authentication. Eventually change the * into the particualr fields we want to GET.
     const fieldID = req.params.fieldID;
 
     const queryText = `SELECT * FROM "field"
@@ -106,7 +106,7 @@ router.get('/fieldDetails/:fieldID', (req, res) => { // Eventually add authentic
 
 
 
-router.get('/cropList', (req, res) => { // This is primarily to get the list of crops for dropdowns
+router.get('/cropList', rejectUnauthenticated, (req, res) => { // This is primarily to get the list of crops for dropdowns
 
     const queryText = `SELECT * FROM "crop";`;
 
@@ -121,7 +121,7 @@ router.get('/cropList', (req, res) => { // This is primarily to get the list of 
 
 
 
-router.get('/transactions/:fieldID', (req, res) => { // Gets list of transactions on a particular field. Eventually will have to make authentication so only people with permission to view field can get this information.
+router.get('/transactions/:fieldID', rejectUnauthenticated, (req, res) => { // Gets list of transactions on a particular field. Eventually will have to make authentication so only people with permission to view field can get this information.
     const fieldID = req.params.fieldID;
 
     const queryText = `SELECT * FROM "field_transactions"
@@ -139,7 +139,7 @@ router.get('/transactions/:fieldID', (req, res) => { // Gets list of transaction
 
 
 // -- 
-router.get('/NIR/:fieldID', (req, res) => { // Gets list of NIR results for a field from the database. Eventually will have to make authentication so only people with permission to view said field can make this GET request.
+router.get('/NIR/:fieldID', rejectUnauthenticated, (req, res) => { // Gets list of NIR results for a field from the database. Eventually will have to make authentication so only people with permission to view said field can make this GET request.
     const fieldID = req.params.fieldID;
 
     const queryText = `SELECT * FROM "NIR" WHERE "field_id"=$1;`;
@@ -155,7 +155,7 @@ router.get('/NIR/:fieldID', (req, res) => { // Gets list of NIR results for a fi
 
 
 
-router.get('/transactionTypes', (req, res) => { // This is to get a dropdown of transaction types for the POST "create_transaction".
+router.get('/transactionTypes', rejectUnauthenticated, (req, res) => { // This is to get a dropdown of transaction types for the POST "create_transaction".
 
     const queryText = `SELECT * FROM "transaction_type"
                         ORDER BY "id" ASC;`;
@@ -182,7 +182,7 @@ router.get('/transactionTypes', (req, res) => { // This is to get a dropdown of 
 //     // POST route code here
 // });
 
-router.post('/makefield', (req, res) => {
+router.post('/makefield', rejectUnauthenticated, (req, res) => {
     const year = req.body.year;
     const location = req.body.location;
     const acres = req.body.acres;
@@ -191,7 +191,7 @@ router.post('/makefield', (req, res) => {
     const image = req.body.image;
     const shape_file = req.body.shape_file;
     const gmo = req.body.gmo;
-    const crop_id = req.body.cropType;
+    const crop_id = req.body.crop_id;
 
     const queryText = `
     INSERT INTO "field" (
@@ -258,7 +258,7 @@ router.post('/makefield', (req, res) => {
 
 // CREATE A FIELD TRANSACTION
 // will need user authentaction
-router.post('/create_transaction', (req, res) => {
+router.post('/create_transaction', rejectUnauthenticated, (req, res) => {
     console.log(`here is the created transaction`, req.body);
 
     const field_id = req.body.field_id; // $1
@@ -287,7 +287,7 @@ router.post('/create_transaction', (req, res) => {
 // Tested
 // CREATE NIR ANALYSIS
 // will need user authentaction
-router.post('/create_NIR', (req, res) => {
+router.post('/create_NIR', rejectUnauthenticated, (req, res) => {
     console.log(`here is the created NIR analysis`, req.body);
 
     const field_id = req.body.field_id; // $1
@@ -318,7 +318,7 @@ router.post('/create_NIR', (req, res) => {
 //edit/update the field table
 //will need user rejectUnauthenticated
 // 
-router.put('/update/:fieldID', (req, res) => {
+router.put('/update/:fieldID', rejectUnauthenticated, (req, res) => {
     console.log('field table update', req.body);
 
     const fieldID = req.params.fieldID; // $1
@@ -354,7 +354,7 @@ router.put('/update/:fieldID', (req, res) => {
 
 // -- DELETES --
 
-router.delete('/delete_field/:fieldID', (req, res) => {
+router.delete('/delete_field/:fieldID', rejectUnauthenticated, (req, res) => {
     const queryText =
         `DELETE
         FROM "field"

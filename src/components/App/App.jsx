@@ -30,10 +30,11 @@ import EditContract from '../ContractForm/EditContract';
 import ViewFields from '../ViewFields/ViewFields';
 import ViewFieldDetails from '../ViewFieldDetails/ViewFieldDetails';
 
-import AddNIR from '../AddNIR/AddNIR';
+import AddNIR from '../NIR/AddNIR';
+import FieldNIR from '../NIR/FieldNIR';
 
-import EditFieldForm from '../AddFieldForm/EditFieldForm';
-import AddFieldForm from '../AddFieldForm/AddFieldForm';
+import EditFieldForm from '../FieldForm/EditFieldForm';
+import AddFieldForm from '../FieldForm/AddFieldForm';
 
 
 import './App.css';
