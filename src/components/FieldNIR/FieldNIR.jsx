@@ -22,6 +22,8 @@ function FieldNIR(params) {
 
         <center>
 
+            {JSON.stringify(fieldNIR)}
+
             <table className="sampleTable">
                 <thead>
                     <tr>
@@ -41,20 +43,22 @@ function FieldNIR(params) {
                 </thead>
                 <tbody>
                     {fieldNIR.map(test => {
+                        { console.log(test) }
+                        return (
                         <tr key={test.id}>
-                            <th>
+                            <td>
                                 {test.tested_at}
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 {test.moisture}
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 {test.protein}
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 {test.oil}
-                            </th>
-                        </tr>
+                            </td>
+                        </tr>)
                     })}
                 </tbody>
             </table>
