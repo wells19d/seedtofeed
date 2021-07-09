@@ -10,6 +10,7 @@ function AddContract() {
     const user = useSelector(store => store.user.username);
     const contractStatus = useSelector(store => store.contractStatusReducer);
     const crops = useSelector((store) => store.cropListReducer);
+    const fields = useSelector((store) => store.fieldListReducer);
 
     console.log('Here is the contract status list', contractStatus);
     console.log('Here is the crop list', crops);
@@ -27,6 +28,7 @@ function AddContract() {
     // LOCAL STATE
     const [heading, setHeading] = useState('Add Contract');
 
+    const [user_field_id, setUserFieldID] = useState('');
     const [commodity, setCommodity] = useState('');
     const [openStatus, setOpenStatus] = useState('');
     const [bushel_uid, setBushel_uid] = useState('');
@@ -63,7 +65,6 @@ function AddContract() {
                 contractQuantity: contractQuantity,
                 containerSerial: containerSerial,
                 contractHandler: contractHandler,
-                userID: user.id //to be used in the addContract.saga
 
             }
         });
@@ -74,6 +75,28 @@ function AddContract() {
             <form className='add-contract' onSubmit={addContract}>
                 <h2>{heading}</h2>
                 <div>
+                    <label htmlFor='fieldList'>
+                        Field List:
+                        <select
+                            type='text'
+                            name='status'
+                            value={user_field_id}
+                            required
+                            onChange={(event) => setUserFieldID(event.target.value)}
+                        >
+                            <option >Select</option>
+                            {fields.map((field) => {
+                                console.log('fieldtype:', field);
+                                return (
+                                    <option key={field.id} value={field.user_field_id}>
+                                        {field.name}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                    </label>
+                </div>
+                <div>
                     <label htmlFor='commodity'>
                         Commodity:
                         <select
@@ -83,7 +106,7 @@ function AddContract() {
                             required
                             onChange={(event) => setCommodity(event.target.value)}
                         >
-                            <option hidden>Select</option>
+                            <option>Select</option>
                             {crops.map((crop) => {
                                 console.log('croptype:', crop);
                                 return (
@@ -106,7 +129,7 @@ function AddContract() {
                             required
                             onChange={(event) => setOpenStatus(event.target.value)}
                         >
-                            <option hidden>Select</option>
+                            <option>Select</option>
                             {contractStatus.map((status) => {
                                 console.log('contract status:', status);
                                 return (

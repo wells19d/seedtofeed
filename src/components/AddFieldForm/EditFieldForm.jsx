@@ -70,30 +70,6 @@ function EditFieldForm() {
         <h2>{heading}</h2>
 
         <div>
-          <label htmlFor='crop-type'>
-            Crop Type:
-            <select
-              autoFocus
-              type='text'
-              name='crop-type'
-              value={cropType}
-              required
-              onChange={(event) => setCropType(event.target.value)}
-            >
-              <option hidden>Select</option>
-              {crops?.map((crop) => {
-                console.log('croptype:', crop);
-                return (
-                  <option key={crop.id} value={crop.crop_type}>
-                    {crop}
-                  </option>
-                );
-              })}
-            </select>
-          </label>
-        </div>
-
-        <div>
           <label htmlFor='field-name'>
             Field Name:
             <input
@@ -118,6 +94,30 @@ function EditFieldForm() {
               required
               onChange={(event) => setFieldYear(event.target.value)}
             />
+          </label>
+        </div>
+
+        <div>
+          <label htmlFor='crop-type'>
+            Crop Type:
+            <select
+              autoFocus
+              type='text'
+              name='crop-type'
+              value={cropType}
+              required
+              onChange={(event) => setCropType(event.target.value)}
+            >
+              <option>Select</option>
+              {crops?.map((crop) => {
+                console.log('croptype:', crop.crop_type);
+                return (
+                  <option key={crop.id} value={crop.crop_type}>
+                    {crop.crop_type}
+                  </option>
+                );
+              })}
+            </select>
           </label>
         </div>
 
@@ -159,7 +159,7 @@ function EditFieldForm() {
               required
               onChange={(event) => setCurrentStatus(event.target.value)}
             >
-              <option hidden>Select</option>
+              <option>Select</option>
               {fieldStatus?.map((status) => {
                 console.log('current status is:', status);
                 return (
@@ -190,7 +190,7 @@ function EditFieldForm() {
             className='btn'
             type='submit'
             name='submit'
-            value='Add Field'
+            value='Edit Field'
           />
         </div>
       </form>

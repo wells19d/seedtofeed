@@ -1,16 +1,20 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-
+const {
+    rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 // -- GETS
 
 /**
  * GET route template
  */
-router.get('/getall/:userID', (req, res) => { // Gets list of contracts that the user has associated with them.
+router.get('/getall', rejectUnauthenticated, (req, res) => { // Gets list of contracts that the user has associated with them.
     // GET route code here
 
-    const userID = req.params.userID;
+    // const userID = req.params.userID;
+    const userID = req.user.id;
+
 
     const queryText = `SELECT * FROM "contract"
     JOIN "user_field" ON ("user_field"."id"="contract"."user_field_id")
