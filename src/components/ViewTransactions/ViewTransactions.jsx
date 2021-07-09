@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 
 function ViewTransactions(params) {
 
@@ -45,7 +46,7 @@ function ViewTransactions(params) {
                         return (
                             <tr key={event.id}>
                                 <td>
-                                    {event.timestamp}
+                                    {moment(event.timestamp).format('MM-DD-YYYY hh:mm')}
                                 </td>
                                 <td>
                                     {event.field_status}

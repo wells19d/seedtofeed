@@ -52,6 +52,7 @@ CREATE TABLE "crop" (
 CREATE TABLE "transaction_type" (
 	"id" integer NOT NULL,
 	"name" varchar(255) NOT NULL,
+	"workflow_images" varchar(255),
 	CONSTRAINT "transaction_type_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -182,13 +183,15 @@ INSERT INTO "NIR" (field_id, oil, moisture, protein, energy, amino_acids, tested
 INSERT INTO "contract" ("user_field_id", "commodity", "open_status", "bushel_uid", "quantity_fulfilled", "price", "protein", "oil", "moisture", "contract_quantity", "container_serial", "contract_handler")
 VALUES (1, 4, 2, 222, 100, 1, .3, .5, .6, .7, 200, 'Bushel');
 
-INSERT INTO "transaction_type" ("id", "name") VALUES ('1', 'pre-planting');
-INSERT INTO "transaction_type" ("id", "name") VALUES ('2', 'plant');
-INSERT INTO "transaction_type" ("id", "name") VALUES ('3', 'application');
-INSERT INTO "transaction_type" ("id", "name") VALUES ('4', 'harvest farm');
-INSERT INTO "transaction_type" ("id", "name") VALUES ('5', 'elevator');
-INSERT INTO "transaction_type" ("id", "name") VALUES ('6', 'processing');
-INSERT INTO "transaction_type" ("id", "name") VALUES ('7', 'transit');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('1', 'pre-planting', '/images/001.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('2', 'plant', '/images/002.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('3', 'application', '/images/003.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('4', 'harvest farm', '/images/004.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('5', 'elevator', '/images/005.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('6', 'processing', '/images/006.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('7', 'transit', '/images/007.png');
+
+-- need inserts to target images
 
 -- not sure if this is doing what it should be doing
 -- SELECT * FROM "contract"

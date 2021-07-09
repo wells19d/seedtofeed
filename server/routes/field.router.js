@@ -50,6 +50,7 @@ router.get('/fieldDetails/:fieldID', (req, res) => { // Eventually add authentic
     const queryText = `SELECT * FROM "field"
         JOIN "user_field" ON "user_field"."field_id"="field"."id"
         JOIN "user" ON "user"."id"="user_field"."user_id"
+        JOIN "field_transactions" ON "field_transactions"."field_id"="field"."id"
         JOIN "contract" ON "contract"."user_field_id"="user_field"."id"
         JOIN "contract_status" ON "contract_status"."id"="contract"."open_status"
         WHERE "field"."id"=$1;`;
@@ -118,7 +119,8 @@ router.get('/NIR/:fieldID', (req, res) => { // Gets list of NIR results for a fi
 
 router.get('/transactionTypes', (req, res) => { // This is to get a dropdown of transaction types for the POST "create_transaction".
 
-    const queryText = `SELECT * FROM "transaction_type";`;
+    const queryText = `SELECT * FROM "transaction_type"
+                        ORDER BY "id" ASC;`;
 
     pool.query(queryText).then(response => {
         console.log(response.rows);
