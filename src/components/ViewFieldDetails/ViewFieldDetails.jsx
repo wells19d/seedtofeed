@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import FieldNIR from '../FieldNIR/FieldNIR.jsx';
 import ViewTransactions from '../ViewTransactions/ViewTransactions.jsx';
+
+import StatusTracker from '../StatusTracker/StatusTracker.jsx';
 // NEED TO CREATE AND IMPORT STATUSTRACKER COMPONENT
 
 function ViewFieldDetails() {
@@ -15,8 +17,7 @@ function ViewFieldDetails() {
     return (
         <>
             <div>
-                {/* <StatusTracker fieldID={fieldID} /> */}
-                INSERT TRACKER HERE
+                <StatusTracker fieldID={fieldID} />
             </div>
 
             <div>
@@ -29,7 +30,6 @@ function ViewFieldDetails() {
 
             {view === "true" && <ViewTransactions fieldID={fieldID} />}
             {view === "false" && <FieldNIR fieldID={fieldID} />}
-
         </>
     )
 }

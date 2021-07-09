@@ -133,3 +133,7 @@ input {
 .sampleTable {
     border: black solid 1px;
 }
+
+.Current_Status {
+    font-weight: bold;
+}
