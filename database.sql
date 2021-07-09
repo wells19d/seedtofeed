@@ -186,10 +186,12 @@ VALUES (1, 4, 2, 222, 100, 1, .3, .5, .6, .7, 200, 'Bushel');
 INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('1', 'pre-planting', '/images/001.png');
 INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('2', 'plant', '/images/002.png');
 INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('3', 'application', '/images/003.png');
-INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('4', 'harvest farm', '/images/004.png');
-INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('5', 'elevator', '/images/005.png');
-INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('6', 'processing', '/images/006.png');
-INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('7', 'transit', '/images/007.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('4', 'harvest_farm', '/images/004.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('5', 'elevator_transit', '/images/005.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('6', 'elevator', '/images/006.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('7', 'processing', '/images/007.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('8', 'transit', '/images/008.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('9', 'feed', '/images/009.png');
 
 -- need inserts to target images
 

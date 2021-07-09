@@ -4,29 +4,45 @@ import { HashRouter as Router, Route, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 function EditFieldForm() {
+
+  const dispatch = useDispatch();
+
+
   // LOCAL STATE
   const [heading, setHeading] = useState('Edit Field');
 
+  const [fieldName, setFieldName] = useState('');
+  const [fieldYear, setFieldYear] = useState('');
   const [cropType, setCropType] = useState('');
   const [location, setLocation] = useState('');
   const [acres, setAcres] = useState('');
   const [currentStatus, setCurrentStatus] = useState('');
   const [notes, setNotes] = useState('');
 
-  //   const crops = useSelector((store) => store.crops); // need to double check to make sure this name lines up with redcucer name
-  //   const fieldStatus = useSelector((store) => store.transaction_type); // need to double check to make sure this name lines up with redcucer name
+
+  useEffect(() => {
+    dispatch({
+      type: 'FETCH_TRANSACTION_TYPES'
+    })
+    dispatch({
+      type: 'FETCH_CROP_LIST'
+    })
+  }, [])
+
+    const crops = useSelector((store) => store.crops); // need to double check to make sure this name lines up with redcucer name
+    const fieldStatus = useSelector((store) => store.transaction_type); // need to double check to make sure this name lines up with redcucer name
 
   // temporary list of crops and transaction_type until reducer store is set up
-  const crops = ['barley', 'corn', 'oats', 'soybeans', 'sugarbeets', 'wheat'];
-  const fieldStatus = [
-    'pre-planting',
-    'plant',
-    'application',
-    'harvest',
-    'processing',
-    'transit',
-    'feed'
-  ];
+  // const crops = ['barley', 'corn', 'oats', 'soybeans', 'sugarbeets', 'wheat'];
+  // const fieldStatus = [
+  //   'pre-planting',
+  //   'plant',
+  //   'application',
+  //   'harvest',
+  //   'processing',
+  //   'transit',
+  //   'feed'
+  // ];
 
   // ADD A FIELD
   const updateField = (event) => {
@@ -37,6 +53,8 @@ function EditFieldForm() {
     dispatch({
       type: 'UPDATE_FIELD', // Need to double check this is the right dispatch type name in saga
       payload: {
+        fieldName: fieldName,
+        fieldYear: fieldYear,
         cropType: cropType,
         location: location,
         acres: acres,
@@ -63,7 +81,7 @@ function EditFieldForm() {
               onChange={(event) => setCropType(event.target.value)}
             >
               <option hidden>Select</option>
-              {crops.map((crop) => {
+              {crops?.map((crop) => {
                 console.log('croptype:', crop);
                 return (
                   <option key={crop.id} value={crop.crop_type}>
@@ -72,6 +90,34 @@ function EditFieldForm() {
                 );
               })}
             </select>
+          </label>
+        </div>
+
+        <div>
+          <label htmlFor='field-name'>
+            Field Name:
+            <input
+              placeholder='Name'
+              type='text'
+              name='field-name'
+              value={fieldName}
+              required
+              onChange={(event) => setFieldName(event.target.value)}
+            />
+          </label>
+        </div>
+
+        <div>
+          <label htmlFor='field-year'>
+            Field Year:
+            <input
+              placeholder='YYYY/MM/DD'
+              type='text'
+              name='field-year'
+              value={fieldYear}
+              required
+              onChange={(event) => setFieldYear(event.target.value)}
+            />
           </label>
         </div>
 
@@ -114,7 +160,7 @@ function EditFieldForm() {
               onChange={(event) => setCurrentStatus(event.target.value)}
             >
               <option hidden>Select</option>
-              {fieldStatus.map((status) => {
+              {fieldStatus?.map((status) => {
                 console.log('current status is:', status);
                 return (
                   <option key={status.id} value={status.name}>

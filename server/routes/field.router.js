@@ -153,7 +153,7 @@ router.post('/makefield', (req, res) => {
     const image = req.body.image;
     const shape_file = req.body.shape_file;
     const gmo = req.body.gmo;
-    const crop_id = req.body.crop_id;
+    const crop_id = req.body.cropType;
 
     const queryText = `
     INSERT INTO "field" (
@@ -183,34 +183,34 @@ router.post('/makefield', (req, res) => {
                 })
 
             //third query creates entry into the NIR table
-            const insert_NIR =
-                `INSERT INTO "NIR" ("field_id")
-             VALUES ($1);`;
+            // const insert_NIR =
+            //     `INSERT INTO "NIR" ("field_id")
+            //  VALUES ($1);`;
 
-            pool.query(insert_NIR, [created_field])
-                .then(result => {
-                    console.log(`Field ${created_field} connected to NIR`);
-                    res.sendStatus(201);
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.sendStatus(500);
-                })
+            // pool.query(insert_NIR, [created_field])
+            //     .then(result => {
+            //         console.log(`Field ${created_field} connected to NIR`);
+            //         res.sendStatus(201);
+            //     })
+            //     .catch(err => {
+            //         console.log(err);
+            //         res.sendStatus(500);
+            //     })
 
             //fourth query creates entry into the field_transactions table
-            const insert_FieldTransactions =
-                `INSERT INTO "field_transactions" ("field_id")
-             VALUES ($1);`;
+            // const insert_FieldTransactions =
+            //     `INSERT INTO "field_transactions" ("field_id")
+            //  VALUES ($1);`;
 
-            pool.query(insert_FieldTransactions, [created_field])
-                .then(result => {
-                    console.log(`Field ${created_field} connected to field_transactions`);
-                    res.sendStatus(201);
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.sendStatus(500);
-                })
+            // pool.query(insert_FieldTransactions, [created_field])
+            //     .then(result => {
+            //         console.log(`Field ${created_field} connected to field_transactions`);
+            //         res.sendStatus(201);
+            //     })
+            //     .catch(err => {
+            //         console.log(err);
+            //         res.sendStatus(500);
+            //     })
 
         }).catch(error => {
             console.log(`Error making database query ${queryText}`, error);

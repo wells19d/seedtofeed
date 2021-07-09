@@ -20,8 +20,12 @@ function EditContract() {
     useEffect(() => {
         dispatch({
             type: 'FETCH_CROP_LIST',
+        })
+        dispatch({
             type: 'FETCH_CONTRACT_STATUS',
-            type: 'FETCH_CONTRACT_DETAILS'
+            })
+        dispatch({
+            type: 'FETCH_CONTRACT_DETAILS',
         })
     }, [])
 

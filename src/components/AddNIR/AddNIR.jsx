@@ -29,7 +29,7 @@ function AddNIR(){
         event.preventDefault();
 
         dispatch({
-            type: 'SET_NIR',
+            type: 'ADD_NIR',
             payload: {
                 field_id: field_id,
                 oil: oil,
