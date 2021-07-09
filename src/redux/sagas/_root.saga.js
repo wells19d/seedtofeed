@@ -8,8 +8,10 @@ import fieldDetailsSaga from './fieldDetails.saga';
 import fieldTransactionsSaga from './fieldTransactions.saga';
 import fieldNIRSaga from './fieldNIR.saga';
 import cropListSaga from './cropList.saga';
+
 import contractListSaga from './contractList.saga';
 import contractDetailsSaga from './contractDetails.saga';
+import contractStatusSaga from './contractStatus.saga';
 
 import addFieldSaga from './addField.saga';
 import addTransactionSaga from './addTransaction.saga';
@@ -44,8 +46,10 @@ export default function* rootSaga() {
     fieldTransactionsSaga(),
     fieldNIRSaga(),
     cropListSaga(),
+
     contractListSaga(),
     contractDetailsSaga(),
+    contractStatusSaga(),
 
     addFieldSaga(),
     addTransactionSaga(),

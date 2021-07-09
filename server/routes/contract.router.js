@@ -27,6 +27,24 @@ router.get('/getall/:userID', (req, res) => { // Gets list of contracts that the
     })
 });
 
+//GET for the dropdown for the contract form
+router.get('/contractStatus', (req, res) => { // Gets the contract status list
+    const queryText = `
+    SELECT * FROM "contract_status";
+    `;
+
+    pool
+        .query(queryText)
+        .then(response => {
+            console.log('contract status list', response.rows);
+            res.send(response.rows);
+        })
+        .catch(error => {
+            console.log(`Error making database query ${queryText}`, error);
+            res.sendStatus(500);
+        })
+})
+
 // -- POSTS
 
 /**

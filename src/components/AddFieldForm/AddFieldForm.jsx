@@ -23,8 +23,8 @@ function AddFieldForm() {
   const [currentStatus, setCurrentStatus] = useState('');
   const [notes, setNotes] = useState('');
 
-  const crops = useSelector((store) => store.cropListReducer); 
-  const fieldStatus = useSelector((store) => store.transactionTypesReducer); 
+  const crops = useSelector((store) => store.cropListReducer);
+  const fieldStatus = useSelector((store) => store.transactionTypesReducer);
   console.log('here is the list of crops:', crops);
   console.log('here is the field status list:', fieldStatus);
 
@@ -78,7 +78,7 @@ function AddFieldForm() {
               {crops.map((crop) => {
                 console.log('croptype:', crop);
                 return (
-                  <option key={crop.id} value={crop.crop_type}>
+                  <option key={crop.id} value={crop.id}>
                     {crop.crop_type}
                   </option>
                 );

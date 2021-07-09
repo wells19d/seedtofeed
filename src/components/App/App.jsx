@@ -24,6 +24,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 
 import FieldDB from '../DashBoards/FieldDB';
 import ViewContract from '../ViewContract/ViewContract';
+import AddContract from '../ContractForm/AddContract';
 
 import ViewFields from '../ViewFields/ViewFields';
 import ViewFieldDetails from '../ViewFieldDetails/ViewFieldDetails';
@@ -64,6 +65,10 @@ function App() {
 
           <Route exact path="/field_details/:fieldID">
             <ViewFieldDetails />
+          </Route>
+
+          <Route exact path="/contract_form">
+            <AddContract />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
