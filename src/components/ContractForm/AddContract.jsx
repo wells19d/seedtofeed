@@ -60,7 +60,7 @@ function AddContract() {
                 moisture: moisture,
                 contractQuantity: contractQuantity,
                 containerSerial: containerSerial,
-                contractHandler: contactHandler,
+                contractHandler: contractHandler,
                 userID: user.id //to be used in the addContract.saga
 
             }
@@ -240,7 +240,7 @@ function AddContract() {
                         className='btn'
                         type='submit'
                         name='submit'
-                        value='Add Field'
+                        value='Add Contract'
                     />
                 </div>
             </form>
