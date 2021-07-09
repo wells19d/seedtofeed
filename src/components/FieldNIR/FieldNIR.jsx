@@ -19,7 +19,9 @@ function FieldNIR(params) {
     }, [])
 
     return (
+
         <center>
+
             <table className="sampleTable">
                 <thead>
                     <tr>
@@ -57,7 +59,7 @@ function FieldNIR(params) {
                 </tbody>
             </table>
 
-            <button>
+            <button onClick={() => history.push(`/NIR_form/${fieldID}`)}>
                 Add NIR Data
             </button>
         </center>

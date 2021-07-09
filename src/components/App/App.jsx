@@ -30,6 +30,8 @@ import EditContract from '../ContractForm/EditContract';
 import ViewFields from '../ViewFields/ViewFields';
 import ViewFieldDetails from '../ViewFieldDetails/ViewFieldDetails';
 
+import AddNIR from '../AddNIR/AddNIR';
+
 
 import './App.css';
 
@@ -76,8 +78,14 @@ function App() {
             <AddContract />
           </Route>
 
+
+          <Route exact path="/NIR_form/:fieldID">
+            <AddNIR />
+           </Route>
+
           <Route exact path="/edit_contract">
             <EditContract />
+
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
