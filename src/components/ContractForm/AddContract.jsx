@@ -18,6 +18,8 @@ function AddContract() {
     useEffect(() => {
         dispatch({
             type: 'FETCH_CROP_LIST',
+        })
+        dispatch({
             type: 'FETCH_CONTRACT_STATUS'
         })
     }, [])

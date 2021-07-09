@@ -67,7 +67,7 @@ function ViewFields() {
                                     LIST BUYER HERE
                                 </td>
                                 <td>
-                                    <button>Edit</button>
+                                    <button onClick={() => history.push(`/edit_field/${field.id}`)}>Edit</button>
                                     <button>Delete</button>
                                 </td>
                             </tr>
@@ -76,7 +76,7 @@ function ViewFields() {
                 </tbody>
             </table>
 
-            <button>
+            <button onClick={() => history.push(`/add_field/`)}>
                 Add new Field
             </button>
         </center>

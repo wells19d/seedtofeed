@@ -8,7 +8,9 @@ function AddFieldForm() {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_TRANSACTION_TYPES',
+      type: 'FETCH_TRANSACTION_TYPES'
+    })
+    dispatch({
       type: 'FETCH_CROP_LIST'
     })
   }, [])
@@ -17,6 +19,7 @@ function AddFieldForm() {
   const [heading, setHeading] = useState('Add a Field');
 
   const [fieldName, setFieldName] = useState('');
+  const [fieldYear, setFieldYear] = useState('');
   const [cropType, setCropType] = useState('');
   const [location, setLocation] = useState('');
   const [acres, setAcres] = useState('');
@@ -35,6 +38,8 @@ function AddFieldForm() {
     dispatch({
       type: 'SET_FIELD', // Need to double check this is the right dispatch type name in saga
       payload: {
+        fieldName: fieldName,
+        fieldYear: fieldYear,
         cropType: cropType,
         location: location,
         acres: acres,
@@ -64,6 +69,20 @@ function AddFieldForm() {
         </div>
 
         <div>
+          <label htmlFor='field-year'>
+            Field Year:
+            <input
+              placeholder='YYYY/MM/DD'
+              type='text'
+              name='field-year'
+              value={fieldYear}
+              required
+              onChange={(event) => setFieldYear(event.target.value)}
+            />
+          </label>
+        </div>
+
+        <div>
           <label htmlFor='crop-type'>
             Crop Type:
             <select
@@ -75,7 +94,7 @@ function AddFieldForm() {
               onChange={(event) => setCropType(event.target.value)}
             >
               <option hidden>Select</option>
-              {crops.map((crop) => {
+              {crops?.map((crop) => {
                 console.log('croptype:', crop);
                 return (
                   <option key={crop.id} value={crop.id}>
@@ -126,7 +145,7 @@ function AddFieldForm() {
               onChange={(event) => setCurrentStatus(event.target.value)}
             >
               <option hidden>Select</option>
-              {fieldStatus.map((status) => {
+              {fieldStatus?.map((status) => {
                 console.log('current status is:', status);
                 return (
                   <option key={status.id} value={status.name}>
