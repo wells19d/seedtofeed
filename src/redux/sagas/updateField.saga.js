@@ -3,9 +3,11 @@ import axios from 'axios';
 
 function* updateField(action){
     try {
-        const response = yield axios.put(`/api/field/update/${action.payload.fieldID}`, action.payload.data) // How is this coming in to get both a body to send and params to use???
-        yield put({ type: 'FETCH_FIELD_LIST', payload: INSERT }) // Change INSERT to user ID. Cannot remember how to do so at the moment.
-        yield put({ type: 'FETCH_FIELD_DETAILS', payload: INSERT }) // Change INSERT to user ID. Cannot remember how to do so at the moment.
+        console.log('The ID of the updated field is:', action.payload.fieldID);
+
+        const response = yield axios.put(`/api/field/update/${action.payload.fieldID}`, action.payload) // How is this coming in to get both a body to send and params to use???
+        yield put({ type: 'FETCH_FIELD_LIST', payload: response.data}) // Change INSERT to user ID. Cannot remember how to do so at the moment.
+        yield put({ type: 'FETCH_FIELD_DETAILS', payload: response.data}) // Change INSERT to user ID. Cannot remember how to do so at the moment.
     } catch (error) {
         console.log('User get request failed', error);
     }

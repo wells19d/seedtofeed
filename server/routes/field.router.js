@@ -337,14 +337,15 @@ router.put('/update/:fieldID', rejectUnauthenticated, (req, res) => {
             SET "year" = $2, "location" = $3, "acres" = $4, "field_note" = $5, "name" = $6, "shape_file" = $7, "gmo" = $8, "crop_id" = $9
             FROM "user_field"
             WHERE "field"."id" = $1 AND "user_field"."user_id" = $10;
-            `
+            `;
     pool.query(queryText, [fieldID, year, location, acres, field_note, name, shape_file, gmo, crop_id, req.user.id]).then((response) => {
+        // used the JSON.stringify method in below console log to avoid getting [object Object] back
         console.log(`
             Field ${fieldID}
-            was updated to ${req.body}
-            by ${req.user.id}
+            was updated to ${JSON.stringify(req.body)}
+            by user with an id of ${req.user.id}
             `);
-
+        
         res.sendStatus(204);
     }).catch((err) => {
         console.log('Error occurred for field UPDATE', err);

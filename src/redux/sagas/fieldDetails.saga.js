@@ -2,8 +2,11 @@ import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* fieldDetails(action) {
+
+    console.log('The ID of this field is:', action.payload.fieldID);
+    
     try {
-        const response = yield axios.get(`/api/field/fieldDetails/${action.payload}`)
+        const response = yield axios.get(`/api/field/fieldDetails/${action.payload.fieldID}`)
         yield put({ type: 'SET_FIELD_DETAILS', payload: response.data})
     } catch (error) {
         console.log('User get request failed', error);

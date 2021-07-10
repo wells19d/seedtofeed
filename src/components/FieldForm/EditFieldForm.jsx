@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { HashRouter as Router, Route, useHistory } from 'react-router-dom';
+import { HashRouter as Router, Route, useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 function EditFieldForm() {
 
   const dispatch = useDispatch();
+  const params = useParams();
+
+  const fieldID = params.fieldID;
+
+   console.log('here is the params ID of this field:', fieldID);
 
 
   // LOCAL STATE
@@ -29,28 +34,18 @@ function EditFieldForm() {
     })
   }, [])
 
+  // REDUCER STORE
   const crops = useSelector((store) => store.cropListReducer);
   const fieldStatus = useSelector((store) => store.transactionTypesReducer);
 
+
   console.log('heres a list of crops:', crops);
 
-  // temporary list of crops and transaction_type until reducer store is set up
-  // const crops = ['barley', 'corn', 'oats', 'soybeans', 'sugarbeets', 'wheat'];
-  // const fieldStatus = [
-  //   'pre-planting',
-  //   'plant',
-  //   'application',
-  //   'harvest',
-  //   'processing',
-  //   'transit',
-  //   'feed'
-  // ];
-
-  // ADD A FIELD
+  // EDIT A FIELD
   const updateField = (event) => {
     event.preventDefault();
 
-    alert('Your field has been updated');
+    // alert('Your field has been updated');
     
     dispatch({
       type: 'UPDATE_FIELD', // Need to double check this is the right dispatch type name in saga
@@ -61,18 +56,20 @@ function EditFieldForm() {
         location: location,
         acres: acres,
         current_status: currentStatus,
-        field_note: notes
+        field_note: notes,
+        fieldID: fieldID
+
       }
     });
 
     // clear input fields
-    setFieldName('');
-    setFieldYear('');
-    setCropType('');
-    setLocation('');
-    setAcres('');
-    setCurrentStatus('');
-    setNotes('');
+    // setFieldName('');
+    // setFieldYear('');
+    // setCropType('');
+    // setLocation('');
+    // setAcres('');
+    // setCurrentStatus('');
+    // setNotes('');
   }; // end updateField
 
   return (
@@ -123,7 +120,7 @@ function EditFieldForm() {
               {crops.map((crop) => {
                 console.log('croptype:', crop.id);
                 return (
-                  <option key={crop.d} value={crop.id}>
+                  <option key={crop.id} value={crop.id}>
                     {crop.crop_type}
                   </option>
                 );
