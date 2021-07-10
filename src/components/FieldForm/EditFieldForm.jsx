@@ -32,6 +32,8 @@ function EditFieldForm() {
   const crops = useSelector((store) => store.cropListReducer);
   const fieldStatus = useSelector((store) => store.transactionTypesReducer);
 
+  console.log('heres a list of crops:', crops);
+
   // temporary list of crops and transaction_type until reducer store is set up
   // const crops = ['barley', 'corn', 'oats', 'soybeans', 'sugarbeets', 'wheat'];
   // const fieldStatus = [
@@ -62,6 +64,15 @@ function EditFieldForm() {
         field_note: notes
       }
     });
+
+    // clear input fields
+    setFieldName('');
+    setFieldYear('');
+    setCropType('');
+    setLocation('');
+    setAcres('');
+    setCurrentStatus('');
+    setNotes('');
   }; // end updateField
 
   return (
@@ -108,11 +119,11 @@ function EditFieldForm() {
               required
               onChange={(event) => setCropType(event.target.value)}
             >
-              <option>Select</option>
+              <option hidden>Select</option>
               {crops.map((crop) => {
-                console.log('croptype:', crop.crop_type);
+                console.log('croptype:', crop.id);
                 return (
-                  <option key={crop.id} value={crop.crop_type}>
+                  <option key={crop.d} value={crop.id}>
                     {crop.crop_type}
                   </option>
                 );
@@ -159,12 +170,12 @@ function EditFieldForm() {
               required
               onChange={(event) => setCurrentStatus(event.target.value)}
             >
-              <option>Select</option>
+              <option hidden>Select</option>
               {fieldStatus.map((status) => {
                 console.log('current status is:', status);
                 return (
                   <option key={status.id} value={status.name}>
-                    {status}
+                    {status.name}
                   </option>
                 );
               })}
