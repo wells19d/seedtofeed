@@ -39,6 +39,12 @@ function FieldNIR(params) {
                         <th>
                             Oil Levels
                         </th>
+                        <th>
+                            Energy
+                        </th>
+                        <th>
+                            Amino Acids
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,6 +63,12 @@ function FieldNIR(params) {
                             </td>
                             <td>
                                 {test.oil}
+                            </td>
+                            <td>
+                                {test.energy}
+                            </td>
+                            <td>
+                                {test.amino_acids}
                             </td>
                         </tr>)
                     })}

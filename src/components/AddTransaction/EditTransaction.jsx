@@ -2,18 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-function AddTransaction() {
+function EditTransaction() {
 
     const dispatch = useDispatch();
     const history = useHistory();
     const params = useParams();
 
-    const field_id = params.fieldID;
-
-    const [notes, setNotes] = useState('');
-    const [image, setImage] = useState('');
-    const [fieldStatus, setFieldStatus] = useState('');
-    const [transactionType, setTransactionType] = useState(1);
+    const transaction_id = params.transactionID;
 
     useEffect(() => {
         dispatch({
@@ -23,14 +18,26 @@ function AddTransaction() {
 
     const transactionList = useSelector(store => store.transactionTypesReducer);
 
+    const transactions = useSelector(store => store.fieldTransactionsReducer);
+
+    const transaction_index = transactions.findIndex(transaction => transaction.id === transaction_id);
+    const transaction_to_edit = transactions[transaction_index];
+    const field_id = transaction_to_edit.field_id;
+
+
+    const [notes, setNotes] = useState(transaction_to_edit.status_notes);
+    const [image, setImage] = useState(transaction_to_edit.image);
+    const [fieldStatus, setFieldStatus] = useState(transaction_to_edit.field_status);
+    const [transactionType, setTransactionType] = useState(transaction_to_edit.transaction_type);
+
     function submitButton(){
         event.preventDefault();
 
         dispatch({
-            type: 'SET_TRANSACTION',
+            type: 'UPDATE_TRANSACTION',
             payload: {
                 field_id: fieldID,
-                timestamp: new Date(),
+                transaction_id: transaction_id,
                 status_notes: notes,
                 image: image,
                 field_status: fieldStatus,
@@ -41,12 +48,11 @@ function AddTransaction() {
         history.push(`/field_details/${field_id}`);
     }
 
-
     return (
         <>
-        <div>
+            <div>
       <form className='add-NIR' onSubmit={submitButton}>
-        <h2>Transactions</h2>
+        <h2>Edit Transaction</h2>
 
         <div>
           <label htmlFor='notes'>
@@ -124,9 +130,8 @@ function AddTransaction() {
         </div>
       </form>
     </div>
-
         </>
     )
 }
 
-export default AddTransaction;
+export default EditTransaction;
