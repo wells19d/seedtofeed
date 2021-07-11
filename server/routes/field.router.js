@@ -123,7 +123,7 @@ router.get('/transactions/:fieldID', rejectUnauthenticated, (req, res) => {
     const queryText = `
     SELECT "field_transactions"."id" AS "field_transactions_ID", "field_transactions"."field_id", "field_transactions"."timestamp",
     "field_transactions"."status_notes", "field_transactions"."image", "field_transactions"."field_status", "field_transactions"."transaction_type",
-    "transaction_type"."id" AS "transaction_type_ID", "transaction_type"."name" AS "transaction_name"  
+    "transaction_type"."id" AS "transaction_type_ID", "transaction_type"."name"
     FROM "field_transactions"
     JOIN "transaction_type" ON "transaction_type"."id"="field_transactions"."transaction_type"
     WHERE "field_id"=$1;`;
