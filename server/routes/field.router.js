@@ -40,14 +40,15 @@ WHERE "user_field"."user_id" = 1; */
         console.log(result.rows);
         let modifiedFields = [];
         for (let field of result.rows) {
-            let queryText = `SELECT "field_transactions"."field_status" FROM "field_transactions" WHERE "field_id"=$1 ORDER BY TIMESTAMP DESC LIMIT 1`;
+            let queryText = `SELECT "field_transactions"."field_status" FROM "field_transactions" WHERE "field_id"=$1 ORDER BY TIMESTAMP DESC LIMIT 1;`;
             // Save the result, probably into a new array for good measure
             const result2 = await pool.query(queryText, [field.id]);
-            console.log(result2.rows);
+            console.log(`Field ${field.id} transactions`, result2.rows);
             if (result2.rows.length > 0) {
-                // no transactions have been recorded yet for the field
+                //the latest transactions
                 field.field_status = result2.rows[0].field_status;
             } else {
+                // no transactions have been recorded yet for the field
                 field.field_status = 'pre-planting';
             }
             modifiedFields.push(field);
@@ -61,21 +62,34 @@ WHERE "user_field"."user_id" = 1; */
 });
 
 
-//GET field details by fieldID
+//GET field details by fieldID. Saga: fieldDetails.saga; Reducer: fieldDetails.reducer as an object
 router.get('/fieldDetails/:fieldID', rejectUnauthenticated, (req, res) => {
     //fieldID on url
     const fieldID = req.params.fieldID;
 
-    const queryText = `SELECT * FROM "field"
-        JOIN "user_field" ON "user_field"."field_id"="field"."id"
-        JOIN "user" ON "user"."id"="user_field"."user_id"
-        JOIN "field_transactions" ON "field_transactions"."field_id"="field"."id"
-        JOIN "contract" ON "contract"."user_field_id"="user_field"."id"
-        JOIN "contract_status" ON "contract_status"."id"="contract"."open_status"
-        WHERE "field"."id"=$1;`;
+    //replaced "*" for explicit columns in the query w/multiple joins. 
+    //a captital "ID" was used as an alias to indicate the primaray key id of a table
+    //for example, the field table now has "fieldID" instead of "id" in the query. 
+    //attempt to clarify the columns in large joins
+    const queryText = `
+    SELECT "field"."id" AS "fieldID", "field"."year", "field"."location", "field"."acres", "field"."field_note", "field"."name" AS "field_name",
+    "field"."image" AS "field_image", "field"."shape_file", "field"."gmo", "field"."crop_id", "user_field"."id" AS "user_field_ID",
+    "user"."id" AS "userID", "user"."username", "user"."buyer", "user"."farmer", "user"."first_name", "user"."last_name", "user"."super_admin", 
+    "field_transactions"."id" AS "field_transactionsID", "field_transactions"."timestamp" AS "field_transactions_timestamp",
+    "field_transactions"."image" AS "field_transactions_image", "field_transactions"."field_status", "field_transactions"."transaction_type", 
+    "contract"."id" AS "contractID", "contract"."open_status", "contract"."bushel_uid", "contract"."commodity",
+    "contract"."container_serial", "contract"."quantity_fulfilled", "contract"."price", "contract"."protein", "contract"."oil", "contract"."moisture",
+    "contract"."contract_handler", "contract_status"."id" AS "contract_status_ID", "contract_status"."name" AS "contract_status_name"
+    FROM "field"
+    JOIN "user_field" ON "user_field"."field_id"="field"."id"
+    JOIN "user" ON "user"."id"="user_field"."user_id"
+    JOIN "field_transactions" ON "field_transactions"."field_id"="field"."id"
+    JOIN "contract" ON "contract"."user_field_id"="user_field"."id"
+    JOIN "contract_status" ON "contract_status"."id"="contract"."open_status"
+    WHERE "field"."id"=$1;`;
 
     pool.query(queryText, [fieldID]).then(response => {
-        console.log(response.rows);
+        console.log(`Details for fieldID: ${fieldID}`, response.rows);
         res.send(response.rows);
     }).catch(error => {
         console.log(`Error making database query ${queryText}`, error);
@@ -85,13 +99,13 @@ router.get('/fieldDetails/:fieldID', rejectUnauthenticated, (req, res) => {
 })
 
 
-//GET crop dropdown list. used by cropList.saga
+//GET crop dropdown list. Saga: cropList.saga, Reducer: cropList.reducer
 router.get('/cropList', rejectUnauthenticated, (req, res) => { 
 
     const queryText = `SELECT * FROM "crop";`;
 
     pool.query(queryText).then(response => {
-        console.log(response.rows);
+        // console.log(response.rows);
         res.send(response.rows);
     }).catch(error => {
         console.log(`Error making database query ${queryText}`, error);
@@ -100,13 +114,19 @@ router.get('/cropList', rejectUnauthenticated, (req, res) => {
 });
 
 
-//GET list of field_transactions by fieldID
+//THIS MAY BE REPLACED BY GET /fieldList.
+//GET list of field_transactions by fieldID. 
+//Saga: fieldTransactions, Reducer: fieldTransactions.reducer
 router.get('/transactions/:fieldID', rejectUnauthenticated, (req, res) => {
     const fieldID = req.params.fieldID;
 
-    const queryText = `SELECT * FROM "field_transactions"
-        JOIN "transaction_type" ON "transaction_type"."id"="field_transactions"."transaction_type"
-        WHERE "field_id"=$1;`;
+    const queryText = `
+    SELECT "field_transactions"."id" AS "field_transactions_ID", "field_transactions"."field_id", "field_transactions"."timestamp",
+    "field_transactions"."status_notes", "field_transactions"."image", "field_transactions"."field_status", "field_transactions"."transaction_type",
+    "transaction_type"."id" AS "transaction_type_ID", "transaction_type"."name" AS "transaction_name"  
+    FROM "field_transactions"
+    JOIN "transaction_type" ON "transaction_type"."id"="field_transactions"."transaction_type"
+    WHERE "field_id"=$1;`;
 
     pool.query(queryText, [fieldID]).then(response => {
         console.log(response.rows);
@@ -326,7 +346,7 @@ router.delete('/delete_field/:fieldID', rejectUnauthenticated, (req, res) => {
         FROM "field"
         WHERE "id" = $1;
         `;
-        
+
     pool.query(queryText, [req.params.fieldID])
         .then(() => res.sendStatus(204))
         .catch((error) => {
