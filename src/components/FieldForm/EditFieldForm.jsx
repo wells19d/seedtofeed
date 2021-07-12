@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { HashRouter as Router, Route, useHistory } from 'react-router-dom';
+import { HashRouter as Router, Route, useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import TextField from '@material-ui/core/TextField';
@@ -12,19 +12,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 function EditFieldForm() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const CHARACTER_LIMIT = 1000;
 
-  const fieldList = useSelector((store) => store.fieldListReducer);
-  console.log('Field List Details', fieldList); 
+  const CHARACTER_LIMIT = 500;
 
-  console.log('What is the id?', fieldList.id);
-  console.log('What is the name?', fieldList.name);
-  console.log('What is the year', fieldList.year);
-  console.log('What is the crop type?', fieldList.cropType);
-  console.log('What is location?', fieldList.location);
-  console.log('What is acres?', fieldList.acres);
-  console.log('What is status?', fieldList.currentStatus);
-  console.log('What are the notes?', fieldList.notes);
+  const params = useParams();
+
+  const fieldID = params.fieldID;
+
+   console.log('here is the params ID of this field:', fieldID);
 
 
 // LOCAL STATE
@@ -56,11 +51,18 @@ function EditFieldForm() {
       type: 'FETCH_CROP_LIST'
     })
   }, [])
-
 ;
 
 
   // UPDATE A FIELD
+  // REDUCER STORE
+  const crops = useSelector((store) => store.cropListReducer);
+  const fieldStatus = useSelector((store) => store.transactionTypesReducer);
+
+
+  console.log('heres a list of crops:', crops);
+
+  // EDIT A FIELD
   const updateField = (event) => {
     event.preventDefault();
 
@@ -75,10 +77,16 @@ function EditFieldForm() {
         location: location,
         acres: acres,
         current_status: currentStatus,
-        field_note: notes
+        field_note: notes,
+        fieldID: fieldID
+
       }
     });
-  }; // end updateField
+
+    history.push('/user');
+
+
+  };
 
   return (
     <Router>

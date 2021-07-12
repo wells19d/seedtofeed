@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import FieldNIR from '../NIR/FieldNIR.jsx';
 import ViewTransactions from '../ViewTransactions/ViewTransactions.jsx';
 
 
 import StatusTracker from '../StatusTracker/StatusTracker.jsx';
+import { useDispatch } from 'react-redux';
 // NEED TO CREATE AND IMPORT STATUSTRACKER COMPONENT
 
 function ViewFieldDetails() {
+
+ const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({ 
+        type: 'FETCH_FIELD_DETAILS',
+        payload: fieldID});
+  }, []);
 
     const params = useParams();
 
