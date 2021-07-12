@@ -3,8 +3,8 @@ import axios from 'axios';
 
 function* deleteField(action) {
     try {
-        console.log('Delete fieldID', action.payload);
         yield axios.delete(`/api/field/delete_field/${action.payload}`);
+        //refresh field list
         yield put({ type: 'FETCH_FIELD_LIST' });
     } catch (error) {
         console.log('User get request failed', error);

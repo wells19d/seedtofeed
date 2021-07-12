@@ -67,7 +67,7 @@ function ViewTransactions(params) {
                 </tbody>
             </table>
 
-            <button>
+            <button onClick={() => history.push(`/add_transaction/${feildID}`)}>
                 New Event
             </button>
         </center>

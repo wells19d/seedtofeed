@@ -3,25 +3,20 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
-import FarmerNav from '../Nav/FarmerNav';
-import BuyerNav from '../Nav/BuyerNav';
+import logo from './Logos/seedtofeed-badge_1-color-Texture (1).png';
+// import FarmerNav from '../Nav/FarmerNav';
+// import BuyerNav from '../Nav/BuyerNav';
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  console.log('users are', user);
 
   let loginLinkData = {
     path: '/login',
     text: 'Login / Register',
   };
 
-  if (user.id != null && user.farmer === true) {
-    loginLinkData.path = '/farmer';
-    loginLinkData.text = 'Home';
-  } else if
-    (user.id != null && user.buyer === true) {
-    loginLinkData.path = '/buyer';
-    loginLinkData.text = 'Home';
-  } if (user.id != null) {
+  if (user.id != null) {
     loginLinkData.path = '/user';
     loginLinkData.text = 'Home';
   }
@@ -29,11 +24,16 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <h2 className="nav-title">SEED TO FEED</h2>
+        <div className="nav-logo-span">
+          <img className="nav-logo" src={logo} alt="Seed to Feed Logo" />
+        </div>
       </Link>
       <div>
         <Link className="navLink" to={loginLinkData.path}>
           {loginLinkData.text}
+        </Link>
+        <Link className="navLink" to="/about">
+          About
         </Link>
 
         {user.id && (
@@ -44,22 +44,38 @@ function Nav() {
             <LogOutButton className="navLink" />
           </>
         )}
+        <div className="nav-logo-link">
+          <a href="http://www.seedtofeed.info/" target="_blank">
+            <img src={logo} className="nav-logo" alt="Seed to Feed Logo" />
 
-        {user.farmer === true && user.id && (
-          <Link to='/farmer'></Link>
-        )}
+          </a>
+        </div>
+        <div>
+          {user.farmer === true && user.id && (
+            <Link className="navLink" to='/contract'>Contracts</Link>
 
-        {user.buyer === true && user.id && (
-          <Link to='/buyer'></Link>
-        )}
+          )}
+          {user.farmer === true && user.id && (
+            <Link className="navLink" to='/contract_form'>Contract Form</Link>
+          )}
+          {user.farmer === true && user.id && (
+            <Link className="navLink" to='/fieldDB'>Fields</Link>
 
-        <Link className="navLink" to="/about">
-          About
-        </Link>
+          )}
+          {user.farmer === true && user.id && (
+            <Link className="navLink" to='/field'>Transactions</Link>
+          )}
+        </div>
+        <div>
+          {user.buyer === true && user.id && (
+            <Link className="navLink" to='/contract'>Contracts</Link>
+          )}
 
-        <a href="http://www.seedtofeed.info/" target="_blank"
-        >
-          SEED TO FEED        </a>
+          {user.buyer === true && user.id && (
+            <Link className="navLink" to='/contract_form'>Contract Form</Link>
+          )}
+        </div>
+
       </div>
     </div >
   );

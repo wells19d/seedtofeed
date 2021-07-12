@@ -327,10 +327,55 @@ router.put('/update/:fieldID', rejectUnauthenticated, (req, res) => {
             WHERE "field"."id" = $1 AND "user_field"."user_id" = $10;
             `;
     pool.query(queryText, [fieldID, year, location, acres, field_note, name, shape_file, gmo, crop_id, req.user.id]).then((response) => {
-        console.log(`Field ${fieldID} was updated to ${req.body} by ${req.user.id}`);
         res.sendStatus(204);
     }).catch((err) => {
         console.log('Error occurred for field UPDATE', err);
+        res.sendStatus(500);
+    })
+})
+
+
+router.put('/update_NIR/', rejectUnauthenticated, (req, res) => {
+    console.log('NIR update', req.body);
+
+    const NIRID = req.body.NIRID;
+    const oil = req.body.oil;
+    const moisture = req.body.moisture;
+    const protein = req.body.protein;
+    const energy = req.body.energy;
+    const amino_acids = req.body.amino_acids;
+
+    const queryText = `UPDATE "NIR"
+                        SET "oil"=$1, "moisture"=$2, "protein"=$3, "energy"=$4, "amino_acids"=$5
+                        WHERE "id"=$6;`;
+
+    pool.query(queryText, [oil, moisture, protein, energy, amino_acids, NIRID]).then(result => {
+        res.sendStatus(204);
+    })
+    .catch(error => {
+        console.log('Error making query: ', error);
+        res.sendStatus(500);
+    })
+})
+
+router.put('/update_transaction', rejectUnauthenticated, (req, res) => {
+    console.log('Transaction update', req.body);
+
+    const transaction_id = req.body.transaction_id;
+    const status_notes = req.body.status_notes;
+    const image = req.body.image;
+    const field_status = req.body.field_status;
+    const transaction_type = req.body.transaction_type;
+
+    const queryText = `UPDATE "field_transactions"
+                        SET "status_notes"=$1, "image"=$2, "field_status"=$3, "transaction_type"=$4
+                        WHERE "id"=$5;`;
+    
+    pool.query(queryText, [status_notes, image, field_status, transaction_type, transaction_id]).then(result => {
+        res.sendStatus(204);
+    })
+    .catch(error => {
+        console.log('Error making query: ', error);
         res.sendStatus(500);
     })
 })
