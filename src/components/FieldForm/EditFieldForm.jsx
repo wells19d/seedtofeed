@@ -54,14 +54,6 @@ function EditFieldForm() {
 ;
 
 
-  // UPDATE A FIELD
-  // REDUCER STORE
-  const crops = useSelector((store) => store.cropListReducer);
-  const fieldStatus = useSelector((store) => store.transactionTypesReducer);
-
-
-  console.log('heres a list of crops:', crops);
-
   // EDIT A FIELD
   const updateField = (event) => {
     event.preventDefault();
