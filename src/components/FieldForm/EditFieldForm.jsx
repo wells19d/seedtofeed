@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 function EditFieldForm() {
 
   const dispatch = useDispatch();
+  const history = useHistory();
   const params = useParams();
 
   const fieldID = params.fieldID;
@@ -45,7 +46,7 @@ function EditFieldForm() {
   const updateField = (event) => {
     event.preventDefault();
 
-    // alert('Your field has been updated');
+    alert('Your field has been updated');
     
     dispatch({
       type: 'UPDATE_FIELD', // Need to double check this is the right dispatch type name in saga
@@ -61,6 +62,8 @@ function EditFieldForm() {
 
       }
     });
+
+    history.push('/user');
 
     // clear input fields
     // setFieldName('');
