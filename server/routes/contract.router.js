@@ -149,6 +149,12 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
         });
 });
 
+//Bushel API /receiveContracts
+router.put('/receiveContracts', rejectUnauthenticated, (req, res) => {
+    console.log('contracts coming in', req.body);
+    res.sendStatus(204);
+})
+
 
 // ---- DELETES ----
 

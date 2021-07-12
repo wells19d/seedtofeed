@@ -96,7 +96,7 @@ function EditContract() {
                             {crops.map((crop) => {
                                 console.log('croptype:', crop);
                                 return (
-                                    <option key={crop.id} value={crop.crop_type}>
+                                    <option key={crop.id} value={crop.id}>
                                         {crop.crop_type}
                                     </option>
                                 );
@@ -119,7 +119,7 @@ function EditContract() {
                             {contractStatus.map((status) => {
                                 console.log('contract status:', status);
                                 return (
-                                    <option key={status.id} value={status.name}>
+                                    <option key={status.id} value={status.id}>
                                         {status.name}
                                     </option>
                                 );

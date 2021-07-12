@@ -37,6 +37,7 @@ function AddContract() {
     const [contractQuantity, setContractQuantity] = useState('');
     const [containerSerial, setContainerSerial] = useState('');
     const [contractHandler, setContractHandler] = useState('');
+    const [sendtoBushel, setSendtoBushel] = useState(false);
 
     // for NIR analysis
     const [protein, setProtein] = useState('');
@@ -49,22 +50,68 @@ function AddContract() {
     // will also grab the user info.
     const addContract = (event) => {
         event.preventDefault();
+        console.log('sending to Bushel?', sendtoBushel);
+        if (sendtoBushel === true) {
+            //build the contract obj
+            /*
+            {
+  "data": [
+    {
+      "update-contracts": {
+        "contracts": [
+          {
+            "basis_cost": 0,
+            "basis_cost_locked": true,
+            "bid": "0",
+            "commodity_id": "commodity", //local contract
+            "completed": false,
+            "contract_location": "nci-mock-elevator",
+            "created_at": "2021-07-04T15:00:00.000Z",
+            "crop_year": "2021",
+            "currency": "dollars",
+            "delivery_period_end": "2019-07-31T15:00:00.000Z", 
+            "delivery_period_start": "2019-06-30T15:42:35.000Z",
+            "display_id": "containerSerial", //local contract
+            "filled": false,
+            "id": "bushel_uid", //local contract
+            "is_price_later_contract": true,
+            "is_signed": false,
+            "priced": true,
+            "quantity_canceled": 0,
+            "quantity_contracted": contractQuantity,
+            "quantity_measure": "weight",
+            "quantity_uom": "bu",
+            "quantity_submitted": quantityFulfilled, //local contract
+            "updated_at": (new Date()).toISOString(),
+            "user_id": "user.username", //local contract
+            "version": "2.0.0"
+          }
+        ]
+      }
+    }
+  ]
+}
+            */
+            //dispatch contract to Bushel
+
+            //https://router.translator.bushelops.com/api/v1/push
+        }
 
         dispatch({
             type: 'SET_CONTRACT', // dispatch to the addContract.saga
             payload: {
-                user_field_id: user_field_id, //have to review how this is coming in?
+                user_field_id: user_field_id, //dropdown list
                 commodity: commodity,
-                openStatus: openStatus,
+                open_status: openStatus,
                 bushel_uid: bushel_uid,
-                quantityFulfilled: quantityFulfilled,
+                quantity_fulfilled: quantityFulfilled,
                 price: price,
                 protein: protein,
                 oil: oil,
                 moisture: moisture,
-                contractQuantity: contractQuantity,
-                containerSerial: containerSerial,
-                contractHandler: contractHandler,
+                contract_quantity: contractQuantity,
+                container_serial: containerSerial,
+                contract_handler: contractHandler,
 
             }
         });
@@ -110,7 +157,7 @@ function AddContract() {
                             {crops.map((crop) => {
                                 console.log('croptype:', crop);
                                 return (
-                                    <option key={crop.id} value={crop.crop_type}>
+                                    <option key={crop.id} value={crop.id}>
                                         {crop.crop_type}
                                     </option>
                                 );
@@ -133,7 +180,7 @@ function AddContract() {
                             {contractStatus.map((status) => {
                                 console.log('contract status:', status);
                                 return (
-                                    <option key={status.id} value={status.name}>
+                                    <option key={status.id} value={status.id}>
                                         {status.name}
                                     </option>
                                 );
@@ -152,6 +199,19 @@ function AddContract() {
                             value={bushel_uid}
                             required
                             onChange={(event) => setBushel_uid(event.target.value)}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label htmlFor='send-to-bushel'>
+                        Create Bushel Contract:
+                        <input
+                            placeholder='send'
+                            type='checkbox'
+                            name='send-to-bushel'
+                            defaultchecked={sendtoBushel}
+                            required
+                            onChange={() => setSendtoBushel(true)}
                         />
                     </label>
                 </div>

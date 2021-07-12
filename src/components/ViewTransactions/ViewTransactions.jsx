@@ -11,6 +11,7 @@ function ViewTransactions(params) {
     const dispatch = useDispatch();
 
     const transactions = useSelector(store => store.fieldTransactionsReducer);
+    console.log(`Transactions fieldID: ${fieldID}`, transactions);
 
     useEffect(() => {
         dispatch({
@@ -44,7 +45,7 @@ function ViewTransactions(params) {
                 <tbody>
                     {transactions.map(event => {
                         return (
-                            <tr key={event.id}>
+                            <tr key={event.field_transactions_ID}>
                                 <td>
                                     {moment(event.timestamp).format('MM-DD-YYYY hh:mm')}
                                 </td>
