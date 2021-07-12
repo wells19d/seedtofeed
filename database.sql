@@ -162,9 +162,9 @@ INSERT INTO "crop" (crop_type) VALUES ('Barley'), ('Corn'), ('Oats'), ('Soybeans
 
 INSERT INTO "contract_status" ("name") VALUES ('Created'), ('Pending'), ('Signed'), ('Delivered'), ('Paid'), ('Fulfilled');
 
-INSERT INTO "user" ("username", "password", "farmer", "buyer", "first_name", "last_name", "super_admin") VALUES ('jim@field.com','1234','true','true','James','Doe','false');
+INSERT INTO "user" ("username", "password", "farmer", "buyer", "first_name", "last_name", "super_admin") VALUES ('jim@field.com','$2a$10$ltsNjdSwfCN76GDV4fcDD.VW9LG8lsjqGkdz5X/8fX97FglhYOHgy','true','true','James','Doe','false');
 
-INSERT INTO "field" ("year", "location", "acres", "field_note", "name", "image", "shape_file", "gmo", "crop_id") VALUES ('05-01-2021', 'grandfarm', 5,'testing plot','test plot 1', null , null, 'true','4');
+INSERT INTO "field" ("year", "location", "acres", "field_note", "name", "image", "shape_file", "gmo", "crop_id") VALUES ('05-01-2021', 'grandfarm', 5,'testing plot','test plot 1', null , null, 'true','1');
 
 INSERT INTO "user_field" ("field_id", "user_id") VALUES ('1', '1');
 
@@ -183,15 +183,15 @@ INSERT INTO "NIR" (field_id, oil, moisture, protein, energy, amino_acids, tested
 INSERT INTO "contract" ("user_field_id", "commodity", "open_status", "bushel_uid", "quantity_fulfilled", "price", "protein", "oil", "moisture", "contract_quantity", "container_serial", "contract_handler")
 VALUES (1, 4, 2, 222, 100, 1, .3, .5, .6, .7, 200, 'Bushel');
 
-INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('1', 'Pre-Planting', '/images/001.png');
-INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('2', 'Plant', '/images/002.png');
-INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('3', 'Application', '/images/003.png');
-INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('4', 'Harvest Farm', '/images/004.png');
-INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('5', 'Elevator Transit', '/images/005.png');
-INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('6', 'Elevator', '/images/006.png');
-INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('7', 'Processing', '/images/007.png');
-INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('8', 'Transit', '/images/008.png');
-INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('9', 'Feed', '/images/009.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('1', 'pre-planting', '/images/001.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('2', 'plant', '/images/002.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('3', 'application', '/images/003.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('4', 'harvest_farm', '/images/004.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('5', 'elevator_transit', '/images/005.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('6', 'elevator', '/images/006.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('7', 'processing', '/images/007.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('8', 'transit', '/images/008.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('9', 'feed', '/images/009.png');
 
 -- need inserts to target images
 
