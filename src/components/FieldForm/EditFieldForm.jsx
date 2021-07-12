@@ -95,6 +95,7 @@ function EditFieldForm() {
         acres: acres,
         current_status: currentStatus,
         field_note: notes,
+        fieldID: fieldID
       },
     });
   }; // end updateField
@@ -236,7 +237,7 @@ function EditFieldForm() {
             <Button
               type="submit"
               className="btn btn_asSubmit"
-              onClick={(event) => addField(event)} // Sends user back to the main page
+              onClick={(event) => updateField(event)} // Sends user back to the main page
             >
               Submit
             </Button>
