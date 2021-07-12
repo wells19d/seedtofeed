@@ -98,6 +98,8 @@ function EditFieldForm() {
         fieldID: fieldID
       },
     });
+
+    // history.push('/user');
   }; // end updateField
 
   return (
