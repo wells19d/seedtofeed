@@ -1,11 +1,5 @@
 -- database name: "seed_to_feed"
 
--- CREATE TABLE "user" (
---     "id" SERIAL PRIMARY KEY,
---     "username" VARCHAR (80) UNIQUE NOT NULL,
---     "password" VARCHAR (1000) NOT NULL
--- );
-
 CREATE TABLE "user" (
 	"id" serial NOT NULL,
 	"username" varchar(80) NOT NULL UNIQUE,
@@ -25,7 +19,7 @@ CREATE TABLE "user" (
 
 CREATE TABLE "field" (
 	"id" serial NOT NULL,
-	"year" DATE,
+	"year" INT,
 	"location" TEXT,
 	"acres" FLOAT,
 	"field_note" TEXT,
@@ -164,7 +158,7 @@ INSERT INTO "contract_status" ("name") VALUES ('Created'), ('Pending'), ('Signed
 
 INSERT INTO "user" ("username", "password", "farmer", "buyer", "first_name", "last_name", "super_admin") VALUES ('jim@field.com','$2a$10$ltsNjdSwfCN76GDV4fcDD.VW9LG8lsjqGkdz5X/8fX97FglhYOHgy','true','true','James','Doe','false');
 
-INSERT INTO "field" ("year", "location", "acres", "field_note", "name", "image", "shape_file", "gmo", "crop_id") VALUES ('05-01-2021', 'grandfarm', 5,'testing plot','test plot 1', null , null, 'true','1');
+INSERT INTO "field" ("year", "location", "acres", "field_note", "name", "image", "shape_file", "gmo", "crop_id") VALUES ('2021', 'grandfarm', 5,'testing plot','test plot 1', null , null, 'true','1');
 
 INSERT INTO "user_field" ("field_id", "user_id") VALUES ('1', '1');
 
