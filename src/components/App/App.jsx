@@ -36,7 +36,6 @@ import AddFieldForm from '../FieldForm/AddFieldForm';
 
 import AddTransaction from '../AddTransaction/AddTransaction';
 
-
 import './App.css';
 
 function App() {
@@ -82,7 +81,6 @@ function App() {
             <AddContract />
           </Route>
 
-
           <Route exact path="/NIR_form/:fieldID">
             <AddNIR />
           </Route>
@@ -91,6 +89,7 @@ function App() {
             <EditContract />
           </Route>
 
+          {/* <Route path="/edit_field/:userID/:fieldID"> */}
           <Route exact path="/edit_field/:fieldID">
             <EditFieldForm />
           </Route>
@@ -122,8 +121,6 @@ function App() {
           >
             <InfoPage />
           </ProtectedRoute>
-
-
 
           {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will

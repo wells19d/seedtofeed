@@ -56,6 +56,18 @@ a:link {
 .nav-logo {
     margin-left: 50px;
     transform: rotate(-15deg);
-    max-height: 10%;
-    max-width: 10%;
+    padding-left: 50px;
+    max-height: fit-content;
+    max-height: fit-content;
+    image-rendering: optimizeQuality;
+}
+
+.nav-logo-span {
+    max-height: 150px;
+    max-width: 150px;
+}
+
+.nav-logo-link {
+    max-height: 50px;
+    max-width: 50px;
 }

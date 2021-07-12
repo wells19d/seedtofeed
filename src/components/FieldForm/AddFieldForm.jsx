@@ -14,7 +14,6 @@ function AddFieldForm() {
   const history = useHistory();
   const CHARACTER_LIMIT = 500;
 
-
   // LOCAL STATE
   const [fieldName, setFieldName] = useState('');
   const [fieldYear, setFieldYear] = useState('');
@@ -29,7 +28,6 @@ function AddFieldForm() {
   console.log('here is the list of crops:', crops);
   console.log('here is the field status list:', fieldStatus);
 
-
   useEffect(() => {
     dispatch({
       type: 'FETCH_TRANSACTION_TYPES',
@@ -38,7 +36,6 @@ function AddFieldForm() {
       type: 'FETCH_CROP_LIST',
     });
   }, []);
-
 
   // ADD A FIELD
   const addField = (event) => {
@@ -152,8 +149,9 @@ function AddFieldForm() {
               <em>Current Status</em>
             </MenuItem>
             {fieldStatus?.map((status) => {
+              console.log(`field status`, status.name);
               return (
-                <MenuItem key={status.id} value={status.name}>
+                <MenuItem key={status.id} value={status.id}>
                   {status.name}
                 </MenuItem>
               );

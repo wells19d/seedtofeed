@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { HashRouter as Router, Route, useHistory, useParams } from 'react-router-dom';
+import {
+  HashRouter as Router,
+  Route,
+  useHistory,
+  useParams,
+} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import TextField from '@material-ui/core/TextField';
@@ -12,46 +17,66 @@ import MenuItem from '@material-ui/core/MenuItem';
 function EditFieldForm() {
   const dispatch = useDispatch();
   const history = useHistory();
-
   const CHARACTER_LIMIT = 500;
-
   const params = useParams();
 
+  // const userID = params.userID;
+
+  // useEffect(() => {
+  //   dispatch({
+  //     type: 'FETCH_FIELD_LIST',
+  //     payload: userID,
+  //   });
+  // }, []);
+
+  const fieldList = useSelector((store) => store.fieldListReducer);
+  console.log('Field List Details', fieldList);
+
   const fieldID = params.fieldID;
+  console.log(`check`, fieldID, 3);
 
-   console.log('here is the params ID of this field:', fieldID);
+  const field_index = fieldList.findIndex(
+    (list) => list.id === Number(fieldID)
+  );
+  console.log('The index is', field_index);
 
+  const field_to_edit = fieldList[field_index];
 
-// LOCAL STATE
+  console.log('What is the id?', field_to_edit.id);
+  console.log('What is the name?', field_to_edit.name);
+  console.log('What is the year', field_to_edit.year);
+  // console.log('What is the crop type?', field_to_edit.crop_id);
+  console.log('What is location?', field_to_edit.location);
+  console.log('What is acres?', field_to_edit.acres);
+  // console.log('What is status?', field_to_edit.currentStatus);
+  console.log('What are the notes?', field_to_edit.field_note);
 
-// These need to be fixed to pull in the values
-// right now all they do is empty the fields
+  // LOCAL STATE
 
-  const [fieldName, setFieldName] = useState('');
-  const [fieldYear, setFieldYear] = useState('');
-  const [cropType, setCropType] = useState('');
-  const [location, setLocation] = useState('');
-  const [acres, setAcres] = useState('');
-  const [currentStatus, setCurrentStatus] = useState('');
-  const [notes, setNotes] = useState('');
+  // These need to be fixed to pull in the values
+  // right now all they do is empty the fields
 
-
+  const [fieldName, setFieldName] = useState(field_to_edit.name);
+  const [fieldYear, setFieldYear] = useState(field_to_edit.year);
+  const [cropType, setCropType] = useState(''); // should they be able to edit?
+  const [location, setLocation] = useState(field_to_edit.location);
+  const [acres, setAcres] = useState(field_to_edit.acres);
+  const [currentStatus, setCurrentStatus] = useState(''); // should they be able to edit?
+  const [notes, setNotes] = useState(field_to_edit.field_note);
 
   const crops = useSelector((store) => store.cropListReducer);
   const fieldStatus = useSelector((store) => store.transactionTypesReducer);
   console.log('here is the list of crops:', crops);
   console.log('here is the field status list:', fieldStatus);
 
-
   useEffect(() => {
     dispatch({
-      type: 'FETCH_TRANSACTION_TYPES'
-    })
+      type: 'FETCH_TRANSACTION_TYPES',
+    });
     dispatch({
-      type: 'FETCH_CROP_LIST'
-    })
-  }, [])
-;
+      type: 'FETCH_CROP_LIST',
+    });
+  }, []);
 
 
   // EDIT A FIELD
@@ -59,7 +84,7 @@ function EditFieldForm() {
     event.preventDefault();
 
     alert('Your field has been updated');
-    
+
     dispatch({
       type: 'UPDATE_FIELD', // Need to double check this is the right dispatch type name in saga
       payload: {
@@ -70,15 +95,9 @@ function EditFieldForm() {
         acres: acres,
         current_status: currentStatus,
         field_note: notes,
-        fieldID: fieldID
-
-      }
+      },
     });
-
-    history.push('/user');
-
-
-  };
+  }; // end updateField
 
   return (
     <Router>
@@ -155,7 +174,7 @@ function EditFieldForm() {
             {crops?.map((crop) => {
               return (
                 <MenuItem key={crop.id} value={crop.id}>
-                  {crop.crop_type}
+                  {crop.crop_id}
                 </MenuItem>
               );
             })}
