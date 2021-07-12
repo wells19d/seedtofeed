@@ -10,10 +10,20 @@ function EditNIR() {
   const fieldNIR = useSelector((store) => store.fieldNIRReducer);
 
   const NIRID = params.NIRID;
+  const field_id = params.fieldID;
+
+  console.log(params);
+
+  useEffect(() => {
+    dispatch({
+        type: 'FETCH_FIELD_NIR',
+        payload: fieldID
+    })
+}, [])
 
   const NIR_index = fieldNIR.findIndex((NIR) => NIR.id === Number(NIRID));
   const NIR_to_edit = fieldNIR[NIR_index];
-  const field_id = NIR_to_edit.field_id;
+  // const field_id = NIR_to_edit.field_id;
 
   const [oil, setOil] = useState(NIR_to_edit.oil);
   const [moisture, setMoisture] = useState(NIR_to_edit.moisture);

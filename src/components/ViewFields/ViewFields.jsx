@@ -45,7 +45,6 @@ function ViewFields(params) {
             return (
               <tr key={field.id}>
                 <td>
-                  {/* <button onClick={() => history.push(`/field_details/${userID}/${field.id}`)} > */}
                     <button onClick={() => history.push(`/field_details/${field.id}`)}>
                     {field.name}
                     <br />
@@ -56,9 +55,8 @@ function ViewFields(params) {
                 <td>{field.field_note}</td>
                 <td>LIST BUYER HERE</td>
                 <td>
-                  <button
-                    onClick={() => history.push(`/edit_field/${field.id}`)}
-                  >
+                  {/* <button onClick={() => history.push(`/edit_field/${field.id}`)}> */}
+                  <button onClick={() => history.push(`/edit_field/${field.id}`)} >
                     Edit
                   </button>
                   <button onClick={() => deleteButton(field.id)}>Delete</button>
