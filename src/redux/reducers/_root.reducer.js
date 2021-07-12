@@ -11,6 +11,8 @@ import contractListReducer from './contractList.reducer';
 import contractDetailsReducer from './contractDetails.reducer';
 import contractStatusReducer from './contractStatus.reducer';
 import transactionTypesReducer from './transactionTypes.reducer';
+import bushelReducer from './bushel.reducer';
+import streamsReducer from './stream.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -31,6 +33,8 @@ const rootReducer = combineReducers({
   contractDetailsReducer,
   contractStatusReducer,
   transactionTypesReducer,
+  bushelReducer,
+  streamsReducer
 });
 
 export default rootReducer;

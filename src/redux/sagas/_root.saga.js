@@ -29,6 +29,9 @@ import deleteContractSaga from './deleteContract.saga';
 
 import transactionTypesSaga from './transactionTypes.saga';
 
+import bushelSaga from './bushel.saga';
+import streamSaga from './stream.saga';
+
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -69,5 +72,8 @@ export default function* rootSaga() {
     // Should we have a delete for the NIR???
 
     transactionTypesSaga(),
+
+    bushelSaga(),
+    streamSaga()
   ]);
 }
