@@ -3,25 +3,19 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
-import FarmerNav from '../Nav/FarmerNav';
-import BuyerNav from '../Nav/BuyerNav';
+// import FarmerNav from '../Nav/FarmerNav';
+// import BuyerNav from '../Nav/BuyerNav';
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  console.log('users are', user);
 
   let loginLinkData = {
     path: '/login',
     text: 'Login / Register',
   };
 
-  if (user.id != null && user.farmer === true) {
-    loginLinkData.path = '/farmer';
-    loginLinkData.text = 'Home';
-  } else if
-    (user.id != null && user.buyer === true) {
-    loginLinkData.path = '/buyer';
-    loginLinkData.text = 'Home';
-  } if (user.id != null) {
+  if (user.id != null) {
     loginLinkData.path = '/user';
     loginLinkData.text = 'Home';
   }
@@ -46,11 +40,27 @@ function Nav() {
         )}
 
         {user.farmer === true && user.id && (
-          <Link to='/farmer'></Link>
+          <Link to='/contract'>View Contracts</Link>
+
+        )}
+        {user.farmer === true && user.id && (
+          <Link to='/contract_form'>Contract Form</Link>
+
+        )}
+        {user.farmer === true && user.id && (
+          <Link to='/fieldDB'>View Fields</Link>
+
+        )}
+        {user.farmer === true && user.id && (
+          <Link to='/field'>View Transactions</Link>
         )}
 
         {user.buyer === true && user.id && (
-          <Link to='/buyer'></Link>
+          <Link to='/contract'>View Contracts</Link>
+        )}
+
+        {user.buyer === true && user.id && (
+          <Link to='/contract_form'>Contract Form</Link>
         )}
 
         <Link className="navLink" to="/about">
