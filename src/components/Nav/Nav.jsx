@@ -24,7 +24,9 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <img className="nav-logo" src={logo} alt="Seed to Feed Logo" />
+        <div className="nav-logo-span">
+          <img className="nav-logo" src={logo} alt="Seed to Feed Logo" />
+        </div>
       </Link>
       <div>
         <Link className="navLink" to={loginLinkData.path}>
@@ -42,10 +44,11 @@ function Nav() {
             <LogOutButton className="navLink" />
           </>
         )}
-        <div>
-          <a href="http://www.seedtofeed.info/" target="_blank"
-          >
-            SEED TO FEED        </a>
+        <div className="nav-logo-link">
+          <a href="http://www.seedtofeed.info/" target="_blank">
+            <img src={logo} className="nav-logo" alt="Seed to Feed Logo" />
+
+          </a>
         </div>
         <div>
           {user.farmer === true && user.id && (
