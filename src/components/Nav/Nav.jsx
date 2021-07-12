@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
+import logo from './Logos/seedtofeed-badge_1-color-Texture (1).png';
 // import FarmerNav from '../Nav/FarmerNav';
 // import BuyerNav from '../Nav/BuyerNav';
 
@@ -23,7 +24,7 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <h2 className="nav-title">SEED TO FEED</h2>
+        <img className="nav-logo" src={logo} alt="Seed to Feed Logo" />
       </Link>
       <div>
         <Link className="navLink" to={loginLinkData.path}>
