@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { HashRouter as Router, Route, useHistory } from 'react-router-dom';
+import { HashRouter as Router, Route, useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 function EditFieldForm() {
 
   const dispatch = useDispatch();
+  const history = useHistory();
+  const params = useParams();
+
+  const fieldID = params.fieldID;
+
+   console.log('here is the params ID of this field:', fieldID);
 
 
   // LOCAL STATE
@@ -29,22 +35,14 @@ function EditFieldForm() {
     })
   }, [])
 
+  // REDUCER STORE
   const crops = useSelector((store) => store.cropListReducer);
   const fieldStatus = useSelector((store) => store.transactionTypesReducer);
 
-  // temporary list of crops and transaction_type until reducer store is set up
-  // const crops = ['barley', 'corn', 'oats', 'soybeans', 'sugarbeets', 'wheat'];
-  // const fieldStatus = [
-  //   'pre-planting',
-  //   'plant',
-  //   'application',
-  //   'harvest',
-  //   'processing',
-  //   'transit',
-  //   'feed'
-  // ];
 
-  // ADD A FIELD
+  console.log('heres a list of crops:', crops);
+
+  // EDIT A FIELD
   const updateField = (event) => {
     event.preventDefault();
 
@@ -59,9 +57,22 @@ function EditFieldForm() {
         location: location,
         acres: acres,
         current_status: currentStatus,
-        field_note: notes
+        field_note: notes,
+        fieldID: fieldID
+
       }
     });
+
+    history.push('/user');
+
+    // clear input fields
+    // setFieldName('');
+    // setFieldYear('');
+    // setCropType('');
+    // setLocation('');
+    // setAcres('');
+    // setCurrentStatus('');
+    // setNotes('');
   }; // end updateField
 
   return (
@@ -108,11 +119,11 @@ function EditFieldForm() {
               required
               onChange={(event) => setCropType(event.target.value)}
             >
-              <option>Select</option>
+              <option hidden>Select</option>
               {crops.map((crop) => {
-                console.log('croptype:', crop.crop_type);
+                console.log('croptype:', crop.id);
                 return (
-                  <option key={crop.id} value={crop.crop_type}>
+                  <option key={crop.id} value={crop.id}>
                     {crop.crop_type}
                   </option>
                 );
@@ -159,12 +170,12 @@ function EditFieldForm() {
               required
               onChange={(event) => setCurrentStatus(event.target.value)}
             >
-              <option>Select</option>
+              <option hidden>Select</option>
               {fieldStatus.map((status) => {
                 console.log('current status is:', status);
                 return (
                   <option key={status.id} value={status.name}>
-                    {status}
+                    {status.name}
                   </option>
                 );
               })}

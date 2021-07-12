@@ -327,7 +327,6 @@ router.put('/update/:fieldID', rejectUnauthenticated, (req, res) => {
             WHERE "field"."id" = $1 AND "user_field"."user_id" = $10;
             `;
     pool.query(queryText, [fieldID, year, location, acres, field_note, name, shape_file, gmo, crop_id, req.user.id]).then((response) => {
-        console.log(`Field ${fieldID} was updated to ${req.body} by ${req.user.id}`);
         res.sendStatus(204);
     }).catch((err) => {
         console.log('Error occurred for field UPDATE', err);
