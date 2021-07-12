@@ -45,6 +45,9 @@ function FieldNIR(params) {
                         <th>
                             Amino Acids
                         </th>
+                        <th>
+                            Buttons
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,6 +72,11 @@ function FieldNIR(params) {
                             </td>
                             <td>
                                 {test.amino_acids}
+                            </td>
+                            <td>
+                                <button onClick={()=> history.push(`/edit_NIR/${fieldID}/${test.id}`)}>
+                                    Edit
+                                </button>
                             </td>
                         </tr>)
                     })}

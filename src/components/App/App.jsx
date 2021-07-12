@@ -30,6 +30,7 @@ import ViewFieldDetails from '../ViewFieldDetails/ViewFieldDetails';
 
 import AddNIR from '../NIR/AddNIR';
 import FieldNIR from '../NIR/FieldNIR';
+import EditNIR from '../NIR/EditNIR';
 
 import EditFieldForm from '../FieldForm/EditFieldForm';
 import AddFieldForm from '../FieldForm/AddFieldForm';
@@ -76,6 +77,9 @@ function App() {
           {/* <Route exact path="/contract">
             <ViewContract />
           </Route> */}
+          <Route exact path='/edit_NIR/:fieldID/:NIRID'>
+            <EditNIR />
+          </Route>
 
           <Route exact path="/contract_form">
             <AddContract />
@@ -89,8 +93,8 @@ function App() {
             <EditContract />
           </Route>
 
-          {/* <Route path="/edit_field/:userID/:fieldID"> */}
           <Route exact path="/edit_field/:fieldID">
+          {/* <Route exact path="/edit_field/:fieldID"> */}
             <EditFieldForm />
           </Route>
 
