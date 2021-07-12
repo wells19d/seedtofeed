@@ -9,8 +9,6 @@ import {
 import { useDispatch } from 'react-redux';
 
 import Nav from '../Nav/Nav';
-import FarmerNav from '../Nav/FarmerNav';
-import BuyerNav from '../Nav/BuyerNav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -35,6 +33,8 @@ import FieldNIR from '../NIR/FieldNIR';
 
 import EditFieldForm from '../FieldForm/EditFieldForm';
 import AddFieldForm from '../FieldForm/AddFieldForm';
+
+import AddTransaction from '../AddTransaction/AddTransaction';
 
 
 import './App.css';
@@ -85,7 +85,7 @@ function App() {
 
           <Route exact path="/NIR_form/:fieldID">
             <AddNIR />
-           </Route>
+          </Route>
 
           <Route exact path="/edit_contract">
             <EditContract />
@@ -97,6 +97,10 @@ function App() {
 
           <Route exact path="/add_field/">
             <AddFieldForm />
+          </Route>
+
+          <Route exact path="/add_transaction/:fieldID">
+            <AddTransaction />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
@@ -119,21 +123,7 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows Farmer's Navigation else Landing/login page ???
-            exact
-            path="/farmer"
-          >
-            <FarmerNav />
-          </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows Buyers's Navigation else Landing/login page ???
-            exact
-            path="/buyer"
-          >
-            <BuyerNav />
-          </ProtectedRoute>
 
           {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will

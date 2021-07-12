@@ -3,8 +3,8 @@ import axios from 'axios';
 
 function* updateTransaction(action){
     try {
-        const response = yield axios.put(`/api/field/update_transaction/${action.payload.fieldID}`, action.payload.data) // How is this coming in to get both a body to send and params to use??? Also, this route does not yet exist.
-        yield put({ type: 'FETCH_FIELD_TRANSACTIONS', payload: INSERT }) // Change INSERT to user ID. Cannot remember how to do so at the moment.
+        const response = yield axios.put(`/api/field/update_transaction/`, action.payload)
+        yield put({ type: 'FETCH_FIELD_TRANSACTIONS', payload: action.payload.field_id })
     } catch (error) {
         console.log('User get request failed', error);
     }

@@ -4,7 +4,7 @@ import axios from 'axios';
 function* addContract(action) {
     try {
         const response = yield axios.post(`/api/contract/add_contract`, action.payload)
-        yield put({ type: 'FETCH_CONTRACT_LIST', payload: action.payload.userID }) // Change INSERT to user ID. Cannot remember how to do so at the moment.
+        yield put({ type: 'FETCH_CONTRACT_LIST', payload: action.payload}) // Change INSERT to user ID. Cannot remember how to do so at the moment.
     } catch (error) {
         console.log('User get request failed', error);
     }

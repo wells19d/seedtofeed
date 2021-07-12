@@ -7,30 +7,10 @@ const {
 
 // -- GETS --
 
-/**
- * GET route template
- */
-// router.get('/test', (req, res) => {
-//     // GET route code here
-
-//     const queryText = `SELECT * FROM "field"
-//     JOIN "crop" ON ("crop"."id"="field"."crop_id");`;
-
-//     pool.query(queryText).then(response => {
-//         console.log(response.rows);
-//         res.send(response.rows);
-//     }).catch(error => {
-//         console.log(`Error making database query ${queryText}`, error);
-//         res.sendStatus(500);
-//     })
-// });
-
-
-router.get('/fieldList', rejectUnauthenticated, (req, res) => { // Get list of fields owned by a particular user. Eventually add authentication requirements so only authorized people can get this list.
-    // GET route code here
-
-    // const userID = req.params.userID;
+//GET a list of fields
+router.get('/fieldList', rejectUnauthenticated, (req, res) => {
     const userID = req.user.id;
+
     const queryText = `
     SELECT "field"."id", "user_field"."id" AS "user_field_id", "field"."year", "field"."location", "field"."acres", "field"."field_note",
     "field"."name", "field"."image", "field"."shape_file", "field"."gmo", "field"."crop_id"
@@ -60,14 +40,15 @@ WHERE "user_field"."user_id" = 1; */
         console.log(result.rows);
         let modifiedFields = [];
         for (let field of result.rows) {
-            let queryText = `SELECT "field_transactions"."field_status" FROM "field_transactions" WHERE "field_id"=$1 ORDER BY TIMESTAMP DESC LIMIT 1`;
+            let queryText = `SELECT "field_transactions"."field_status" FROM "field_transactions" WHERE "field_id"=$1 ORDER BY TIMESTAMP DESC LIMIT 1;`;
             // Save the result, probably into a new array for good measure
             const result2 = await pool.query(queryText, [field.id]);
-            console.log(result2.rows);
+            console.log(`Field ${field.id} transactions`, result2.rows);
             if (result2.rows.length > 0) {
-                // no transactions have been recorded yet for the field
+                //the latest transactions
                 field.field_status = result2.rows[0].field_status;
             } else {
+                // no transactions have been recorded yet for the field
                 field.field_status = 'pre-planting';
             }
             modifiedFields.push(field);
@@ -81,21 +62,34 @@ WHERE "user_field"."user_id" = 1; */
 });
 
 
-
-router.get('/fieldDetails/:fieldID', rejectUnauthenticated, (req, res) => { // Eventually add authentication. Eventually change the * into the particualr fields we want to GET.
+//GET field details by fieldID. Saga: fieldDetails.saga; Reducer: fieldDetails.reducer as an object
+router.get('/fieldDetails/:fieldID', rejectUnauthenticated, (req, res) => {
+    //fieldID on url
     const fieldID = req.params.fieldID;
 
-    const queryText = `SELECT * FROM "field"
-        JOIN "user_field" ON "user_field"."field_id"="field"."id"
-        JOIN "user" ON "user"."id"="user_field"."user_id"
-        JOIN "field_transactions" ON "field_transactions"."field_id"="field"."id"
-        JOIN "contract" ON "contract"."user_field_id"="user_field"."id"
-        JOIN "contract_status" ON "contract_status"."id"="contract"."open_status"
-        WHERE "field"."id"=$1;`;
-    // No idea if this query will work or not. Needs to be tested.
+    //replaced "*" for explicit columns in the query w/multiple joins. 
+    //a captital "ID" was used as an alias to indicate the primaray key id of a table
+    //for example, the field table now has "fieldID" instead of "id" in the query. 
+    //attempt to clarify the columns in large joins
+    const queryText = `
+    SELECT "field"."id" AS "fieldID", "field"."year", "field"."location", "field"."acres", "field"."field_note", "field"."name" AS "field_name",
+    "field"."image" AS "field_image", "field"."shape_file", "field"."gmo", "field"."crop_id", "user_field"."id" AS "user_field_ID",
+    "user"."id" AS "userID", "user"."username", "user"."buyer", "user"."farmer", "user"."first_name", "user"."last_name", "user"."super_admin", 
+    "field_transactions"."id" AS "field_transactionsID", "field_transactions"."timestamp" AS "field_transactions_timestamp",
+    "field_transactions"."image" AS "field_transactions_image", "field_transactions"."field_status", "field_transactions"."transaction_type", 
+    "contract"."id" AS "contractID", "contract"."open_status", "contract"."bushel_uid", "contract"."commodity",
+    "contract"."container_serial", "contract"."quantity_fulfilled", "contract"."price", "contract"."protein", "contract"."oil", "contract"."moisture",
+    "contract"."contract_handler", "contract_status"."id" AS "contract_status_ID", "contract_status"."name" AS "contract_status_name"
+    FROM "field"
+    JOIN "user_field" ON "user_field"."field_id"="field"."id"
+    JOIN "user" ON "user"."id"="user_field"."user_id"
+    JOIN "field_transactions" ON "field_transactions"."field_id"="field"."id"
+    JOIN "contract" ON "contract"."user_field_id"="user_field"."id"
+    JOIN "contract_status" ON "contract_status"."id"="contract"."open_status"
+    WHERE "field"."id"=$1;`;
 
     pool.query(queryText, [fieldID]).then(response => {
-        console.log(response.rows);
+        console.log(`Details for fieldID: ${fieldID}`, response.rows);
         res.send(response.rows);
     }).catch(error => {
         console.log(`Error making database query ${queryText}`, error);
@@ -105,13 +99,13 @@ router.get('/fieldDetails/:fieldID', rejectUnauthenticated, (req, res) => { // E
 })
 
 
-
-router.get('/cropList', rejectUnauthenticated, (req, res) => { // This is primarily to get the list of crops for dropdowns
+//GET crop dropdown list. Saga: cropList.saga, Reducer: cropList.reducer
+router.get('/cropList', rejectUnauthenticated, (req, res) => { 
 
     const queryText = `SELECT * FROM "crop";`;
 
     pool.query(queryText).then(response => {
-        console.log(response.rows);
+        // console.log(response.rows);
         res.send(response.rows);
     }).catch(error => {
         console.log(`Error making database query ${queryText}`, error);
@@ -120,13 +114,19 @@ router.get('/cropList', rejectUnauthenticated, (req, res) => { // This is primar
 });
 
 
-
-router.get('/transactions/:fieldID', rejectUnauthenticated, (req, res) => { // Gets list of transactions on a particular field. Eventually will have to make authentication so only people with permission to view field can get this information.
+//THIS MAY BE REPLACED BY GET /fieldList.
+//GET list of field_transactions by fieldID. 
+//Saga: fieldTransactions, Reducer: fieldTransactions.reducer
+router.get('/transactions/:fieldID', rejectUnauthenticated, (req, res) => {
     const fieldID = req.params.fieldID;
 
-    const queryText = `SELECT * FROM "field_transactions"
-        JOIN "transaction_type" ON "transaction_type"."id"="field_transactions"."transaction_type"
-        WHERE "field_id"=$1;`;
+    const queryText = `
+    SELECT "field_transactions"."id" AS "field_transactions_ID", "field_transactions"."field_id", "field_transactions"."timestamp",
+    "field_transactions"."status_notes", "field_transactions"."image", "field_transactions"."field_status", "field_transactions"."transaction_type",
+    "transaction_type"."id" AS "transaction_type_ID", "transaction_type"."name"
+    FROM "field_transactions"
+    JOIN "transaction_type" ON "transaction_type"."id"="field_transactions"."transaction_type"
+    WHERE "field_id"=$1;`;
 
     pool.query(queryText, [fieldID]).then(response => {
         console.log(response.rows);
@@ -138,8 +138,9 @@ router.get('/transactions/:fieldID', rejectUnauthenticated, (req, res) => { // G
 });
 
 
-// -- 
-router.get('/NIR/:fieldID', rejectUnauthenticated, (req, res) => { // Gets list of NIR results for a field from the database. Eventually will have to make authentication so only people with permission to view said field can make this GET request.
+//GET list of NIR results by fieldID
+router.get('/NIR/:fieldID', rejectUnauthenticated, (req, res) => {
+    //fieldID on url
     const fieldID = req.params.fieldID;
 
     const queryText = `SELECT * FROM "NIR" WHERE "field_id"=$1;`;
@@ -154,11 +155,10 @@ router.get('/NIR/:fieldID', rejectUnauthenticated, (req, res) => { // Gets list 
 });
 
 
+//GET transaction types dropdown list.
+router.get('/transactionTypes', rejectUnauthenticated, (req, res) => {
 
-router.get('/transactionTypes', rejectUnauthenticated, (req, res) => { // This is to get a dropdown of transaction types for the POST "create_transaction".
-
-    const queryText = `SELECT * FROM "transaction_type"
-                        ORDER BY "id" ASC;`;
+    const queryText = `SELECT * FROM "transaction_type" ORDER BY "id" ASC;`;
 
     pool.query(queryText).then(response => {
         console.log(response.rows);
@@ -174,14 +174,7 @@ router.get('/transactionTypes', rejectUnauthenticated, (req, res) => { // This i
 
 // --- POSTS ----
 
-
-/**
- * POST route template
- */
-// router.post('/', (req, res) => {
-//     // POST route code here
-// });
-
+//CREATE A FIELD
 router.post('/makefield', rejectUnauthenticated, (req, res) => {
     const year = req.body.year;
     const location = req.body.location;
@@ -195,7 +188,7 @@ router.post('/makefield', rejectUnauthenticated, (req, res) => {
 
     const queryText = `
     INSERT INTO "field" (
-    "year", "location", "acres",  "field_note", "name", "image", "shape_file", "gmo", "crop_id")
+    "year", "location", "acres", "field_note", "name", "image", "shape_file", "gmo", "crop_id")
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id;`;
 
     pool.query(queryText, [year, location, acres, field_note, name, image, shape_file, gmo, crop_id])
@@ -207,8 +200,8 @@ router.post('/makefield', rejectUnauthenticated, (req, res) => {
             //second query creates entry into user_field table
             const created_field = response.rows[0].id;
             const insert_field = `
-            INSERT INTO "user_field" ("field_id", user_id)
-            VALUES ($1, $2);`
+            INSERT INTO "user_field" ("field_id", "user_id")
+            VALUES ($1, $2);`;
 
             pool.query(insert_field, [created_field, req.user.id])
                 .then(result => {
@@ -256,8 +249,7 @@ router.post('/makefield', rejectUnauthenticated, (req, res) => {
         })
 });
 
-// CREATE A FIELD TRANSACTION
-// will need user authentaction
+//CREATE A FIELD TRANSACTION
 router.post('/create_transaction', rejectUnauthenticated, (req, res) => {
     console.log(`here is the created transaction`, req.body);
 
@@ -284,11 +276,9 @@ router.post('/create_transaction', rejectUnauthenticated, (req, res) => {
 });
 
 
-// Tested
 // CREATE NIR ANALYSIS
-// will need user authentaction
 router.post('/create_NIR', rejectUnauthenticated, (req, res) => {
-    console.log(`here is the created NIR analysis`, req.body);
+    console.log(`created NIR analysis`, req.body);
 
     const field_id = req.body.field_id; // $1
     const oil = req.body.oil; // $2 
@@ -299,7 +289,7 @@ router.post('/create_NIR', rejectUnauthenticated, (req, res) => {
     const tested_at = req.body.tested_at // $7
 
     const queryText = `INSERT INTO "NIR" 
-    (field_id, oil, moisture, protein, energy, amino_acids, tested_at) 
+    ("field_id", "oil", "moisture", "protein", "energy", "amino_acids", "tested_at") 
     VALUES ($1, $2, $3, $4, $5, $6, $7);
 `
 
@@ -316,8 +306,6 @@ router.post('/create_NIR', rejectUnauthenticated, (req, res) => {
 
 // -- PUTS -- 
 //edit/update the field table
-//will need user rejectUnauthenticated
-// 
 router.put('/update/:fieldID', rejectUnauthenticated, (req, res) => {
     console.log('field table update', req.body);
 
@@ -339,13 +327,6 @@ router.put('/update/:fieldID', rejectUnauthenticated, (req, res) => {
             WHERE "field"."id" = $1 AND "user_field"."user_id" = $10;
             `;
     pool.query(queryText, [fieldID, year, location, acres, field_note, name, shape_file, gmo, crop_id, req.user.id]).then((response) => {
-        // used the JSON.stringify method in below console log to avoid getting [object Object] back
-        console.log(`
-            Field ${fieldID}
-            was updated to ${JSON.stringify(req.body)}
-            by user with an id of ${req.user.id}
-            `);
-        
         res.sendStatus(204);
     }).catch((err) => {
         console.log('Error occurred for field UPDATE', err);
@@ -353,222 +334,71 @@ router.put('/update/:fieldID', rejectUnauthenticated, (req, res) => {
     })
 })
 
+
+router.put('/update_NIR/', rejectUnauthenticated, (req, res) => {
+    console.log('NIR update', req.body);
+
+    const NIRID = req.body.NIRID;
+    const oil = req.body.oil;
+    const moisture = req.body.moisture;
+    const protein = req.body.protein;
+    const energy = req.body.energy;
+    const amino_acids = req.body.amino_acids;
+
+    const queryText = `UPDATE "NIR"
+                        SET "oil"=$1, "moisture"=$2, "protein"=$3, "energy"=$4, "amino_acids"=$5
+                        WHERE "id"=$6;`;
+
+    pool.query(queryText, [oil, moisture, protein, energy, amino_acids, NIRID]).then(result => {
+        res.sendStatus(204);
+    })
+    .catch(error => {
+        console.log('Error making query: ', error);
+        res.sendStatus(500);
+    })
+})
+
+router.put('/update_transaction', rejectUnauthenticated, (req, res) => {
+    console.log('Transaction update', req.body);
+
+    const transaction_id = req.body.transaction_id;
+    const status_notes = req.body.status_notes;
+    const image = req.body.image;
+    const field_status = req.body.field_status;
+    const transaction_type = req.body.transaction_type;
+
+    const queryText = `UPDATE "field_transactions"
+                        SET "status_notes"=$1, "image"=$2, "field_status"=$3, "transaction_type"=$4
+                        WHERE "id"=$5;`;
+    
+    pool.query(queryText, [status_notes, image, field_status, transaction_type, transaction_id]).then(result => {
+        res.sendStatus(204);
+    })
+    .catch(error => {
+        console.log('Error making query: ', error);
+        res.sendStatus(500);
+    })
+})
+
 // -- DELETES --
 
+//DELETE a field
+//Saga: deleteField.saga
 router.delete('/delete_field/:fieldID', rejectUnauthenticated, (req, res) => {
-    const queryText =
-        `DELETE
+
+    const queryText =`
+        DELETE
         FROM "field"
         WHERE "id" = $1;
         `;
-    pool
-        .query(queryText, [req.params.fieldID])
+
+    pool.query(queryText, [req.params.fieldID])
         .then(() => res.sendStatus(204))
         .catch((error) => {
             console.log(error);
             res.sendStatus(500);
         });
 });
-
-
-
-
-// FOR EDITING COLUMNS INDIVIDUALLY. MAY NOT NEED
-// edit location column
-// router.put('/:fieldID/location', (req, res) => {
-//     console.log('edit the location', req.body);
-//     const fieldID = req.params.fieldID;
-//     const location = req.body.location;
-
-//     queryText = `
-//             UPDATE "field"
-//             SET "location" = $2
-//             WHERE "id" = $1;
-//             `
-//     pool.query(queryText, [fieldID, locati]).then((response) => {
-//         console.log(`
-//             Field ${fieldID}
-//             locatioon was updated to ${location}
-//             `);
-//         res.sendStatus(204);
-//     }).catch((err) => {
-//         console.log('Error occurred for field year UPDATE', err);
-//         res.sendStatus(500);
-//     })
-// })
-
-// // edit acres column
-// router.put('/:fieldID/acres', (req, res) => {
-//     console.log('edit the acres', req.body);
-//     const fieldID = req.params.fieldID;
-//     const acres = req.body.acres;
-
-//     queryText = `
-//             UPDATE "field"
-//             SET "acres "
-//             id " = $2
-//             WHERE "id" = $1;
-//             `
-//     pool.query(queryText, [fieldID, acres]).then((response) => {
-//         console.log(`
-//             Field ${fieldID}
-//             acres was updated to $ { acres }
-//             `);
-//         res.sendStatus(204);
-//     }).catch((err) => {
-//         console.log('Error occurred for field year UPDATE', err);
-//         res.sendStatus(500);
-//     })
-// })
-
-// // edit field_note column
-// router.put('/:fieldID/field_note', (req, res) => {
-//     console.log('edit the field_note', req.body);
-//     const fieldID = req.params.fieldID;
-//     const field_note = req.body.field_note;
-
-//     queryText = `
-//             UPDATE "field"
-//             SET "field_note "
-//             id " = $2
-//             WHERE "id" = $1;
-//             `
-//     pool.query(queryText, [fieldID, field_note]).then((response) => {
-//         console.log(`
-//             Field ${fieldID}
-//             field_note was updated to ${field_note}
-//             `);
-//         res.sendStatus(204);
-//     }).catch((err) => {
-//         console.log('Error occurred for field year UPDATE', err);
-//         res.sendStatus(500);
-//     })
-// })
-
-// // edit name column
-// router.put('/:fieldID/name', (req, res) => {
-//     console.log('edit the name', req.body);
-//     const fieldID = req.params.fieldID;
-//     const name = req.body.name;
-
-//     queryText = `
-//             UPDATE "field"
-//             SET "name "
-//             id " = $2
-//             WHERE "id" = $1;
-//             `
-//     pool.query(queryText, [fieldID, name]).then((response) => {
-//         console.log(`
-//             Field ${fieldID}
-//             name was updated to ${name}
-//             `);
-//         res.sendStatus(204);
-//     }).catch((err) => {
-//         console.log('Error occurred for field year UPDATE', err);
-//         res.sendStatus(500);
-//     })
-// })
-
-// // edit image column
-// router.put('/:fieldID/image', (req, res) => {
-//     console.log('edit the image', req.body);
-//     const fieldID = req.params.fieldID;
-//     const image = req.body.image;
-
-//     queryText = `
-//             UPDATE "field"
-//             SET "image "
-//             id " = $2
-//             WHERE "id" = $1;
-//             `
-//     pool.query(queryText, [fieldID, image]).then((response) => {
-//         console.log(`
-//             Field ${fieldID}
-//             image was updated to ${image}
-//             `);
-//         res.sendStatus(204);
-//     }).catch((err) => {
-//         console.log('Error occurred for field year UPDATE', err);
-//         res.sendStatus(500);
-//     })
-// })
-
-// // edit shape_file column
-// router.put('/:fieldID/shape_file', (req, res) => {
-//     console.log('edit the shape_file', req.body);
-//     const fieldID = req.params.fieldID;
-//     const shape_file = req.body.shape_file;
-
-//     queryText = `
-//             UPDATE "field"
-//             SET "shape_file "
-//             id " = $2
-//             WHERE "id" = $1;
-//             `
-//     pool.query(queryText, [fieldID, shape_file]).then((response) => {
-//         console.log(`
-//             Field ${fieldID}
-//             shape_file was updated to ${shape_file}
-//             `);
-//         res.sendStatus(204);
-//     }).catch((err) => {
-//         console.log('Error occurred for field year UPDATE', err);
-//         res.sendStatus(500);
-//     })
-// })
-
-// // edit gmo column
-// router.put('/:fieldID/gmo', (req, res) => {
-//     console.log('edit the gmo', req.body);
-//     const fieldID = req.params.fieldID;
-//     const gmo = req.body.gmo;
-
-//     queryText = `
-//             UPDATE "field"
-//             SET "gmo "
-//             id " = $2
-//             WHERE "id" = $1;
-//             `
-//     pool.query(queryText, [fieldID, gmo]).then((response) => {
-//         console.log(`
-//             Field ${fieldID}
-//             gmo was updated to ${gmo}
-//             `);
-//         res.sendStatus(204);
-//     }).catch((err) => {
-//         console.log('Error occurred for field year UPDATE', err);
-//         res.sendStatus(500);
-//     })
-// })
-
-// // edit crop_id column
-// router.put('/:fieldID/crop_id', (req, res) => {
-//     console.log('edit the crop_id', req.body);
-//     const fieldID = req.params.fieldID;
-//     const crop_id = req.body.crop_id;
-
-//     queryText = `
-//             UPDATE "field"
-//             SET "crop_id "
-//             id " = $2
-//             WHERE "id" = $1;
-//             `
-//     pool.query(queryText, [fieldID, crop_id]).then((response) => {
-//         console.log(`
-//             Field ${fieldID}
-//             crop_id was updated to ${crop_id}
-//             `);
-//         res.sendStatus(204);
-//     }).catch((err) => {
-//         console.log('Error occurred for field year UPDATE', err);
-//         res.sendStatus(500);
-//     })
-// })
-
-
-
-
-
 
 
 module.exports = router;

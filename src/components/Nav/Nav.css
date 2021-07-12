@@ -52,3 +52,10 @@ a:link {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
 }
+
+.nav-logo {
+    margin-left: 50px;
+    transform: rotate(-15deg);
+    max-height: 10%;
+    max-width: 10%;
+}

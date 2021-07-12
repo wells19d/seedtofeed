@@ -4,19 +4,25 @@ const router = express.Router();
 const {
     rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
-// -- GETS
 
-/**
- * GET route template
- */
-router.get('/getall', rejectUnauthenticated, (req, res) => { // Gets list of contracts that the user has associated with them.
+
+// -- GETS
+//GET list of contracts associated with a user.
+router.get('/getall', rejectUnauthenticated, (req, res) => { 
     // GET route code here
 
-    // const userID = req.params.userID;
     const userID = req.user.id;
 
-
-    const queryText = `SELECT * FROM "contract"
+    const queryText = `
+    SELECT "contract"."id" AS "contractID", "contract"."commodity", "contract"."open_status",
+    "contract"."bushel_uid", "contract"."quantity_fulfilled", "contract"."price", "contract"."protein", "contract"."oil",
+    "contract"."moisture", "contract"."contract_quantity", "contract"."contract_handler",
+    "user_field"."id" AS "user_field_ID",
+    "user"."id" AS "userID", "user"."username", "user"."farmer", "user"."buyer", "user"."first_name", "user"."last_name",
+    "user"."super_admin",
+    "field"."id" AS "fieldID", "field"."year", "field"."name" AS "field_name", "field"."location", "field"."crop_id", "field"."acres", 
+    "field"."gmo", "field"."image" AS "field_image", "field"."shape_file", "field"."field_note" 
+    FROM "contract"
     JOIN "user_field" ON ("user_field"."id"="contract"."user_field_id")
     JOIN "user" ON ("user"."id"="user_field"."user_id")
     JOIN "field" ON ("field"."id"="user_field"."field_id")
@@ -31,11 +37,9 @@ router.get('/getall', rejectUnauthenticated, (req, res) => { // Gets list of con
     })
 });
 
-//GET for the dropdown for the contract form
-router.get('/contractStatus', rejectUnauthenticated, (req, res) => { // Gets the contract status list
-    const queryText = `
-    SELECT * FROM "contract_status";
-    `;
+//GET contract status list for the dropdown on the contract form
+router.get('/contractStatus', rejectUnauthenticated, (req, res) => { 
+    const queryText = `SELECT * FROM "contract_status";`;
 
     pool
         .query(queryText)
@@ -50,12 +54,9 @@ router.get('/contractStatus', rejectUnauthenticated, (req, res) => { // Gets the
 })
 
 // -- POSTS
-
-/**
- * POST route template
- */
+//POST a contract
 router.post('/add_contract', rejectUnauthenticated, (req, res) => {
-    // POST route code here
+    
     const user_field_id = req.body.user_field_id; // $1
     const commodity = req.body.commodity; // $2
     const open_status = req.body.open_status; // $3
@@ -152,11 +153,7 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
 // ---- DELETES ----
 
 router.delete('/delete_contract/:contractID', rejectUnauthenticated, (req, res) => {
-    const queryText =
-        `
-                                DELETE FROM "contract"
-                                WHERE "id" = $1;
-                                `;
+    const queryText = `DELETE FROM "contract" WHERE "id" = $1;`;
     pool
         .query(queryText, [req.params.contractID])
         .then(() => res.sendStatus(204))

@@ -21,6 +21,7 @@ import addContractSaga from './addContract.saga';
 import updateFieldSaga from './updateField.saga';
 import updateTransactionSaga from './updateTransaction.saga';
 import updateContractSaga from './updateContract.saga';
+import updateNIRSaga from './updateNIR';
 
 import deleteFieldSaga from './deleteField.saga';
 import deleteTransactionSaga from './deleteTransaction.saga';
@@ -59,6 +60,7 @@ export default function* rootSaga() {
     updateFieldSaga(),
     updateTransactionSaga(),
     updateContractSaga(),
+    updateNIRSaga(),
     // We will need to have a PUT to set a buyer if we want that functionality.
 
     deleteFieldSaga(),
