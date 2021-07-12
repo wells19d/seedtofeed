@@ -96,16 +96,22 @@ function RegisterForm() {
         <label>
             Are you a farmer?
             <input
-              type="checkbox"
-              defaultChecked={farmer}
+              type="radio"
+              id='radio1'
+              name='radio-btn'
+              value={farmer}
+              // defaultChecked={farmer}
               onChange={(event) => setFarmer(!farmer)}
             />
         </label>
         <label>
             Are you a buyer?
             <input
-              type="checkbox"
-              defaultChecked={buyer}
+              type="radio"
+              id='radio2'
+              name='radio-btn'
+              value={buyer}
+              // defaultChecked={buyer}
               onChange={(event) => setBuyer(!buyer)}
             />
         </label>

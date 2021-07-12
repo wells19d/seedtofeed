@@ -78,7 +78,8 @@ function EditFieldForm() {
     });
   }, []);
 
-  // UPDATE A FIELD
+
+  // EDIT A FIELD
   const updateField = (event) => {
     event.preventDefault();
 
