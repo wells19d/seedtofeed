@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import '../App/App.css';
@@ -14,8 +14,6 @@ function ViewFields(params) {
     console.log('The fieldList', fieldList);
     
 
-    //const params = useParams();
-    
     const userID = params.userID;
 
 
