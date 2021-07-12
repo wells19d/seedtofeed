@@ -78,7 +78,6 @@ function EditFieldForm() {
     });
   }, []);
 
-
   // EDIT A FIELD
   const updateField = (event) => {
     event.preventDefault();
@@ -95,7 +94,7 @@ function EditFieldForm() {
         acres: acres,
         current_status: currentStatus,
         field_note: notes,
-        fieldID: fieldID
+        fieldID: fieldID,
       },
     });
 
@@ -167,6 +166,7 @@ function EditFieldForm() {
           <Select
             variant="outlined"
             value={cropType}
+            required
             style={{ width: '155px' }}
             onChange={(event) => setCropType(event.target.value)}
             displayEmpty
@@ -177,7 +177,7 @@ function EditFieldForm() {
             {crops?.map((crop) => {
               return (
                 <MenuItem key={crop.id} value={crop.id}>
-                  {crop.crop_id}
+                  {crop.crop_type}
                 </MenuItem>
               );
             })}
@@ -187,6 +187,7 @@ function EditFieldForm() {
           <Select
             variant="outlined"
             value={currentStatus}
+            required
             style={{ width: '155px' }}
             onChange={(event) => setCurrentStatus(event.target.value)}
             displayEmpty
@@ -196,7 +197,7 @@ function EditFieldForm() {
             </MenuItem>
             {fieldStatus?.map((status) => {
               return (
-                <MenuItem key={status.id} value={status.name}>
+                <MenuItem key={status.id} value={status.id}>
                   {status.name}
                 </MenuItem>
               );

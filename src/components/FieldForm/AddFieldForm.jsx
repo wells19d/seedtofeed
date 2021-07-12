@@ -121,6 +121,7 @@ function AddFieldForm() {
           <Select
             variant="outlined"
             value={cropType}
+            required
             style={{ width: '155px' }}
             onChange={(event) => setCropType(event.target.value)}
             displayEmpty
@@ -141,6 +142,7 @@ function AddFieldForm() {
           <Select
             variant="outlined"
             value={currentStatus}
+            required
             style={{ width: '155px' }}
             onChange={(event) => setCurrentStatus(event.target.value)}
             displayEmpty
@@ -149,7 +151,7 @@ function AddFieldForm() {
               <em>Current Status</em>
             </MenuItem>
             {fieldStatus?.map((status) => {
-              console.log(`field status`, status.name);
+              console.log(`field status`, status);
               return (
                 <MenuItem key={status.id} value={status.id}>
                   {status.name}
