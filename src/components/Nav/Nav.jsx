@@ -29,6 +29,9 @@ function Nav() {
         <Link className="navLink" to={loginLinkData.path}>
           {loginLinkData.text}
         </Link>
+        <Link className="navLink" to="/about">
+          About
+        </Link>
 
         {user.id && (
           <>
@@ -38,38 +41,37 @@ function Nav() {
             <LogOutButton className="navLink" />
           </>
         )}
+        <div>
+          <a href="http://www.seedtofeed.info/" target="_blank"
+          >
+            SEED TO FEED        </a>
+        </div>
+        <div>
+          {user.farmer === true && user.id && (
+            <Link className="navLink" to='/contract'>Contracts</Link>
 
-        {user.farmer === true && user.id && (
-          <Link to='/contract'>View Contracts</Link>
+          )}
+          {user.farmer === true && user.id && (
+            <Link className="navLink" to='/contract_form'>Contract Form</Link>
+          )}
+          {user.farmer === true && user.id && (
+            <Link className="navLink" to='/fieldDB'>Fields</Link>
 
-        )}
-        {user.farmer === true && user.id && (
-          <Link to='/contract_form'>Contract Form</Link>
+          )}
+          {user.farmer === true && user.id && (
+            <Link className="navLink" to='/field'>Transactions</Link>
+          )}
+        </div>
+        <div>
+          {user.buyer === true && user.id && (
+            <Link className="navLink" to='/contract'>Contracts</Link>
+          )}
 
-        )}
-        {user.farmer === true && user.id && (
-          <Link to='/fieldDB'>View Fields</Link>
+          {user.buyer === true && user.id && (
+            <Link className="navLink" to='/contract_form'>Contract Form</Link>
+          )}
+        </div>
 
-        )}
-        {user.farmer === true && user.id && (
-          <Link to='/field'>View Transactions</Link>
-        )}
-
-        {user.buyer === true && user.id && (
-          <Link to='/contract'>View Contracts</Link>
-        )}
-
-        {user.buyer === true && user.id && (
-          <Link to='/contract_form'>Contract Form</Link>
-        )}
-
-        <Link className="navLink" to="/about">
-          About
-        </Link>
-
-        <a href="http://www.seedtofeed.info/" target="_blank"
-        >
-          SEED TO FEED        </a>
       </div>
     </div >
   );
