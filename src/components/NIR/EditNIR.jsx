@@ -17,7 +17,7 @@ function EditNIR() {
   useEffect(() => {
     dispatch({
         type: 'FETCH_FIELD_NIR',
-        payload: fieldID
+        payload: field_id
     })
 }, [])
 

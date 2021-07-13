@@ -33,7 +33,8 @@ function AddTransaction() {
                 timestamp: new Date(),
                 status_notes: notes,
                 image: image,
-                field_status: fieldStatus,
+                // field_status: fieldStatus, // shouldn't this be transactionList[transactionType]???
+                field_status: transactionList[transactionType],
                 transaction_type: transactionType
             }
         });
@@ -76,7 +77,7 @@ function AddTransaction() {
           </label>
         </div>
 
-        <div>
+        {/* <div>
           <label htmlFor='fieldStatus'>
             Field Status:
             <input
@@ -88,7 +89,7 @@ function AddTransaction() {
               onChange={(event) => setFieldStatus(event.target.value)}
             />
           </label>
-        </div>
+        </div> */}
 
         <div>
           <label htmlFor='transactionType'>

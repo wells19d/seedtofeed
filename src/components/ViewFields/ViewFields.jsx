@@ -2,6 +2,15 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+
 import '../App/App.css';
 
 function ViewFields(params) {
@@ -9,7 +18,7 @@ function ViewFields(params) {
   const history = useHistory();
 
   const fieldList = useSelector((store) => store.fieldListReducer);
-  console.log('The fieldList', fieldList);
+  // console.log('The fieldList', fieldList);
 
   const userID = params.userID;
 
@@ -29,45 +38,39 @@ function ViewFields(params) {
 
   return (
     <center>
-      <table className="sampleTable">
-        <thead>
-          <tr>
-            <th>Fields</th>
-            <th>Field Status</th>
-
-            <th>Field Notes</th>
-            <th>Buyer</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {fieldList.map((field) => {
-            return (
-              <tr key={field.id}>
-                <td>
-                    <button onClick={() => history.push(`/field_details/${field.id}`)}>
-                    {field.name}
-                    <br />
-                    {field.location}
-                  </button>
-                </td>
-                <td>{field.field_status}</td>
-                <td>{field.field_note}</td>
-                <td>LIST BUYER HERE</td>
-                <td>
-                  {/* <button onClick={() => history.push(`/edit_field/${field.id}`)}> */}
-                  <button onClick={() => history.push(`/edit_field/${field.id}`)} >
+    <TableContainer component={Paper}>
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell>Field Name</TableCell>
+            <TableCell>Location</TableCell>
+            <TableCell>Status</TableCell>
+            <TableCell>Note</TableCell>
+            <TableCell>Buyer</TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {fieldList.map((field) => (
+            <TableRow key={field.id}>
+              <TableCell>
+              <Button onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button>
+              </TableCell>
+              <TableCell>{field.location}</TableCell>
+              <TableCell>{field.field_status}</TableCell>
+              <TableCell>{field.field_note}</TableCell>
+              <TableCell>Buyer Here</TableCell>
+              <TableCell><Button onClick={() => history.push(`/edit_field/${field.id}`)} >
                     Edit
-                  </button>
-                  <button onClick={() => deleteButton(field.id)}>Delete</button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-
-      <button onClick={() => history.push(`/add_field/`)}>Add new Field</button>
+                  </Button> / <Button color="secondary" onClick={() => deleteButton(field.id)}>Delete</Button></TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+    <p>
+    <Button onClick={() => history.push(`/add_field/`)}>Add new Field</Button>
+    </p>
     </center>
   );
 }

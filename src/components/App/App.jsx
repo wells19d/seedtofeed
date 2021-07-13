@@ -36,6 +36,7 @@ import EditFieldForm from '../FieldForm/EditFieldForm';
 import AddFieldForm from '../FieldForm/AddFieldForm';
 
 import AddTransaction from '../AddTransaction/AddTransaction';
+import EditTransaction from '../AddTransaction/EditTransaction';
 
 import './App.css';
 
@@ -80,6 +81,10 @@ function App() {
 
           <Route exact path='/edit_NIR/:fieldID/:NIRID'>
             <EditNIR />
+          </Route>
+
+          <Route exact path='/edit_transaction/:fieldID/:transactionID'>
+            <EditTransaction />
           </Route>
 
           <Route exact path="/contract_form">
