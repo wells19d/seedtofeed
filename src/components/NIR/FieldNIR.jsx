@@ -11,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 function FieldNIR(params) {
   const history = useHistory();
@@ -40,6 +41,9 @@ function FieldNIR(params) {
 
   return (
     <center>
+    <Grid container spacing={3}>
+        <Grid item xs={1}/>
+        <Grid item xs={10}>
         <br />
       <TableContainer component={Paper}>
         <Table size="small">
@@ -76,6 +80,9 @@ function FieldNIR(params) {
       <Button onClick={() => history.push(`/NIR_form/${fieldID}`)}>
         Add NIR Data
       </Button>
+      </Grid>
+      <Grid item xs={1}/>
+      </Grid>
     </center>
   );
 }

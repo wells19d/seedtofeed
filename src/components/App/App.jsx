@@ -80,9 +80,9 @@ function App() {
               <ViewContractList />
           </Route>
 
-          {/* <Route exact path="/contract_details/:contractID">
+          <Route exact path="/contract_details/:contractID">
             <ViewContract />
-          </Route> */}
+          </Route>
 
           <Route exact path='/edit_NIR/:fieldID/:NIRID'>
             <EditNIR />
@@ -100,7 +100,7 @@ function App() {
             <AddNIR />
           </Route>
 
-          <Route exact path="/edit_contract">
+          <Route exact path="/edit_contract/:contractID">
             <EditContract />
           </Route>
 
