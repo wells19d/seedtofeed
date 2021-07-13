@@ -29,6 +29,10 @@ import deleteContractSaga from './deleteContract.saga';
 import deleteNIRSaga from './deleteNIR.saga';
 
 import transactionTypesSaga from './transactionTypes.saga';
+import userListSaga from './userList.saga';
+import buyerFieldListSaga from './buyerFieldList.saga';
+
+// import buyerFieldListSaga from './buyerFieldList.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -70,5 +74,9 @@ export default function* rootSaga() {
     deleteNIRSaga(),
 
     transactionTypesSaga(),
+
+    userListSaga(),
+
+    // buyerFieldListSaga(),
   ]);
 }
