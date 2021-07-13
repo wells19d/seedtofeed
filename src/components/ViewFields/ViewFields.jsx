@@ -54,7 +54,7 @@ function ViewFields(params) {
           {fieldList.map((field) => (
             <TableRow key={field.id}>
               <TableCell>
-                {field.name}
+              <Button onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button>
               </TableCell>
               <TableCell>{field.location}</TableCell>
               <TableCell>{field.field_status}</TableCell>
