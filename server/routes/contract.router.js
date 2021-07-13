@@ -111,7 +111,7 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
     const contract_quantity = req.body.contract_quantity; // $10
     const container_serial = req.body.container_serial; // $11
     const contract_handler = req.body.contract_handler; // $12
-
+    const user_field_id = req.body.user_field_id;
 
     const queryText =
         `UPDATE "contract"
@@ -127,7 +127,7 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
         "contract_quantity" = $10,
         "container_serial" = $11,
         "contract_handler" = $12
-        WHERE "id" = $1" RETURNING "user_field_id";`;
+        WHERE "id" = $1 RETURNING *;`;
 
     pool
         .query(queryText, [
@@ -143,22 +143,27 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
             contract_quantity, // $10
             container_serial, // $11
             contract_handler, // $12
-        ]);
-    console.log('user field is', ufi);
-    // let userFieldId = ufi;
+        ])
+        .then((result) => {
+            console.log('contract was updated', result.rows);
+            let ufi = req.body.user_field_id;
+            const queryTransaction = `INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", 
+             "transaction_type" ) VALUES ($1, Now(), 'contract updated', 'contract updated', 10) RETURNING *;`;
 
+            pool.query(queryTransaction, [ufi])
+                .then((result) => {
+                    console.log('Updating transaction table', result.rows);
+                    res.sendStatus(204);
+                }).catch(error => {
+                    console.log(`Error updating table`, error);
+                    res.sendStatus(500);
 
-    // const queryTransaction = `INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", 
-    //      "transaction_type" ) VALUES ($1, Now(), 'contract updated', 'contract updated', 10);`;
+                })
+        }).catch(error => {
+            console.log(`Error updating table`, error);
+            res.sendStatus(500);
 
-    // pool.query(queryTransaction, [userFieldId])
-    //     .then((result) => {
-    //         console.log('Updating transaction table', result.rows);
-    //         res.sendStatus(204);
-    //     }).catch(error => {
-    //         console.log(`Error updating table`, error);
-    //         res.sendStatus(500);
-
+        })
 });
 
 
