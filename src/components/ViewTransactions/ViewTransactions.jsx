@@ -19,6 +19,16 @@ function ViewTransactions(params) {
         })
       }, [])
 
+
+    function deleteButton(param){
+        if (confirm('Do you wish to delete this transaction?')){
+            dispatch({
+                type: 'DELETE_TRANSACTION',
+                payload: param.id
+            })
+        }
+    }
+
     return (
         <center>
             <table className="sampleTable">
@@ -31,7 +41,7 @@ function ViewTransactions(params) {
                             Field Status
                         </th>
                         <th>
-                            Event
+                            Image
                         </th>
                         <th>
                             Notes
@@ -52,13 +62,18 @@ function ViewTransactions(params) {
                                     {event.field_status}
                                 </td>
                                 <td>
-                                    {event.name}
+                                    {event.image}
                                 </td>
                                 <td>
                                     {event.status_notes}
                                 </td>
                                 <td>
-                                    MAKE BUTTONS HERE
+                                    <button onClick={()=> history.push(`/edit_transaction/${fieldID}/${event.id}`)}>
+                                        Edit
+                                    </button>
+                                    <button onClick={()=> deleteButton(test)}>
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         )
@@ -66,7 +81,7 @@ function ViewTransactions(params) {
                 </tbody>
             </table>
 
-            <button onClick={() => history.push(`/add_transaction/${feildID}`)}>
+            <button onClick={() => history.push(`/add_transaction/${fieldID}`)}>
                 New Event
             </button>
         </center>

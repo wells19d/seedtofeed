@@ -126,7 +126,8 @@ router.get('/transactions/:fieldID', rejectUnauthenticated, (req, res) => {
     "transaction_type"."id" AS "transaction_type_ID", "transaction_type"."name"
     FROM "field_transactions"
     JOIN "transaction_type" ON "transaction_type"."id"="field_transactions"."transaction_type"
-    WHERE "field_id"=$1;`;
+    WHERE "field_id"=$1
+    ORDER BY "field_transactions"."timestamp" ASC;`;
 
     pool.query(queryText, [fieldID]).then(response => {
         console.log(response.rows);
@@ -361,6 +362,30 @@ router.delete('/delete_field/:fieldID', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         });
 });
+
+router.delete('/delete_transaction/:transactionID', rejectUnauthenticated, (req, res) => {
+
+    const queryText = `DELETE FROM "field_transactions" WHERE "id"=$1;`;
+
+    pool.query(queryText, [req.params.transactionID])
+        .then(() => res.sendStatus(204))
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+})
+
+router.delete('/delete_NIR/:NIRID', rejectUnauthenticated, (req, res) => {
+
+    const queryText = `DELETE FROM "NIR" WHERE "id"=$1;`;
+
+    pool.query(queryText, [req.params.NIRID])
+        .then(() => res.sendStatus(204))
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+})
 
 
 module.exports = router;
