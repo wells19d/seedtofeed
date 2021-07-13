@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { HashRouter as Router} from 'react-router-dom';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 function EditNIR() {
   const dispatch = useDispatch();
@@ -51,92 +55,87 @@ function EditNIR() {
   }
 
   return (
-    <>
-      <div>
-        <form className="add-NIR" onSubmit={button}>
-          <h2>Edit NIR</h2>
-
-          <div>
-            <label htmlFor="oil">
-              Oil:
-              <input
-                placeholder="Oil"
-                type="text"
-                name="oil"
-                value={oil}
-                required
-                onChange={(event) => setOil(event.target.value)}
-              />
-            </label>
-          </div>
-
-          <div>
-            <label htmlFor="moisture">
-              Moisture:
-              <input
-                placeholder="moisture"
-                type="text"
-                name="moisture"
-                value={moisture}
-                required
-                onChange={(event) => setMoisture(event.target.value)}
-              />
-            </label>
-          </div>
-
-          <div>
-            <label htmlFor="protein">
-              Protein:
-              <input
-                placeholder="protein"
-                type="text"
-                name="protein"
-                value={protein}
-                required
-                onChange={(event) => setProtein(event.target.value)}
-              />
-            </label>
-          </div>
-
-          <div>
-            <label htmlFor="energy">
-              Energy:
-              <input
-                placeholder="energy"
-                type="text"
-                name="energy"
-                value={energy}
-                required
-                onChange={(event) => setEnergy(event.target.value)}
-              />
-            </label>
-          </div>
-
-          <div>
-            <label htmlFor="amino_acids">
-              Amino Acids:
-              <input
-                placeholder="amino_acids"
-                type="text"
-                name="amino_acids"
-                value={amino_acids}
-                required
-                onChange={(event) => setAminoAcids(event.target.value)}
-              />
-            </label>
-          </div>
-
-          <div>
-            <input
-              className="btn"
-              type="submit"
-              name="submit"
-              value="Add NIR"
-            />
-          </div>
-        </form>
-      </div>
-    </>
+    <Router>
+        <TextField
+        variant="outlined"
+        label="Oil Level"
+        type="number"
+        value={oil}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setOil(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+        />
+        <br />
+        <br />
+        <TextField
+        variant="outlined"
+        label="Moisture Level"
+        type="number"
+        value={moisture}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setMoisture(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+        />
+        <br />
+        <br />
+        <TextField
+        variant="outlined"
+        label="Protein Level"
+        type="number"
+        value={protein}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setProtein(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+        />
+        <br />
+        <br />
+        <TextField
+        variant="outlined"
+        label="Energy Level"
+        type="number"
+        value={energy}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setEnergy(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+        />
+        <br />
+        <br />
+        <TextField
+        variant="outlined"
+        label="Amino Acid Level"
+        type="number"
+        value={amino_acids}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setAminoAcids(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+        />
+        <br />
+        <br />
+        <Button
+          type="button"
+          onClick={() => {
+            history.push(`/field_details/${field_id}`);
+          }}
+        >Cancel</Button>{`\u00A0\u00A0\u00A0\u00A0`}
+        <Button
+        type="submit"
+        onClick={(event) => addNIR(event)}>Update</Button>
+      </Router>
   );
 }
 

@@ -20,11 +20,14 @@ function ViewTransactions(params) {
       }, [])
 
 
-    function deleteButton(param){
+    function deleteButton(transactionID){
         if (confirm('Do you wish to delete this transaction?')){
             dispatch({
                 type: 'DELETE_TRANSACTION',
-                payload: param.id
+                payload: {
+                    transactionID: transactionID,
+                    fieldID: fieldID
+                }
             })
         }
     }
@@ -71,7 +74,7 @@ function ViewTransactions(params) {
                                     <button onClick={()=> history.push(`/edit_transaction/${fieldID}/${event.id}`)}>
                                         Edit
                                     </button>
-                                    <button onClick={()=> deleteButton(test)}>
+                                    <button onClick={()=> deleteButton(event.id)}>
                                         Delete
                                     </button>
                                 </td>

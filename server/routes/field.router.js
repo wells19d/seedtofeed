@@ -377,9 +377,14 @@ router.delete('/delete_transaction/:transactionID', rejectUnauthenticated, (req,
 
 router.delete('/delete_NIR/:NIRID', rejectUnauthenticated, (req, res) => {
 
-    const queryText = `DELETE FROM "NIR" WHERE "id"=$1;`;
+    const NIRID = req.params.NIRID;
 
-    pool.query(queryText, [req.params.NIRID])
+    const queryText = `DELETE 
+    FROM "NIR" 
+    WHERE "id"=$1;
+    `;
+
+    pool.query(queryText, [NIRID])
         .then(() => res.sendStatus(204))
         .catch((error) => {
             console.log(error);

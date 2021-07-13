@@ -3,8 +3,8 @@ import axios from 'axios';
 
 function* deleteNIR(action) {
     try {
-        const response = yield axios.delete(`/api/field/delete_NIR/${action.payload}`) // This route does not yet exist.
-        yield put({ type: 'FETCH_FIELD_NIR', payload: INSERT }) // do we need a payload for a delete?
+        const response = yield axios.delete(`/api/field/delete_NIR/${action.payload.NIRID}`)
+        yield put({ type: 'FETCH_FIELD_NIR', payload: action.payload.fieldID })
     } catch (error) {
         console.log('User get request failed', error);
     }

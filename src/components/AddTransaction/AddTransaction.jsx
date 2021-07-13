@@ -29,7 +29,7 @@ function AddTransaction() {
         dispatch({
             type: 'SET_TRANSACTION',
             payload: {
-                field_id: fieldID,
+                field_id: field_id,
                 timestamp: new Date(),
                 status_notes: notes,
                 image: image,

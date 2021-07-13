@@ -143,7 +143,6 @@ function AddFieldForm() {
       <center>
         <Button
           type="button"
-          className="btn btn_asCancel"
           onClick={() => {
             history.push('/user'); 
           }}
@@ -153,7 +152,6 @@ function AddFieldForm() {
         {`\u00A0\u00A0\u00A0\u00A0`}
         <Button
           type="submit"
-          className="btn btn_asSubmit"
           onClick={(event) => addField(event)} 
         >
           Submit

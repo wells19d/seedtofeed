@@ -31,14 +31,10 @@ function EditTransaction() {
   const transaction_to_edit = transactions[transaction_index];
 //   const field_id = transaction_to_edit.field_id;
 
-  const [notes, setNotes] = useState(transaction_to_edit.status_notes);
-  const [image, setImage] = useState(transaction_to_edit.image);
-  const [fieldStatus, setFieldStatus] = useState(
-    transaction_to_edit.field_status
-  );
-  const [transactionType, setTransactionType] = useState(
-    transaction_to_edit.transaction_type
-  );
+  const [notes, setNotes] = useState(transaction_to_edit?.status_notes); // Added the ? as it was coming in undefined
+  const [image, setImage] = useState(transaction_to_edit?.image); // Added the ? as it was coming in undefined
+  const [fieldStatus, setFieldStatus] = useState(transaction_to_edit?.field_status); // Added the ? as it was coming in undefined
+  const [transactionType, setTransactionType] = useState(transaction_to_edit?.transaction_type); // Added the ? as it was coming in undefined
 
   function submitButton() {
     event.preventDefault();
