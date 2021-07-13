@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  HashRouter as Router,
-  Route,
-  useHistory,
-  useParams,
-} from 'react-router-dom';
+import { HashRouter as Router, useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import TextField from '@material-ui/core/TextField';
@@ -30,26 +25,26 @@ function EditFieldForm() {
   // }, []);
 
   const fieldList = useSelector((store) => store.fieldListReducer);
-  console.log('Field List Details', fieldList);
+  // console.log('Field List Details', fieldList);
 
   const fieldID = params.fieldID;
-  console.log(`check`, fieldID, 3);
+  // console.log(`check`, fieldID, 3);
 
   const field_index = fieldList.findIndex(
     (list) => list.id === Number(fieldID)
   );
-  console.log('The index is', field_index);
+  // console.log('The index is', field_index);
 
   const field_to_edit = fieldList[field_index];
 
-  console.log('What is the id?', field_to_edit.id);
-  console.log('What is the name?', field_to_edit.name);
-  console.log('What is the year', field_to_edit.year);
+  // console.log('What is the id?', field_to_edit.id);
+  // console.log('What is the name?', field_to_edit.name);
+  // console.log('What is the year', field_to_edit.year);
   // console.log('What is the crop type?', field_to_edit.crop_id);
-  console.log('What is location?', field_to_edit.location);
-  console.log('What is acres?', field_to_edit.acres);
+  // console.log('What is location?', field_to_edit.location);
+  // console.log('What is acres?', field_to_edit.acres);
   // console.log('What is status?', field_to_edit.currentStatus);
-  console.log('What are the notes?', field_to_edit.field_note);
+  // console.log('What are the notes?', field_to_edit.field_note);
 
   // LOCAL STATE
 
@@ -58,21 +53,17 @@ function EditFieldForm() {
 
   const [fieldName, setFieldName] = useState(field_to_edit.name);
   const [fieldYear, setFieldYear] = useState(field_to_edit.year);
-  const [cropType, setCropType] = useState(''); // should they be able to edit?
+  const [cropType, setCropType] = useState(field_to_edit.crop_id);
   const [location, setLocation] = useState(field_to_edit.location);
   const [acres, setAcres] = useState(field_to_edit.acres);
-  const [currentStatus, setCurrentStatus] = useState(''); // should they be able to edit?
   const [notes, setNotes] = useState(field_to_edit.field_note);
 
   const crops = useSelector((store) => store.cropListReducer);
   const fieldStatus = useSelector((store) => store.transactionTypesReducer);
-  console.log('here is the list of crops:', crops);
-  console.log('here is the field status list:', fieldStatus);
+  // console.log('here is the list of crops:', crops);
+  // console.log('here is the field status list:', fieldStatus);
 
   useEffect(() => {
-    dispatch({
-      type: 'FETCH_TRANSACTION_TYPES',
-    });
     dispatch({
       type: 'FETCH_CROP_LIST',
     });
@@ -82,23 +73,23 @@ function EditFieldForm() {
   const updateField = (event) => {
     event.preventDefault();
 
-    alert('Your field has been updated');
+    // alert('Your field has been updated');
 
     dispatch({
       type: 'UPDATE_FIELD', // Need to double check this is the right dispatch type name in saga
       payload: {
+        
         name: fieldName,
         year: fieldYear,
         crop_id: cropType,
         location: location,
         acres: acres,
-        current_status: currentStatus,
         field_note: notes,
         fieldID: fieldID,
       },
     });
 
-    // history.push('/user');
+    history.push('/user');
   }; // end updateField
 
   return (
@@ -183,29 +174,8 @@ function EditFieldForm() {
             })}
           </Select>
         </Grid>
-        <Grid item xs={2}>
-          <Select
-            variant="outlined"
-            value={currentStatus}
-            required
-            style={{ width: '155px' }}
-            onChange={(event) => setCurrentStatus(event.target.value)}
-            displayEmpty
-          >
-            <MenuItem value="" disabled>
-              <em>Current Status</em>
-            </MenuItem>
-            {fieldStatus?.map((status) => {
-              return (
-                <MenuItem key={status.id} value={status.id}>
-                  {status.name}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </Grid>
+        <Grid item xs={2} />
         <Grid item xs={3} />
-
         <Grid item xs={3} />
         <Grid item xs={6}>
           <TextField
