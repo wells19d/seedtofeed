@@ -16,85 +16,77 @@ router.post('/bushel', async (req, res) => {
    //5. update right in the contract table
    //6. create transaction record on transaction table
    console.log('from postman', req.body);
-   const queryText1 = `SELECT "bushel_uid", "id", "user_field_id" FROM "contract" WHERE "open_status" != 6;`;
-   const bushelContracts = await pool.query(queryText1);
-   console.log('bushel contracts from db', bushelContracts.rows);
+   // const queryText1 = `SELECT "bushel_uid", "id", "user_field_id" FROM "contract" WHERE "open_status" != 6;`; //6 equals fulfilled
+   // // const queryText1 = `SELECT "bushel_uid", "id", "user_field_id" FROM "contract" WHERE "open_status" != (SELECT "id" FROM "field_status" where NAME='completed');`;
 
+   // const bushelContracts = await pool.query(queryText1);
+   // console.log('bushel contracts from db', bushelContracts.rows);
 
    try {
-      if (bushelContracts.length === 0) {
-         console.log('No contracts meet the criteria');
+      for (let item of req.body.data) {
+         // console.log('bushel contract postman', item.contract);
+         // let foundContract = bushelContracts.rows.find(contract => item.contract.id === contract.bushel_uid);
+
+         const queryText1 = `SELECT "bushel_uid", "id", "user_field_id" FROM "contract" WHERE bushel_uid=$1;`; //6 equals fulfilled
+         const bushelContracts = await pool.query(queryText1, item.contract.id);
+         let foundContract = bushelContracts[0];
+         // console.log('bushel contracts from db', bushelContracts.rows);
+
+         if (!foundContract) {
+            console.log(`no contract found for ${item.contract.id}`);
+            continue; // if no contract found, theres nothing to process (unless we want to do a new INSERT)
          }
+         console.log(`Found bushel contract from db: `, foundContract);
 
-      else {
-         for (let item of req.body.data) {
-            // console.log('bushel contract postman', item.contract);
-            let foundContract = bushelContracts.rows.find(contract => item.contract.id === contract.bushel_uid);
-            if (!foundContract) {
-               console.log(`no contract found for ${item.contract.id}`);
-            } else {
-               console.log('found Contract', foundContract);
-            }
-            
-            if (item.contract.completed === true) {
-               const queryText2 = `UPDATE "contract" SET "open_status" = 6 WHERE "bushel_uid" = $1 RETURNING "id", "user_field_id";`;
-               const contractID = await pool.query(queryText2, [foundContract.bushel_uid]);
-               console.log('contract table response', contractID.rows);
-   
-               const queryText3 = `SELECT "id", "field_id" FROM "user_field" WHERE "id" = $1;`;
-               const transactionInsert = await pool.query(queryText3, [foundContract.user_field_id]);
-               console.log('transaction insert', transactionInsert.rows);
-   
-               const queryText4 = `INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", "transaction_type")
+         // Case 1: Contract has been completed
+         // item.contract.completed is true, AND foundContract.open_status != 6
+         if (item.contract.completed === true) {
+            const queryText2 = `UPDATE "contract" SET "open_status" = 6 WHERE "bushel_uid" = $1 RETURNING "id", "user_field_id";`;
+            const contractID = await pool.query(queryText2, [foundContract.bushel_uid]);
+            console.log('contract table response', contractID.rows);
+
+            const queryText3 = `SELECT "id", "field_id" FROM "user_field" WHERE "id" = $1;`;
+            const transactionInsert = await pool.query(queryText3, [foundContract.user_field_id]);
+            console.log('transaction insert', transactionInsert.rows);
+
+            const queryText4 = `INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", "transaction_type")
                VALUES ($1, Now(), 'bushel contract complete', 'elevator', 5);`;
-               const updateTransaction = await pool.query(queryText4, [transactionInsert.rows[0].field_id]);
-               console.log(`posted transaction for field: ${transactionInsert.rows[0].field_id}`);
-   
-   
-            }
+            const updateTransaction = await pool.query(queryText4, [transactionInsert.rows[0].field_id]);
+            console.log(`posted transaction for field: ${transactionInsert.rows[0].field_id}`);
+         }
       }
-   }
-      res.sendStatus(201);
-      const queryText = `INSERT INTO "stream" ("source", "stream_type", "raw") VALUES ('bushel', 'unknown', $1) RETURNING *;`
-      try {
-         const result = await pool.query(queryText, [req.body]);
-         // res.send(result.rows[0]);
-   
-      } catch (err) {
-      res.status(500).send(err);
-      }
-   
 
+      const queryText = `INSERT INTO "stream" ("source", "stream_type", "raw") VALUES ('bushel', 'unknown', $1) RETURNING *;`
+      await pool.query(queryText, [req.body]);
+
+      res.sendStatus(201);
    } catch (error) {
       console.log('Error in updating bushel contract', error);
       res.sendStatus(500);
-
    }
+});
 
-  
-   });
-   
 
-   router.get('/', rejectUnauthenticated, async (req, res) => {
-      const queryText = `SELECT * FROM "stream" ORDER BY "created_at" DESC`
-      try {
-         const result = await pool.query(queryText);
-         res.send(result.rows);
-      } catch (err) {
-         res.status(500).send(err);
-      }
-   });
+router.get('/', rejectUnauthenticated, async (req, res) => {
+   const queryText = `SELECT * FROM "stream" ORDER BY "created_at" DESC`
+   try {
+      const result = await pool.query(queryText);
+      res.send(result.rows);
+   } catch (err) {
+      res.status(500).send(err);
+   }
+});
 
-   router.delete('/', rejectUnauthenticated, async (req, res) => {
-      // Clear the entire stream table. Useful for when we reset 
-      // the Bushel Push API pointer which will re-send all data
-      const queryText = `DELETE FROM "stream";`
-      try {
-         const result = await pool.query(queryText);
-         res.sendStatus(204);
-      } catch (err) {
-         res.status(500).send(err);
-      }
-   });
+router.delete('/', rejectUnauthenticated, async (req, res) => {
+   // Clear the entire stream table. Useful for when we reset 
+   // the Bushel Push API pointer which will re-send all data
+   const queryText = `DELETE FROM "stream";`
+   try {
+      const result = await pool.query(queryText);
+      res.sendStatus(204);
+   } catch (err) {
+      res.status(500).send(err);
+   }
+});
 
-   module.exports = router;
+module.exports = router;
