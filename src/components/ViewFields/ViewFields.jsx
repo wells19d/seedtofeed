@@ -21,6 +21,7 @@ function ViewFields(params) {
   // console.log('The fieldList', fieldList);
 
   const userID = params.userID;
+  console.log('here is the userID in ViewFields', userID);
 
   useEffect(() => {
     dispatch({
@@ -30,10 +31,18 @@ function ViewFields(params) {
   }, []);
 
   function deleteButton(fieldID) {
-    dispatch({
-      type: 'DELETE_FIELD',
-      payload: fieldID,
-    });
+    let remove = confirm(
+      'Are you sure you would like to delete this field? Once deleted it can not be retrieved again.'
+    );
+    if (remove == true) {
+      dispatch({
+        type: 'DELETE_FIELD',
+        payload: fieldID
+      });
+      // history.push(`/contract`);
+    } else {
+      return;
+    }
   }
 
   return (
