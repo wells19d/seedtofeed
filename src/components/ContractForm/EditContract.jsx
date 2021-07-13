@@ -1,51 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { HashRouter as Router, Route, useHistory } from 'react-router-dom';
+import { HashRouter as Router, Route, useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 function EditContract() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const params = useParams();
+
+    useEffect(() => {
+    dispatch({
+        type: 'FETCH_CROP_LIST',
+    })
+    dispatch({
+        type: 'FETCH_CONTRACT_STATUS',
+        })
+    dispatch({
+        type: 'FETCH_CONTRACT_LIST',
+    })
+    }, [])
 
     //to be sent along with the contract obj
     const user = useSelector(store => store.user.username);
     const contractStatus = useSelector(store => store.contractStatusReducer);
-    const contractDetails = useSelector(store => store.contractDetailsReducer);
+    const contract = useSelector(store => store.contractListReducer);
     const crops = useSelector((store) => store.cropListReducer);
 
     console.log('Here is the contract status list', contractStatus);
     console.log('Here is the crop list', crops);
 
+    // CURRENT CONTRACT TO BE EDITED
+    const foundContract = contract.find((contract) => {
+    console.log('here is the current contract:', contract);
+    return contract.contractID === Number(params.contractID);
+  });
 
-    useEffect(() => {
-        dispatch({
-            type: 'FETCH_CROP_LIST',
-        })
-        dispatch({
-            type: 'FETCH_CONTRACT_STATUS',
-            })
-        dispatch({
-            type: 'FETCH_CONTRACT_DETAILS',
-        })
-    }, [])
-
-    // LOCAL STATE
+     // LOCAL STATE
     const [heading, setHeading] = useState('Edit Contract');
 
-    const [commodity, setCommodity] = useState(contractDetails.commodity);
-    const [openStatus, setOpenStatus] = useState('');
-    const [bushel_uid, setBushel_uid] = useState('');
-    const [quantityFulfilled, setQuantityFulfilled] = useState('');
-    const [price, setPrice] = useState('');
-    const [contractQuantity, setContractQuantity] = useState('');
-    const [containerSerial, setContainerSerial] = useState('');
-    const [contractHandler, setContractHandler] = useState('');
+    const [commodity, setCommodity] = useState(foundContract.commodity);
+    const [openStatus, setOpenStatus] = useState(foundContract.open_status);
+    const [bushel_uid, setBushel_uid] = useState(foundContract.bushel_uid);
+    const [quantityFulfilled, setQuantityFulfilled] = useState(foundContract.quantity_fulfilled);
+    const [price, setPrice] = useState(foundContract.price);
+    const [contractQuantity, setContractQuantity] = useState(foundContract.contract_quantity);
+    const [containerSerial, setContainerSerial] = useState(foundContract.container_serial);
+    const [contractHandler, setContractHandler] = useState(foundContract.contract_handler);
 
     // for NIR analysis
-    const [protein, setProtein] = useState('');
-    const [oil, setOil] = useState('');
-    const [moisture, setMoisture] = useState('');
-
+    const [protein, setProtein] = useState(foundContract.protein);
+    const [oil, setOil] = useState(foundContract.oil);
+    const [moisture, setMoisture] = useState(foundContract.moisture);
+    // const [aminoAcids, setAminoAcids] = useState(foundContract.amino_acids);
+    // const [energy, setEnergy] = useState(foundContract.energy);
 
 
     // EDIT A CONTRACT
@@ -58,30 +65,44 @@ function EditContract() {
         dispatch({
             type: 'UPDATE_CONTRACT', // dispatch to the updatecontract.saga
             payload: {
-                contractID: contractDetails.id, //verify what id we need to dispatch here
+                contractID: foundContract.contractID, //verify what id we need to dispatch here
                 commodity: commodity,
-                openStatus: openStatus,
+                open_status: openStatus,
                 bushel_uid: bushel_uid,
                 quantityFulfilled: quantityFulfilled,
                 price: price,
                 protein: protein,
                 oil: oil,
                 moisture: moisture,
-                contractQuantity: contractQuantity,
-                containerSerial: containerSerial,
-                contractHandler: contractHandler,
-                userID: user.id //to be used in the updatecontract.saga //verify this one as well
+                contract_quantity: contractQuantity,
+                container_serial: containerSerial,
+                contract_handler: contractHandler,
+                // userID: user.id //to be used in the updatecontract.saga //verify this one as well
 
             }
         });
 
-        // history.push(`/contract`);
+        history.push(`/contract`);
     }; // end addContract
 
     return (
         <div>
             <form className='edit-contract' onSubmit={editContract}>
                 <h2>{heading}</h2>
+
+                <div>
+                    <label htmlFor='contract-handler'>
+                        Contract Handler:
+                        <input
+                            placeholder='Contract Handler'
+                            type='text'
+                            name='Contract Handler'
+                            value={contractHandler}
+                            required
+                            onChange={(event) => setContractHandler(event.target.value)}
+                        />
+                    </label>
+                </div>
                 <div>
                     <label htmlFor='commodity'>
                         Commodity:
@@ -92,11 +113,11 @@ function EditContract() {
                             required
                             onChange={(event) => setCommodity(event.target.value)}
                         >
-                            <option hidden>Select</option>
                             {crops.map((crop) => {
+                                <option>{crop.crop_type}</option>
                                 console.log('croptype:', crop);
                                 return (
-                                    <option key={crop.id} value={crop.crop_type}>
+                                    <option key={crop.id} value={crop.id}>
                                         {crop.crop_type}
                                     </option>
                                 );
@@ -115,8 +136,8 @@ function EditContract() {
                             required
                             onChange={(event) => setOpenStatus(event.target.value)}
                         >
-                            <option hidden>{contractDetails.open_status}</option>
                             {contractStatus.map((status) => {
+                                <option>{status.name}</option>
                                 console.log('contract status:', status);
                                 return (
                                     <option key={status.id} value={status.name}>
@@ -167,45 +188,7 @@ function EditContract() {
                         />
                     </label>
                 </div>
-                <div>
-                    <label htmlFor='protein'>
-                        Protein:
-                        <input
-                            placeholder='Protein'
-                            type='number' min="0"
-                            name='protein'
-                            value={protein}
-                            required
-                            onChange={(event) => setProtein(event.target.value)}
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label htmlFor='moisture'>
-                        Moisture:
-                        <input
-                            placeholder='Moisture'
-                            type='number' min="0"
-                            name='Moisture'
-                            value={moisture}
-                            required
-                            onChange={(event) => setMoisture(event.target.value)}
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label htmlFor='oil'>
-                        Oil:
-                        <input
-                            placeholder='Oil'
-                            type='number' min="0"
-                            name='oil'
-                            value={oil}
-                            required
-                            onChange={(event) => setOil(event.target.value)}
-                        />
-                    </label>
-                </div>
+                
                 <div>
                     <label htmlFor='contract-quantity'>
                         Contract Quantity:
@@ -232,16 +215,72 @@ function EditContract() {
                         />
                     </label>
                 </div>
-                <div>
-                    <label htmlFor='contract-handler'>
-                        Contract Handler:
+
+                {/* <div>
+                    <label htmlFor='amino-acids'>
+                        Amino Acids:
                         <input
-                            placeholder='Contract Handler'
-                            type='text'
-                            name='Contract Handler'
-                            value={contractHandler}
+                            placeholder='Amino Acids'
+                            type='number' min="0"
+                            name='amino-acids'
+                            value={aminoAcids}
                             required
-                            onChange={(event) => setContractHandler(event.target.value)}
+                            onChange={(event) => setAminoAcids(event.target.value)}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label htmlFor='energy'>
+                        Energy:
+                        <input
+                            placeholder='Energy'
+                            type='number' min="0"
+                            name='energy'
+                            value={energy}
+                            required
+                            onChange={(event) => setEnergy(event.target.value)}
+                        />
+                    </label>
+                </div> */}
+
+                <div>
+                    <label htmlFor='protein'>
+                        Protein:
+                        <input
+                            placeholder='Protein'
+                            type='number' min="0"
+                            name='protein'
+                            value={protein}
+                            required
+                            onChange={(event) => setProtein(event.target.value)}
+                        />
+                    </label>
+                </div>
+
+                <div>
+                    <label htmlFor='moisture'>
+                        Moisture:
+                        <input
+                            placeholder='Moisture'
+                            type='number' min="0"
+                            name='Moisture'
+                            value={moisture}
+                            required
+                            onChange={(event) => setMoisture(event.target.value)}
+                        />
+                    </label>
+                </div>
+
+                <div>
+                    <label htmlFor='oil'>
+                        Oil:
+                        <input
+                            placeholder='Oil'
+                            type='number' min="0"
+                            name='oil'
+                            value={oil}
+                            required
+                            onChange={(event) => setOil(event.target.value)}
                         />
                     </label>
                 </div>
