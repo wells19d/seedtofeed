@@ -58,7 +58,7 @@ CREATE TABLE "contract" (
 	"user_field_id" integer NOT NULL,
 	"commodity" integer NOT NULL,
 	"open_status" integer NOT NULL,
-	"bushel_uid" integer,
+	"bushel_uid" VARCHAR(255),
 	"quantity_fulfilled" varchar(255),
 	"price" integer,
 	"protein" FLOAT,
