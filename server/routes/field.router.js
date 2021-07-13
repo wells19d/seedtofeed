@@ -228,12 +228,12 @@ router.post('/makefield', rejectUnauthenticated, (req, res) => {
             //         res.sendStatus(500);
             //     })
 
-            //fourth query creates entry into the field_transactions table
+            // Add new transaction when field is added.
             // const insert_FieldTransactions =
-            //     `INSERT INTO "field_transactions" ("field_id")
-            //  VALUES ($1);`;
+            //     `INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", "transaction_type")
+            //  VALUES ($1, $2, $3, $4);`;
 
-            // pool.query(insert_FieldTransactions, [created_field])
+            // pool.query(insert_FieldTransactions, [created_field, new Date(), 'Field added to Database', req.body.field_status, ])
             //     .then(result => {
             //         console.log(`Field ${created_field} connected to field_transactions`);
             //         res.sendStatus(201);
@@ -242,6 +242,10 @@ router.post('/makefield', rejectUnauthenticated, (req, res) => {
             //         console.log(err);
             //         res.sendStatus(500);
             //     })
+
+
+
+
 
         }).catch(error => {
             console.log(`Error making database query ${queryText}`, error);
@@ -399,6 +403,30 @@ router.delete('/delete_field/:fieldID', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         });
 });
+
+router.delete('/delete_transaction/:transactionID', rejectUnauthenticated, (req, res) => {
+
+    const queryText = `DELETE FROM "field_transactions" WHERE "id"=$1;`;
+
+    pool.query(queryText, [req.params.transactionID])
+        .then(() => res.sendStatus(204))
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+})
+
+router.delete('/delete_NIR/:NIRID', rejectUnauthenticated, (req, res) => {
+
+    const queryText = `DELETE FROM "NIR" WHERE "id"=$1;`;
+
+    pool.query(queryText, [req.params.NIRID])
+        .then(() => res.sendStatus(204))
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+})
 
 
 module.exports = router;

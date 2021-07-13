@@ -18,6 +18,15 @@ function FieldNIR(params) {
         })
     }, [])
 
+    function deleteButton(param){
+        if (confirm('Do you wish to delete this NIR?')){
+            dispatch({
+                type: 'DELETE_NIR',
+                payload: param.id
+            })
+        }
+    }
+
     return (
 
         <center>
@@ -76,6 +85,9 @@ function FieldNIR(params) {
                             <td>
                                 <button onClick={()=> history.push(`/edit_NIR/${fieldID}/${test.id}`)}>
                                     Edit
+                                </button>
+                                <button onClick={()=> deleteButton(test)}>
+                                    Delete
                                 </button>
                             </td>
                         </tr>)

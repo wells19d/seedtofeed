@@ -7,12 +7,18 @@ function EditTransaction() {
   const history = useHistory();
   const params = useParams();
 
+  const field_id = params.fieldID;
+
   const transaction_id = params.transactionID;
 
   useEffect(() => {
     dispatch({
       type: 'FETCH_TRANSACTION_TYPES',
-    });
+    })
+    dispatch({
+        type: 'FETCH_FIELD_TRANSACTIONS',
+        payload: field_id
+      })
   }, []);
 
   const transactionList = useSelector((store) => store.transactionTypesReducer);
@@ -23,7 +29,7 @@ function EditTransaction() {
     (transaction) => transaction.id === Number(transaction_id)
   );
   const transaction_to_edit = transactions[transaction_index];
-  const field_id = transaction_to_edit.field_id;
+//   const field_id = transaction_to_edit.field_id;
 
   const [notes, setNotes] = useState(transaction_to_edit.status_notes);
   const [image, setImage] = useState(transaction_to_edit.image);
@@ -44,7 +50,8 @@ function EditTransaction() {
         transaction_id: transaction_id,
         status_notes: notes,
         image: image,
-        field_status: fieldStatus,
+        // field_status: fieldStatus,  // shouldn't this be transactionList[transactionType]???
+        field_status: transactionList[transactionType],
         transaction_type: transactionType,
       },
     });
@@ -86,7 +93,7 @@ function EditTransaction() {
             </label>
           </div>
 
-          <div>
+          {/* <div>
             <label htmlFor="fieldStatus">
               Field Status:
               <input
@@ -98,7 +105,7 @@ function EditTransaction() {
                 onChange={(event) => setFieldStatus(event.target.value)}
               />
             </label>
-          </div>
+          </div> */}
 
           <div>
             <label htmlFor="transactionType">
