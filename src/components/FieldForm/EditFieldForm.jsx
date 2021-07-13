@@ -236,7 +236,7 @@ function EditFieldForm() {
             <Button
               type="submit"
               className="btn btn_asSubmit"
-              onClick={(event) => addField(event)} // Sends user back to the main page
+              onClick={(event) => updateField(event)} // Sends user back to the main page
             >
               Submit
             </Button>

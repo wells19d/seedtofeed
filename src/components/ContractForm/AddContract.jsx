@@ -23,6 +23,9 @@ function AddContract() {
         dispatch({
             type: 'FETCH_CONTRACT_STATUS'
         })
+          dispatch({
+            type: 'FETCH_CONTRACT_DETAILS'
+        })
     }, [])
 
     // LOCAL STATE

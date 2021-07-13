@@ -53,6 +53,12 @@ router.get('/contractStatus', rejectUnauthenticated, (req, res) => {
         })
 })
 
+// GET contract details
+// router.get('details/:contractID'), rejectUnauthenticated, (req, res) => {
+
+//     const queryText = `SELECT * FROM "contract" WHERE "id" = $1;`;
+// }
+
 // -- POSTS
 //POST a contract
 router.post('/add_contract', rejectUnauthenticated, (req, res) => {
