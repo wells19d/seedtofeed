@@ -26,17 +26,16 @@ function ViewContractList(params) {
       payload: userID,
     });
     dispatch({
-      type: 'FETCH_FIELD_LIST',
-      payload: userID,
+      type: 'FETCH_CROP_LIST'
+      // payload: userID,
     });
   }, []);
 
   // REDUCER STORE
-  const fieldList = useSelector((store) => store.fieldListReducer)
+  const cropList = useSelector((store) => store.cropListReducer)
   const contractList = useSelector((store) => store.contractListReducer);
-  console.log('The fieldList', fieldList);
+  console.log('The cropList', cropList);
   console.log('The contractList', contractList);
-
 
 
   function deleteButton(contractID) {
@@ -61,6 +60,7 @@ function ViewContractList(params) {
       <Table size="small">
         <TableHead>
           <TableRow>
+            <TableCell>Contract ID</TableCell>
             <TableCell>Field Name</TableCell>
             <TableCell>Location</TableCell>
             <TableCell>Status</TableCell>
@@ -71,6 +71,7 @@ function ViewContractList(params) {
         <TableBody>
           {contractList.map((contract) => (
             <TableRow key={contract.contractID}>
+              <TableCell>{contract.contractID}</TableCell>
               <TableCell>
               <Button onClick={() => history.push(`/contract_details/${contract.id}`)}>{contract.field_name}</Button>
               </TableCell>
