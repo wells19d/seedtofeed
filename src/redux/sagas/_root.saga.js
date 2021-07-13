@@ -26,8 +26,13 @@ import updateNIRSaga from './updateNIR';
 import deleteFieldSaga from './deleteField.saga';
 import deleteTransactionSaga from './deleteTransaction.saga';
 import deleteContractSaga from './deleteContract.saga';
+import deleteNIRSaga from './deleteNIR.saga';
 
 import transactionTypesSaga from './transactionTypes.saga';
+import userListSaga from './userList.saga';
+import buyerFieldListSaga from './buyerFieldList.saga';
+
+// import buyerFieldListSaga from './buyerFieldList.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -66,8 +71,12 @@ export default function* rootSaga() {
     deleteFieldSaga(),
     deleteTransactionSaga(),
     deleteContractSaga(),
-    // Should we have a delete for the NIR???
+    deleteNIRSaga(),
 
     transactionTypesSaga(),
+
+    userListSaga(),
+
+    // buyerFieldListSaga(),
   ]);
 }

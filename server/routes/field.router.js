@@ -7,16 +7,54 @@ const {
 
 // -- GETS --
 
+/*
+---ROUTER FOR BUYERS TO GET LIST OF FIELDS. NEEDS MODIFICATION TO DATABASE TO WORK---
+router.get('/buyerFieldList', rejectUnauthenticated, (req, res) => {
+    const userID = req.user.id;
+
+    const queryText = `
+    SELECT "field"."id", "buyer_field"."id" AS "buyer_field_id", "buyer_field"."buyer_id" AS "buyer_id", "field"."year", "field"."location", "field"."acres", "field"."field_note",
+    "field"."name", "field"."image", "field"."shape_file", "field"."gmo", "field"."crop_id"
+    FROM "field"
+    JOIN "buyer_field" ON "buyer_field"."field_id"="field"."id"
+    WHERE "buyer_field"."buyer_id"=$1;`;
+
+    pool.query(queryText, [userID]).then(async function(result) {
+        console.log(result.rows);
+        let modifiedFields = [];
+        for (let field of result.rows) {
+            let queryText = `SELECT "field_transactions"."field_status" FROM "field_transactions" WHERE "field_id"=$1 ORDER BY TIMESTAMP DESC LIMIT 1;`;
+            // Save the result, probably into a new array for good measure
+            const result2 = await pool.query(queryText, [field.id]);
+            console.log(`Field ${field.id} transactions`, result2.rows);
+            if (result2.rows.length > 0) {
+                //the latest transactions
+                field.field_status = result2.rows[0].field_status;
+            } else {
+                // no transactions have been recorded yet for the field
+                field.field_status = 'pre-planting';
+            }
+            modifiedFields.push(field);
+        }
+
+        res.send(modifiedFields);
+    }).catch(error => {
+        console.log(`Error making database query ${queryText}`, error);
+        res.sendStatus(500);
+    })
+});
+*/
+
 //GET a list of fields
 router.get('/fieldList', rejectUnauthenticated, (req, res) => {
     const userID = req.user.id;
 
     const queryText = `
-    SELECT "field"."id", "user_field"."id" AS "user_field_id", "field"."year", "field"."location", "field"."acres", "field"."field_note",
+    SELECT "field"."id", "user_field"."id" AS "user_field_id", "user_field"."user_id" AS "farmer_id", "field"."year", "field"."location", "field"."acres", "field"."field_note",
     "field"."name", "field"."image", "field"."shape_file", "field"."gmo", "field"."crop_id"
     FROM "field"
     JOIN "user_field" ON "user_field"."field_id"="field"."id"
-    WHERE "user_field"."user_id"=$1;`;
+    WHERE "user_field"."user_id"=$1;`; // Added  "user_field"."user_id" AS "farmer_id"
 
     // We want each field to ALSO have a 'computed' field_status column
     // But that is on the most recent transaction for each given field
