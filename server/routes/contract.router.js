@@ -10,6 +10,7 @@ const { response } = require('express');
 // -- GETS
 //GET list of contracts associated with a user.
 router.get('/getall', rejectUnauthenticated, (req, res) => { 
+
     // GET route code here
 
     const userID = req.user.id;
@@ -43,7 +44,7 @@ WHERE "user"."id"=$1;`;
 });
 
 //GET contract status list for the dropdown on the contract form
-router.get('/contractStatus', rejectUnauthenticated, (req, res) => { 
+router.get('/contractStatus', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM "contract_status";`;
 
     pool
@@ -89,7 +90,7 @@ router.get('/contractStatus', rejectUnauthenticated, (req, res) => {
 // -- POSTS
 //POST a contract
 router.post('/add_contract', rejectUnauthenticated, (req, res) => {
-    
+
     const user_field_id = req.body.user_field_id; // $1
     const commodity = req.body.commodity; // $2
     const open_status = req.body.open_status; // $3
@@ -138,7 +139,7 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
     const contract_quantity = req.body.contract_quantity; // $10
     const container_serial = req.body.container_serial; // $11
     const contract_handler = req.body.contract_handler; // $12
-
+    const user_field_id = req.body.user_field_id;
 
     const queryText =
         `UPDATE "contract"
@@ -154,8 +155,7 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
         "contract_quantity" = $10,
         "container_serial" = $11,
         "contract_handler" = $12
-        WHERE "id" = $1;
-        `;
+        WHERE "id" = $1 RETURNING *;`;
 
     pool
         .query(queryText, [
@@ -170,23 +170,35 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
             moisture, // $9
             contract_quantity, // $10
             container_serial, // $11
-            contract_handler // $12
+            contract_handler, // $12
         ])
         .then((result) => {
-            // console.log('Updating Entry', result.rows);
-            res.sendStatus(204);
-        })
-        .catch((error) => {
-            console.log('Error updating Entry', error);
+            console.log('contract was updated', result.rows);
+            let ufi = req.body.user_field_id;
+            const queryTransaction = `INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", 
+             "transaction_type" ) VALUES ($1, Now(), 'contract updated', 'contract updated', 10) RETURNING *;`;
+
+            pool.query(queryTransaction, [ufi])
+                .then((result) => {
+                    console.log('Updating transaction table', result.rows);
+                    res.sendStatus(204);
+                }).catch(error => {
+                    console.log(`Error updating table`, error);
+                    res.sendStatus(500);
+
+                })
+        }).catch(error => {
+            console.log(`Error updating table`, error);
             res.sendStatus(500);
-        });
+
+        })
 });
 
 
 // ---- DELETES ----
 
 router.delete('/delete_contract/:contractID', rejectUnauthenticated, (req, res) => {
-    const queryText = `DELETE FROM "contract" WHERE "id" = $1;`;
+    const queryText = `DELETE FROM "contract" WHERE "id" = $1; `;
     pool
         .query(queryText, [req.params.contractID])
         .then(() => res.sendStatus(204))
