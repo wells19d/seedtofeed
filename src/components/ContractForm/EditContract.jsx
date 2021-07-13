@@ -140,7 +140,7 @@ function EditContract() {
                                 <option>{status.name}</option>
                                 console.log('contract status:', status);
                                 return (
-                                    <option key={status.id} value={status.name}>
+                                    <option key={status.id} value={status.id}>
                                         {status.name}
                                     </option>
                                 );
