@@ -39,7 +39,6 @@ function ViewFields(params) {
         type: 'DELETE_FIELD',
         payload: fieldID
       });
-      // history.push(`/contract`);
     } else {
       return;
     }
