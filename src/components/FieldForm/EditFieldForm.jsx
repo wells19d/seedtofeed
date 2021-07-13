@@ -93,112 +93,110 @@ function EditFieldForm() {
   return (
     <Router>
       <TextField
-        variant="outlined"
-        label="Field Name"
-        type="text"
-        value={fieldName}
-        onChange={(event) => setFieldName(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Location"
-        type="text"
-        value={location}
-        onChange={(event) => setLocation(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Number of Acres"
-        type="number"
-        value={acres}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setAcres(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Year"
-        type="number"
-        value={fieldYear}
-        InputProps={{ inputProps: { min: 1900 } }}
-        onChange={(event) => setFieldYear(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <br />
-      <br />
-      <Select
-        variant="outlined"
-        value={cropType}
-        required
-        style={{ width: '155px' }}
-        onChange={(event) => setCropType(event.target.value)}
-        displayEmpty
-      >
-        <MenuItem value="" disabled>
-          <em>Crop Type</em>
-        </MenuItem>
-        {crops?.map((crop) => {
-          return (
-            <MenuItem key={crop.id} value={crop.id}>
-              {crop.crop_type}
+            variant="outlined"
+            label="Field Name"
+            type="text"
+            value={fieldName}
+            onChange={(event) => setFieldName(event.target.value)}
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <br/>
+          <br/>
+          <TextField
+            variant="outlined"
+            label="Location"
+            type="text"
+            value={location}
+            onChange={(event) => setLocation(event.target.value)}
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <br/>
+          <br/>
+          <TextField
+            variant="outlined"
+            label="Number of Acres"
+            type="number"
+            value={acres}
+            InputProps={{ inputProps: { min: 0 } }}
+            onChange={(event) => setAcres(event.target.value)}
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <br/>
+          <br/>
+          <TextField
+            variant="outlined"
+            label="Year"
+            type="number"
+            value={fieldYear}
+            InputProps={{ inputProps: { min: 1900 } }}
+            onChange={(event) => setFieldYear(event.target.value)}
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <br/>
+          <br/>
+          <Select
+            variant="outlined"
+            value={cropType}
+            required
+            onChange={(event) => setCropType(event.target.value)}
+            displayEmpty
+          >
+            <MenuItem value="" disabled>
+              <em>Crop Type</em>
             </MenuItem>
-          );
-        })}
-      </Select>
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Field Notes"
-        type="text"
-        value={notes}
-        style={{ minWidth: '500px' }}
-        helperText={`${notes.length}/${CHARACTER_LIMIT}`}
-        onChange={(event) => setNotes(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <center>
-        <Button
-          type="button"
-          className="btn btn_asCancel"
-          onClick={() => {
-            history.push('/user'); 
-          }}
-        >
-          Cancel
-        </Button>
-        {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button
-          type="submit"
-          className="btn btn_asSubmit"
-          onClick={(event) => addField(event)} 
-        >
-          Submit
-        </Button>
-      </center>
+            {crops?.map((crop) => {
+              return (
+                <MenuItem key={crop.id} value={crop.id}>
+                  {crop.crop_type}
+                </MenuItem>
+              );
+            })}
+          </Select>
+          <br/>
+          <br/>
+          <TextField
+            variant="outlined"
+            label="Field Notes"
+            type="text"
+            value={notes}
+            helperText={`${notes.length}/${CHARACTER_LIMIT}`}
+            onChange={(event) => setNotes(event.target.value)}
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <center>
+            <Button
+              type="button"
+              className="btn btn_asCancel"
+              onClick={() => {
+                history.push('/user'); 
+              }}
+            >
+              Cancel
+            </Button>
+            {`\u00A0\u00A0\u00A0\u00A0`}
+            <Button
+              type="submit"
+              className="btn btn_asSubmit"
+              onClick={(event) => updateField(event)}
+            >
+              Submit
+            </Button>
+          </center>
     </Router>
   );
 }
