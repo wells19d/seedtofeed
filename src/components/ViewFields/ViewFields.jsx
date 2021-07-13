@@ -21,6 +21,7 @@ function ViewFields(params) {
   // console.log('The fieldList', fieldList);
 
   const userID = params.userID;
+  console.log('here is the userID in ViewFields', userID);
 
   useEffect(() => {
     dispatch({

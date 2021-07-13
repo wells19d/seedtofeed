@@ -17,9 +17,8 @@ function ViewContractList(params) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-
-
   const userID = params.userID;
+  console.log('Here is the user in ViewContractList:', userID);
 
   useEffect(() => {
     dispatch({
@@ -40,15 +39,24 @@ function ViewContractList(params) {
 
 
 
-  function deleteButton(fieldID) {
-    dispatch({
-      type: 'DELETE_CONTRACT',
-      payload: fieldID,
-    });
+  function deleteButton(contractID) {
+      let remove = confirm(
+      'Are you sure you would like to delete this contract? Once deleted it can not be retrieved again.'
+    );
+    if (remove == true) {
+      dispatch({
+        type: 'DELETE_CONTRACT',
+        payload: contractID
+      });
+      // history.push(`/contract`);
+    } else {
+      return;
+    }
   }
 
   return (
     <center>
+    <h1>Contract List</h1>
     <TableContainer component={Paper}>
       <Table size="small">
         <TableHead>
@@ -56,24 +64,22 @@ function ViewContractList(params) {
             <TableCell>Field Name</TableCell>
             <TableCell>Location</TableCell>
             <TableCell>Status</TableCell>
-            <TableCell>Note</TableCell>
-            <TableCell>Buyer</TableCell>
-            <TableCell></TableCell>
+            <TableCell>Commodity</TableCell>
+            <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {contractList.map((field) => (
-            <TableRow key={field.id}>
+          {contractList.map((contract) => (
+            <TableRow key={contract.contractID}>
               <TableCell>
-              <Button onClick={() => history.push(`/contract_details/${contract.id}`)}>{field.name}</Button>
+              <Button onClick={() => history.push(`/contract_details/${contract.id}`)}>{contract.field_name}</Button>
               </TableCell>
-              <TableCell>{field.location}</TableCell>
-              <TableCell>{field.field_status}</TableCell>
-              <TableCell>{field.field_note}</TableCell>
-              <TableCell>Buyer Here</TableCell>
-              <TableCell><Button onClick={() => history.push(`/edit_field/${field.id}`)} >
-                    Edit
-                  </Button> / <Button color="secondary" onClick={() => deleteButton(field.id)}>Delete</Button></TableCell>
+              <TableCell>{contract.location}</TableCell>
+              <TableCell>{contract.open_status}</TableCell>
+              <TableCell>{contract.commodity}</TableCell>
+              <TableCell><Button onClick={() => history.push(`/contract_details/${contract.contractID}`)} >
+                    View Details
+                  </Button> / <Button color="secondary" onClick={() => deleteButton(contract.contractID)}>Delete</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>

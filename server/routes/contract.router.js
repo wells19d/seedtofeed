@@ -27,7 +27,7 @@ router.get('/getall/:userID', rejectUnauthenticated, (req, res) => {
     JOIN "user" ON ("user"."id"="user_field"."user_id")
     JOIN "field" ON ("field"."id"="user_field"."field_id")
     WHERE "user"."id"=$1;`;
-m
+
     pool.query(queryText, [userID]).then(response => {
         console.log(response.rows);
         res.send(response.rows);
