@@ -8,7 +8,7 @@ const {
 
 // -- GETS
 //GET list of contracts associated with a user.
-router.get('/getall', rejectUnauthenticated, (req, res) => { 
+router.get('/getall/:userID', rejectUnauthenticated, (req, res) => { 
     // GET route code here
 
     const userID = req.user.id;
@@ -27,7 +27,7 @@ router.get('/getall', rejectUnauthenticated, (req, res) => {
     JOIN "user" ON ("user"."id"="user_field"."user_id")
     JOIN "field" ON ("field"."id"="user_field"."field_id")
     WHERE "user"."id"=$1;`;
-
+m
     pool.query(queryText, [userID]).then(response => {
         console.log(response.rows);
         res.send(response.rows);
@@ -54,7 +54,7 @@ router.get('/contractStatus', rejectUnauthenticated, (req, res) => {
 })
 
 // GET contract details
-// router.get('details/:contractID'), rejectUnauthenticated, (req, res) => {
+// router.get('contract_details/:contractID'), rejectUnauthenticated, (req, res) => {
 
 //     const queryText = `SELECT * FROM "contract" WHERE "id" = $1;`;
 // }

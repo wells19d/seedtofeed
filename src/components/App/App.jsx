@@ -21,6 +21,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import FieldDB from '../DashBoards/FieldDB';
+import ViewContractList from '../ViewContract/ViewContractList';
 import ViewContract from '../ViewContract/ViewContract';
 import AddContract from '../ContractForm/AddContract';
 import EditContract from '../ContractForm/EditContract';
@@ -75,7 +76,11 @@ function App() {
             <ViewFieldDetails />
           </Route>
 
-          {/* <Route exact path="/contract">
+          <Route exact path="/contract">
+              <ViewContractList />
+          </Route>
+
+          {/* <Route exact path="/contract_details/:contractID">
             <ViewContract />
           </Route> */}
 
