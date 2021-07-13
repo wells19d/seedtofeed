@@ -147,7 +147,22 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
         ])
         .then((result) => {
             // console.log('Updating Entry', result.rows);
-            res.sendStatus(204);
+            // res.sendStatus(204);
+            const userFieldId = result.rows.user_field_id;
+            console.log('field id is', userFieldId);
+
+            const queryTransaction = `INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", 
+         "transaction_type" ) VALUES ($1, Now(), 'contract updated', 'contract updated', 10);`;
+
+            pool.query(queryTransaction, [userFieldId])
+                .then((result) => {
+                    console.log('Updating transaction table', result.rows);
+                    res.sendStatus(204);
+                }).catch(error => {
+                    console.log(`Error updating table`, error);
+                    res.sendStatus(500);
+
+                })
         })
         .catch((error) => {
             console.log('Error updating Entry', error);
@@ -159,7 +174,7 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
 // ---- DELETES ----
 
 router.delete('/delete_contract/:contractID', rejectUnauthenticated, (req, res) => {
-    const queryText = `DELETE FROM "contract" WHERE "id" = $1;`;
+    const queryText = `DELETE FROM "contract" WHERE "id" = $1; `;
     pool
         .query(queryText, [req.params.contractID])
         .then(() => res.sendStatus(204))
