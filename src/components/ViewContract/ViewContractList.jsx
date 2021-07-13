@@ -22,19 +22,12 @@ function ViewContractList(params) {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_CONTRACT_LIST',
-      payload: userID,
-    });
-    dispatch({
-      type: 'FETCH_CROP_LIST'
-      // payload: userID,
+      type: 'FETCH_CONTRACT_LIST'
     });
   }, []);
 
   // REDUCER STORE
-  const cropList = useSelector((store) => store.cropListReducer)
   const contractList = useSelector((store) => store.contractListReducer);
-  console.log('The cropList', cropList);
   console.log('The contractList', contractList);
 
 
@@ -73,11 +66,11 @@ function ViewContractList(params) {
             <TableRow key={contract.contractID}>
               <TableCell>{contract.contractID}</TableCell>
               <TableCell>
-              <Button onClick={() => history.push(`/contract_details/${contract.id}`)}>{contract.field_name}</Button>
+              <Button onClick={() => history.push(`/field_details/${contract.fieldID}`)}>{contract.field_name}</Button>
               </TableCell>
               <TableCell>{contract.location}</TableCell>
-              <TableCell>{contract.open_status}</TableCell>
-              <TableCell>{contract.commodity}</TableCell>
+              <TableCell>{contract.name}</TableCell>
+              <TableCell>{contract.crop_type}</TableCell>
               <TableCell><Button onClick={() => history.push(`/contract_details/${contract.contractID}`)} >
                     View Details
                   </Button> / <Button color="secondary" onClick={() => deleteButton(contract.contractID)}>Delete</Button></TableCell>
