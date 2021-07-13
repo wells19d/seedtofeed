@@ -10,6 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 import '../App/App.css';
 
@@ -46,6 +47,9 @@ function ViewFields(params) {
 
   return (
     <center>
+        <Grid container spacing={3}>
+            <Grid item xs={1}/>
+            <Grid item xs={10}>
     <TableContainer component={Paper}>
       <Table size="small">
         <TableHead>
@@ -77,6 +81,9 @@ function ViewFields(params) {
     <p>
     <Button onClick={() => history.push(`/add_field/`)}>Add new Field</Button>
     </p>
+    </Grid>
+      <Grid item xs={1}/>
+      </Grid>
     </center>
   );
 }
