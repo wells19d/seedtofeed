@@ -77,6 +77,7 @@ function App() {
           {/* <Route exact path="/contract">
             <ViewContract />
           </Route> */}
+
           <Route exact path='/edit_NIR/:fieldID/:NIRID'>
             <EditNIR />
           </Route>

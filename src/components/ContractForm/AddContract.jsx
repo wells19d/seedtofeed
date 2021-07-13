@@ -3,8 +3,10 @@ import { useSelector } from 'react-redux';
 import { HashRouter as Router, Route, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-function AddContract() {
+function AddContract(params) {
+     const userID = params.userID;
     const dispatch = useDispatch();
+    const history = useHistory();
 
     //to be sent along with the contract obj
     const user = useSelector(store => store.user.username);
@@ -23,9 +25,10 @@ function AddContract() {
         dispatch({
             type: 'FETCH_CONTRACT_STATUS'
         })
-          dispatch({
-            type: 'FETCH_CONTRACT_DETAILS'
-        })
+        dispatch({
+            type: 'FETCH_FIELD_LIST',
+            payload: userID,
+    });
     }, [])
 
     // LOCAL STATE
@@ -58,19 +61,24 @@ function AddContract() {
             payload: {
                 user_field_id: user_field_id, //have to review how this is coming in?
                 commodity: commodity,
-                openStatus: openStatus,
+                open_status: openStatus,
                 bushel_uid: bushel_uid,
-                quantityFulfilled: quantityFulfilled,
+                quantity_fulfilled: quantityFulfilled,
                 price: price,
                 protein: protein,
                 oil: oil,
                 moisture: moisture,
-                contractQuantity: contractQuantity,
-                containerSerial: containerSerial,
-                contractHandler: contractHandler,
+                contract_quantity: contractQuantity,
+                container_serial: containerSerial,
+                contract_handler: contractHandler,
 
             }
         });
+
+        alert('Contract has been created')
+
+        history.push('/user');
+
     }; // end addContract
 
     return (
@@ -113,7 +121,7 @@ function AddContract() {
                             {crops.map((crop) => {
                                 console.log('croptype:', crop);
                                 return (
-                                    <option key={crop.id} value={crop.crop_type}>
+                                    <option key={crop.id} value={crop.id}>
                                         {crop.crop_type}
                                     </option>
                                 );
@@ -136,7 +144,7 @@ function AddContract() {
                             {contractStatus.map((status) => {
                                 console.log('contract status:', status);
                                 return (
-                                    <option key={status.id} value={status.name}>
+                                    <option key={status.id} value={status.id}>
                                         {status.name}
                                     </option>
                                 );
@@ -162,7 +170,7 @@ function AddContract() {
                     <label htmlFor='quantity-fulfilled'>
                         Quantity Fulfilled:
                         <input
-                            placeholder='Quantity'
+                            placeholder='Bushels'
                             type='number' min="0"
                             name='Quantity Fulfilled'
                             value={quantityFulfilled}
@@ -227,7 +235,7 @@ function AddContract() {
                     <label htmlFor='contract-quantity'>
                         Contract Quantity:
                         <input
-                            placeholder='Contract Quantity'
+                            placeholder='Bushels'
                             type='number' min="0"
                             name='quantity'
                             value={contractQuantity}
