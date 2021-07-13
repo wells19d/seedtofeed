@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -24,8 +23,8 @@ function AddFieldForm() {
 
   const crops = useSelector((store) => store.cropListReducer);
   const fieldStatus = useSelector((store) => store.transactionTypesReducer);
-  console.log('here is the list of crops:', crops);
-  console.log('here is the field status list:', fieldStatus);
+  // console.log('here is the list of crops:', crops);
+  // console.log('here is the field status list:', fieldStatus);
 
   useEffect(() => {
     dispatch({
@@ -36,10 +35,10 @@ function AddFieldForm() {
   // ADD A FIELD
   const addField = (event) => {
     event.preventDefault();
-    history.push('/user'); // Sends user back to the main page
+    history.push('/user'); 
 
     dispatch({
-      type: 'SET_FIELD', // Need to double check this is the right dispatch type name in saga
+      type: 'SET_FIELD', 
       payload: {
         name: fieldName,
         year: fieldYear,
@@ -64,6 +63,8 @@ function AddFieldForm() {
           shrink: true,
         }}
       />
+      <br />
+      <br />
       <TextField
         variant="outlined"
         label="Location"
@@ -74,7 +75,9 @@ function AddFieldForm() {
         InputLabelProps={{
           shrink: true,
         }}
-      ></TextField>
+      />
+      <br />
+      <br />
       <TextField
         variant="outlined"
         label="Number of Acres"
@@ -86,7 +89,9 @@ function AddFieldForm() {
         InputLabelProps={{
           shrink: true,
         }}
-      ></TextField>
+      />
+      <br />
+      <br />
       <TextField
         variant="outlined"
         label="Year"
@@ -99,6 +104,8 @@ function AddFieldForm() {
           shrink: true,
         }}
       />
+      <br />
+      <br />
       <Select
         variant="outlined"
         value={cropType}
@@ -118,6 +125,8 @@ function AddFieldForm() {
           );
         })}
       </Select>
+      <br />
+      <br />
       <TextField
         variant="outlined"
         label="Field Notes"
@@ -136,7 +145,7 @@ function AddFieldForm() {
           type="button"
           className="btn btn_asCancel"
           onClick={() => {
-            history.push('/user'); // Sends user back to the main page
+            history.push('/user'); 
           }}
         >
           Cancel
@@ -145,7 +154,7 @@ function AddFieldForm() {
         <Button
           type="submit"
           className="btn btn_asSubmit"
-          onClick={(event) => addField(event)} // Sends user back to the main page
+          onClick={(event) => addField(event)} 
         >
           Submit
         </Button>

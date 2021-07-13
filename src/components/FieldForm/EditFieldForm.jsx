@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -76,7 +75,7 @@ function EditFieldForm() {
     // alert('Your field has been updated');
 
     dispatch({
-      type: 'UPDATE_FIELD', // Need to double check this is the right dispatch type name in saga
+      type: 'UPDATE_FIELD',
       payload: {
         
         name: fieldName,
@@ -88,136 +87,118 @@ function EditFieldForm() {
         fieldID: fieldID,
       },
     });
-
     history.push('/user');
-  }; // end updateField
+  }; 
 
   return (
     <Router>
-      <Grid container spacing={2}>
-        <Grid item xs={3} />
-        <Grid item xs={2}>
-          <TextField
-            variant="outlined"
-            label="Field Name"
-            type="text"
-            value={fieldName}
-            onChange={(event) => setFieldName(event.target.value)}
-            required
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        <Grid item xs={2}>
-          <TextField
-            variant="outlined"
-            label="Location"
-            type="text"
-            value={location}
-            onChange={(event) => setLocation(event.target.value)}
-            required
-            InputLabelProps={{
-              shrink: true,
-            }}
-          ></TextField>
-        </Grid>
-        <Grid item xs={2}>
-          <TextField
-            variant="outlined"
-            label="Number of Acres"
-            type="number"
-            value={acres}
-            InputProps={{ inputProps: { min: 0 } }}
-            onChange={(event) => setAcres(event.target.value)}
-            required
-            InputLabelProps={{
-              shrink: true,
-            }}
-          ></TextField>
-        </Grid>
-        <Grid item xs={3} />
-
-        <Grid item xs={3} />
-        <Grid item xs={2}>
-          <TextField
-            variant="outlined"
-            label="Year"
-            type="number"
-            value={fieldYear}
-            InputProps={{ inputProps: { min: 1900 } }}
-            onChange={(event) => setFieldYear(event.target.value)}
-            required
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        <Grid item xs={2}>
-          <Select
-            variant="outlined"
-            value={cropType}
-            required
-            style={{ width: '155px' }}
-            onChange={(event) => setCropType(event.target.value)}
-            displayEmpty
-          >
-            <MenuItem value="" disabled>
-              <em>Crop Type</em>
+      <TextField
+        variant="outlined"
+        label="Field Name"
+        type="text"
+        value={fieldName}
+        onChange={(event) => setFieldName(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Location"
+        type="text"
+        value={location}
+        onChange={(event) => setLocation(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Number of Acres"
+        type="number"
+        value={acres}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setAcres(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Year"
+        type="number"
+        value={fieldYear}
+        InputProps={{ inputProps: { min: 1900 } }}
+        onChange={(event) => setFieldYear(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <br />
+      <br />
+      <Select
+        variant="outlined"
+        value={cropType}
+        required
+        style={{ width: '155px' }}
+        onChange={(event) => setCropType(event.target.value)}
+        displayEmpty
+      >
+        <MenuItem value="" disabled>
+          <em>Crop Type</em>
+        </MenuItem>
+        {crops?.map((crop) => {
+          return (
+            <MenuItem key={crop.id} value={crop.id}>
+              {crop.crop_type}
             </MenuItem>
-            {crops?.map((crop) => {
-              return (
-                <MenuItem key={crop.id} value={crop.id}>
-                  {crop.crop_type}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </Grid>
-        <Grid item xs={2} />
-        <Grid item xs={3} />
-        <Grid item xs={3} />
-        <Grid item xs={6}>
-          <TextField
-            variant="outlined"
-            label="Field Notes"
-            type="text"
-            value={notes}
-            style={{ minWidth: '500px' }}
-            helperText={`${notes.length}/${CHARACTER_LIMIT}`}
-            onChange={(event) => setNotes(event.target.value)}
-            required
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        <Grid item xs={3} />
-
-        <Grid item xs={3} />
-        <Grid item xs={6}>
-          <center>
-            <Button
-              type="button"
-              className="btn btn_asCancel"
-              onClick={() => {
-                history.push('/user'); // Sends user back to the main page
-              }}
-            >
-              Cancel
-            </Button>
-            {`\u00A0\u00A0\u00A0\u00A0`}
-            <Button
-              type="submit"
-              className="btn btn_asSubmit"
-              onClick={(event) => updateField(event)} // Sends user back to the main page
-            >
-              Submit
-            </Button>
-          </center>
-        </Grid>
-        <Grid item xs={3} />
-      </Grid>
+          );
+        })}
+      </Select>
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Field Notes"
+        type="text"
+        value={notes}
+        style={{ minWidth: '500px' }}
+        helperText={`${notes.length}/${CHARACTER_LIMIT}`}
+        onChange={(event) => setNotes(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <center>
+        <Button
+          type="button"
+          className="btn btn_asCancel"
+          onClick={() => {
+            history.push('/user'); 
+          }}
+        >
+          Cancel
+        </Button>
+        {`\u00A0\u00A0\u00A0\u00A0`}
+        <Button
+          type="submit"
+          className="btn btn_asSubmit"
+          onClick={(event) => addField(event)} 
+        >
+          Submit
+        </Button>
+      </center>
     </Router>
   );
 }
