@@ -100,7 +100,7 @@ function App() {
             <AddNIR />
           </Route>
 
-          <Route exact path="/edit_contract">
+          <Route exact path="/edit_contract/:contractID">
             <EditContract />
           </Route>
 
