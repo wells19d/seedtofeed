@@ -44,7 +44,8 @@ router.post('/bushel', async (req, res) => {
 
          // Case 1: Contract has been completed
          // item.contract.completed is true, AND foundContract.open_status != 6
-         if (item.contract.completed === true && foundContract.name != 'fulfilled') {
+         
+         if (item.contract.completed === true) {
 
             const queryText2 = `UPDATE "contract" SET "open_status" = (SELECT "id" FROM "contract_status" WHERE "name"='fulfilled') WHERE "bushel_uid" = $1;`;
             // const contractID = await pool.query(queryText2, [foundContract.bushel_uid]);
