@@ -46,7 +46,7 @@ function ViewFields(params) {
             <TableCell>Location</TableCell>
             <TableCell>Status</TableCell>
             <TableCell>Note</TableCell>
-            <TableCell>Buyer</TableCell>
+            <TableCell>Buyers</TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableHead>
