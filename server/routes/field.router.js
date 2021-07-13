@@ -100,7 +100,7 @@ router.get('/fieldDetails/:fieldID', rejectUnauthenticated, (req, res) => {
 
 
 //GET crop dropdown list. Saga: cropList.saga, Reducer: cropList.reducer
-router.get('/cropList', rejectUnauthenticated, (req, res) => { 
+router.get('/cropList', rejectUnauthenticated, (req, res) => {
 
     const queryText = `SELECT * FROM "crop";`;
 
@@ -176,7 +176,7 @@ router.get('/transactionTypes', rejectUnauthenticated, (req, res) => {
 // --- POSTS ----
 
 //CREATE A FIELD
-router.post('/makefield', rejectUnauthenticated, (req, res) => {
+router.post('/makefield', rejectUnauthenticated, async (req, res) => {
     const year = req.body.year;
     const location = req.body.location;
     const acres = req.body.acres;
@@ -192,66 +192,24 @@ router.post('/makefield', rejectUnauthenticated, (req, res) => {
     "year", "location", "acres", "field_note", "name", "image", "shape_file", "gmo", "crop_id")
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id;`;
 
-    pool.query(queryText, [year, location, acres, field_note, name, image, shape_file, gmo, crop_id])
-        .then(response => {
-            console.log(response.rows);
-            // res.send(response.rows);
-            // res.sendStatus(201);
+    try {
+        const response = await pool.query(queryText, [year, location, acres, field_note, name, image, shape_file, gmo, crop_id]);
+    
+        console.log(response.rows);
 
-            //second query creates entry into user_field table
-            const created_field = response.rows[0].id;
-            const insert_field = `
-            INSERT INTO "user_field" ("field_id", "user_id")
-            VALUES ($1, $2);`;
+        //second query creates entry into user_field table
+        const created_field = response.rows[0].id;
+        const insert_field = `
+        INSERT INTO "user_field" ("field_id", "user_id")
+        VALUES ($1, $2);`;
 
-            pool.query(insert_field, [created_field, req.user.id])
-                .then(result => {
-                    console.log(`Field ${created_field} connected to user_field`);
-                    res.sendStatus(201);
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.sendStatus(500);
-                })
-
-            //third query creates entry into the NIR table
-            // const insert_NIR =
-            //     `INSERT INTO "NIR" ("field_id")
-            //  VALUES ($1);`;
-
-            // pool.query(insert_NIR, [created_field])
-            //     .then(result => {
-            //         console.log(`Field ${created_field} connected to NIR`);
-            //         res.sendStatus(201);
-            //     })
-            //     .catch(err => {
-            //         console.log(err);
-            //         res.sendStatus(500);
-            //     })
-
-            // Add new transaction when field is added.
-            // const insert_FieldTransactions =
-            //     `INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", "transaction_type")
-            //  VALUES ($1, $2, $3, $4);`;
-
-            // pool.query(insert_FieldTransactions, [created_field, new Date(), 'Field added to Database', req.body.field_status, ])
-            //     .then(result => {
-            //         console.log(`Field ${created_field} connected to field_transactions`);
-            //         res.sendStatus(201);
-            //     })
-            //     .catch(err => {
-            //         console.log(err);
-            //         res.sendStatus(500);
-            //     })
-
-
-
-
-
-        }).catch(error => {
-            console.log(`Error making database query ${queryText}`, error);
-            res.sendStatus(500);
-        })
+        await pool.query(insert_field, [created_field, req.user.id])
+        console.log(`Field ${created_field} connected to user_field`);
+        res.sendStatus(201);
+    } catch(error) { 
+        console.log(`Error making database query ${queryText}`, error);
+        res.sendStatus(500);
+    }
 });
 
 //CREATE A FIELD TRANSACTION
@@ -355,12 +313,12 @@ router.put('/update_NIR/', rejectUnauthenticated, (req, res) => {
                         WHERE "id"=$6;`;
 
     pool.query(queryText, [oil, moisture, protein, energy, amino_acids, NIRID]).then(result => {
-        res.sendStatus(204);
-    })
-    .catch(error => {
-        console.log('Error making query: ', error);
-        res.sendStatus(500);
-    })
+            res.sendStatus(204);
+        })
+        .catch(error => {
+            console.log('Error making query: ', error);
+            res.sendStatus(500);
+        })
 })
 
 router.put('/update_transaction', rejectUnauthenticated, (req, res) => {
@@ -375,14 +333,14 @@ router.put('/update_transaction', rejectUnauthenticated, (req, res) => {
     const queryText = `UPDATE "field_transactions"
                         SET "status_notes"=$1, "image"=$2, "field_status"=$3, "transaction_type"=$4
                         WHERE "id"=$5;`;
-    
+
     pool.query(queryText, [status_notes, image, field_status, transaction_type, transaction_id]).then(result => {
-        res.sendStatus(204);
-    })
-    .catch(error => {
-        console.log('Error making query: ', error);
-        res.sendStatus(500);
-    })
+            res.sendStatus(204);
+        })
+        .catch(error => {
+            console.log('Error making query: ', error);
+            res.sendStatus(500);
+        })
 })
 
 // -- DELETES --
@@ -391,7 +349,7 @@ router.put('/update_transaction', rejectUnauthenticated, (req, res) => {
 //Saga: deleteField.saga
 router.delete('/delete_field/:fieldID', rejectUnauthenticated, (req, res) => {
 
-    const queryText =`
+    const queryText = `
         DELETE
         FROM "field"
         WHERE "id" = $1;
