@@ -39,15 +39,15 @@ function Nav() {
         <Link className="navLink" to="/about">
           ABOUT
         </Link>
-        {/* 
+
         {user.id && (
           <>
-            <Link className="navLink" to="/info">
+            {/* <Link className="navLink" to="/info">
               Info Page
-            </Link>
+            </Link> */}
             <LogOutButton className="navLink" />
           </>
-        )} */}
+        )}
         <div className="nav-logo-link">
           <a href="http://www.seedtofeed.info/" target="_blank">
             <img src={logo} className="nav-logo" alt="Seed to Feed Logo" />
