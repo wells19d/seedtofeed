@@ -28,58 +28,60 @@ function BuyerViewFields(params) {
     });
 
     dispatch({
-        type: 'FETCH_USER_LIST'
+      type: 'FETCH_USER_LIST'
     })
   }, []);
 
 
-    function findFarmer(param){
-        let farmer_index = userList.findIndex((user) => user.id === Number(param.farmer_id));
-        return (
-            <span>{userList[farmer_index]?.first_name} {userList[farmer_index]?.last_name}</span>
-        )
-    }
+  function findFarmer(param) {
+    let farmer_index = userList.findIndex((user) => user.id === Number(param.farmer_id));
+    return (
+      <span>{userList[farmer_index]?.first_name} {userList[farmer_index]?.last_name}</span>
+    )
+  }
 
 
 
   return (
     <center>
+      <h4>Below is a list of all of the fields you are listed as a buyer on.  Please click on the field below to see more details.</h4>
+      <br />
       <h3>Buyer Field</h3>
       <Grid container spacing={3}>
         <Grid item xs={1} />
         <Grid item xs={10}>
-    <TableContainer component={Paper}>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Field Name</TableCell>
-            <TableCell>Location</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Note</TableCell>
-            <TableCell>Farmer</TableCell>
-            <TableCell></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {fieldList.map((field) => (
-            <TableRow key={field.id}>
-              <TableCell>
+          <TableContainer component={Paper}>
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Field Name</TableCell>
+                  <TableCell>Location</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell>Note</TableCell>
+                  <TableCell>Farmer</TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {fieldList.map((field) => (
+                  <TableRow key={field.id}>
+                    <TableCell>
 
-              <Button size="small" onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button>
-              </TableCell>
-              <TableCell>{field.location}</TableCell>
-              <TableCell>{field.field_status}</TableCell>
-              <TableCell>{field.field_note}</TableCell>
-              <TableCell>{findFarmer(field)}</TableCell>
-              <TableCell> <Button>Make an offer</Button> </TableCell>
+                      <Button size="small" onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button>
+                    </TableCell>
+                    <TableCell>{field.location}</TableCell>
+                    <TableCell>{field.field_status}</TableCell>
+                    <TableCell>{field.field_note}</TableCell>
+                    <TableCell>{findFarmer(field)}</TableCell>
+                    <TableCell> <Button>Make an offer</Button> </TableCell>
 
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
 
-    </Grid>
+        </Grid>
         <Grid item xs={1} />
       </Grid>
     </center>

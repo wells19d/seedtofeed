@@ -41,7 +41,8 @@ function FieldNIR(params) {
 
   return (
     <center>
-        <br />
+      <br />
+      <h4>NIR Analysis</h4>
       <TableContainer component={Paper}>
         <Table size="small">
           <TableHead>
@@ -52,8 +53,8 @@ function FieldNIR(params) {
               <TableCell>Protein Levels</TableCell>
               <TableCell>Energy</TableCell>
               <TableCell>Amino Acids</TableCell>
-                {user.farmer && <TableCell></TableCell>}
-              
+              {user.farmer && <TableCell></TableCell>}
+
             </TableRow>
           </TableHead>
           <TableBody>
@@ -67,9 +68,9 @@ function FieldNIR(params) {
                   <TableCell>{test.energy}</TableCell>
                   <TableCell>{test.amino_acids}</TableCell>
 
-                    {user.farmer &&
-                  <TableCell><Button onClick={() => history.push(`/edit_NIR/${fieldID}/${test.id}`)}>Edit</Button> / <Button color="secondary" onClick={() => deleteButton(test.id)}>Delete</Button>
-                  </TableCell>}
+                  {user.farmer &&
+                    <TableCell><Button onClick={() => history.push(`/edit_NIR/${fieldID}/${test.id}`)}>Edit</Button> / <Button color="secondary" onClick={() => deleteButton(test.id)}>Delete</Button>
+                    </TableCell>}
 
                 </TableRow>
               );
@@ -79,10 +80,10 @@ function FieldNIR(params) {
       </TableContainer>
       <br />
 
-        {user.farmer &&
-      <Button onClick={() => history.push(`/NIR_form/${fieldID}`)}>
-        Add NIR Data
-      </Button>}
+      {user.farmer &&
+        <Button onClick={() => history.push(`/NIR_form/${fieldID}`)}>
+          Add NIR Data
+        </Button>}
     </center>
   );
 }

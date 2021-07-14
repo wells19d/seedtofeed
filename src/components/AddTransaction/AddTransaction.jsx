@@ -48,8 +48,7 @@ function AddTransaction() {
     <>
       <div>
         <form className="add-NIR" onSubmit={submitButton}>
-          <h3>Transactions</h3>
-
+          <h3>Add New Transaction</h3>
           <div>
             <label htmlFor="notes">
               Notes:

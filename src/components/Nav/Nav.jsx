@@ -18,7 +18,7 @@ function Nav() {
 
   if (user.id != null) {
     loginLinkData.path = '/user';
-    loginLinkData.text = 'Home';
+    loginLinkData.text = 'HOME';
   }
 
   return (
@@ -27,20 +27,24 @@ function Nav() {
         <div className="nav-logo-span">
           <img className="nav-logo" src={logo} alt="Seed to Feed Logo" />
         </div>
+        <div className="nav-logo-title">
+          <h2>TRACKER</h2>
+        </div>
+
       </Link>
       <div>
         <Link className="navLink" to={loginLinkData.path}>
           {loginLinkData.text}
         </Link>
         <Link className="navLink" to="/about">
-          About
+          ABOUT
         </Link>
 
         {user.id && (
           <>
-            <Link className="navLink" to="/info">
+            {/* <Link className="navLink" to="/info">
               Info Page
-            </Link>
+            </Link> */}
             <LogOutButton className="navLink" />
           </>
         )}
@@ -52,23 +56,23 @@ function Nav() {
         </div>
         <div>
           {user.farmer === true && user.id && (
-            <Link className="navLink" to='/contract'>Contracts</Link>
+            <Link className="navLink" to='/contract'>CONTRACTS</Link>
 
           )}
           {user.farmer === true && user.id && (
-            <Link className="navLink" to='/contract_form'>Contract Form</Link>
+            <Link className="navLink" to='/contract_form'>CONTRACT FORM</Link>
           )}
           {user.farmer === true && user.id && (
-            <Link className="navLink" to='/fieldDB'>Fields</Link>
+            <Link className="navLink" to='/fieldDB'>FIELDS</Link>
 
           )}
           {user.farmer === true && user.id && (
-            <Link className="navLink" to='/field'>Transactions</Link>
+            <Link className="navLink" to='/field'>TRANSACTIONS</Link>
           )}
         </div>
         <div>
           {user.buyer === true && user.id && (
-            <Link className="navLink" to='/contract'>Contracts</Link>
+            <Link className="navLink" to='/contract'>CONTRACTS</Link>
           )}
 
           {/* {user.buyer === true && user.id && (

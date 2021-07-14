@@ -17,8 +17,6 @@ function LandingPage() {
 
   return (
     <div className="container">
-      <h3>Seed to Feed Grain Tracker</h3>
-
       <div className="grid">
         <div className="grid-col grid-col_8">
           <img className="landing-page" src={logo2} alt="Seed to Feed Logo" />
