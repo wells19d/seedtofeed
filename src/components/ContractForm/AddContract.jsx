@@ -37,16 +37,16 @@ function AddContract(params) {
   }, []);
 
   // LOCAL STATE
+    const [user_field_id, setUserFieldID] = useState('');
+    const [commodity, setCommodity] = useState('');
+    const [openStatus, setOpenStatus] = useState('');
+    const [bushel_uid, setBushel_uid] = useState('');
+    const [quantityFulfilled, setQuantityFulfilled] = useState('');
+    const [price, setPrice] = useState('');
+    const [contractQuantity, setContractQuantity] = useState('');
+    const [containerSerial, setContainerSerial] = useState('');
+    const [contractHandler, setContractHandler] = useState('');
 
-  const [user_field_id, setUserFieldID] = useState('');
-  const [commodity, setCommodity] = useState('');
-  const [openStatus, setOpenStatus] = useState('');
-  const [bushel_uid, setBushel_uid] = useState('');
-  const [quantityFulfilled, setQuantityFulfilled] = useState('');
-  const [price, setPrice] = useState('');
-  const [contractQuantity, setContractQuantity] = useState('');
-  const [containerSerial, setContainerSerial] = useState('');
-  const [contractHandler, setContractHandler] = useState('');
 
   // for NIR analysis
   const [protein, setProtein] = useState('');
@@ -156,7 +156,6 @@ function AddContract(params) {
        </FormControl>
         <br />
         <br />
-
         <TextField
         variant="outlined"
         label="Bushel UID"

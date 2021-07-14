@@ -57,6 +57,7 @@ function EditContract() {
 
     alert('Contract has been updated');
 
+
     dispatch({
       type: 'UPDATE_CONTRACT', // dispatch to the updatecontract.saga
       payload: {
@@ -81,7 +82,7 @@ function EditContract() {
 
   return (
     <Router>
-      <h3>Add Contract</h3>
+      <h3>Edit Contract</h3>
       <FormControl size="small">
         <Select
         variant="outlined"
@@ -296,7 +297,7 @@ function EditContract() {
           Cancel
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button size="small" onClick={(event) => addField(event)}>
+        <Button size="small" onClick={(event) => editContract(event)}>
           Submit
         </Button>
     </Router>
