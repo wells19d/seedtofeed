@@ -3,16 +3,17 @@ import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
 import logo2 from './logos/logo2.png';
 
+import Button from '@material-ui/core/Button';
 
 // CUSTOM COMPONENTS
-import RegisterForm from '../RegisterForm/RegisterForm';
+import LoginForm from '../LoginForm/LoginForm';
 
 function LandingPage() {
   const [heading, setHeading] = useState('Seed to Feed Grain Tracker');
   const history = useHistory();
 
-  const onLogin = (event) => {
-    history.push('/login');
+  const registration = (event) => {
+    history.push('/registration');
   };
 
   return (
@@ -31,12 +32,13 @@ function LandingPage() {
           </p>
         </div>
         <div className="grid-col grid-col_4">
-          <RegisterForm />
+          <LoginForm />
           <center>
-            <h4>Already a Member?</h4>
-            <button className="btn btn_sizeSm" onClick={onLogin}>
-              Login
-            </button>
+            <br />
+            <h4>Are You A Member?</h4>
+            <Button className="btn btn_sizeSm" onClick={registration}>
+              Register Here
+            </Button>
           </center>
         </div>
       </div>

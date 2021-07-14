@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 
 function AddFieldForm() {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ function AddFieldForm() {
         InputLabelProps={{
           shrink: true,
         }}
+        size="small"
       />
       <br />
       <br />
@@ -75,6 +77,7 @@ function AddFieldForm() {
         InputLabelProps={{
           shrink: true,
         }}
+        size="small"
       />
       <br />
       <br />
@@ -89,6 +92,7 @@ function AddFieldForm() {
         InputLabelProps={{
           shrink: true,
         }}
+        size="small"
       />
       <br />
       <br />
@@ -103,18 +107,22 @@ function AddFieldForm() {
         InputLabelProps={{
           shrink: true,
         }}
+        size="small"
       />
       <br />
       <br />
+      <FormControl size="small">
       <Select
         variant="outlined"
         value={cropType}
         required
         style={{ width: '155px' }}
+        size="small"
         onChange={(event) => setCropType(event.target.value)}
         displayEmpty
+        
       >
-        <MenuItem value="" disabled>
+        <MenuItem value="" disabled size="small">
           <em>Crop Type</em>
         </MenuItem>
         {crops?.map((crop) => {
@@ -125,6 +133,7 @@ function AddFieldForm() {
           );
         })}
       </Select>
+      </FormControl>
       <br />
       <br />
       <TextField
@@ -142,7 +151,6 @@ function AddFieldForm() {
       />
       <center>
         <Button
-          type="button"
           onClick={() => {
             history.push('/user'); 
           }}
@@ -151,7 +159,6 @@ function AddFieldForm() {
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
         <Button
-          type="submit"
           onClick={(event) => addField(event)} 
         >
           Submit
