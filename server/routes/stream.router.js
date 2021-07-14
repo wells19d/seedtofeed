@@ -21,6 +21,7 @@ router.post('/bushel', async (req, res) => {
          // const queryText1 = `SELECT "bushel_uid", "id", "user_field_id" FROM "contract" WHERE bushel_uid=$1;`;
          const queryText1 = `
          SELECT "contract"."id" AS "contractID", "contract"."user_field_id", "contract"."open_status", "contract"."bushel_uid",
+         "contract"."quantity_fulfilled", "contract"."contract_quantity",
          "contract_status"."id" AS "contract_status_ID", "contract_status"."name"
          FROM "contract" JOIN "contract_status" ON ("contract"."open_status" = "contract_status"."id") 
          WHERE "bushel_uid"=$1;`;
@@ -55,6 +56,7 @@ router.post('/bushel', async (req, res) => {
             await pool.query(queryText4, [transactionInsert.rows[0].field_id]);
             console.log(`posted transaction for field: ${transactionInsert.rows[0].field_id}`);
 
+
          } else if (item.contract.filled === true && foundContract.name === 'signed') {
             const queryText2 = `UPDATE "contract" SET "open_status" = (SELECT "id" FROM "contract_status" WHERE "name"='delivered') WHERE "bushel_uid" = $1;`;
             // const contractID = await pool.query(queryText2, [foundContract.bushel_uid]);
@@ -71,7 +73,8 @@ router.post('/bushel', async (req, res) => {
             await pool.query(queryText4, [transactionInsert.rows[0].field_id]);
             console.log(`posted transaction for field: ${transactionInsert.rows[0].field_id}`);
 
-         } else if (item.contract.signed === true && foundContract.name === 'pending') {
+
+         } else if (item.contract.is_signed === true && foundContract.name === 'pending') {
             const queryText2 = `UPDATE "contract" SET "open_status" = (SELECT "id" FROM "contract_status" WHERE "name"='signed') WHERE "bushel_uid" = $1;`;
             // const contractID = await pool.query(queryText2, [foundContract.bushel_uid]);
             await pool.query(queryText2, [foundContract.bushel_uid]);
@@ -86,6 +89,29 @@ router.post('/bushel', async (req, res) => {
                VALUES ($1, Now(), 'bushel contract signed', 'growing', (SELECT "id" FROM "transaction_type" WHERE "name" ='contract'));`;
             await pool.query(queryText4, [transactionInsert.rows[0].field_id]);
             console.log(`posted transaction for field: ${transactionInsert.rows[0].field_id}`);
+
+
+         } else if (item.contract.is_signed === true && foundContract.name === 'signed') {
+
+            if (item.contract.quantity_submitted > foundContract.quantity_fulfilled) {
+               let quantityDiff = item.contract.quantity_submitted - foundContract.quantity_fulfilled;
+               const queryText2 = `UPDATE "contract" SET "quantity_fulfilled" = $2 WHERE "bushel_uid" = $1;`;
+               // const contractID = await pool.query(queryText2, [foundContract.bushel_uid]);
+               await pool.query(queryText2, [foundContract.bushel_uid, item.contract.quantity_submitted]);
+   
+               // console.log('found Contract user field ID', foundContract.user_field_id);
+   
+               const queryText3 = `SELECT "id", "field_id" FROM "user_field" WHERE "id" = $1;`;
+               const transactionInsert = await pool.query(queryText3, [foundContract.user_field_id]);
+               console.log('transaction insert', transactionInsert.rows[0].field_id);
+   
+               const queryText4 = `INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", "transaction_type")
+                  VALUES ($1, Now(), 'quantity submitted: ${quantityDiff} ${item.contract.quantity_uom}', 'harvest_transit', (SELECT "id" FROM "transaction_type" WHERE "name" ='contract'));`;
+               await pool.query(queryText4, [transactionInsert.rows[0].field_id]);
+               console.log(`posted transaction for field: ${transactionInsert.rows[0].field_id}`);
+
+            }
+
 
          } else if (item.contract.priced === true && foundContract.name === 'created') {
             const queryText2 = `UPDATE "contract" SET "open_status" = (SELECT "id" FROM "contract_status" WHERE "name"='pending') WHERE "bushel_uid" = $1;`;
@@ -103,8 +129,9 @@ router.post('/bushel', async (req, res) => {
             await pool.query(queryText4, [transactionInsert.rows[0].field_id]);
             console.log(`posted transaction for field: ${transactionInsert.rows[0].field_id}`);
 
+
          } else {
-            console.log('Some conditions not met');
+            console.log('No conditions were met');
          }
       }
 
