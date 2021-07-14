@@ -8,6 +8,9 @@ function EditContract() {
     const history = useHistory();
     const params = useParams();
 
+    const contractID = params.contractID
+    console.log('here is the contract ID', contractID)
+
     useEffect(() => {
     dispatch({
         type: 'FETCH_CROP_LIST',
@@ -17,6 +20,7 @@ function EditContract() {
         })
     dispatch({
         type: 'FETCH_CONTRACT_LIST',
+        dispatch: contractID
     })
     }, [])
 
@@ -69,7 +73,7 @@ function EditContract() {
                 commodity: commodity,
                 open_status: openStatus,
                 bushel_uid: bushel_uid,
-                quantityFulfilled: quantityFulfilled,
+                quantity_fulfilled: quantityFulfilled,
                 price: price,
                 protein: protein,
                 oil: oil,
@@ -140,7 +144,7 @@ function EditContract() {
                                 <option>{status.name}</option>
                                 console.log('contract status:', status);
                                 return (
-                                    <option key={status.id} value={status.name}>
+                                    <option key={status.id} value={status.id}>
                                         {status.name}
                                     </option>
                                 );
