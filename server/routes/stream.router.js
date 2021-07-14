@@ -6,15 +6,6 @@ const {
 } = require('../modules/authentication-middleware');
 
 router.post('/bushel', async (req, res) => {
-   // We dont really know yet what incoming data will look like,
-   // so just store the raw body directly as JSONB
-   //process the incoming req.body to update our contract
-   //1. verify that we have contracts req.body
-   //2. loop over req.body.data to keep extract ALL contracts
-   //3. select bushel_uid from contract table
-   //4. compare to find match and update our contract record
-   //5. update right in the contract table
-   //6. create transaction record on transaction table
    // console.log('from postman', req.body);
    // const queryText1 = `SELECT "bushel_uid", "id", "user_field_id" FROM "contract" WHERE "open_status" != 6;`; //6 equals fulfilled
    // const queryText1 = `SELECT "bushel_uid", "id", "user_field_id" FROM "contract" WHERE "open_status" != (SELECT "id" FROM "contract_status" WHERE "name"='fulfilled');`;
@@ -29,11 +20,12 @@ router.post('/bushel', async (req, res) => {
 
          // const queryText1 = `SELECT "bushel_uid", "id", "user_field_id" FROM "contract" WHERE bushel_uid=$1;`;
          const queryText1 = `
-         SELECT "contract"."bushel_uid", "contract"."user_field_id", "contract"."id" AS "contractID", "contract"."open_status", 
+         SELECT "contract"."id" AS "contractID", "contract"."user_field_id", "contract"."open_status", "contract"."bushel_uid",
          "contract_status"."id" AS "contract_status_ID", "contract_status"."name"
-         FROM "contract", "contract_status" WHERE "bushel_uid"=$1;`;
+         FROM "contract" JOIN "contract_status" ON ("contract"."open_status" = "contract_status"."id") 
+         WHERE "bushel_uid"=$1;`;
          const bushelContracts = await pool.query(queryText1, [item.contract.id]);
-         let foundContract = bushelContracts.rows;
+         let foundContract = bushelContracts.rows[0];
          console.log('found Contract', foundContract);
 
          if (!foundContract) {
@@ -42,10 +34,11 @@ router.post('/bushel', async (req, res) => {
          }
          // console.log(`Found bushel contract from db: `, foundContract);
 
-         // Case 1: Contract has been completed
+         // Case 1: Contract has been completed: 
+         // update contract table to open_status = 'fulfilled' AND only look at records where the open_status is not 'fulfilled'
          // item.contract.completed is true, AND foundContract.open_status != 6
          
-         if (item.contract.completed === true) {
+         if (item.contract.completed === true && foundContract.name != 'fulfilled') {
 
             const queryText2 = `UPDATE "contract" SET "open_status" = (SELECT "id" FROM "contract_status" WHERE "name"='fulfilled') WHERE "bushel_uid" = $1;`;
             // const contractID = await pool.query(queryText2, [foundContract.bushel_uid]);
