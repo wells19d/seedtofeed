@@ -11,13 +11,14 @@ const {
 router.get('/fieldList', rejectUnauthenticated, (req, res) => {
     const userID = req.user.id;
 
+    console.log('The ID for this user is: ', userID);
+
     const queryText = `
-    SELECT "field"."id", "user_field"."id" AS "user_field_id", "buyer_field"."id" AS "buyer_field_id", "buyer_field"."buyer_id", "field"."year", "field"."location", "field"."acres", "field"."field_note",
+    SELECT "field"."id", "user_field"."id" AS "user_field_id", "field"."year", "field"."location", "field"."acres", "field"."field_note",
     "field"."name", "field"."image", "field"."shape_file", "field"."gmo", "field"."crop_id"
     FROM "field"
     JOIN "user_field" ON "user_field"."field_id"="field"."id"
-    JOIN "buyer_field" ON "buyer_field"."field_id"="field"."id"
-    WHERE "user_field"."user_id"=$1;`; // added   "buyer_field"."id" AS "buyer_field_id", "buyer_field"."buyer_id"     and     JOIN "buyer_field" ON "buyer_field"."field_id"="field"."id"
+    WHERE "user_field"."user_id"=$1;`; // Need to find a way to add the following without it breaking:   "buyer_field"."id" AS "buyer_field_id", "buyer_field"."buyer_id"     and     JOIN "buyer_field" ON "buyer_field"."field_id"="field"."id"
 
     // We want each field to ALSO have a 'computed' field_status column
     // But that is on the most recent transaction for each given field

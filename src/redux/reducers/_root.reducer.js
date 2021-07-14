@@ -12,6 +12,8 @@ import contractDetailsReducer from './contractDetails.reducer';
 import contractStatusReducer from './contractStatus.reducer';
 import transactionTypesReducer from './transactionTypes.reducer';
 
+import userListReducer from './userList.reducer';
+
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -31,6 +33,8 @@ const rootReducer = combineReducers({
   contractDetailsReducer,
   contractStatusReducer,
   transactionTypesReducer,
+
+  userListReducer,
 });
 
 export default rootReducer;

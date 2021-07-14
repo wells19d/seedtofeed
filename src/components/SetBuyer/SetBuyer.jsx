@@ -7,11 +7,10 @@ import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-function SetBuyer(){
+function SetBuyer(params){
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const params = useParams();
 
     const userList = useSelector((store) => store.userListReducer);
 
@@ -19,27 +18,30 @@ function SetBuyer(){
     const fieldID = params.fieldID;
 
     useEffect(() => {
-    dispatch({
-        type: 'FETCH_USER_LIST'
-    })
+        dispatch({
+            type: 'FETCH_USER_LIST'
+        })
     }, []);
 
     function setProspectiveBuyer(){
     event.preventDefault();
 
-    dispatch({
-        type: 'ADD_PROSPECTIVE_BUYER',
-        payload: {
-        buyerID: buyerID,
-        fieldID: fieldID
-        }
+    console.log('The buyer id is: ', buyerID)
+    console.log('The field id is: ', fieldID)
+
+        dispatch({
+            type: 'ADD_PROSPECTIVE_BUYER',
+            payload: {
+            buyerID: buyerID,
+            fieldID: fieldID
+            }
     })
 
-    history.push('/user'); 
+    // history.push('/user'); 
     }
 
     return (
-        <>
+        <div>
             <Select
                 variant="outlined"
                 value={buyerID}
@@ -51,22 +53,24 @@ function SetBuyer(){
             <MenuItem value="" disabled>
                 <em>Prospective Buyer</em>
             </MenuItem>
-            {userList.map(buyer => {
+            {userList?.map(buyer => {
+                console.log('The buyer is: ', buyer)
             return (
-                <>
+                <span key={buyer.id} value={buyer.id}>
                 {buyer.buyer && <MenuItem key={buyer.id} value={buyer.id}>{buyer.first_name} {buyer.last_name}</MenuItem>}
-                </>
+                </span>
             )
             })}
             </Select>
 
-            <Button type="button" onClick={() => {history.push('/user')}}>
+            {/* <Button type="button" onClick={() => {history.push('/user')}}> */}
+            <Button type="button" onClick={() => params.togglePopup()}>
                 Cancel
             </Button>
             <Button type="button" onClick={()=>setProspectiveBuyer()}>
                 Add
             </Button>
-        </>
+        </div>
     )
 }
 

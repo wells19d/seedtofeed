@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-import SetBuyer from '../SetBuyer/SetBuyer';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -15,40 +13,36 @@ import Button from '@material-ui/core/Button';
 
 import '../App/App.css';
 
-function ViewFields(params) {
+function BuyerViewFields(params) {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const fieldList = useSelector((store) => store.fieldListReducer);
+  const userList = useSelector((store) => store.userListReducer);
   // console.log('The fieldList', fieldList);
 
   const userID = params.userID;
 
   useEffect(() => {
+    // dispatch({
+    //   type: 'FETCH_BUYER_FIELD_LIST',
+    //   payload: userID,
+    // });
     dispatch({
-      type: 'FETCH_FIELD_LIST',
-      payload: userID,
-    });
+        type: 'FETCH_USER_LIST'
+    })
   }, []);
 
 
+    function findFarmer(param){
+        let farmer_index = userList.findIndex((user) => user.id === Number(param.farmer_id));
+        // let farmer = userList[farmer_index]
+        return (
+            <span>userList[farmer_index]</span>
+        )
+    }
 
 
-  const [isOpen, setIsOpen] = useState(false);
- 
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
-  }
-
-
-
-
-  function deleteButton(fieldID) {
-    dispatch({
-      type: 'DELETE_FIELD',
-      payload: fieldID,
-    });
-  }
 
   return (
     <center>
@@ -60,36 +54,26 @@ function ViewFields(params) {
             <TableCell>Location</TableCell>
             <TableCell>Status</TableCell>
             <TableCell>Note</TableCell>
-            <TableCell>Buyers</TableCell>
-            <TableCell></TableCell>
+            <TableCell>Farmer</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {fieldList.map((field) => {
-            console.log('This field is: ', field);
-            return (
+          {fieldList.map((field) => (
             <TableRow key={field.id}>
-              <TableCell><Button onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button></TableCell>
+              <TableCell>
+              <Button onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button>
+              </TableCell>
               <TableCell>{field.location}</TableCell>
               <TableCell>{field.field_status}</TableCell>
               <TableCell>{field.field_note}</TableCell>
-              <TableCell>Buyer Here {isOpen && <SetBuyer togglePopup={togglePopup} fieldID={field.id}/>}</TableCell>
-              <TableCell>
-                <Button onClick={() => togglePopup()}>Add Potential Buyer</Button>
-                <Button onClick={() => history.push(`/edit_field/${field.id}`)} >Edit</Button> / 
-                <Button color="secondary" onClick={() => deleteButton(field.id)}>Delete</Button>
-                </TableCell>
+              <TableCell>{findFarmer(field)}</TableCell>
             </TableRow>
-            );
-          })}
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
-    <p>
-    <Button onClick={() => history.push(`/add_field/`)}>Add new Field</Button>
-    </p>
     </center>
   );
 }
 
-export default ViewFields;
+export default BuyerViewFields;
