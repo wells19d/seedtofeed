@@ -68,7 +68,8 @@ function ViewTransactions(params) {
                       <TableCell>{event.image}</TableCell>
                       <TableCell>{event.status_notes}</TableCell>
                       <TableCell>
-                        <Button size="small"
+                        <Button
+                          size="small"
                           onClick={() =>
                             history.push(
                               `/edit_transaction/${fieldID}/${event.id}`
@@ -76,8 +77,9 @@ function ViewTransactions(params) {
                           }
                         >
                           Edit
-                        </Button> 
-                        <Button size="small"
+                        </Button>
+                        <Button
+                          size="small"
                           color="secondary"
                           onClick={() => deleteButton(event.id)}
                         >
@@ -91,7 +93,14 @@ function ViewTransactions(params) {
             </Table>
           </TableContainer>
           <br />
-          <Button size="small" onClick={() => console.log('Button Clicked: Transaction would have been added')}>Add Transaction</Button>
+          <Button
+            size="small"
+            onClick={() =>
+              console.log('Button Clicked: Transaction would have been added')
+            }
+          >
+            Add Transaction
+          </Button>
         </Grid>
         <Grid item xs={1} />
       </Grid>

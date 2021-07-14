@@ -46,6 +46,10 @@ function BuyerViewFields(params) {
 
   return (
     <center>
+      <h3>Buyer Field</h3>
+      <Grid container spacing={3}>
+        <Grid item xs={1} />
+        <Grid item xs={10}>
     <TableContainer component={Paper}>
       <Table size="small">
         <TableHead>
@@ -72,6 +76,9 @@ function BuyerViewFields(params) {
         </TableBody>
       </Table>
     </TableContainer>
+    </Grid>
+        <Grid item xs={1} />
+      </Grid>
     </center>
   );
 }

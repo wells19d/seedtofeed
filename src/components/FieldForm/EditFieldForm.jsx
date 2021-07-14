@@ -78,7 +78,6 @@ function EditFieldForm() {
     dispatch({
       type: 'UPDATE_FIELD',
       payload: {
-        
         name: fieldName,
         year: fieldYear,
         crop_id: cropType,
@@ -89,7 +88,7 @@ function EditFieldForm() {
       },
     });
     history.push('/user');
-  }; 
+  };
 
   return (
     <Router>
@@ -152,27 +151,26 @@ function EditFieldForm() {
       <br />
       <br />
       <FormControl size="small">
-      <Select
-        variant="outlined"
-        value={cropType}
-        required
-        style={{ width: '155px' }}
-        size="small"
-        onChange={(event) => setCropType(event.target.value)}
-        displayEmpty
-        
-      >
-        <MenuItem value="" disabled size="small">
-          <em>Crop Type</em>
-        </MenuItem>
-        {crops?.map((crop) => {
-          return (
-            <MenuItem key={crop.id} value={crop.id}>
-              {crop.crop_type}
-            </MenuItem>
-          );
-        })}
-      </Select>
+        <Select
+          variant="outlined"
+          value={cropType}
+          required
+          style={{ width: '155px' }}
+          size="small"
+          onChange={(event) => setCropType(event.target.value)}
+          displayEmpty
+        >
+          <MenuItem value="" disabled size="small">
+            <em>Crop Type</em>
+          </MenuItem>
+          {crops?.map((crop) => {
+            return (
+              <MenuItem key={crop.id} value={crop.id}>
+                {crop.crop_type}
+              </MenuItem>
+            );
+          })}
+        </Select>
       </FormControl>
       <br />
       <br />
@@ -190,17 +188,16 @@ function EditFieldForm() {
         }}
       />
       <center>
-        <Button size="small"
+        <Button
+          size="small"
           onClick={() => {
-            history.push('/user'); 
+            history.push('/user');
           }}
         >
           Cancel
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button size="small"
-          onClick={(event) => updateField(event)} 
-        >
+        <Button size="small" onClick={(event) => updateField(event)}>
           Submit
         </Button>
       </center>

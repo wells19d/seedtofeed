@@ -23,11 +23,12 @@ function LandingPage() {
         <div className="grid-col grid-col_8">
           <img className="landing-page" src={logo2} alt="Seed to Feed Logo" />
           <p>
-            Seed to Feed was created to help increase profitability for farmers and feed
-            producers, as well as the partners in-between. This project will benefit the
-            entire supply chain, all the way back to your local farmer. Our mission is to
-            promote industry education, explore existing supply chain challenges, and
-            highlight technology and industry partners working on solutions.
+            Seed to Feed was created to help increase profitability for farmers
+            and feed producers, as well as the partners in-between. This project
+            will benefit the entire supply chain, all the way back to your local
+            farmer. Our mission is to promote industry education, explore
+            existing supply chain challenges, and highlight technology and
+            industry partners working on solutions.
           </p>
         </div>
         <div className="grid-col grid-col_4">
@@ -35,7 +36,11 @@ function LandingPage() {
           <center>
             <br />
             <h4>Are You A Member?</h4>
-            <Button size="small" className="btn btn_sizeSm" onClick={registration}>
+            <Button
+              size="small"
+              className="btn btn_sizeSm"
+              onClick={registration}
+            >
               Register Here
             </Button>
           </center>

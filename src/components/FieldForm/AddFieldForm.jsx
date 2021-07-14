@@ -36,10 +36,10 @@ function AddFieldForm() {
   // ADD A FIELD
   const addField = (event) => {
     event.preventDefault();
-    history.push('/user'); 
+    history.push('/user');
 
     dispatch({
-      type: 'SET_FIELD', 
+      type: 'SET_FIELD',
       payload: {
         name: fieldName,
         year: fieldYear,
@@ -112,27 +112,26 @@ function AddFieldForm() {
       <br />
       <br />
       <FormControl size="small">
-      <Select
-        variant="outlined"
-        value={cropType}
-        required
-        style={{ width: '155px' }}
-        size="small"
-        onChange={(event) => setCropType(event.target.value)}
-        displayEmpty
-        
-      >
-        <MenuItem value="" disabled size="small">
-          <em>Crop Type</em>
-        </MenuItem>
-        {crops?.map((crop) => {
-          return (
-            <MenuItem key={crop.id} value={crop.id}>
-              {crop.crop_type}
-            </MenuItem>
-          );
-        })}
-      </Select>
+        <Select
+          variant="outlined"
+          value={cropType}
+          required
+          style={{ width: '155px' }}
+          size="small"
+          onChange={(event) => setCropType(event.target.value)}
+          displayEmpty
+        >
+          <MenuItem value="" disabled size="small">
+            <em>Crop Type</em>
+          </MenuItem>
+          {crops?.map((crop) => {
+            return (
+              <MenuItem key={crop.id} value={crop.id}>
+                {crop.crop_type}
+              </MenuItem>
+            );
+          })}
+        </Select>
       </FormControl>
       <br />
       <br />
@@ -150,17 +149,16 @@ function AddFieldForm() {
         }}
       />
       <center>
-        <Button size="small"
+        <Button
+          size="small"
           onClick={() => {
-            history.push('/user'); 
+            history.push('/user');
           }}
         >
           Cancel
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button size="small"
-          onClick={(event) => addField(event)} 
-        >
+        <Button size="small" onClick={(event) => addField(event)}>
           Submit
         </Button>
       </center>

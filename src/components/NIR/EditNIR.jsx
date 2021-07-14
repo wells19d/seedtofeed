@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { HashRouter as Router} from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,10 +20,10 @@ function EditNIR() {
 
   useEffect(() => {
     dispatch({
-        type: 'FETCH_FIELD_NIR',
-        payload: field_id
-    })
-}, [])
+      type: 'FETCH_FIELD_NIR',
+      payload: field_id,
+    });
+  }, []);
 
   const NIR_index = fieldNIR.findIndex((NIR) => NIR.id === Number(NIRID));
   const NIR_to_edit = fieldNIR[NIR_index];
@@ -56,7 +56,7 @@ function EditNIR() {
 
   return (
     <Router>
-        <TextField
+      <TextField
         variant="outlined"
         label="Oil Level"
         type="number"
@@ -67,10 +67,10 @@ function EditNIR() {
         InputLabelProps={{
           shrink: true,
         }}
-        />
-        <br />
-        <br />
-        <TextField
+      />
+      <br />
+      <br />
+      <TextField
         variant="outlined"
         label="Moisture Level"
         type="number"
@@ -81,10 +81,10 @@ function EditNIR() {
         InputLabelProps={{
           shrink: true,
         }}
-        />
-        <br />
-        <br />
-        <TextField
+      />
+      <br />
+      <br />
+      <TextField
         variant="outlined"
         label="Protein Level"
         type="number"
@@ -95,10 +95,10 @@ function EditNIR() {
         InputLabelProps={{
           shrink: true,
         }}
-        />
-        <br />
-        <br />
-        <TextField
+      />
+      <br />
+      <br />
+      <TextField
         variant="outlined"
         label="Energy Level"
         type="number"
@@ -109,10 +109,10 @@ function EditNIR() {
         InputLabelProps={{
           shrink: true,
         }}
-        />
-        <br />
-        <br />
-        <TextField
+      />
+      <br />
+      <br />
+      <TextField
         variant="outlined"
         label="Amino Acid Level"
         type="number"
@@ -123,19 +123,23 @@ function EditNIR() {
         InputLabelProps={{
           shrink: true,
         }}
-        />
-        <br />
-        <br />
-        <Button size="small"
-          type="button"
-          onClick={() => {
-            history.push(`/field_details/${field_id}`);
-          }}
-        >Cancel</Button>{`\u00A0\u00A0\u00A0\u00A0`}
-        <Button size="small"
-        type="submit"
-        onClick={(event) => addNIR(event)}>Update</Button>
-      </Router>
+      />
+      <br />
+      <br />
+      <Button
+        size="small"
+        type="button"
+        onClick={() => {
+          history.push(`/field_details/${field_id}`);
+        }}
+      >
+        Cancel
+      </Button>
+      {`\u00A0\u00A0\u00A0\u00A0`}
+      <Button size="small" type="submit" onClick={(event) => addNIR(event)}>
+        Update
+      </Button>
+    </Router>
   );
 }
 
