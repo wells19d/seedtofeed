@@ -26,7 +26,13 @@ function Nav() {
       <Link to="/home">
         <div className="nav-logo-span">
           <img className="nav-logo" src={logo} alt="Seed to Feed Logo" />
+
+
         </div>
+        <div className="nav-logo-title">
+          <h2>TRACKER</h2>
+        </div>
+
       </Link>
       <div>
         <Link className="navLink" to={loginLinkData.path}>

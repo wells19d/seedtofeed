@@ -9,6 +9,8 @@
     overflow: hidden;
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
+    font-size: 1.5em;
+
 }
 
 .nav a {
@@ -60,14 +62,27 @@ a:link {
     max-height: fit-content;
     max-height: fit-content;
     image-rendering: optimizeQuality;
+  
 }
 
 .nav-logo-span {
     max-height: 150px;
     max-width: 150px;
+    margin-bottom: 0px;
+    margin-top:50px;
 }
 
 .nav-logo-link {
     max-height: 50px;
     max-width: 50px;
+}
+.nav-logo-title {
+    display:inline-flex;
+    font-family: 'Montserrat', sans-serif;
+    justify-content: center;
+    align-items: center;
+    margin-left: 75px;
+    padding-left: 25px;
+    margin-top: 0px;
+    padding-top: 0;
 }
