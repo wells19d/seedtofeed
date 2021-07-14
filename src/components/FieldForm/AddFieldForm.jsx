@@ -53,6 +53,7 @@ function AddFieldForm() {
 
   return (
     <Router>
+      <h3>Add Field</h3>
       <TextField
         variant="outlined"
         label="Field Name"
@@ -117,7 +118,6 @@ function AddFieldForm() {
           value={cropType}
           required
           style={{ width: '155px' }}
-          size="small"
           onChange={(event) => setCropType(event.target.value)}
           displayEmpty
         >

@@ -82,221 +82,229 @@ function AddContract(params) {
   }; // end addContract
 
   return (
-    <div>
-      <form className="add-contract" onSubmit={addContract}>
-        <h3>Add Contract</h3>
-        <div>
-          <label htmlFor="fieldList">
-            Field List:
-            <select
-              type="text"
-              name="status"
-              value={user_field_id}
-              required
-              onChange={(event) => setUserFieldID(event.target.value)}
-            >
-              <option>Select</option>
-              {fields.map((field) => {
+    <Router>
+      <h3>Add Contract</h3>
+      <FormControl size="small">
+        <Select
+        variant="outlined"
+        value={user_field_id}
+        style={{ width: '195px' }}
+        required
+        displayEmpty
+        onChange={(event) => setUserFieldID(event.target.value)}
+        >
+          <MenuItem value="" disabled size="small">
+            <em>Select Field</em>
+          </MenuItem>
+          {fields.map((field) => {
                 console.log('fieldtype:', field);
                 return (
-                  <option key={field.id} value={field.user_field_id}>
+                  <MenuItem key={field.id} value={field.user_field_id}>
                     {field.name}
-                  </option>
+                  </MenuItem>
                 );
               })}
-            </select>
-          </label>
-        </div>
-
-        <div>
-          <label htmlFor="commodity">
-            Commodity:
-            <select
-              type="text"
-              name="status"
-              value={commodity}
-              required
-              onChange={(event) => setCommodity(event.target.value)}
-            >
-              <option>Select</option>
-              {crops.map((crop) => {
-                console.log('croptype:', crop);
+        </Select>
+       </FormControl>
+        <br />
+        <br />
+        <FormControl size="small">
+        <Select
+        variant="outlined"
+        value={commodity}
+        style={{ width: '195px' }}
+        required
+        displayEmpty
+        onChange={(event) => setCommodity(event.target.value)}
+        >
+          <MenuItem value="" disabled size="small">
+            <em>Select Commodity</em>
+          </MenuItem>
+          {crops.map((crop) => {
+                console.log('fieldtype:', crop);
                 return (
-                  <option key={crop.id} value={crop.id}>
+                  <MenuItem key={crop.id} value={crop.id}>
                     {crop.crop_type}
-                  </option>
+                  </MenuItem>
                 );
               })}
-            </select>
-          </label>
-        </div>
-
-        <div>
-          <label htmlFor="open-status">
-            Open Status:
-            <select
-              type="text"
-              name="status"
-              value={openStatus}
-              required
-              onChange={(event) => setOpenStatus(event.target.value)}
-            >
-              <option>Select</option>
-              {contractStatus.map((status) => {
+        </Select>
+       </FormControl>
+        <br />
+        <br />
+        <FormControl size="small">
+        <Select
+        variant="outlined"
+        value={openStatus}
+        style={{ width: '195px' }}
+        required
+        displayEmpty
+        onChange={(event) => setOpenStatus(event.target.value)}
+        >
+          <MenuItem value="" disabled size="small">
+            <em>Status</em>
+          </MenuItem>
+          {contractStatus.map((status) => {
                 console.log('contract status:', status);
                 return (
-                  <option key={status.id} value={status.id}>
+                  <MenuItem key={status.id} value={status.id}>
                     {status.name}
-                  </option>
+                  </MenuItem>
                 );
               })}
-            </select>
-          </label>
-        </div>
+        </Select>
+       </FormControl>
+        <br />
+        <br />
 
-        <div>
-          <label htmlFor="bushel-uid">
-            Bushel Id:
-            <input
-              placeholder="Bushel UID"
-              type="text"
-              name="Bushel User Id"
-              value={bushel_uid}
-              required
-              onChange={(event) => setBushel_uid(event.target.value)}
-            />
-          </label>
-        </div>
-
-        <div>
-          <label htmlFor="quantity-fulfilled">
-            Quantity Fulfilled:
-            <input
-              placeholder="Bushels"
-              type="number"
-              min="0"
-              name="Quantity Fulfilled"
-              value={quantityFulfilled}
-              required
-              onChange={(event) => setQuantityFulfilled(event.target.value)}
-            />
-          </label>
-        </div>
-
-        <div>
-          <label htmlFor="price">
-            Price:
-            <input
-              placeholder="Price"
-              type="number"
-              min="0"
-              name="price"
-              value={price}
-              required
-              onChange={(event) => setPrice(event.target.value)}
-            />
-          </label>
-        </div>
-
-        <div>
-          <label htmlFor="protein">
-            Protein:
-            <input
-              placeholder="Protein"
-              type="number"
-              min="0"
-              name="protein"
-              value={protein}
-              required
-              onChange={(event) => setProtein(event.target.value)}
-            />
-          </label>
-        </div>
-
-        <div>
-          <label htmlFor="moisture">
-            Moisture:
-            <input
-              placeholder="Moisture"
-              type="number"
-              min="0"
-              name="Moisture"
-              value={moisture}
-              required
-              onChange={(event) => setMoisture(event.target.value)}
-            />
-          </label>
-        </div>
-
-        <div>
-          <label htmlFor="oil">
-            Oil:
-            <input
-              placeholder="Oil"
-              type="number"
-              min="0"
-              name="oil"
-              value={oil}
-              required
-              onChange={(event) => setOil(event.target.value)}
-            />
-          </label>
-        </div>
-
-        <div>
-          <label htmlFor="contract-quantity">
-            Contract Quantity:
-            <input
-              placeholder="Bushels"
-              type="number"
-              min="0"
-              name="quantity"
-              value={contractQuantity}
-              required
-              onChange={(event) => setContractQuantity(event.target.value)}
-            />
-          </label>
-        </div>
-
-        <div>
-          <label htmlFor="container-serial">
-            Container Serial Number
-            <input
-              placeholder="Container Serial"
-              type="text"
-              name="container serial"
-              value={containerSerial}
-              required
-              onChange={(event) => setContainerSerial(event.target.value)}
-            />
-          </label>
-        </div>
-
-        <div>
-          <label htmlFor="contract-handler">
-            Contract Handler:
-            <input
-              placeholder="Contract Handler"
-              type="text"
-              name="Contract Handler"
-              value={contractHandler}
-              required
-              onChange={(event) => setContractHandler(event.target.value)}
-            />
-          </label>
-        </div>
-        
-        <div>
-          <input
-            className="btn"
-            type="submit"
-            name="submit"
-            value="Add Contract"
-          />
-        </div>
-      </form>
-    </div>
+        <TextField
+        variant="outlined"
+        label="Bushel UID"
+        type="text"
+        value={bushel_uid}
+        onChange={(event) => setBushel_uid(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+        size="small"
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Quantity Fulfilled"
+        type="text"
+        value={quantityFulfilled}
+        onChange={(event) => setQuantityFulfilled(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+        size="small"
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Price"
+        type="number"
+        value={price}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setPrice(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+        size="small"
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Protein"
+        type="number"
+        value={protein}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setProtein(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+        size="small"
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Moisture"
+        type="number"
+        value={moisture}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setMoisture(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+        size="small"
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Oil"
+        type="number"
+        value={oil}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setOil(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+        size="small"
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Contract Quantity"
+        type="number"
+        value={contractQuantity}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setContractQuantity(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+        size="small"
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Container Serial Number"
+        type="number"
+        value={containerSerial}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setContainerSerial(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+        size="small"
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Contract Handler"
+        type="text"
+        value={contractHandler}
+        onChange={(event) => setContractHandler(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+        size="small"
+      />
+     <br />
+     <br />
+      <Button
+          size="small"
+          onClick={() => {
+            history.push('/contract');
+          }}
+        >
+          Cancel
+        </Button>
+        {`\u00A0\u00A0\u00A0\u00A0`}
+        <Button size="small" onClick={(event) => addField(event)}>
+          Submit
+        </Button>
+    </Router>
   );
 }
 
 export default AddContract;
+
+

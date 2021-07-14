@@ -35,7 +35,7 @@ function LandingPage() {
           <LoginForm />
           <center>
             <br />
-            <h4>Are You A Member?</h4>
+            <h4>Not A Member?</h4>
             <Button
               size="small"
               className="btn btn_sizeSm"

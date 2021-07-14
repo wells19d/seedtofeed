@@ -49,31 +49,11 @@ function FieldNIR(params) {
               <TableHead>
                 <TableRow>
                   <TableCell>Test Date</TableCell>
-                  <TableCell>
-                    Oil
-                    <br />
-                    Levels
-                  </TableCell>
-                  <TableCell>
-                    Moisture
-                    <br />
-                    Levels
-                  </TableCell>
-                  <TableCell>
-                    Protein
-                    <br />
-                    Levels
-                  </TableCell>
-                  <TableCell>
-                    Energy
-                    <br />
-                    Levels
-                  </TableCell>
-                  <TableCell>
-                    Amino
-                    <br />
-                    Acids
-                  </TableCell>
+                  <TableCell>Oil<br />Levels</TableCell>
+                  <TableCell>Moisture<br />Levels</TableCell>
+                  <TableCell>Protein<br />Levels</TableCell>
+                  <TableCell>Energy<br />Levels</TableCell>
+                  <TableCell>Amino<br />Acids</TableCell>
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
