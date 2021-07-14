@@ -59,8 +59,8 @@ CREATE TABLE "contract" (
 	"commodity" integer NOT NULL,
 	"open_status" integer NOT NULL,
 	"bushel_uid" VARCHAR(255),
-	"quantity_fulfilled" varchar(255),
-	"price" integer,
+	"quantity_fulfilled" FLOAT,
+	"price" FLOAT,
 	"protein" FLOAT,
 	"oil" FLOAT,
 	"moisture" FLOAT,
@@ -208,7 +208,7 @@ INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('6', 'e
 INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('7', 'processing', '/images/007.png');
 INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('8', 'transit', '/images/008.png');
 INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('9', 'feed', '/images/009.png');
-INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('10', 'contract', '');
+INSERT INTO "transaction_type" ("id", "name") VALUES ('10', 'contract');
 
 
 -- need inserts to target images
@@ -250,3 +250,4 @@ jim@field.com   1234
 jason@field.com  1234
 
 */
+

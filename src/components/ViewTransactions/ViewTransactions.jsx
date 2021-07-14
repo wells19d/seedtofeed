@@ -52,9 +52,6 @@ function ViewTransactions(params) {
                             Field Status
                         </th>
                         <th>
-                            Image
-                        </th>
-                        <th>
                             Notes
                         </th>
 
@@ -75,15 +72,12 @@ function ViewTransactions(params) {
                                     {event.field_status}
                                 </td>
                                 <td>
-                                    {event.image}
-                                </td>
-                                <td>
                                     {event.status_notes}
                                 </td>
 
                                 {user.farmer &&
                                     <td>
-                                        <button onClick={() => history.push(`/edit_transaction/${fieldID}/${event.id}`)}>
+                                        <button onClick={() => history.push(`/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
                                             Edit
                                         </button>
                                         <button onClick={() => deleteButton(event.id)}>

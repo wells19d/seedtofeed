@@ -18,7 +18,6 @@ function ViewFieldDetails() {
   }, []);
 
   const params = useParams();
-
   const fieldID = params.fieldID;
 
   const [view, setView] = useState('true');

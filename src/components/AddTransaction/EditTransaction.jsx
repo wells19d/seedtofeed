@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { HashRouter as Router, useHistory } from 'react-router-dom';
+import { HashRouter as Router, useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import TextField from '@material-ui/core/TextField';
@@ -33,16 +33,12 @@ function EditTransaction() {
   const transactions = useSelector((store) => store.fieldTransactionsReducer);
 
   const transaction_index = transactions.findIndex(
-    (transaction) => transaction.id === Number(transaction_id)
+    (transaction) => transaction.field_transactions_ID === Number(transaction_id)
   );
   const transaction_to_edit = transactions[transaction_index];
   //   const field_id = transaction_to_edit.field_id;
 
   const [notes, setNotes] = useState(transaction_to_edit?.status_notes); // Added the ? as it was coming in undefined
-  const [image, setImage] = useState(transaction_to_edit?.image); // Added the ? as it was coming in undefined
-  const [fieldStatus, setFieldStatus] = useState(
-    transaction_to_edit?.field_status
-  ); // Added the ? as it was coming in undefined
   const [transactionType, setTransactionType] = useState(
     transaction_to_edit?.transaction_type
   ); // Added the ? as it was coming in undefined
@@ -53,12 +49,10 @@ function EditTransaction() {
     dispatch({
       type: 'UPDATE_TRANSACTION',
       payload: {
-        field_id: fieldID,
+        field_id: field_id,
         transaction_id: transaction_id,
         status_notes: notes,
-        image: image,
-        // field_status: fieldStatus,  // shouldn't this be transactionList[transactionType]???
-        field_status: transactionList[transactionType],
+        field_status: transactionList[transactionType]?.name,
         transaction_type: transactionType,
       },
     });
@@ -86,33 +80,6 @@ function EditTransaction() {
             </label>
           </div>
 
-          <div>
-            <label htmlFor="image">
-              Image URL:
-              <input
-                placeholder="Image URL"
-                type="text"
-                name="image"
-                value={image}
-                //   required
-                onChange={(event) => setImage(event.target.value)}
-              />
-            </label>
-          </div>
-
-          {/* <div>
-            <label htmlFor="fieldStatus">
-              Field Status:
-              <input
-                placeholder="Field Status"
-                type="text"
-                name="fieldStatus"
-                value={fieldStatus}
-                required
-                onChange={(event) => setFieldStatus(event.target.value)}
-              />
-            </label>
-          </div> */}
 
           <div>
             <label htmlFor="transactionType">
@@ -125,7 +92,7 @@ function EditTransaction() {
                 required
                 onChange={(event) => setTransactionType(event.target.value)}
               >
-                <option>Select</option>
+                <option disabled value={0}>Select</option>
                 {transactionList?.map((transaction) => {
                   console.log('transaction type:', transaction);
                   return (
@@ -143,7 +110,7 @@ function EditTransaction() {
               className="btn"
               type="submit"
               name="submit"
-              value="Add NIR"
+              value="Edit Transaction"
             />
           </div>
         </form>

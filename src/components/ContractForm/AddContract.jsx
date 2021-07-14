@@ -78,7 +78,7 @@ function AddContract(params) {
 
     alert('Contract has been created');
 
-    history.push('/user');
+    history.push('/contract');
   }; // end addContract
 
   return (
@@ -173,8 +173,9 @@ function AddContract(params) {
       <TextField
         variant="outlined"
         label="Quantity Fulfilled"
-        type="text"
+        type="number"
         value={quantityFulfilled}
+        InputProps={{ inputProps: { min: 0 } }}
         onChange={(event) => setQuantityFulfilled(event.target.value)}
         required
         InputLabelProps={{
@@ -297,7 +298,7 @@ function AddContract(params) {
           Cancel
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button size="small" onClick={(event) => addField(event)}>
+        <Button size="small" onClick={(event) => addContract(event)}>
           Submit
         </Button>
     </Router>

@@ -56,7 +56,7 @@ function ViewContractList(params) {
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell>Contract ID</TableCell>
+                  <TableCell>Contract #</TableCell>
                   <TableCell>Field Name</TableCell>
                   <TableCell>Location</TableCell>
                   <TableCell>Status</TableCell>
