@@ -45,43 +45,43 @@ function Nav() {
             {/* <Link className="navLink" to="/info">
               Info Page
             </Link> */}
-            <LogOutButton className="navLink" />
           </>
         )}
-        <div className="nav-logo-link">
+        {/* <div className="nav-logo-link">
           <a href="http://www.seedtofeed.info/" target="_blank">
             <img src={logo} className="nav-logo" alt="Seed to Feed Logo" />
 
           </a>
-        </div>
-        <div>
-          {user.farmer === true && user.id && (
-            <Link className="navLink" to='/contract'>CONTRACTS</Link>
+        </div> */}
 
-          )}
-          {user.farmer === true && user.id && (
-            <Link className="navLink" to='/contract_form'>CONTRACT FORM</Link>
-          )}
-          {user.farmer === true && user.id && (
-            <Link className="navLink" to='/fieldDB'>FIELDS</Link>
+        {user.farmer === true && user.id && (
+          <Link className="navLink" to='/contract'>CONTRACTS</Link>
 
-          )}
-          {user.farmer === true && user.id && (
-            <Link className="navLink" to='/field'>TRANSACTIONS</Link>
-          )}
-        </div>
-        <div>
-          {user.buyer === true && user.id && (
-            <Link className="navLink" to='/contract'>CONTRACTS</Link>
-          )}
+        )}
+        {user.farmer === true && user.id && (
+          <Link className="navLink" to='/contract_form'>CONTRACT FORM</Link>
+        )}
+        {user.farmer === true && user.id && (
+          <Link className="navLink" to='/fieldDB'>FIELDS</Link>
 
-          {/* {user.buyer === true && user.id && (
+        )}
+        {user.farmer === true && user.id && (
+          <Link className="navLink" to='/field'>TRANSACTIONS</Link>
+        )}
+
+
+        {user.buyer === true && user.id && (
+          <Link className="navLink" to='/contract'>CONTRACTS</Link>
+        )}
+        <LogOutButton className="navLink" />
+
+        {/* {user.buyer === true && user.id && (
             <Link className="navLink" to='/contract_form'>Contract Form</Link>
           )} */}
-        </div>
-
       </div>
-    </div >
+
+    </div>
+
   );
 }
 
