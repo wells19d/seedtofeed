@@ -87,7 +87,7 @@ router.get('/fieldList', rejectUnauthenticated, (req, res) => {
 JOIN "user_field" ON "user_field"."field_id"="field"."id"
 WHERE "user_field"."user_id" = 1; */
 
-    pool.query(queryText, [userID]).then(async function(result) {
+    pool.query(queryText, [userID]).then(async function (result) {
         console.log(result.rows);
         let modifiedFields = [];
         for (let field of result.rows) {
@@ -245,7 +245,7 @@ router.post('/makefield', rejectUnauthenticated, async (req, res) => {
 
     try {
         const response = await pool.query(queryText, [year, location, acres, field_note, name, image, shape_file, gmo, crop_id]);
-    
+
         console.log(response.rows);
 
         //second query creates entry into user_field table
@@ -253,15 +253,17 @@ router.post('/makefield', rejectUnauthenticated, async (req, res) => {
         const insert_field = `
         INSERT INTO "user_field" ("field_id", "user_id")
         VALUES ($1, $2);`;
-
         await pool.query(insert_field, [created_field, req.user.id])
         console.log(`Field ${created_field} connected to user_field`);
         res.sendStatus(201);
-    } catch(error) { 
+    } catch (error) {
         console.log(`Error making database query ${queryText}`, error);
         res.sendStatus(500);
     }
+
 });
+
+
 
 //CREATE A FIELD TRANSACTION
 router.post('/create_transaction', rejectUnauthenticated, (req, res) => {
@@ -304,19 +306,29 @@ router.post('/create_NIR', rejectUnauthenticated, (req, res) => {
 
     const queryText = `INSERT INTO "NIR" 
     ("field_id", "oil", "moisture", "protein", "energy", "amino_acids", "tested_at") 
-    VALUES ($1, $2, $3, $4, $5, $6, $7);
-`
+    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;`;
 
     pool.query(queryText, [field_id, oil, moisture, protein, energy, amino_acids, tested_at])
         .then(result => {
+            console.log('NIR was added', result.rows[0].field_id);
+            const field_id = result.rows[0].field_id;
+            console.log('field id is', field_id);
+            const queryTransaction = `INSERT INTO "field_transactions"("field_id", "timestamp", "status_notes", "field_status",
+        "transaction_type") VALUES($1, Now(), 'NIR added', 'NIR added', 11) RETURNING *; `;
+
+            pool.query(queryTransaction, [field_id])
+                .then((result) => {
+                    console.log('Updating transaction table with NIR', result.rows);
+                }).catch(error => {
+                    console.log(`Error updating table with NIR`, error);
+                })
             res.sendStatus(201);
-        })
-        .catch(err => {
+        }).catch(err => {
             console.log(err);
             res.sendStatus(500);
         })
-
 });
+
 
 // -- PUTS -- 
 //edit/update the field table
@@ -336,10 +348,10 @@ router.put('/update/:fieldID', rejectUnauthenticated, (req, res) => {
 
     const queryText = `
             UPDATE "field"
-            SET "year" = $2, "location" = $3, "acres" = $4, "field_note" = $5, "name" = $6, "shape_file" = $7, "gmo" = $8, "crop_id" = $9
-            FROM "user_field"
-            WHERE "field"."id" = $1 AND "user_field"."user_id" = $10;
-            `;
+    SET "year" = $2, "location" = $3, "acres" = $4, "field_note" = $5, "name" = $6, "shape_file" = $7, "gmo" = $8, "crop_id" = $9
+    FROM "user_field"
+    WHERE "field"."id" = $1 AND "user_field"."user_id" = $10;
+    `;
     pool.query(queryText, [fieldID, year, location, acres, field_note, name, shape_file, gmo, crop_id, req.user.id]).then((response) => {
         res.sendStatus(204);
     }).catch((err) => {
@@ -350,9 +362,9 @@ router.put('/update/:fieldID', rejectUnauthenticated, (req, res) => {
 
 
 router.put('/update_NIR/', rejectUnauthenticated, (req, res) => {
-    console.log('NIR update', req.body);
 
     const NIRID = req.body.NIRID;
+    const field_id = req.body.field_id;
     const oil = req.body.oil;
     const moisture = req.body.moisture;
     const protein = req.body.protein;
@@ -360,17 +372,30 @@ router.put('/update_NIR/', rejectUnauthenticated, (req, res) => {
     const amino_acids = req.body.amino_acids;
 
     const queryText = `UPDATE "NIR"
-                        SET "oil"=$1, "moisture"=$2, "protein"=$3, "energy"=$4, "amino_acids"=$5
-                        WHERE "id"=$6;`;
+    SET "oil" = $1, "moisture" = $2, "protein" = $3, "energy" = $4, "amino_acids" = $5
+    WHERE "id" = $6 RETURNING *;`;
 
-    pool.query(queryText, [oil, moisture, protein, energy, amino_acids, NIRID]).then(result => {
-            res.sendStatus(204);
-        })
-        .catch(error => {
+    pool.query(queryText, [oil, moisture, protein, energy, amino_acids, NIRID])
+        .then((result) => {
+            console.log('field id is', field_id);
+
+            const queryUpdate = `INSERT INTO "field_transactions"("field_id", "timestamp", "status_notes", "field_status",
+            "transaction_type") VALUES($1, Now(), 'NIR updated', 'NIR updated', 11) RETURNING *; `;
+
+            pool.query(queryUpdate, [field_id])
+                .then((result) => {
+                    console.log('Updating transaction table with NIR', result.rows);
+                    res.sendStatus(201);
+                }).catch(error => {
+                    console.log(`Error updating table with NIR`, error);
+                })
+        }).catch(error => {
             console.log('Error making query: ', error);
             res.sendStatus(500);
         })
-})
+});
+
+
 
 router.put('/update_transaction', rejectUnauthenticated, (req, res) => {
     console.log('Transaction update', req.body);
@@ -382,12 +407,12 @@ router.put('/update_transaction', rejectUnauthenticated, (req, res) => {
     const transaction_type = req.body.transaction_type;
 
     const queryText = `UPDATE "field_transactions"
-                        SET "status_notes"=$1, "image"=$2, "field_status"=$3, "transaction_type"=$4
-                        WHERE "id"=$5;`;
+    SET "status_notes" = $1, "image" = $2, "field_status" = $3, "transaction_type" = $4
+    WHERE "id" = $5; `;
 
     pool.query(queryText, [status_notes, image, field_status, transaction_type, transaction_id]).then(result => {
-            res.sendStatus(204);
-        })
+        res.sendStatus(204);
+    })
         .catch(error => {
             console.log('Error making query: ', error);
             res.sendStatus(500);
@@ -401,10 +426,10 @@ router.put('/update_transaction', rejectUnauthenticated, (req, res) => {
 router.delete('/delete_field/:fieldID', rejectUnauthenticated, (req, res) => {
 
     const queryText = `
-        DELETE
-        FROM "field"
-        WHERE "id" = $1;
-        `;
+    DELETE
+    FROM "field"
+    WHERE "id" = $1;
+    `;
 
     pool.query(queryText, [req.params.fieldID])
         .then(() => res.sendStatus(204))
@@ -416,7 +441,7 @@ router.delete('/delete_field/:fieldID', rejectUnauthenticated, (req, res) => {
 
 router.delete('/delete_transaction/:transactionID', rejectUnauthenticated, (req, res) => {
 
-    const queryText = `DELETE FROM "field_transactions" WHERE "id"=$1;`;
+    const queryText = `DELETE FROM "field_transactions" WHERE "id" = $1; `;
 
     pool.query(queryText, [req.params.transactionID])
         .then(() => res.sendStatus(204))
@@ -430,9 +455,9 @@ router.delete('/delete_NIR/:NIRID', rejectUnauthenticated, (req, res) => {
 
     const NIRID = req.params.NIRID;
 
-    const queryText = `DELETE 
-    FROM "NIR" 
-    WHERE "id"=$1;
+    const queryText = `DELETE
+    FROM "NIR"
+    WHERE "id" = $1;
     `;
 
     pool.query(queryText, [NIRID])
