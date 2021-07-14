@@ -71,9 +71,9 @@ function Nav() {
             <Link className="navLink" to='/contract'>Contracts</Link>
           )}
 
-          {user.buyer === true && user.id && (
+          {/* {user.buyer === true && user.id && (
             <Link className="navLink" to='/contract_form'>Contract Form</Link>
-          )}
+          )} */}
         </div>
 
       </div>

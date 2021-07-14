@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { HashRouter as Router, useHistory } from 'react-router-dom';
+import { HashRouter as Router, useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import TextField from '@material-ui/core/TextField';
@@ -17,8 +17,6 @@ function AddTransaction() {
   const field_id = params.fieldID;
 
   const [notes, setNotes] = useState('');
-  const [image, setImage] = useState('');
-  const [fieldStatus, setFieldStatus] = useState('');
   const [transactionType, setTransactionType] = useState(1);
 
   useEffect(() => {
@@ -38,9 +36,7 @@ function AddTransaction() {
         field_id: field_id,
         timestamp: new Date(),
         status_notes: notes,
-        image: image,
-        // field_status: fieldStatus, // shouldn't this be transactionList[transactionType]???
-        field_status: transactionList[transactionType],
+        field_status: transactionList[transactionType]?.name,
         transaction_type: transactionType,
       },
     });
@@ -67,34 +63,6 @@ function AddTransaction() {
               />
             </label>
           </div>
-
-          <div>
-            <label htmlFor="image">
-              Image URL:
-              <input
-                placeholder="Image URL"
-                type="text"
-                name="image"
-                value={image}
-                //   required
-                onChange={(event) => setImage(event.target.value)}
-              />
-            </label>
-          </div>
-
-          {/* <div>
-          <label htmlFor='fieldStatus'>
-            Field Status:
-            <input
-              placeholder='Field Status'
-              type='text'
-              name='fieldStatus'
-              value={fieldStatus}
-              required
-              onChange={(event) => setFieldStatus(event.target.value)}
-            />
-          </label>
-        </div> */}
 
           <div>
             <label htmlFor="transactionType">
@@ -125,7 +93,7 @@ function AddTransaction() {
               className="btn"
               type="submit"
               name="submit"
-              value="Add NIR"
+              value="Add Transaction"
             />
           </div>
         </form>

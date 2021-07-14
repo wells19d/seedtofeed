@@ -14,6 +14,7 @@ function StatusTracker(params) {
 
   
   let detail = details[details.length-1]; // This would get the latest entry in the store, assuming that the newest entry is also the newest date.
+  //let detail = details[0];
   console.log('here are the field details:', detail);
 
   // let detail;
@@ -57,7 +58,7 @@ function StatusTracker(params) {
         );
       })}
 
-      <p>Contract Status: {details.contract_status_name}</p> {/* This should be detail.contract_status_name but errors out on refresh */}
+      <p>Contract Status: {detail?.contract_status_name}</p> {/* This should be detail.contract_status_name but errors out on refresh */}
     </div>
   );
 }

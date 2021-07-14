@@ -178,7 +178,7 @@ router.get('/transactions/:fieldID', rejectUnauthenticated, (req, res) => {
     FROM "field_transactions"
     JOIN "transaction_type" ON "transaction_type"."id"="field_transactions"."transaction_type"
     WHERE "field_id"=$1
-    ORDER BY "field_transactions"."timestamp" ASC;`;
+    ORDER BY "field_transactions"."timestamp" DESC;`;
 
     pool.query(queryText, [fieldID]).then(response => {
         console.log(response.rows);

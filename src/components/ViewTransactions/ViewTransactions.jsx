@@ -52,9 +52,6 @@ function ViewTransactions(params) {
                             Field Status
                         </th>
                         <th>
-                            Image
-                        </th>
-                        <th>
                             Notes
                         </th>
 
@@ -69,13 +66,10 @@ function ViewTransactions(params) {
                         return (
                             <tr key={event.field_transactions_ID}>
                                 <td>
-                                    {moment(event.timestamp).format('MM-DD-YYYY hh:mm')}
+                                    {moment.utc(event.timestamp).format('LLL')}
                                 </td>
                                 <td>
                                     {event.field_status}
-                                </td>
-                                <td>
-                                    {event.image}
                                 </td>
                                 <td>
                                     {event.status_notes}
@@ -83,7 +77,7 @@ function ViewTransactions(params) {
 
                                 {user.farmer &&
                                     <td>
-                                        <button onClick={() => history.push(`/edit_transaction/${fieldID}/${event.id}`)}>
+                                        <button onClick={() => history.push(`/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
                                             Edit
                                         </button>
                                         <button onClick={() => deleteButton(event.id)}>
