@@ -132,6 +132,15 @@ CREATE TABLE "contract_status" (
 );
 
 
+CREATE TABLE "stream" (
+"id" SERIAL PRIMARY KEY,
+"created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+"source" VARCHAR(50) NOT NULL,
+"stream_type" VARCHAR(50) NOT NULL DEFAULT 'unknown',
+"raw" JSONB
+);
+
+
 ALTER TABLE "field" ADD CONSTRAINT "field_fk0" FOREIGN KEY ("crop_id") REFERENCES "crop"("id") ON DELETE CASCADE;
 ALTER TABLE "contract" ADD CONSTRAINT "contract_fk0" FOREIGN KEY ("user_field_id") REFERENCES "user_field"("id") ON DELETE CASCADE;
 ALTER TABLE "contract" ADD CONSTRAINT "contract_fk1" FOREIGN KEY ("commodity") REFERENCES "crop"("id") ON DELETE CASCADE;
@@ -186,6 +195,8 @@ INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('6', 'e
 INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('7', 'processing', '/images/007.png');
 INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('8', 'transit', '/images/008.png');
 INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('9', 'feed', '/images/009.png');
+INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('10', 'contract', '');
+
 
 -- need inserts to target images
 
