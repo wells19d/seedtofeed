@@ -34,8 +34,7 @@ import buyerFieldListSaga from './buyerFieldList.saga';
 
 // import buyerFieldListSaga from './buyerFieldList.saga';
 
-import userListSaga from './userList.saga';
-import buyerFieldListSaga from './buyerFieldList.saga';
+
 import addBuyerSaga from './addBuyer.saga';
 
 // rootSaga is the primary saga.
