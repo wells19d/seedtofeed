@@ -128,7 +128,8 @@ router.post('/add_contract', rejectUnauthenticated, (req, res) => {
 
                     // const created_contract = response.rows[0].id;
                     const insert_contract = `
-            INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", "transaction_type" ) VALUES ($1, Now(), 'contract updated', 'contract updated', 10);`;
+                    INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", "transaction_type" ) 
+                    VALUES ($1, Now(), 'contract created', 'plant', (SELECT "id" FROM "transaction_type" WHERE "name" = 'contract'));`;
                     pool.query(insert_contract, [fieldID])
                         .then(result => {
                             res.sendStatus(201);
@@ -203,7 +204,7 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
             const field_id = result.rows[0].user_field_id;
             console.log('field id is', field_id);
             const queryTransaction = `INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", 
-             "transaction_type" ) VALUES ($1, Now(), 'contract updated', 'contract updated', 10) RETURNING *;`;
+             "transaction_type" ) VALUES ($1, Now(), 'contract updated', 'harvest_farm', (SELECT "id" FROM "transaction_type" WHERE "name" = 'contract')) RETURNING *;`;
 
             pool.query(queryTransaction, [field_id])
                 .then((result) => {
