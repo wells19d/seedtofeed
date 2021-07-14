@@ -81,6 +81,14 @@ function AddContract(params) {
     history.push('/contract');
   }; // end addContract
 
+  const onFieldChange = (event) =>  {
+    setUserFieldID(event.target.value);
+    const newField = fields.find(f => f.user_field_id === parseInt(event.target.value));
+    if (newField !== -1) {
+      setCommodity(newField.crop_id);
+    }
+  };
+
   return (
     <Router>
       <h3>Add Contract</h3>
@@ -91,7 +99,7 @@ function AddContract(params) {
         style={{ width: '195px' }}
         required
         displayEmpty
-        onChange={(event) => setUserFieldID(event.target.value)}
+        onChange={onFieldChange}
         >
           <MenuItem value="" disabled size="small">
             <em>Select Field</em>
