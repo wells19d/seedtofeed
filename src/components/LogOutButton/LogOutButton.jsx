@@ -11,8 +11,7 @@ function LogOutButton(props) {
       className={props.className}
       onClick={() => dispatch({ type: 'LOGOUT' })}
     >
-      Log Out
-    </button>
+      LOG OUT    </button>
   );
 }
 
