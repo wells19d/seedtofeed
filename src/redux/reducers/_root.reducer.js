@@ -12,6 +12,7 @@ import contractDetailsReducer from './contractDetails.reducer';
 import contractStatusReducer from './contractStatus.reducer';
 import transactionTypesReducer from './transactionTypes.reducer';
 
+
 import userListReducer from './userList.reducer';
 
 

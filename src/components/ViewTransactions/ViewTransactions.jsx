@@ -14,34 +14,31 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 function ViewTransactions(params) {
-  const fieldID = params.fieldID;
+    const fieldID = params.fieldID;
 
-  const transactions = useSelector(store => store.fieldTransactionsReducer);
-  const user = useSelector((store) => store.user);
-  const history = useHistory();
-  const dispatch = useDispatch();
+    const transactions = useSelector(store => store.fieldTransactionsReducer);
+    const user = useSelector((store) => store.user);
+    const history = useHistory();
+    const dispatch = useDispatch();
 
-  const transactions = useSelector((store) => store.fieldTransactionsReducer);
+    useEffect(() => {
+        dispatch({
+            type: 'FETCH_FIELD_TRANSACTIONS',
+            payload: fieldID,
+        });
+    }, []);
 
-
-  useEffect(() => {
-    dispatch({
-      type: 'FETCH_FIELD_TRANSACTIONS',
-      payload: fieldID,
-    });
-  }, []);
-
-  function deleteButton(transactionID) {
-    if (confirm('Do you wish to delete this transaction?')) {
-      dispatch({
-        type: 'DELETE_TRANSACTION',
-        payload: {
-          transactionID: transactionID,
-          fieldID: fieldID,
-        },
-      });
+    function deleteButton(transactionID) {
+        if (confirm('Do you wish to delete this transaction?')) {
+            dispatch({
+                type: 'DELETE_TRANSACTION',
+                payload: {
+                    transactionID: transactionID,
+                    fieldID: fieldID,
+                },
+            });
+        }
     }
-  }
 
     return (
         <center>
@@ -61,10 +58,10 @@ function ViewTransactions(params) {
                             Notes
                         </th>
 
-                        {user.farmer && 
-                        <th>
-                            Actions
-                        </th>}
+                        {user.farmer &&
+                            <th>
+                                Actions
+                            </th>}
                     </tr>
                 </thead>
                 <tbody>
@@ -85,15 +82,15 @@ function ViewTransactions(params) {
                                 </td>
 
                                 {user.farmer &&
-                                <td>
-                                    <button onClick={()=> history.push(`/edit_transaction/${fieldID}/${event.id}`)}>
-                                        Edit
-                                    </button>
-                                    <button onClick={()=> deleteButton(event.id)}>
-                                        Delete
-                                    </button>
-                                </td>}
-                                
+                                    <td>
+                                        <button onClick={() => history.push(`/edit_transaction/${fieldID}/${event.id}`)}>
+                                            Edit
+                                        </button>
+                                        <button onClick={() => deleteButton(event.id)}>
+                                            Delete
+                                        </button>
+                                    </td>}
+
                             </tr>
                         )
                     })}
@@ -101,9 +98,9 @@ function ViewTransactions(params) {
             </table>
 
             {user.farmer &&
-            <button onClick={() => history.push(`/add_transaction/${fieldID}`)}>
-                New Event
-            </button>}
+                <button onClick={() => history.push(`/add_transaction/${fieldID}`)}>
+                    New Event
+                </button>}
 
         </center>
     )
