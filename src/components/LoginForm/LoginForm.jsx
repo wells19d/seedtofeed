@@ -67,7 +67,7 @@ function LoginForm() {
       />
       <br />
       <br />
-      <Button onClick={(event) => login(event)}>Login</Button>
+      <Button size="small" onClick={(event) => login(event)}>Login</Button>
         </form>
       </Card>
     </center>

@@ -30,7 +30,6 @@ function EditContract() {
     }, [])
 
     // LOCAL STATE
-    const [heading, setHeading] = useState('Edit Contract');
 
     const [commodity, setCommodity] = useState(contractDetails.commodity);
     const [openStatus, setOpenStatus] = useState('');
@@ -81,7 +80,7 @@ function EditContract() {
     return (
         <div>
             <form className='edit-contract' onSubmit={editContract}>
-                <h2>{heading}</h2>
+                <h3>Edit Contract</h3>
                 <div>
                     <label htmlFor='commodity'>
                         Commodity:

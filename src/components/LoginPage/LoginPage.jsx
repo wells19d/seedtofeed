@@ -12,7 +12,7 @@ function LoginPage() {
       <LoginForm />
 
       <center>
-        <Button onClick={() => {history.push('/registration');}}>
+        <Button size="small" onClick={() => {history.push('/registration');}}>
           Register Page
         </Button>
       </center>

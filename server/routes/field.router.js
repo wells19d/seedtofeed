@@ -54,7 +54,8 @@ router.get('/fieldList', rejectUnauthenticated, (req, res) => {
     "field"."name", "field"."image", "field"."shape_file", "field"."gmo", "field"."crop_id"
     FROM "field"
     JOIN "user_field" ON "user_field"."field_id"="field"."id"
-    WHERE "user_field"."user_id"=$1;`; // Added  "user_field"."user_id" AS "farmer_id"
+    WHERE "user_field"."user_id"=$1
+    ORDER BY "field"."id" ASC;`; // Added  "user_field"."user_id" AS "farmer_id"
 
     // We want each field to ALSO have a 'computed' field_status column
     // But that is on the most recent transaction for each given field

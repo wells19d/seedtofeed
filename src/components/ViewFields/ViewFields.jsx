@@ -47,6 +47,7 @@ function ViewFields(params) {
 
   return (
     <center>
+      <h3>Field List</h3>
         <Grid container spacing={3}>
             <Grid item xs={1}/>
             <Grid item xs={10}>
@@ -66,12 +67,12 @@ function ViewFields(params) {
           {fieldList.map((field) => {
             return (
             <TableRow key={field.id}>
-              <TableCell><Button onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button></TableCell>
+              <TableCell><Button size="small" onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button></TableCell>
               <TableCell>{field.location}</TableCell>
               <TableCell>{field.field_status}</TableCell>
               <TableCell>{field.field_note}</TableCell>
               <TableCell>Buyer Here</TableCell>
-              <TableCell><Button onClick={() => history.push(`/edit_field/${field.id}`)} >Edit</Button> / <Button color="secondary" onClick={() => deleteButton(field.id)}>Delete</Button></TableCell>
+              <TableCell><Button size="small" onClick={() => history.push(`/edit_field/${field.id}`)}>Edit</Button> <Button color="secondary" onClick={() => deleteButton(field.id)}>Delete</Button></TableCell>
             </TableRow>
             );
           })}
@@ -79,7 +80,7 @@ function ViewFields(params) {
       </Table>
     </TableContainer>
     <p>
-    <Button onClick={() => history.push(`/add_field/`)}>Add new Field</Button>
+    <Button size="small" onClick={() => history.push(`/add_field/`)}>Add new Field</Button>
     </p>
     </Grid>
       <Grid item xs={1}/>

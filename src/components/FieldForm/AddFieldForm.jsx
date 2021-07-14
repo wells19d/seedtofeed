@@ -150,7 +150,7 @@ function AddFieldForm() {
         }}
       />
       <center>
-        <Button
+        <Button size="small"
           onClick={() => {
             history.push('/user'); 
           }}
@@ -158,7 +158,7 @@ function AddFieldForm() {
           Cancel
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button
+        <Button size="small"
           onClick={(event) => addField(event)} 
         >
           Submit

@@ -31,7 +31,7 @@ function ViewContract() {
     return (
         <>
             <div>
-                <h2>Contract Details</h2>
+                <h3>Contract Details</h3>
                 <b>{foundContract.contract_handler}</b>
 
                 <p><span>Contract ID:</span>   <span>{foundContract.contractID}</span></p> {/* I think this is the Buyer's name but we could make it be the Buyer's ID */}

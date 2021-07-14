@@ -127,7 +127,7 @@ function RegisterForm() {
               />
             </label>
           </h4>
-          <Button onClick={(event) => registerUser(event)}>Register</Button>
+          <Button size="small" onClick={(event) => registerUser(event)}>Register</Button>
         </form>
       </Card>
     </center>

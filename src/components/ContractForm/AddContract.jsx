@@ -32,7 +32,6 @@ function AddContract(params) {
     }, [])
 
     // LOCAL STATE
-    const [heading, setHeading] = useState('Add Contract');
 
     const [user_field_id, setUserFieldID] = useState('');
     const [commodity, setCommodity] = useState('');
@@ -84,7 +83,7 @@ function AddContract(params) {
     return (
         <div>
             <form className='add-contract' onSubmit={addContract}>
-                <h2>{heading}</h2>
+                <h3>Add Contract</h3>
                 <div>
                     <label htmlFor='fieldList'>
                         Field List:

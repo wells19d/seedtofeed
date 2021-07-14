@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import LoginForm from '../LoginForm/LoginForm';
 
 function LandingPage() {
-  const [heading, setHeading] = useState('Seed to Feed Grain Tracker');
   const history = useHistory();
 
   const registration = (event) => {
@@ -18,7 +17,7 @@ function LandingPage() {
 
   return (
     <div className="container">
-      <h2>{heading}</h2>
+      <h3>Seed to Feed Grain Tracker</h3>
 
       <div className="grid">
         <div className="grid-col grid-col_8">
@@ -36,7 +35,7 @@ function LandingPage() {
           <center>
             <br />
             <h4>Are You A Member?</h4>
-            <Button className="btn btn_sizeSm" onClick={registration}>
+            <Button size="small" className="btn btn_sizeSm" onClick={registration}>
               Register Here
             </Button>
           </center>

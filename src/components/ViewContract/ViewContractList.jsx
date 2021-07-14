@@ -10,6 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 import '../App/App.css';
 
@@ -48,7 +49,10 @@ function ViewContractList(params) {
 
   return (
     <center>
-    <h1>Contract List</h1>
+    <h3>Contract List</h3>
+    <Grid container spacing={3}>
+            <Grid item xs={1}/>
+            <Grid item xs={10}>
     <TableContainer component={Paper}>
       <Table size="small">
         <TableHead>
@@ -66,22 +70,25 @@ function ViewContractList(params) {
             <TableRow key={contract.contractID}>
               <TableCell>{contract.contractID}</TableCell>
               <TableCell>
-              <Button onClick={() => history.push(`/field_details/${contract.fieldID}`)}>{contract.field_name}</Button>
+              <Button size="small" onClick={() => history.push(`/field_details/${contract.fieldID}`)}>{contract.field_name}</Button>
               </TableCell>
               <TableCell>{contract.location}</TableCell>
               <TableCell>{contract.name}</TableCell>
               <TableCell>{contract.crop_type}</TableCell>
-              <TableCell><Button onClick={() => history.push(`/contract_details/${contract.contractID}`)} >
-                    View Details
-                  </Button> / <Button color="secondary" onClick={() => deleteButton(contract.contractID)}>Delete</Button></TableCell>
+              <TableCell><Button size="small" onClick={() => history.push(`/contract_details/${contract.contractID}`)} >
+                    Details
+                  </Button> / <Button size="small" color="secondary" onClick={() => deleteButton(contract.contractID)}>Delete</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
     <p>
-    <Button onClick={() => history.push(`/contract_form/`)}>Add New Contract</Button>
+    <Button size="small" onClick={() => history.push(`/contract_form/`)}>Add New Contract</Button>
     </p>
+    </Grid>
+      <Grid item xs={1}/>
+      </Grid>
     </center>
   );
 }

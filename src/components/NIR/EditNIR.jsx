@@ -126,13 +126,13 @@ function EditNIR() {
         />
         <br />
         <br />
-        <Button
+        <Button size="small"
           type="button"
           onClick={() => {
             history.push(`/field_details/${field_id}`);
           }}
         >Cancel</Button>{`\u00A0\u00A0\u00A0\u00A0`}
-        <Button
+        <Button size="small"
         type="submit"
         onClick={(event) => addNIR(event)}>Update</Button>
       </Router>

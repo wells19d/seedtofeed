@@ -190,7 +190,7 @@ function EditFieldForm() {
         }}
       />
       <center>
-        <Button
+        <Button size="small"
           onClick={() => {
             history.push('/user'); 
           }}
@@ -198,7 +198,7 @@ function EditFieldForm() {
           Cancel
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button
+        <Button size="small"
           onClick={(event) => updateField(event)} 
         >
           Submit

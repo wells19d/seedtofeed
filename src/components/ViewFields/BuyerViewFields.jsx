@@ -61,7 +61,7 @@ function BuyerViewFields(params) {
           {fieldList.map((field) => (
             <TableRow key={field.id}>
               <TableCell>
-              <Button onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button>
+              <Button size="small" onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button>
               </TableCell>
               <TableCell>{field.location}</TableCell>
               <TableCell>{field.field_status}</TableCell>
