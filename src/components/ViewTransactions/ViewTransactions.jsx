@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -66,7 +67,7 @@ function ViewTransactions(params) {
                         return (
                             <tr key={event.field_transactions_ID}>
                                 <td>
-                                    {moment.utc(event.timestamp).format('LLL')}
+                                <Moment format="LLL">{event.timestamp}</Moment>
                                 </td>
                                 <td>
                                     {event.field_status}
