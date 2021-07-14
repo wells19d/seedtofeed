@@ -66,7 +66,7 @@ function ViewTransactions(params) {
                         return (
                             <tr key={event.field_transactions_ID}>
                                 <td>
-                                    {moment(event.timestamp).format('MM-DD-YYYY hh:mm')}
+                                    {moment.utc(event.timestamp).format('LLL')}
                                 </td>
                                 <td>
                                     {event.field_status}
