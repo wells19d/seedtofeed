@@ -10,7 +10,6 @@ const { response } = require('express');
 // -- GETS
 //GET list of contracts associated with a user.
 router.get('/getall', rejectUnauthenticated, (req, res) => {
-
     // GET route code here
 
     const userID = req.user.id;
@@ -104,17 +103,43 @@ router.post('/add_contract', rejectUnauthenticated, (req, res) => {
     const container_serial = req.body.container_serial; // $11
     const contract_handler = req.body.contract_handler; // $12
 
+
+
     const queryText = `
     INSERT INTO "contract" 
     ("user_field_id", "commodity", "open_status", "bushel_uid", "quantity_fulfilled", "price", "protein", "oil", "moisture", "contract_quantity", "container_serial", "contract_handler")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "user_field_id";`;
 
     pool.query(queryText, [user_field_id, commodity, open_status, bushel_uid, quantity_fulfilled, price, protein, oil, moisture, contract_quantity, container_serial, contract_handler])
-        .then(result =>
-            res.sendStatus(201)
-        )
-        .catch((err) => {
-            console.log(`Error in creating contract: ${err}`);
+        .then(response => {
+            console.log('response is', response.rows);
+            const user_field_id = response.rows[0].user_field_id;
+            console.log('user_field_id', user_field_id);
+            // res.sendStatus(201)
+
+
+            const user_field = `SELECT "user_field"."field_id" FROM "user_field" WHERE "id" = $1`;
+            pool.query(user_field, [user_field_id])
+                .then(async function (result) {
+                    const fieldID = result.rows[0].field_id;
+
+                    console.log('field id is', fieldID);
+
+
+                    // const created_contract = response.rows[0].id;
+                    const insert_contract = `
+            INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", "transaction_type" ) VALUES ($1, Now(), 'contract updated', 'contract updated', 10);`;
+                    pool.query(insert_contract, [fieldID])
+                        .then(result => {
+                            res.sendStatus(201);
+                        }).catch((err) => {
+                            console.log(`Error in creating contract: ${err}`);
+                            res.sendStatus(500);
+                        })
+                })
+
+        }).catch(error => {
+            console.log(`Error updating table ${queryText}`, error);
             res.sendStatus(500);
         })
 });
@@ -195,6 +220,12 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
 
         })
 });
+
+//Bushel API /receiveContracts
+router.put('/receiveContracts', rejectUnauthenticated, (req, res) => {
+    console.log('contracts coming in', req.body);
+    res.sendStatus(204);
+})
 
 
 // ---- DELETES ----
