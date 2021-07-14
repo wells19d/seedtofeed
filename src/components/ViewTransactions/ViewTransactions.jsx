@@ -43,6 +43,8 @@ function ViewTransactions(params) {
     return (
         <center>
             <table className="sampleTable">
+                <caption>Transactions on field</caption>
+                {/* caption can be changed to an h4 once material is brought in */}
                 <thead>
                     <tr>
                         <th>

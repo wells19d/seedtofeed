@@ -128,6 +128,7 @@ input {
     max-width: 50%;
     background-repeat: no-repeat;
     background-size: cover;
+    margin-top: -100px;
 }
 
 .sampleTable {
@@ -136,4 +137,25 @@ input {
 
 .Current_Status {
     font-weight: bold;
+}
+h4 {
+    margin-top: 25px;
+    justify-content: left;
+    text-align: left;
+}
+.page-title {
+    margin-top: -25px;
+    justify-content: left;
+    text-align: left;
+}
+caption {
+    text-align: left;
+    font-size: 1em;
+    font-weight: bolder;
+
+}
+
+.about-page {
+    margin-right: 300px;
+    margin-left: 300px;
 }

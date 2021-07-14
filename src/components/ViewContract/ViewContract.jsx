@@ -24,9 +24,9 @@ function ViewContract() {
     const foundContract = contract.find((contract) => {
         console.log(contract);
         return contract.contractID === Number(params.contractID);
-  });
+    });
 
-  console.log('here is the current contract:', foundContract);
+    console.log('here is the current contract:', foundContract);
 
     return (
         <>
@@ -34,7 +34,7 @@ function ViewContract() {
                 <h3>Contract Details</h3>
                 <b>{foundContract?.contract_handler}</b>
 
-                <p><span>Contract ID:</span>   <span>{foundContract?.contractID}</span></p> 
+                <p><span>Contract ID:</span>   <span>{foundContract?.contractID}</span></p>
                 <p><span>Grower:</span>   <span>{foundContract?.first_name} {foundContract?.last_name}</span></p>
                 <p><span>Commodity:</span>   <span>{foundContract?.crop_type}</span></p>
                 <p><span>Status:</span>   <span>{foundContract?.name}</span></p>
@@ -50,7 +50,7 @@ function ViewContract() {
                 <p><span>Protein:</span>   <span>{foundContract?.protein}</span></p>
                 <p><span>Oil:</span>   <span>{foundContract?.oil}</span></p>
                 <p><span>Moisture:</span>   <span>{foundContract?.moisture}</span></p>
-          
+
             </div>
 
             <button onClick={() => history.push(`/field_details/${foundContract.fieldID}`)}>
