@@ -3,22 +3,45 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+
 function ViewTransactions(params) {
+  const fieldID = params.fieldID;
 
-    const fieldID = params.fieldID;
+  const transactions = useSelector(store => store.fieldTransactionsReducer);
+  const user = useSelector((store) => store.user);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-    const history = useHistory();
-    const dispatch = useDispatch();
+  const transactions = useSelector((store) => store.fieldTransactionsReducer);
 
-    const transactions = useSelector(store => store.fieldTransactionsReducer);
-    console.log(`Transactions fieldID: ${fieldID}`, transactions);
 
-    useEffect(() => {
-        dispatch({
-          type: 'FETCH_FIELD_TRANSACTIONS',
-          payload: fieldID
-        })
-      }, [])
+  useEffect(() => {
+    dispatch({
+      type: 'FETCH_FIELD_TRANSACTIONS',
+      payload: fieldID,
+    });
+  }, []);
+
+  function deleteButton(transactionID) {
+    if (confirm('Do you wish to delete this transaction?')) {
+      dispatch({
+        type: 'DELETE_TRANSACTION',
+        payload: {
+          transactionID: transactionID,
+          fieldID: fieldID,
+        },
+      });
+    }
+  }
 
     return (
         <center>
@@ -32,14 +55,16 @@ function ViewTransactions(params) {
                             Field Status
                         </th>
                         <th>
-                            Event
+                            Image
                         </th>
                         <th>
                             Notes
                         </th>
+
+                        {user.farmer && 
                         <th>
                             Actions
-                        </th>
+                        </th>}
                     </tr>
                 </thead>
                 <tbody>
@@ -53,23 +78,33 @@ function ViewTransactions(params) {
                                     {event.field_status}
                                 </td>
                                 <td>
-                                    {event.name}
+                                    {event.image}
                                 </td>
                                 <td>
                                     {event.status_notes}
                                 </td>
+
+                                {user.farmer &&
                                 <td>
-                                    MAKE BUTTONS HERE
-                                </td>
+                                    <button onClick={()=> history.push(`/edit_transaction/${fieldID}/${event.id}`)}>
+                                        Edit
+                                    </button>
+                                    <button onClick={()=> deleteButton(event.id)}>
+                                        Delete
+                                    </button>
+                                </td>}
+                                
                             </tr>
                         )
                     })}
                 </tbody>
             </table>
 
-            <button onClick={() => history.push(`/add_transaction/${feildID}`)}>
+            {user.farmer &&
+            <button onClick={() => history.push(`/add_transaction/${fieldID}`)}>
                 New Event
-            </button>
+            </button>}
+
         </center>
     )
 }

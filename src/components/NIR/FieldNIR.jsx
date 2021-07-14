@@ -1,85 +1,90 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 function FieldNIR(params) {
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-    const fieldID = params.fieldID;
+  const fieldNIR = useSelector((store) => store.fieldNIRReducer);
+  const user = useSelector((store) => store.user);
 
-    const history = useHistory();
-    const dispatch = useDispatch();
+  const fieldID = params.fieldID;
 
-    const fieldNIR = useSelector(store => store.fieldNIRReducer);
+  useEffect(() => {
+    dispatch({
+      type: 'FETCH_FIELD_NIR',
+      payload: fieldID,
+    });
+  }, []);
 
-    useEffect(() => {
-        dispatch({
-            type: 'FETCH_FIELD_NIR',
-            payload: fieldID
-        })
-    }, [])
+  function deleteButton(NIR) {
+    dispatch({
+      type: 'DELETE_NIR',
+      payload: {
+        NIRID: NIR,
+        fieldID: fieldID,
+      },
+    });
+  }
 
-    return (
+  return (
+    <center>
+        <br />
+      <TableContainer component={Paper}>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>NIR Test Date</TableCell>
+              <TableCell>Oil Levels</TableCell>
+              <TableCell>Moisture Levels</TableCell>
+              <TableCell>Protein Levels</TableCell>
+              <TableCell>Energy</TableCell>
+              <TableCell>Amino Acids</TableCell>
+                {user.farmer && <TableCell></TableCell>}
+              
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {fieldNIR.map((test) => {
+              return (
+                <TableRow key={test.id}>
+                  <TableCell>{moment.utc(test.tested_at).format('MMM Do, YYYY')}</TableCell>
+                  <TableCell>{test.oil}</TableCell>
+                  <TableCell>{test.moisture}</TableCell>
+                  <TableCell>{test.protein}</TableCell>
+                  <TableCell>{test.energy}</TableCell>
+                  <TableCell>{test.amino_acids}</TableCell>
 
-        <center>
+                    {user.farmer &&
+                  <TableCell><Button onClick={() => history.push(`/edit_NIR/${fieldID}/${test.id}`)}>Edit</Button> / <Button color="secondary" onClick={() => deleteButton(test.id)}>Delete</Button>
+                  </TableCell>}
 
-            {JSON.stringify(fieldNIR)}
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <br />
 
-            <table className="sampleTable">
-                <thead>
-                    <tr>
-                        <th>
-                            Date of NIR Test
-                        </th>
-                        <th>
-                            Moisture Levels
-                        </th>
-                        <th>
-                            Protein Levels
-                        </th>
-                        <th>
-                            Oil Levels
-                        </th>
-                        <th>
-                            Energy
-                        </th>
-                        <th>
-                            Amino Acids
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {fieldNIR.map(test => {
-                        { console.log(test) }
-                        return (
-                        <tr key={test.id}>
-                            <td>
-                                {test.tested_at}
-                            </td>
-                            <td>
-                                {test.moisture}
-                            </td>
-                            <td>
-                                {test.protein}
-                            </td>
-                            <td>
-                                {test.oil}
-                            </td>
-                            <td>
-                                {test.energy}
-                            </td>
-                            <td>
-                                {test.amino_acids}
-                            </td>
-                        </tr>)
-                    })}
-                </tbody>
-            </table>
-
-            <button onClick={() => history.push(`/NIR_form/${fieldID}`)}>
-                Add NIR Data
-            </button>
-        </center>
-    )
+        {user.farmer &&
+      <Button onClick={() => history.push(`/NIR_form/${fieldID}`)}>
+        Add NIR Data
+      </Button>}
+    </center>
+  );
 }
 
 export default FieldNIR;

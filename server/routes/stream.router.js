@@ -6,10 +6,18 @@ const {
 } = require('../modules/authentication-middleware');
 
 router.post('/bushel', async (req, res) => {
-   // console.log('from postman', req.body);
+   // We dont really know yet what incoming data will look like,
+   // so just store the raw body directly as JSONB
+   //process the incoming req.body to update our contract
+   //1. verify that we have contracts req.body
+   //2. loop over req.body.data to keep extract ALL contracts
+   //3. select bushel_uid from contract table
+   //4. compare to find match and update our contract record
+   //5. update right in the contract table
+   //6. create transaction record on transaction table
+   console.log('from postman', req.body);
    // const queryText1 = `SELECT "bushel_uid", "id", "user_field_id" FROM "contract" WHERE "open_status" != 6;`; //6 equals fulfilled
-   // const queryText1 = `SELECT "bushel_uid", "id", "user_field_id" FROM "contract" WHERE "open_status" != (SELECT "id" FROM "contract_status" WHERE "name"='fulfilled');`;
-
+   // // const queryText1 = `SELECT "bushel_uid", "id", "user_field_id" FROM "contract" WHERE "open_status" != (SELECT "id" FROM "field_status" where "name"='fulfilled');`;
    // const bushelContracts = await pool.query(queryText1);
    // console.log('bushel contracts from db', bushelContracts.rows);
 
@@ -28,6 +36,7 @@ router.post('/bushel', async (req, res) => {
          const bushelContracts = await pool.query(queryText1, [item.contract.id]);
          let foundContract = bushelContracts.rows[0];
          console.log('found Contract', foundContract);
+
 
          if (!foundContract) {
             console.log(`no contract found for ${item.contract.id}`);

@@ -21,13 +21,22 @@ import addContractSaga from './addContract.saga';
 import updateFieldSaga from './updateField.saga';
 import updateTransactionSaga from './updateTransaction.saga';
 import updateContractSaga from './updateContract.saga';
-import updateNIRSaga from './updateNIR';
+import updateNIRSaga from './updateNIR.saga';
 
 import deleteFieldSaga from './deleteField.saga';
 import deleteTransactionSaga from './deleteTransaction.saga';
 import deleteContractSaga from './deleteContract.saga';
+import deleteNIRSaga from './deleteNIR.saga';
 
 import transactionTypesSaga from './transactionTypes.saga';
+import userListSaga from './userList.saga';
+import buyerFieldListSaga from './buyerFieldList.saga';
+
+// import buyerFieldListSaga from './buyerFieldList.saga';
+
+import userListSaga from './userList.saga';
+import buyerFieldListSaga from './buyerFieldList.saga';
+import addBuyerSaga from './addBuyer.saga';
 
 import bushelSaga from './bushel.saga';
 import streamSaga from './stream.saga';
@@ -69,11 +78,14 @@ export default function* rootSaga() {
     deleteFieldSaga(),
     deleteTransactionSaga(),
     deleteContractSaga(),
-    // Should we have a delete for the NIR???
+    deleteNIRSaga(),
 
     transactionTypesSaga(),
 
-    bushelSaga(),
-    streamSaga()
+
+    userListSaga(),
+    buyerFieldListSaga(),
+    addBuyerSaga(),
+
   ]);
 }

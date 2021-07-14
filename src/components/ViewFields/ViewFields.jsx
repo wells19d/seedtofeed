@@ -1,6 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
+import SetBuyer from '../SetBuyer/SetBuyer';
+
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 import '../App/App.css';
 
@@ -9,9 +21,10 @@ function ViewFields(params) {
   const history = useHistory();
 
   const fieldList = useSelector((store) => store.fieldListReducer);
-  console.log('The fieldList', fieldList);
+  // console.log('The fieldList', fieldList);
 
   const userID = params.userID;
+  console.log('here is the userID in ViewFields', userID);
 
   useEffect(() => {
     dispatch({
@@ -20,56 +33,70 @@ function ViewFields(params) {
     });
   }, []);
 
+
+
+
+  const [isOpen, setIsOpen] = useState(false);
+ 
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  }
+
+
+
+
   function deleteButton(fieldID) {
-    dispatch({
-      type: 'DELETE_FIELD',
-      payload: fieldID,
-    });
+    let remove = confirm(
+      'Are you sure you would like to delete this field? Once deleted it can not be retrieved again.'
+    );
+    if (remove == true) {
+      dispatch({
+        type: 'DELETE_FIELD',
+        payload: fieldID,
+      });
+    } else {
+      return;
+    }
   }
 
   return (
     <center>
-      <table className="sampleTable">
-        <thead>
-          <tr>
-            <th>Fields</th>
-            <th>Field Status</th>
-
-            <th>Field Notes</th>
-            <th>Buyer</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+    <TableContainer component={Paper}>
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell>Field Name</TableCell>
+            <TableCell>Location</TableCell>
+            <TableCell>Status</TableCell>
+            <TableCell>Note</TableCell>
+            <TableCell>Buyers</TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {fieldList.map((field) => {
+            console.log('This field is: ', field);
             return (
-              <tr key={field.id}>
-                <td>
-                  {/* <button onClick={() => history.push(`/field_details/${userID}/${field.id}`)} > */}
-                    <button onClick={() => history.push(`/field_details/${field.id}`)}>
-                    {field.name}
-                    <br />
-                    {field.location}
-                  </button>
-                </td>
-                <td>{field.field_status}</td>
-                <td>{field.field_note}</td>
-                <td>LIST BUYER HERE</td>
-                <td>
-                  <button
-                    onClick={() => history.push(`/edit_field/${field.id}`)}
-                  >
-                    Edit
-                  </button>
-                  <button onClick={() => deleteButton(field.id)}>Delete</button>
-                </td>
-              </tr>
+            <TableRow key={field.id}>
+              <TableCell><Button onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button></TableCell>
+              <TableCell>{field.location}</TableCell>
+              <TableCell>{field.field_status}</TableCell>
+              <TableCell>{field.field_note}</TableCell>
+              <TableCell>Buyer Here {isOpen && <SetBuyer togglePopup={togglePopup} fieldID={field.id}/>}</TableCell>
+              <TableCell>
+                <Button onClick={() => togglePopup()}>Add Potential Buyer</Button>
+                <Button onClick={() => history.push(`/edit_field/${field.id}`)} >Edit</Button> / 
+                <Button color="secondary" onClick={() => deleteButton(field.id)}>Delete</Button>
+                </TableCell>
+            </TableRow>
             );
           })}
-        </tbody>
-      </table>
-
-      <button onClick={() => history.push(`/add_field/`)}>Add new Field</button>
+        </TableBody>
+      </Table>
+    </TableContainer>
+    <p>
+    <Button onClick={() => history.push(`/add_field/`)}>Add new Field</Button>
+    </p>
     </center>
   );
 }

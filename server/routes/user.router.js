@@ -14,6 +14,19 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     res.send(req.user);
 });
 
+router.get('/userList', rejectUnauthenticated, (req, res) => {
+
+    const queryText = `SELECT "user"."id", "user"."first_name", "user"."last_name", "user"."farmer", "user"."buyer"
+                        FROM "user";`;
+
+    pool.query(queryText).then(response => {
+        res.send(response.rows);
+    }).catch(error => {
+        console.log(`Error making database query ${queryText}`, error);
+        res.sendStatus(500);
+    })
+})
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
@@ -52,5 +65,19 @@ router.post('/logout', (req, res) => {
     req.logout();
     res.sendStatus(200);
 });
+
+router.post('/addBuyer', rejectUnauthenticated, (req, res) => {
+    const fieldID = req.body.fieldID;
+    const buyerID = req.body.buyerID;
+
+    const queryText = `INSERT INTO "buyer_field" ("buyer_id", "field_id")
+                        VALUES ($1, $2);`;
+
+    pool.query(queryText, [buyerID, fieldID]).then(() => res.sendStatus(201))
+    .catch((err) => {
+        console.log('Failed to set buyer: ', err);
+        res.sendStatus(500);
+    });
+})
 
 module.exports = router;

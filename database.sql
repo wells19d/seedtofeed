@@ -58,7 +58,7 @@ CREATE TABLE "contract" (
 	"user_field_id" integer NOT NULL,
 	"commodity" integer NOT NULL,
 	"open_status" integer NOT NULL,
-	"bushel_uid" integer,
+	"bushel_uid" VARCHAR(255),
 	"quantity_fulfilled" varchar(255),
 	"price" integer,
 	"protein" FLOAT,
@@ -111,6 +111,16 @@ CREATE TABLE "user_field" (
   OIDS=FALSE
 );
 
+-- NEW TABLE!!!
+CREATE TABLE "buyer_field" (
+	"id" serial NOT NULL,
+	"field_id" integer NOT NULL,
+	"buyer_id" integer NOT NULL,
+	CONSTRAINT "buyer_field_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
 
 CREATE TABLE "arbitrary_data" (
 	"id" serial NOT NULL,
@@ -151,6 +161,9 @@ ALTER TABLE "field_transactions" ADD CONSTRAINT "field_transactions_fk1" FOREIGN
 ALTER TABLE "user_field" ADD CONSTRAINT "user_field_fk0" FOREIGN KEY ("field_id") REFERENCES "field"("id") ON DELETE CASCADE;
 ALTER TABLE "user_field" ADD CONSTRAINT "user_field_fk1" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE;
 ALTER TABLE "arbitrary_data" ADD CONSTRAINT "arbitrary_data_fk0" FOREIGN KEY ("field_trans_id") REFERENCES "field_transactions"("id") ON DELETE CASCADE;
+-- NEW CONNECTIONS!!!
+ALTER TABLE "buyer_field" ADD CONSTRAINT "buyer_field_fk0" FOREIGN KEY ("field_id") REFERENCES "field"("id") ON DELETE CASCADE;
+ALTER TABLE "buyer_field" ADD CONSTRAINT "buyer_field_fk1" FOREIGN KEY ("buyer_id") REFERENCES "user"("id") ON DELETE CASCADE;
 
 
 

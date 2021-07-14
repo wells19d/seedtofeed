@@ -21,6 +21,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import FieldDB from '../DashBoards/FieldDB';
+import ViewContractList from '../ViewContract/ViewContractList';
 import ViewContract from '../ViewContract/ViewContract';
 import AddContract from '../ContractForm/AddContract';
 import EditContract from '../ContractForm/EditContract';
@@ -30,11 +31,13 @@ import ViewFieldDetails from '../ViewFieldDetails/ViewFieldDetails';
 
 import AddNIR from '../NIR/AddNIR';
 import FieldNIR from '../NIR/FieldNIR';
+import EditNIR from '../NIR/EditNIR';
 
 import EditFieldForm from '../FieldForm/EditFieldForm';
 import AddFieldForm from '../FieldForm/AddFieldForm';
 
 import AddTransaction from '../AddTransaction/AddTransaction';
+import EditTransaction from '../AddTransaction/EditTransaction';
 
 import './App.css';
 
@@ -73,9 +76,21 @@ function App() {
             <ViewFieldDetails />
           </Route>
 
-          {/* <Route exact path="/contract">
+          <Route exact path="/contract">
+              <ViewContractList />
+          </Route>
+
+          <Route exact path="/contract_details/:contractID">
             <ViewContract />
-          </Route> */}
+          </Route>
+
+          <Route exact path='/edit_NIR/:fieldID/:NIRID'>
+            <EditNIR />
+          </Route>
+
+          <Route exact path='/edit_transaction/:fieldID/:transactionID'>
+            <EditTransaction />
+          </Route>
 
           <Route exact path="/contract_form">
             <AddContract />
@@ -85,12 +100,12 @@ function App() {
             <AddNIR />
           </Route>
 
-          <Route exact path="/edit_contract">
+          <Route exact path="/edit_contract/:contractID">
             <EditContract />
           </Route>
 
-          {/* <Route path="/edit_field/:userID/:fieldID"> */}
           <Route exact path="/edit_field/:fieldID">
+          {/* <Route exact path="/edit_field/:fieldID"> */}
             <EditFieldForm />
           </Route>
 
