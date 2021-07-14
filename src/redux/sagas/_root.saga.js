@@ -34,6 +34,10 @@ import buyerFieldListSaga from './buyerFieldList.saga';
 
 // import buyerFieldListSaga from './buyerFieldList.saga';
 
+import userListSaga from './userList.saga';
+import buyerFieldListSaga from './buyerFieldList.saga';
+import addBuyerSaga from './addBuyer.saga';
+
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -76,7 +80,8 @@ export default function* rootSaga() {
     transactionTypesSaga(),
 
     userListSaga(),
+    buyerFieldListSaga(),
+    addBuyerSaga(),
 
-    // buyerFieldListSaga(),
   ]);
 }

@@ -16,6 +16,8 @@ import Grid from '@material-ui/core/Grid';
 function ViewTransactions(params) {
   const fieldID = params.fieldID;
 
+  const transactions = useSelector(store => store.fieldTransactionsReducer);
+  const user = useSelector((store) => store.user);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -40,72 +42,70 @@ function ViewTransactions(params) {
     }
   }
 
-  return (
-    <center>
-      <h3>Transactions</h3>
-      <Grid container spacing={3}>
-        <Grid item xs={1} />
-        <Grid item xs={10}>
-          <TableContainer component={Paper}>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Timestamp</TableCell>
-                  <TableCell>Field Status</TableCell>
-                  <TableCell>Image</TableCell>
-                  <TableCell>Notes</TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {transactions.map((event) => {
-                  return (
-                    <TableRow key={event.id}>
-                      <TableCell>
-                        {moment.utc(event.timestamp).format('LLL')}
-                      </TableCell>
-                      <TableCell>{event.field_status}</TableCell>
-                      <TableCell>{event.image}</TableCell>
-                      <TableCell>{event.status_notes}</TableCell>
-                      <TableCell>
-                        <Button
-                          size="small"
-                          onClick={() =>
-                            history.push(
-                              `/edit_transaction/${fieldID}/${event.id}`
-                            )
-                          }
-                        >
-                          Edit
-                        </Button>
-                        <Button
-                          size="small"
-                          color="secondary"
-                          onClick={() => deleteButton(event.id)}
-                        >
-                          Delete
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <br />
-          <Button
-            size="small"
-            onClick={() =>
-              console.log('Button Clicked: Transaction would have been added')
-            }
-          >
-            Add Transaction
-          </Button>
-        </Grid>
-        <Grid item xs={1} />
-      </Grid>
-    </center>
-  );
+    return (
+        <center>
+            <table className="sampleTable">
+                <thead>
+                    <tr>
+                        <th>
+                            Timestamp
+                        </th>
+                        <th>
+                            Field Status
+                        </th>
+                        <th>
+                            Image
+                        </th>
+                        <th>
+                            Notes
+                        </th>
+
+                        {user.farmer && 
+                        <th>
+                            Actions
+                        </th>}
+                    </tr>
+                </thead>
+                <tbody>
+                    {transactions.map(event => {
+                        return (
+                            <tr key={event.id}>
+                                <td>
+                                    {moment(event.timestamp).format('MM-DD-YYYY hh:mm')}
+                                </td>
+                                <td>
+                                    {event.field_status}
+                                </td>
+                                <td>
+                                    {event.image}
+                                </td>
+                                <td>
+                                    {event.status_notes}
+                                </td>
+
+                                {user.farmer &&
+                                <td>
+                                    <button onClick={()=> history.push(`/edit_transaction/${fieldID}/${event.id}`)}>
+                                        Edit
+                                    </button>
+                                    <button onClick={()=> deleteButton(event.id)}>
+                                        Delete
+                                    </button>
+                                </td>}
+                                
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+
+            {user.farmer &&
+            <button onClick={() => history.push(`/add_transaction/${fieldID}`)}>
+                New Event
+            </button>}
+
+        </center>
+    )
 }
 
 export default ViewTransactions;

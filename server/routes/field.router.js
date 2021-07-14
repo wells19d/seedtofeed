@@ -6,17 +6,17 @@ const {
 } = require('../modules/authentication-middleware');
 
 // -- GETS --
-
-/*
----ROUTER FOR BUYERS TO GET LIST OF FIELDS. NEEDS MODIFICATION TO DATABASE TO WORK---
 router.get('/buyerFieldList', rejectUnauthenticated, (req, res) => {
     const userID = req.user.id;
 
+    console.log(`This buyer's id is: `, userID);
+
     const queryText = `
-    SELECT "field"."id", "buyer_field"."id" AS "buyer_field_id", "buyer_field"."buyer_id" AS "buyer_id", "field"."year", "field"."location", "field"."acres", "field"."field_note",
+    SELECT "field"."id", "user_field"."user_id" AS "farmer_id", "buyer_field"."id" AS "buyer_field_id", "field"."year", "field"."location", "field"."acres", "field"."field_note",
     "field"."name", "field"."image", "field"."shape_file", "field"."gmo", "field"."crop_id"
     FROM "field"
     JOIN "buyer_field" ON "buyer_field"."field_id"="field"."id"
+    JOIN "user_field" ON "user_field"."field_id"="field"."id"
     WHERE "buyer_field"."buyer_id"=$1;`;
 
     pool.query(queryText, [userID]).then(async function(result) {
@@ -42,20 +42,32 @@ router.get('/buyerFieldList', rejectUnauthenticated, (req, res) => {
         console.log(`Error making database query ${queryText}`, error);
         res.sendStatus(500);
     })
-});
-*/
+})
+
 
 //GET a list of fields
 router.get('/fieldList', rejectUnauthenticated, (req, res) => {
     const userID = req.user.id;
 
-    const queryText = `
-    SELECT "field"."id", "user_field"."id" AS "user_field_id", "user_field"."user_id" AS "farmer_id", "field"."year", "field"."location", "field"."acres", "field"."field_note",
+    console.log('The ID for this user is: ', userID);
+
+        const queryText = `
+    SELECT "field"."id", "user_field"."id" AS "user_field_id", "field"."year", "field"."location", "field"."acres", "field"."field_note",
+
     "field"."name", "field"."image", "field"."shape_file", "field"."gmo", "field"."crop_id"
     FROM "field"
     JOIN "user_field" ON "user_field"."field_id"="field"."id"
     WHERE "user_field"."user_id"=$1
     ORDER BY "field"."id" ASC;`; // Added  "user_field"."user_id" AS "farmer_id"
+
+    
+    // const queryText = `
+    // SELECT "field"."id", "user_field"."id" AS "user_field_id", "field"."year", "field"."location", "field"."acres", "field"."field_note",
+    // "field"."name", "field"."image", "field"."shape_file", "field"."gmo", "field"."crop_id"
+    // FROM "field"
+    // JOIN "user_field" ON "user_field"."field_id"="field"."id"
+    // WHERE "user_field"."user_id"=$1;`; // Need to find a way to add the following without it breaking:   "buyer_field"."id" AS "buyer_field_id", "buyer_field"."buyer_id"     and     JOIN "buyer_field" ON "buyer_field"."field_id"="field"."id"
+    
 
     // We want each field to ALSO have a 'computed' field_status column
     // But that is on the most recent transaction for each given field

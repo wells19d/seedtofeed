@@ -6,7 +6,8 @@ function* userList(action) {
     console.log('The ID of this field is:', action.payload);
     
     try {
-        const response = yield axios.get(`/api/field/userList/`)
+        const response = yield axios.get(`/api/user/userList/`)
+
         yield put({ type: 'SET_USER_LIST', payload: response.data})
     } catch (error) {
         console.log('User get request failed', error);

@@ -20,7 +20,6 @@ router.get('/userList', rejectUnauthenticated, (req, res) => {
                         FROM "user";`;
 
     pool.query(queryText).then(response => {
-        console.log(`List of users: `, response.rows);
         res.send(response.rows);
     }).catch(error => {
         console.log(`Error making database query ${queryText}`, error);
@@ -66,5 +65,19 @@ router.post('/logout', (req, res) => {
     req.logout();
     res.sendStatus(200);
 });
+
+router.post('/addBuyer', rejectUnauthenticated, (req, res) => {
+    const fieldID = req.body.fieldID;
+    const buyerID = req.body.buyerID;
+
+    const queryText = `INSERT INTO "buyer_field" ("buyer_id", "field_id")
+                        VALUES ($1, $2);`;
+
+    pool.query(queryText, [buyerID, fieldID]).then(() => res.sendStatus(201))
+    .catch((err) => {
+        console.log('Failed to set buyer: ', err);
+        res.sendStatus(500);
+    });
+})
 
 module.exports = router;
