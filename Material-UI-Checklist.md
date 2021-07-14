@@ -18,7 +18,7 @@
 
 - ContractForm
     - [x] - AddContract.jsx
-    - [ ] - EditContract.jsx
+    - [/] - EditContract.jsx
 
 - Dashboards
 
