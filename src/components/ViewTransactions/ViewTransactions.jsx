@@ -42,54 +42,67 @@ function ViewTransactions(params) {
 
   return (
     <center>
-        <Grid container spacing={3}>
-            <Grid item xs={1}/>
-            <Grid item xs={10}>
-      <TableContainer component={Paper}>
-        <Table size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell>Timestamp</TableCell>
-              <TableCell>Field Status</TableCell>
-              <TableCell>Image</TableCell>
-              <TableCell>Notes</TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {transactions.map((event) => {
-              return (
-                <TableRow key={event.id}>
-                  <TableCell>
-                    {moment.utc(event.timestamp).format('LLL')}
-                  </TableCell>
-                  <TableCell>{event.field_status}</TableCell>
-                  <TableCell>{event.image}</TableCell>
-                  <TableCell>{event.status_notes}</TableCell>
-                  <TableCell>
-                    <Button
-                      onClick={() =>
-                        history.push(`/edit_transaction/${fieldID}/${event.id}`)
-                      }
-                    >
-                      Edit
-                    </Button>{' '}
-                    /{' '}
-                    <Button
-                      color="secondary"
-                      onClick={() => deleteButton(event.id)}
-                    >
-                      Delete
-                    </Button>
-                  </TableCell>
+      <h3>Transactions</h3>
+      <Grid container spacing={3}>
+        <Grid item xs={1} />
+        <Grid item xs={10}>
+          <TableContainer component={Paper}>
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Timestamp</TableCell>
+                  <TableCell>Field Status</TableCell>
+                  <TableCell>Image</TableCell>
+                  <TableCell>Notes</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      </Grid>
-      <Grid item xs={1}/>
+              </TableHead>
+              <TableBody>
+                {transactions.map((event) => {
+                  return (
+                    <TableRow key={event.id}>
+                      <TableCell>
+                        {moment.utc(event.timestamp).format('LLL')}
+                      </TableCell>
+                      <TableCell>{event.field_status}</TableCell>
+                      <TableCell>{event.image}</TableCell>
+                      <TableCell>{event.status_notes}</TableCell>
+                      <TableCell>
+                        <Button
+                          size="small"
+                          onClick={() =>
+                            history.push(
+                              `/edit_transaction/${fieldID}/${event.id}`
+                            )
+                          }
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          size="small"
+                          color="secondary"
+                          onClick={() => deleteButton(event.id)}
+                        >
+                          Delete
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <br />
+          <Button
+            size="small"
+            onClick={() =>
+              console.log('Button Clicked: Transaction would have been added')
+            }
+          >
+            Add Transaction
+          </Button>
+        </Grid>
+        <Grid item xs={1} />
       </Grid>
     </center>
   );

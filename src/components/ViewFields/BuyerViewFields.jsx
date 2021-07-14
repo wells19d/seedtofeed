@@ -46,6 +46,10 @@ function BuyerViewFields(params) {
 
   return (
     <center>
+      <h3>Buyer Field</h3>
+      <Grid container spacing={3}>
+        <Grid item xs={1} />
+        <Grid item xs={10}>
     <TableContainer component={Paper}>
       <Table size="small">
         <TableHead>
@@ -61,7 +65,7 @@ function BuyerViewFields(params) {
           {fieldList.map((field) => (
             <TableRow key={field.id}>
               <TableCell>
-              <Button onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button>
+              <Button size="small" onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button>
               </TableCell>
               <TableCell>{field.location}</TableCell>
               <TableCell>{field.field_status}</TableCell>
@@ -72,6 +76,9 @@ function BuyerViewFields(params) {
         </TableBody>
       </Table>
     </TableContainer>
+    </Grid>
+        <Grid item xs={1} />
+      </Grid>
     </center>
   );
 }
