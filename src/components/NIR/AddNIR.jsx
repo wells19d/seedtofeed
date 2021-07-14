@@ -61,6 +61,7 @@ function AddNIR(){
         InputLabelProps={{
           shrink: true,
         }}
+        size="small"
         />
         <br />
         <br />
@@ -75,6 +76,7 @@ function AddNIR(){
         InputLabelProps={{
           shrink: true,
         }}
+        size="small"
         />
         <br />
         <br />
@@ -89,6 +91,7 @@ function AddNIR(){
         InputLabelProps={{
           shrink: true,
         }}
+        size="small"
         />
         <br />
         <br />
@@ -103,6 +106,7 @@ function AddNIR(){
         InputLabelProps={{
           shrink: true,
         }}
+        size="small"
         />
         <br />
         <br />
@@ -117,6 +121,7 @@ function AddNIR(){
         InputLabelProps={{
           shrink: true,
         }}
+        size="small"
         />
         <br />
         <br />

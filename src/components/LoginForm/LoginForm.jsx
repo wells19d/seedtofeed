@@ -57,7 +57,7 @@ function LoginForm() {
       variant="outlined"
       label="Password"
       type="password"
-      value={username}
+      value={password}
       required
       onChange={(event) => setPassword(event.target.value)}
       InputLabelProps={{
