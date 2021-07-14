@@ -31,12 +31,12 @@ function ViewContract() {
     });
   }, []);
 
-  const foundContract = contract.find((contract) => {
-    console.log(contract);
-    return contract.contractID === Number(params.contractID);
-  });
+const foundContract = contract.find((contract) => {
+        console.log(contract);
+        return contract.contractID === Number(params.contractID);
+    });
 
-  console.log('here is the current contract:', foundContract);
+    console.log('here is the current contract:', foundContract);
 
   return (
     <center>
@@ -122,24 +122,3 @@ function ViewContract() {
 }
 
 export default ViewContract;
-
-/* 
-
-<div>
-                <b><u>NIR Analysis:</u></b>
-
-                <p><span>Amino Acid:</span>   <span>{foundContract?.amino_acids}</span></p>
-                <p><span>Energy:</span>   <span>{foundContract?.energy}</span></p>
-                <p><span>Protein:</span>   <span>{foundContract?.protein}</span></p>
-                <p><span>Oil:</span>   <span>{foundContract?.oil}</span></p>
-                <p><span>Moisture:</span>   <span>{foundContract?.moisture}</span></p>
-            </div>
-
-            <button onClick={() => history.push(`/field_details/${foundContract.fieldID}`)}>
-                View Field Details
-            </button>
-            <button onClick={() => history.push(`/edit_contract/${foundContract.contractID}`)}>
-                Edit Contract
-            </button>
-
-*/
