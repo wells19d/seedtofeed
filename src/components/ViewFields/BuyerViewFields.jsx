@@ -21,13 +21,12 @@ function BuyerViewFields(params) {
   const userList = useSelector((store) => store.userListReducer);
   // console.log('The fieldList', fieldList);
 
-  const userID = params.userID;
+//   const userID = params.userID;
 
   useEffect(() => {
-    // dispatch({
-    //   type: 'FETCH_BUYER_FIELD_LIST',
-    //   payload: userID,
-    // });
+    dispatch({
+      type: 'FETCH_BUYER_FIELD_LIST'
+    });
     dispatch({
         type: 'FETCH_USER_LIST'
     })
@@ -36,9 +35,8 @@ function BuyerViewFields(params) {
 
     function findFarmer(param){
         let farmer_index = userList.findIndex((user) => user.id === Number(param.farmer_id));
-        // let farmer = userList[farmer_index]
         return (
-            <span>userList[farmer_index]</span>
+            <span>{userList[farmer_index]?.first_name} {userList[farmer_index]?.last_name}</span>
         )
     }
 
@@ -55,6 +53,7 @@ function BuyerViewFields(params) {
             <TableCell>Status</TableCell>
             <TableCell>Note</TableCell>
             <TableCell>Farmer</TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -67,6 +66,7 @@ function BuyerViewFields(params) {
               <TableCell>{field.field_status}</TableCell>
               <TableCell>{field.field_note}</TableCell>
               <TableCell>{findFarmer(field)}</TableCell>
+              <TableCell> <Button>Make an offer</Button> </TableCell>
             </TableRow>
           ))}
         </TableBody>

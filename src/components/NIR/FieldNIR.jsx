@@ -17,6 +17,7 @@ function FieldNIR(params) {
   const dispatch = useDispatch();
 
   const fieldNIR = useSelector((store) => store.fieldNIRReducer);
+  const user = useSelector((store) => store.user);
 
   const fieldID = params.fieldID;
 
@@ -51,7 +52,8 @@ function FieldNIR(params) {
               <TableCell>Protein Levels</TableCell>
               <TableCell>Energy</TableCell>
               <TableCell>Amino Acids</TableCell>
-              <TableCell></TableCell>
+                {user.farmer && <TableCell></TableCell>}
+              
             </TableRow>
           </TableHead>
           <TableBody>
@@ -64,8 +66,11 @@ function FieldNIR(params) {
                   <TableCell>{test.protein}</TableCell>
                   <TableCell>{test.energy}</TableCell>
                   <TableCell>{test.amino_acids}</TableCell>
+
+                    {user.farmer &&
                   <TableCell><Button onClick={() => history.push(`/edit_NIR/${fieldID}/${test.id}`)}>Edit</Button> / <Button color="secondary" onClick={() => deleteButton(test.id)}>Delete</Button>
-                  </TableCell>
+                  </TableCell>}
+
                 </TableRow>
               );
             })}
@@ -73,9 +78,12 @@ function FieldNIR(params) {
         </Table>
       </TableContainer>
       <br />
+
+        {user.farmer &&
       <Button onClick={() => history.push(`/NIR_form/${fieldID}`)}>
         Add NIR Data
-      </Button>
+      </Button>}
+
     </center>
   );
 }

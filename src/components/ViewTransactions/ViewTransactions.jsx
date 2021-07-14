@@ -11,6 +11,7 @@ function ViewTransactions(params) {
     const dispatch = useDispatch();
 
     const transactions = useSelector(store => store.fieldTransactionsReducer);
+    const user = useSelector((store) => store.user);
 
     useEffect(() => {
         dispatch({
@@ -49,9 +50,11 @@ function ViewTransactions(params) {
                         <th>
                             Notes
                         </th>
+
+                        {user.farmer && 
                         <th>
                             Actions
-                        </th>
+                        </th>}
                     </tr>
                 </thead>
                 <tbody>
@@ -70,6 +73,8 @@ function ViewTransactions(params) {
                                 <td>
                                     {event.status_notes}
                                 </td>
+
+                                {user.farmer &&
                                 <td>
                                     <button onClick={()=> history.push(`/edit_transaction/${fieldID}/${event.id}`)}>
                                         Edit
@@ -77,16 +82,19 @@ function ViewTransactions(params) {
                                     <button onClick={()=> deleteButton(event.id)}>
                                         Delete
                                     </button>
-                                </td>
+                                </td>}
+                                
                             </tr>
                         )
                     })}
                 </tbody>
             </table>
 
+            {user.farmer &&
             <button onClick={() => history.push(`/add_transaction/${fieldID}`)}>
                 New Event
-            </button>
+            </button>}
+
         </center>
     )
 }

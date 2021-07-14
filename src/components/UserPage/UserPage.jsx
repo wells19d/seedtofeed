@@ -1,6 +1,8 @@
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector} from 'react-redux';
+
+import BuyerViewFields from '../ViewFields/BuyerViewFields';
 import ViewFields from '../ViewFields/ViewFields';
 
 function UserPage() {
@@ -9,7 +11,9 @@ function UserPage() {
   return (
     <div className="container">
       <h2>Welcome, {user.first_name}!</h2>
-      <ViewFields userID={user.id}/>
+      {user.farmer && <ViewFields userID={user.id}/>}
+      {user.buyer && <BuyerViewFields userID={user.id} />}
+      {/* <ViewFields userID={user.id}/> */}
     </div>
   );
 }
