@@ -10,13 +10,11 @@ function StatusTracker(params) {
   const dispatch = useDispatch();
 
   const statuses = useSelector((store) => store.transactionTypesReducer);
-
   const details = useSelector((store) => store.fieldDetailsReducer);
-
 
   
   let detail = details[details.length-1]; // This would get the latest entry in the store, assuming that the newest entry is also the newest date.
-  
+  console.log('here are the field details:', detail);
 
   // let detail;
   // function setDetail(){
@@ -59,7 +57,7 @@ function StatusTracker(params) {
         );
       })}
 
-      <p>Contract Status: {detail?.name}</p>
+      <p>Contract Status: {details.contract_status_name}</p> {/* This should be detail.contract_status_name but errors out on refresh */}
     </div>
   );
 }

@@ -306,5 +306,3 @@ function AddContract(params) {
 }
 
 export default AddContract;
-
-
