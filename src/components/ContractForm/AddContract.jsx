@@ -77,7 +77,7 @@ function AddContract(params) {
 
         alert('Contract has been created')
 
-        history.push('/user');
+        history.push('/contract');
 
     }; // end addContract
 
@@ -95,7 +95,7 @@ function AddContract(params) {
                             required
                             onChange={(event) => setUserFieldID(event.target.value)}
                         >
-                            <option >Select</option>
+                            <option hidden>Select</option>
                             {fields.map((field) => {
                                 console.log('fieldtype:', field);
                                 return (
@@ -117,7 +117,7 @@ function AddContract(params) {
                             required
                             onChange={(event) => setCommodity(event.target.value)}
                         >
-                            <option>Select</option>
+                            <option hidden>Select</option>
                             {crops.map((crop) => {
                                 console.log('croptype:', crop);
                                 return (
@@ -140,7 +140,7 @@ function AddContract(params) {
                             required
                             onChange={(event) => setOpenStatus(event.target.value)}
                         >
-                            <option>Select</option>
+                            <option hidden>Select</option>
                             {contractStatus.map((status) => {
                                 console.log('contract status:', status);
                                 return (

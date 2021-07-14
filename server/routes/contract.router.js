@@ -31,7 +31,7 @@ JOIN "field" ON ("field"."id"="user_field"."field_id")
 JOIN "crop" ON ("crop"."id" = "contract"."commodity")
 JOIN "contract_status" ON ("contract_status"."id" = "contract"."open_status")
 LEFT JOIN "NIR" ON "NIR"."field_id" = "user_field"."field_id"
-WHERE "user"."id"=$1;`;
+WHERE "user"."id"=$1 ORDER BY "contract"."id";`;
 
     pool.query(queryText, [userID]).then(response => {
         console.log(response.rows);
