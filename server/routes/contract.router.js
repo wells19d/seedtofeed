@@ -9,7 +9,7 @@ const { response } = require('express');
 
 // -- GETS
 //GET list of contracts associated with a user.
-router.get('/getall', rejectUnauthenticated, (req, res) => { 
+router.get('/getall', rejectUnauthenticated, (req, res) => {
 
     // GET route code here
 
@@ -64,7 +64,7 @@ router.get('/contractStatus', rejectUnauthenticated, (req, res) => {
 //     //contractID on url
 //     const contractID = req.params.contractID;
 //     console.log('here is the contract ID from params:', contractID);
-    
+
 
 //     const queryText = `SELECT * FROM "contract" 
 // JOIN "user_field" ON "user_field"."id" = "contract"."user_field_id"
@@ -79,7 +79,7 @@ router.get('/contractStatus', rejectUnauthenticated, (req, res) => {
 //         .then(response => {
 //             console.log('contract details:', response.rows);
 //             res.sendStatus(response.rows)
-            
+
 //         })
 //         .catch(error => {
 //             console.log('Error making query to database', error);
@@ -141,6 +141,7 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
     const contract_handler = req.body.contract_handler; // $12
     const user_field_id = req.body.user_field_id;
 
+
     const queryText =
         `UPDATE "contract"
         SET 
@@ -155,7 +156,7 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
         "contract_quantity" = $10,
         "container_serial" = $11,
         "contract_handler" = $12
-        WHERE "id" = $1 RETURNING *;`;
+        WHERE "id" = $1 RETURNING "user_field_id";`;
 
     pool
         .query(queryText, [
@@ -173,12 +174,13 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
             contract_handler, // $12
         ])
         .then((result) => {
-            console.log('contract was updated', result.rows);
-            let ufi = req.body.user_field_id;
+            console.log('contract was updated', result.rows[0].user_field_id);
+            const field_id = result.rows[0].user_field_id;
+            console.log('field id is', field_id);
             const queryTransaction = `INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", 
              "transaction_type" ) VALUES ($1, Now(), 'contract updated', 'contract updated', 10) RETURNING *;`;
 
-            pool.query(queryTransaction, [ufi])
+            pool.query(queryTransaction, [field_id])
                 .then((result) => {
                     console.log('Updating transaction table', result.rows);
                     res.sendStatus(204);
