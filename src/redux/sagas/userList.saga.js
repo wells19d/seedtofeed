@@ -7,6 +7,7 @@ function* userList(action) {
     
     try {
         const response = yield axios.get(`/api/user/userList/`)
+
         yield put({ type: 'SET_USER_LIST', payload: response.data})
     } catch (error) {
         console.log('User get request failed', error);

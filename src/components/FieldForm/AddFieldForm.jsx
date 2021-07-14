@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 
 function AddFieldForm() {
   const dispatch = useDispatch();
@@ -35,10 +36,10 @@ function AddFieldForm() {
   // ADD A FIELD
   const addField = (event) => {
     event.preventDefault();
-    history.push('/user'); 
+    history.push('/user');
 
     dispatch({
-      type: 'SET_FIELD', 
+      type: 'SET_FIELD',
       payload: {
         name: fieldName,
         year: fieldYear,
@@ -52,6 +53,7 @@ function AddFieldForm() {
 
   return (
     <Router>
+      <h3>Add Field</h3>
       <TextField
         variant="outlined"
         label="Field Name"
@@ -62,6 +64,7 @@ function AddFieldForm() {
         InputLabelProps={{
           shrink: true,
         }}
+        size="small"
       />
       <br />
       <br />
@@ -75,6 +78,7 @@ function AddFieldForm() {
         InputLabelProps={{
           shrink: true,
         }}
+        size="small"
       />
       <br />
       <br />
@@ -89,6 +93,7 @@ function AddFieldForm() {
         InputLabelProps={{
           shrink: true,
         }}
+        size="small"
       />
       <br />
       <br />
@@ -103,28 +108,31 @@ function AddFieldForm() {
         InputLabelProps={{
           shrink: true,
         }}
+        size="small"
       />
       <br />
       <br />
-      <Select
-        variant="outlined"
-        value={cropType}
-        required
-        style={{ width: '155px' }}
-        onChange={(event) => setCropType(event.target.value)}
-        displayEmpty
-      >
-        <MenuItem value="" disabled>
-          <em>Crop Type</em>
-        </MenuItem>
-        {crops?.map((crop) => {
-          return (
-            <MenuItem key={crop.id} value={crop.id}>
-              {crop.crop_type}
-            </MenuItem>
-          );
-        })}
-      </Select>
+      <FormControl size="small">
+        <Select
+          variant="outlined"
+          value={cropType}
+          required
+          style={{ width: '155px' }}
+          onChange={(event) => setCropType(event.target.value)}
+          displayEmpty
+        >
+          <MenuItem value="" disabled size="small">
+            <em>Crop Type</em>
+          </MenuItem>
+          {crops?.map((crop) => {
+            return (
+              <MenuItem key={crop.id} value={crop.id}>
+                {crop.crop_type}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </FormControl>
       <br />
       <br />
       <TextField
@@ -142,18 +150,15 @@ function AddFieldForm() {
       />
       <center>
         <Button
-          type="button"
+          size="small"
           onClick={() => {
-            history.push('/user'); 
+            history.push('/user');
           }}
         >
           Cancel
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button
-          type="submit"
-          onClick={(event) => addField(event)} 
-        >
+        <Button size="small" onClick={(event) => addField(event)}>
           Submit
         </Button>
       </center>

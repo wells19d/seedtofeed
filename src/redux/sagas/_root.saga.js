@@ -29,6 +29,10 @@ import deleteContractSaga from './deleteContract.saga';
 import deleteNIRSaga from './deleteNIR.saga';
 
 import transactionTypesSaga from './transactionTypes.saga';
+import userListSaga from './userList.saga';
+import buyerFieldListSaga from './buyerFieldList.saga';
+
+// import buyerFieldListSaga from './buyerFieldList.saga';
 
 import userListSaga from './userList.saga';
 import buyerFieldListSaga from './buyerFieldList.saga';
@@ -78,5 +82,6 @@ export default function* rootSaga() {
     userListSaga(),
     buyerFieldListSaga(),
     addBuyerSaga(),
+
   ]);
 }

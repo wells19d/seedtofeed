@@ -20,7 +20,6 @@ router.get('/userList', rejectUnauthenticated, (req, res) => {
                         FROM "user";`;
 
     pool.query(queryText).then(response => {
-        console.log(response.rows);
         res.send(response.rows);
     }).catch(error => {
         console.log(`Error making database query ${queryText}`, error);

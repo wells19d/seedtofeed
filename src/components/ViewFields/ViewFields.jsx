@@ -12,6 +12,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 import '../App/App.css';
 
@@ -23,6 +24,7 @@ function ViewFields(params) {
   // console.log('The fieldList', fieldList);
 
   const userID = params.userID;
+  console.log('here is the userID in ViewFields', userID);
 
   useEffect(() => {
     dispatch({
@@ -44,10 +46,17 @@ function ViewFields(params) {
 
 
   function deleteButton(fieldID) {
-    dispatch({
-      type: 'DELETE_FIELD',
-      payload: fieldID,
-    });
+    let remove = confirm(
+      'Are you sure you would like to delete this field? Once deleted it can not be retrieved again.'
+    );
+    if (remove == true) {
+      dispatch({
+        type: 'DELETE_FIELD',
+        payload: fieldID,
+      });
+    } else {
+      return;
+    }
   }
 
   return (

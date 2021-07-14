@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function* fieldDetails(action) {
 
-    console.log('The ID of this field is:', action.payload);
+    // console.log('The ID of this field is:', action.payload);
     
     try {
         const response = yield axios.get(`/api/field/fieldDetails/${action.payload}`)

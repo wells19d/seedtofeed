@@ -6,7 +6,6 @@ const {
 } = require('../modules/authentication-middleware');
 
 // -- GETS --
-
 router.get('/buyerFieldList', rejectUnauthenticated, (req, res) => {
     const userID = req.user.id;
 
@@ -45,6 +44,7 @@ router.get('/buyerFieldList', rejectUnauthenticated, (req, res) => {
     })
 })
 
+
 //GET a list of fields
 router.get('/fieldList', rejectUnauthenticated, (req, res) => {
     const userID = req.user.id;
@@ -53,10 +53,12 @@ router.get('/fieldList', rejectUnauthenticated, (req, res) => {
 
         const queryText = `
     SELECT "field"."id", "user_field"."id" AS "user_field_id", "field"."year", "field"."location", "field"."acres", "field"."field_note",
+
     "field"."name", "field"."image", "field"."shape_file", "field"."gmo", "field"."crop_id"
     FROM "field"
     JOIN "user_field" ON "user_field"."field_id"="field"."id"
-    WHERE "user_field"."user_id"=$1;`;
+    WHERE "user_field"."user_id"=$1
+    ORDER BY "field"."id" ASC;`; // Added  "user_field"."user_id" AS "farmer_id"
 
     
     // const queryText = `

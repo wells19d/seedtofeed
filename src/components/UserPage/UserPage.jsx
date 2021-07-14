@@ -9,12 +9,15 @@ function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   return (
+    <center>
     <div className="container">
+      
       <h2>Welcome, {user.first_name}!</h2>
       {user.farmer && <ViewFields userID={user.id}/>}
       {user.buyer && <BuyerViewFields userID={user.id} />}
       {/* <ViewFields userID={user.id}/> */}
     </div>
+    </center>
   );
 }
 

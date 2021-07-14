@@ -11,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 function FieldNIR(params) {
   const history = useHistory();
@@ -29,14 +30,13 @@ function FieldNIR(params) {
   }, []);
 
   function deleteButton(NIR) {
-
     dispatch({
-        type: 'DELETE_NIR',
-        payload: {
-          NIRID: NIR,
-          fieldID: fieldID
-        }
-      });
+      type: 'DELETE_NIR',
+      payload: {
+        NIRID: NIR,
+        fieldID: fieldID,
+      },
+    });
   }
 
   return (
@@ -83,7 +83,6 @@ function FieldNIR(params) {
       <Button onClick={() => history.push(`/NIR_form/${fieldID}`)}>
         Add NIR Data
       </Button>}
-
     </center>
   );
 }

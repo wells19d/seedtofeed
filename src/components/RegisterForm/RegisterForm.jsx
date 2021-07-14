@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import TextField from '@material-ui/core/TextField';
+
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -34,96 +38,101 @@ function RegisterForm() {
   }; // end registerUser
 
   return (
-    <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
-      {errors.registrationMessage && (
-        <h3 className="alert" role="alert">
-          {errors.registrationMessage}
-        </h3>
-      )}
-      <div>
-        <label htmlFor="username">
-          Email Address:
-          <input
+    <center>
+      <Card className="formPanel">
+        <form>
+          <h3>Register user</h3>
+          {errors.registrationMessage && (
+            <h3 className="alert" role="alert">
+              {errors.registrationMessage}
+            </h3>
+          )}
+          <br />
+          <TextField
+            variant="outlined"
+            label="Email Address"
             type="text"
-            name="username"
             value={username}
             required
             onChange={(event) => setUsername(event.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            size="small"
           />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
+          <br />
+          <br />
+          <TextField
+            variant="outlined"
+            label="Password"
             type="password"
-            name="password"
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            size="small"
           />
-        </label>
-      </div>
-
-
-
-      <div>
-        <label htmlFor="username">
-            First Name:
-                <input
-                    type="text"
-                    name="firstName"
-                    value={firstName}
-                    required
-                    onChange={(event) => setFirstName(event.target.value)}
-                />
-        </label>
-    </div>
-    <div>
-        <label htmlFor="username">
-            Last Name:
-                <input
-                    type="text"
-                    name="lastName"
-                    value={lastName}
-                    required
-                    onChange={(event) => setLastName(event.target.value)}
-                />
-        </label>
-    </div>
-    <div>
-        <label>
-            Are you a farmer?
-            <input
-              type="radio"
-              id='radio1'
-              name='radio-btn'
-              value={farmer}
-              // defaultChecked={farmer}
-              onChange={(event) => setFarmer(!farmer)}
-            />
-        </label>
-        <label>
-            Are you a buyer?
-            <input
-              type="radio"
-              id='radio2'
-              name='radio-btn'
-              value={buyer}
-              // defaultChecked={buyer}
-              onChange={(event) => setBuyer(!buyer)}
-            />
-        </label>
-    </div>
-
-
-
-
-      <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
-      </div>
-    </form>
+          <br />
+          <br />
+          <TextField
+            variant="outlined"
+            type="text"
+            label="First Name"
+            value={firstName}
+            required
+            onChange={(event) => setFirstName(event.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            size="small"
+          />
+          <br />
+          <br />
+          <TextField
+            variant="outlined"
+            type="text"
+            label="Last Name"
+            value={lastName}
+            required
+            onChange={(event) => setLastName(event.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            size="small"
+          />
+          <h4>
+            <label>
+              I'm a Farmer :
+              <input
+                type="radio"
+                id="radio1"
+                name="radio-btn"
+                value={farmer}
+                // defaultChecked={farmer}
+                onChange={(event) => setFarmer(!farmer)}
+              />
+            </label>
+            <br />
+            <label>
+              I'm a Buyer :
+              <input
+                type="radio"
+                id="radio2"
+                name="radio-btn"
+                value={buyer}
+                // defaultChecked={buyer}
+                onChange={(event) => setBuyer(!buyer)}
+              />
+            </label>
+          </h4>
+          <Button size="small" onClick={(event) => registerUser(event)}>
+            Register
+          </Button>
+        </form>
+      </Card>
+    </center>
   );
 }
 
