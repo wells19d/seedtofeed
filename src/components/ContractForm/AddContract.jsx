@@ -39,7 +39,7 @@ function AddContract(params) {
   // LOCAL STATE
     const [user_field_id, setUserFieldID] = useState('');
     const [commodity, setCommodity] = useState('');
-    const [openStatus, setOpenStatus] = useState('');
+    const [openStatus, setOpenStatus] = useState(1);
     const [bushel_uid, setBushel_uid] = useState('');
     const [quantityFulfilled, setQuantityFulfilled] = useState('');
     const [price, setPrice] = useState('');
@@ -130,9 +130,9 @@ function AddContract(params) {
               })}
         </Select>
        </FormControl>
-        <br />
-        <br />
-        <FormControl size="small">
+        {/* <br />
+        <br /> */}
+        {/* <FormControl size="small">
         <Select
         variant="outlined"
         value={openStatus}
@@ -153,7 +153,7 @@ function AddContract(params) {
                 );
               })}
         </Select>
-       </FormControl>
+       </FormControl> */}
         <br />
         <br />
         <TextField
