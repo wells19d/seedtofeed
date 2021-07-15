@@ -37,15 +37,15 @@ function AddContract(params) {
   }, []);
 
   // LOCAL STATE
-    const [user_field_id, setUserFieldID] = useState('');
-    const [commodity, setCommodity] = useState('');
-    const [openStatus, setOpenStatus] = useState('');
-    const [bushel_uid, setBushel_uid] = useState('');
-    const [quantityFulfilled, setQuantityFulfilled] = useState('');
-    const [price, setPrice] = useState('');
-    const [contractQuantity, setContractQuantity] = useState('');
-    const [containerSerial, setContainerSerial] = useState('');
-    const [contractHandler, setContractHandler] = useState('');
+  const [user_field_id, setUserFieldID] = useState('');
+  const [commodity, setCommodity] = useState('');
+  const [openStatus, setOpenStatus] = useState('');
+  const [bushel_uid, setBushel_uid] = useState('');
+  const [quantityFulfilled, setQuantityFulfilled] = useState('');
+  const [price, setPrice] = useState('');
+  const [contractQuantity, setContractQuantity] = useState('');
+  const [containerSerial, setContainerSerial] = useState('');
+  const [contractHandler, setContractHandler] = useState('');
 
 
   // for NIR analysis
@@ -83,80 +83,80 @@ function AddContract(params) {
 
   return (
     <Router>
-      <h3>Add Contract</h3>
+      <h1>Add Contract</h1>
       <FormControl size="small">
         <Select
-        variant="outlined"
-        value={user_field_id}
-        style={{ width: '195px' }}
-        required
-        displayEmpty
-        onChange={(event) => setUserFieldID(event.target.value)}
+          variant="outlined"
+          value={user_field_id}
+          style={{ width: '195px' }}
+          required
+          displayEmpty
+          onChange={(event) => setUserFieldID(event.target.value)}
         >
           <MenuItem value="" disabled size="small">
             <em>Select Field</em>
           </MenuItem>
           {fields.map((field) => {
-                console.log('fieldtype:', field);
-                return (
-                  <MenuItem key={field.id} value={field.user_field_id}>
-                    {field.name}
-                  </MenuItem>
-                );
-              })}
+            console.log('fieldtype:', field);
+            return (
+              <MenuItem key={field.id} value={field.user_field_id}>
+                {field.name}
+              </MenuItem>
+            );
+          })}
         </Select>
-       </FormControl>
-        <br />
-        <br />
-        <FormControl size="small">
+      </FormControl>
+      <br />
+      <br />
+      <FormControl size="small">
         <Select
-        variant="outlined"
-        value={commodity}
-        style={{ width: '195px' }}
-        required
-        displayEmpty
-        onChange={(event) => setCommodity(event.target.value)}
+          variant="outlined"
+          value={commodity}
+          style={{ width: '195px' }}
+          required
+          displayEmpty
+          onChange={(event) => setCommodity(event.target.value)}
         >
           <MenuItem value="" disabled size="small">
             <em>Select Commodity</em>
           </MenuItem>
           {crops.map((crop) => {
-                console.log('fieldtype:', crop);
-                return (
-                  <MenuItem key={crop.id} value={crop.id}>
-                    {crop.crop_type}
-                  </MenuItem>
-                );
-              })}
+            console.log('fieldtype:', crop);
+            return (
+              <MenuItem key={crop.id} value={crop.id}>
+                {crop.crop_type}
+              </MenuItem>
+            );
+          })}
         </Select>
-       </FormControl>
-        <br />
-        <br />
-        <FormControl size="small">
+      </FormControl>
+      <br />
+      <br />
+      <FormControl size="small">
         <Select
-        variant="outlined"
-        value={openStatus}
-        style={{ width: '195px' }}
-        required
-        displayEmpty
-        onChange={(event) => setOpenStatus(event.target.value)}
+          variant="outlined"
+          value={openStatus}
+          style={{ width: '195px' }}
+          required
+          displayEmpty
+          onChange={(event) => setOpenStatus(event.target.value)}
         >
           <MenuItem value="" disabled size="small">
             <em>Status</em>
           </MenuItem>
           {contractStatus.map((status) => {
-                console.log('contract status:', status);
-                return (
-                  <MenuItem key={status.id} value={status.id}>
-                    {status.name}
-                  </MenuItem>
-                );
-              })}
+            console.log('contract status:', status);
+            return (
+              <MenuItem key={status.id} value={status.id}>
+                {status.name}
+              </MenuItem>
+            );
+          })}
         </Select>
-       </FormControl>
-        <br />
-        <br />
-        <TextField
+      </FormControl>
+      <br />
+      <br />
+      <TextField
         variant="outlined"
         label="Bushel UID"
         type="text"
@@ -287,20 +287,20 @@ function AddContract(params) {
         }}
         size="small"
       />
-     <br />
-     <br />
+      <br />
+      <br />
       <Button
-          size="small"
-          onClick={() => {
-            history.push('/contract');
-          }}
-        >
-          Cancel
-        </Button>
-        {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button size="small" onClick={(event) => addContract(event)}>
-          Submit
-        </Button>
+        size="small"
+        onClick={() => {
+          history.push('/contract');
+        }}
+      >
+        Cancel
+      </Button>
+      {`\u00A0\u00A0\u00A0\u00A0`}
+      <Button size="small" onClick={(event) => addContract(event)}>
+        Submit
+      </Button>
     </Router>
   );
 }

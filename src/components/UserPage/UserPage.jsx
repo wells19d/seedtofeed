@@ -11,9 +11,13 @@ function UserPage() {
   return (
     <center>
       <div className="container">
-        <h4 className="page-title">This is a list of all of your current fields.  Please click on any field below to see more details.</h4>
+        <h1>Field List</h1>
+        <h3 className="welcome-message">Welcome, {user.first_name}!</h3>
         <br />
-        <h2>Welcome, {user.first_name}!</h2>
+        <br />
+
+        <h4 className="page-title">This is a list of all of your current fields.  Please click on any field below to see more details.</h4>
+
         {user.farmer && <ViewFields userID={user.id} />}
         {user.buyer && <BuyerViewFields userID={user.id} />}
         {/* <ViewFields userID={user.id}/> */}

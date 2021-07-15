@@ -48,8 +48,10 @@ function ViewContractList(params) {
 
   return (
     <center>
-      <h3>Contract List</h3>
-      <h4>See a list of your contracts below, click details for more information.</h4>
+      <div className="title-indent">
+        <h1>Contract List</h1>
+        <h4>See a list of your contracts below, click details for more information.</h4>
+      </div>
       <Grid container spacing={3}>
         <Grid item xs={1} />
         <Grid item xs={10}>
@@ -117,7 +119,9 @@ function ViewContractList(params) {
         </Grid>
         <Grid item xs={1} />
       </Grid>
-    </center>
+
+    </center >
+
   );
 }
 

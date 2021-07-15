@@ -56,7 +56,7 @@ function EditNIR() {
 
   return (
     <Router>
-      <h3>Update NIR Analysis</h3>
+      <h1>Update NIR Analysis</h1>
 
       <TextField
         variant="outlined"

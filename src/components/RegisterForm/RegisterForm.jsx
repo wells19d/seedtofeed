@@ -41,11 +41,11 @@ function RegisterForm() {
     <center>
       <Card className="formPanel">
         <form>
-          <h3>Register user</h3>
+          <h1>Register user</h1>
           {errors.registrationMessage && (
-            <h3 className="alert" role="alert">
+            <h1 className="alert" role="alert">
               {errors.registrationMessage}
-            </h3>
+            </h1>
           )}
           <br />
           <TextField

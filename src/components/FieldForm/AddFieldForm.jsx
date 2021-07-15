@@ -53,7 +53,7 @@ function AddFieldForm() {
 
   return (
     <Router>
-      <h3>Add Field</h3>
+      <h1>Add Field</h1>
       <TextField
         variant="outlined"
         label="Field Name"
