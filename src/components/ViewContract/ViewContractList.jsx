@@ -74,7 +74,7 @@ function ViewContractList(params) {
                   <TableCell>Location</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Commodity</TableCell>
-                  <TableCell></TableCell>
+                  <TableCell>Details Delete</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

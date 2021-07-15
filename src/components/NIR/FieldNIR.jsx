@@ -13,6 +13,12 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
+
+const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
+const edit = <FontAwesomeIcon icon={faEdit} />;
+
 function FieldNIR(params) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -25,7 +31,7 @@ function FieldNIR(params) {
   useEffect(() => {
     dispatch({
       type: 'FETCH_FIELD_NIR',
-      payload: fieldID,
+      payload: fieldID
     });
   }, []);
 
@@ -34,8 +40,8 @@ function FieldNIR(params) {
       type: 'DELETE_NIR',
       payload: {
         NIRID: NIR,
-        fieldID: fieldID,
-      },
+        fieldID: fieldID
+      }
     });
   }
 
@@ -44,7 +50,7 @@ function FieldNIR(params) {
       <br />
       <h4>NIR Analysis</h4>
       <TableContainer component={Paper}>
-        <Table size="small">
+        <Table size='small'>
           <TableHead>
             <TableRow>
               <TableCell>NIR Test Date</TableCell>
@@ -53,25 +59,42 @@ function FieldNIR(params) {
               <TableCell>Protein Levels</TableCell>
               <TableCell>Energy</TableCell>
               <TableCell>Amino Acids</TableCell>
-              {user.farmer && <TableCell></TableCell>}
-
+              {user.farmer && <TableCell>Edit Delete</TableCell>}
             </TableRow>
           </TableHead>
           <TableBody>
             {fieldNIR.map((test) => {
               return (
                 <TableRow key={test.id}>
-                  <TableCell>{moment.utc(test.tested_at).format('MMM Do, YYYY')}</TableCell>
+                  <TableCell>
+                    {moment.utc(test.tested_at).format('MMM Do, YYYY')}
+                  </TableCell>
                   <TableCell>{test.oil}</TableCell>
                   <TableCell>{test.moisture}</TableCell>
                   <TableCell>{test.protein}</TableCell>
                   <TableCell>{test.energy}</TableCell>
                   <TableCell>{test.amino_acids}</TableCell>
 
-                  {user.farmer &&
-                    <TableCell><Button onClick={() => history.push(`/edit_NIR/${fieldID}/${test.id}`)}>Edit</Button> / <Button color="secondary" onClick={() => deleteButton(test.id)}>Delete</Button>
-                    </TableCell>}
-
+                  {user.farmer && (
+                    <TableCell>
+                      <Button
+                        title='Edit'
+                        color='primary'
+                        onClick={() =>
+                          history.push(`/edit_NIR/${fieldID}/${test.id}`)
+                        }
+                      >
+                        {edit}
+                      </Button>{' '}
+                      <Button
+                        title='Delete'
+                        color='secondary'
+                        onClick={() => deleteButton(test.id)}
+                      >
+                        {trashCan}
+                      </Button>
+                    </TableCell>
+                  )}
                 </TableRow>
               );
             })}
@@ -80,10 +103,11 @@ function FieldNIR(params) {
       </TableContainer>
       <br />
 
-      {user.farmer &&
+      {user.farmer && (
         <Button onClick={() => history.push(`/NIR_form/${fieldID}`)}>
           Add NIR Data
-        </Button>}
+        </Button>
+      )}
     </center>
   );
 }

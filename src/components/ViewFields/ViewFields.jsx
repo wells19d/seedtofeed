@@ -14,10 +14,10 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
+import '../App/App.css';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
-
-import '../App/App.css';
 
 const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
 const edit = <FontAwesomeIcon icon={faEdit} />;
