@@ -28,7 +28,7 @@ function AboutPage() {
           </p>
         </div>
         <div className='container-about'>
-          <img src={photo} alt="soybean field" width="500"></img>
+          <img src={photo} alt="soybean field" className="about-image" width="500"></img>
 
         </div>
       </div>
