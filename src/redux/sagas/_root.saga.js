@@ -38,6 +38,7 @@ import uploadSaga from './uploadSaga';
 
 
 import addBuyerSaga from './addBuyer.saga';
+import buyerContractListSaga from './buyerContractList.saga';
 
 import bushelSaga from './bushel.saga';
 import streamSaga from './stream.saga';
@@ -88,7 +89,11 @@ export default function* rootSaga() {
     buyerFieldListSaga(),
     addBuyerSaga(),
 
+
     uploadSaga(),
+
+
+    buyerContractListSaga(),
 
   ]);
 }

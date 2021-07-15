@@ -164,23 +164,32 @@ caption {
 }
 .about-container {
     display: flex;
+    margin-left: 100px;
 }
 .container-about {
     flex: 1;
- 
+    padding: 25px;
+    
 }
 .container-about:first-child {
-    margin-left: 50px;
-    padding-left: 50px;
+    padding: 25px;
 }
 .container-about:second-child {
-    padding-right: 50px;
+    padding: 25px;
+
 }
 .about-page {
     line-height:normal;
     width: 500px;
 }
 
+
 .field-button {
     background-color: #fdb41b;
 }
+
+.about-image {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    border: 1px solid lightgray;
+}
+

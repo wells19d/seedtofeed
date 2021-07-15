@@ -50,6 +50,8 @@ function StatusTracker(params) {
       <div>
         {statuses.map((status) => {
           //setDetail(); // This calls the function to set detail to the object with the newest date.
+          console.log('the name of field is', detail?.field_name);
+
           console.log('the status name is', status.name);
           console.log('the field status is', detail?.field_status);
           console.log('the image is', status.workflow_images);

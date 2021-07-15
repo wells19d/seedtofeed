@@ -8,7 +8,7 @@
     color: #1b1c19;
     overflow: hidden;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
+    font-weight: 800;
     font-size: 1.5em;
 
 }
@@ -23,7 +23,7 @@
     padding-left: 10px;
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
+    font-weight: 800;
 }
 
 .navLink {
@@ -35,13 +35,13 @@
     text-decoration: none;
     font-size: 15px;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
+    font-weight: 800;
     /* these last two make the logout button in
   the nav bar look like another link */
     border: none;
     cursor: pointer;
     outline: 0;
-    font-weight: 600;
+    font-weight: 800;
     
 }
 
@@ -54,7 +54,7 @@ a:link {
     text-decoration: none;
     color: #1b1c19;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
+    font-weight: 800;
 }
 
 .nav-logo {
@@ -117,4 +117,7 @@ a:link {
     margin-top: 25px;
     margin-left: 200px;
     font-family: 'Montserrat', sans-serif;
+    font-size: 1.05em;
+    font-weight: 800 !important;
+    color:#1b1c19;
 }
