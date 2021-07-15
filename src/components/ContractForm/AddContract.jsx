@@ -23,6 +23,9 @@ function AddContract(params) {
   console.log('Here is the contract status list', contractStatus);
   console.log('Here is the crop list', crops);
 
+  const userList = useSelector((store) => store.userListReducer);
+  const [buyerID, setBuyerID] = useState('');
+
   useEffect(() => {
     dispatch({
       type: 'FETCH_CROP_LIST',
@@ -34,6 +37,11 @@ function AddContract(params) {
       type: 'FETCH_FIELD_LIST',
       payload: userID,
     });
+
+    dispatch({
+      type: 'FETCH_USER_LIST'
+  })
+
   }, []);
 
   // LOCAL STATE
@@ -63,6 +71,7 @@ function AddContract(params) {
       type: 'SET_CONTRACT', // dispatch to the addContract.saga
       payload: {
         user_field_id: user_field_id, //have to review how this is coming in?
+        buyer_id: buyerID,
         commodity: commodity,
         open_status: openStatus,
         bushel_uid: bushel_uid,
@@ -140,8 +149,8 @@ function AddContract(params) {
           })}
         </Select>
        </FormControl>
-        {/* <br />
-        <br /> */}
+        <br />
+        <br />
         {/* <FormControl size="small">
         <Select
           variant="outlined"
@@ -164,6 +173,36 @@ function AddContract(params) {
           })}
         </Select>
        </FormControl> */}
+
+
+
+
+        <FormControl size="small">
+          <Select
+                variant="outlined"
+                value={buyerID}
+                style={{ width: '195px' }}
+                // required
+                displayEmpty
+                onChange={(event) => setBuyerID(event.target.value)}
+                >
+            <MenuItem value="" disabled size="small">
+                <em>Buyer (optional)</em>
+            </MenuItem>
+            {userList?.map(buyer => {
+                console.log('The buyer is: ', buyer)
+            return (
+                <span key={buyer.id} value={buyer.id}>
+                {buyer.buyer && <MenuItem key={buyer.id} value={buyer.id}>{buyer.first_name} {buyer.last_name}</MenuItem>}
+                </span>
+            )
+            })}
+          </Select>
+        </FormControl>
+
+
+
+
         <br />
         <br />
         <TextField

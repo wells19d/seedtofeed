@@ -42,6 +42,42 @@ WHERE "user"."id"=$1 ORDER BY "contract"."id";`;
     })
 });
 
+
+
+router.get('/buyerGetAll', rejectUnauthenticated, (req, res) => {
+        const buyerID = req.user.id;
+
+        const queryText = `
+            SELECT "contract"."id" AS "contractID", "contract"."buyer_id", "contract"."commodity", "contract"."open_status",
+            "contract"."bushel_uid", "contract"."quantity_fulfilled", "contract"."price", "contract"."protein", "contract"."oil",
+            "contract"."moisture", "contract"."contract_quantity", "contract"."contract_handler", "contract"."container_serial",
+            "user_field"."id" AS "user_field_ID",
+            "user"."id" AS "userID", "user"."username", "user"."farmer", "user"."buyer", "user"."first_name", "user"."last_name",
+            "user"."super_admin",
+            "field"."id" AS "fieldID", "field"."year", "field"."name" AS "field_name", "field"."location", "field"."crop_id", "field"."acres", 
+            "field"."gmo", "field"."image" AS "field_image", "field"."shape_file", "field"."field_note",
+            "crop"."crop_type", "contract_status"."name", "NIR"."amino_acids", "NIR"."energy"
+            FROM "contract"
+            JOIN "user_field" ON ("user_field"."id"="contract"."user_field_id")
+            JOIN "user" ON ("user"."id"="user_field"."user_id")
+            JOIN "field" ON ("field"."id"="user_field"."field_id")
+            JOIN "crop" ON ("crop"."id" = "contract"."commodity")
+            JOIN "contract_status" ON ("contract_status"."id" = "contract"."open_status")
+            LEFT JOIN "NIR" ON "NIR"."field_id" = "user_field"."field_id"
+            WHERE "contract"."buyer_id"=$1 ORDER BY "contract"."id";`;
+
+    pool.query(queryText, [buyerID]).then(response => {
+        console.log(response.rows);
+        res.send(response.rows);
+    }).catch(error => {
+        console.log(`Error making database query ${queryText}`, error);
+        res.sendStatus(500);
+    })
+})
+
+
+
+
 //GET contract status list for the dropdown on the contract form
 router.get('/contractStatus', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM "contract_status";`;
@@ -91,26 +127,29 @@ router.get('/contractStatus', rejectUnauthenticated, (req, res) => {
 router.post('/add_contract', rejectUnauthenticated, (req, res) => {
 
     const user_field_id = req.body.user_field_id; // $1
-    const commodity = req.body.commodity; // $2
-    const open_status = req.body.open_status; // $3
-    const bushel_uid = req.body.bushel_uid; // $4
-    const quantity_fulfilled = req.body.quantity_fulfilled; // $5
-    const price = req.body.price; // $6
-    const protein = req.body.protein; // $7
-    const oil = req.body.oil; // $8
-    const moisture = req.body.moisture; // $9
-    const contract_quantity = req.body.contract_quantity; // $10
-    const container_serial = req.body.container_serial; // $11
-    const contract_handler = req.body.contract_handler; // $12
+
+    const buyer_id = req.body.buyer_id; // $2
+
+    const commodity = req.body.commodity; // $3
+    const open_status = req.body.open_status; // $4
+    const bushel_uid = req.body.bushel_uid; // $5
+    const quantity_fulfilled = req.body.quantity_fulfilled; // $6
+    const price = req.body.price; // $7
+    const protein = req.body.protein; // $8
+    const oil = req.body.oil; // $9
+    const moisture = req.body.moisture; // $10
+    const contract_quantity = req.body.contract_quantity; // $11
+    const container_serial = req.body.container_serial; // $12
+    const contract_handler = req.body.contract_handler; // $13
 
 
 
     const queryText = `
     INSERT INTO "contract" 
-    ("user_field_id", "commodity", "open_status", "bushel_uid", "quantity_fulfilled", "price", "protein", "oil", "moisture", "contract_quantity", "container_serial", "contract_handler")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "user_field_id";`;
+    ("user_field_id", "buyer_id", "commodity", "open_status", "bushel_uid", "quantity_fulfilled", "price", "protein", "oil", "moisture", "contract_quantity", "container_serial", "contract_handler")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "user_field_id";`;
 
-    pool.query(queryText, [user_field_id, commodity, open_status, bushel_uid, quantity_fulfilled, price, protein, oil, moisture, contract_quantity, container_serial, contract_handler])
+    pool.query(queryText, [user_field_id, buyer_id, commodity, open_status, bushel_uid, quantity_fulfilled, price, protein, oil, moisture, contract_quantity, container_serial, contract_handler])
         .then(response => {
             console.log('response is', response.rows);
             const user_field_id = response.rows[0].user_field_id;
