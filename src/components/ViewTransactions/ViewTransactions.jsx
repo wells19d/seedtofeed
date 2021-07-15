@@ -83,7 +83,7 @@ function ViewTransactions(params) {
                                         <button onClick={() => history.push(`/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
                                             Edit
                                         </button>
-                                        <button onClick={() => deleteButton(event.id)}>
+                                        <button onClick={() => deleteButton(event.field_transactions_ID)}>
                                             Delete
                                         </button>
                                     </td>}
