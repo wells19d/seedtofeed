@@ -132,7 +132,7 @@ function ViewContractList(params) {
                       >
 
                         {trashCan}
-                      </Button>
+                      </Button>}
 
                     </TableCell>
                   </TableRow>
