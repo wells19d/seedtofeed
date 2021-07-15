@@ -5,12 +5,12 @@ import './Uploads.css';
 
 const UploadList = (props) => {
    const uploads = useSelector(store => store.uploads);
-   const images = uploads.filter(o => o.file_type === 'image');
-   const audios = uploads.filter(o => o.file_type === 'audio');
+//    const images = uploads.filter(o => o.file_type === 'image');
+//    const audios = uploads.filter(o => o.file_type === 'audio');
    
    return (
       <>
-         <h2>All Uploaded Files:</h2>
+         {/* <h2>All Uploaded Files:</h2>
          <ul>
             {(uploads.length === 0) && <li>There are no uploaded files</li>}
             {uploads.map(file =>
@@ -28,7 +28,7 @@ const UploadList = (props) => {
                <img src={file.file_url} className='uploaded-image' alt={file.description} />
             )}
          </ul>
-{/* 
+
          <h2>Uploaded Audio:</h2>
          <ul>
             {(audios.length === 0) && <li>There are no uploaded audio files</li>}
