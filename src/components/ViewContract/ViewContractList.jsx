@@ -12,7 +12,14 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+
 import '../App/App.css';
+
+const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
+const details = <FontAwesomeIcon icon={faInfoCircle} />;
 
 function ViewContractList(params) {
   const dispatch = useDispatch();
@@ -42,10 +49,6 @@ function ViewContractList(params) {
   }, [user]);
 
 
-
-
-
-
   // REDUCER STORE
   const contractList = useSelector((store) => store.contractListReducer);
   console.log('The contractList', contractList);
@@ -57,7 +60,7 @@ function ViewContractList(params) {
     if (remove == true) {
       dispatch({
         type: 'DELETE_CONTRACT',
-        payload: contractID,
+        payload: contractID
       });
       // history.push(`/contract`);
     } else {
@@ -67,15 +70,16 @@ function ViewContractList(params) {
 
   return (
     <center>
-      <div className="title-indent">
+      <div className='title-indent'>
         <h1>Contract List</h1>
+
         <h4>A list of your contracts appear below, click details for more information.  If you want to add, please select Add New Contract</h4>
       </div>
       <Grid container spacing={3}>
         <Grid item xs={1} />
         <Grid item xs={10}>
           <TableContainer component={Paper}>
-            <Table size="small">
+            <Table size='small'>
               <TableHead>
                 <TableRow>
                   <TableCell>Contract #</TableCell>
@@ -92,7 +96,7 @@ function ViewContractList(params) {
                     <TableCell>{contract.contractID}</TableCell>
                     <TableCell>
                       <Button
-                        size="small"
+                        size='small'
                         onClick={() =>
                           history.push(`/field_details/${contract.fieldID}`)
                         }
@@ -105,26 +109,30 @@ function ViewContractList(params) {
                     <TableCell>{contract.crop_type}</TableCell>
                     <TableCell>
                       <Button
-                        size="small"
+                        size='large'
+                        title='Details'
+                        color='primary'
                         onClick={() =>
                           history.push(
                             `/contract_details/${contract.contractID}`
                           )
                         }
                       >
-                        Details
+                        {details}
                       </Button>
 
 
                         {user.farmer &&
                       <Button
-                        size="small"
-                        color="secondary"
+                        className='button-icons'
+                        size='large'
+                        title='Delete'
+                        color='secondary'
                         onClick={() => deleteButton(contract.contractID)}
                       >
-                        Delete
-                      </Button>}
 
+                        {trashCan}
+                      </Button>
 
                     </TableCell>
                   </TableRow>
@@ -138,7 +146,7 @@ function ViewContractList(params) {
 
             {user.farmer &&
             <Button
-              size="small"
+              size='small'
               onClick={() => history.push(`/contract_form/`)}
             >
               Add New Contract
@@ -151,9 +159,10 @@ function ViewContractList(params) {
         </Grid>
         <Grid item xs={1} />
       </Grid>
-
-    </center >
-
+      <div className='back-button'>
+        <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
+      </div>
+    </center>
   );
 }
 

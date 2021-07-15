@@ -95,9 +95,9 @@ function ViewTransactions(params) {
             </table>
 
             {user.farmer &&
-                <button onClick={() => history.push(`/add_transaction/${fieldID}`)}>
+                <Button onClick={() => history.push(`/add_transaction/${fieldID}`)}>
                     New Event
-                </button>}
+                </Button>}
 
         </center>
     )

@@ -9,13 +9,16 @@ function UserPage() {
   const user = useSelector((store) => store.user);
   return (
     <center>
-      <div className="container">
+      <div className='container'>
+        <h3 className='welcome-message'>Welcome, {user.first_name}!</h3>
+
         <h1>Field List</h1>
-        <h3 className="welcome-message">Welcome, {user.first_name}!</h3>
         <br />
         <br />
 
+
         <h4 className="page-title">This is a list of all of your current fields.  Please click field to see more details or add new field to enter a new field.</h4>
+
 
         {user.farmer && <ViewFields userID={user.id} />}
         {user.buyer && <BuyerViewFields userID={user.id} />}
