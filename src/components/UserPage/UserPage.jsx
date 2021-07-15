@@ -1,5 +1,4 @@
 import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector } from 'react-redux';
 
 import BuyerViewFields from '../ViewFields/BuyerViewFields';
