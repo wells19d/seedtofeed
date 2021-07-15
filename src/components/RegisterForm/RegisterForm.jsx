@@ -41,7 +41,7 @@ function RegisterForm() {
     <center>
       <Card className="formPanel">
         <form>
-          <h3>Register user</h3>
+          <h2>Register New User</h2>
           {errors.registrationMessage && (
             <h3 className="alert" role="alert">
               {errors.registrationMessage}
@@ -102,7 +102,8 @@ function RegisterForm() {
             }}
             size="small"
           />
-          <h4>
+          <h3>
+            <center>
             <label>
               I'm a Farmer :
               <input
@@ -110,11 +111,11 @@ function RegisterForm() {
                 id="radio1"
                 name="radio-btn"
                 value={farmer}
+                checked="checked"
                 // defaultChecked={farmer}
                 onChange={(event) => setFarmer(!farmer)}
               />
-            </label>
-            <br />
+            </label>{`\u00A0\u00A0\u00A0\u00A0`}
             <label>
               I'm a Buyer :
               <input
@@ -126,7 +127,8 @@ function RegisterForm() {
                 onChange={(event) => setBuyer(!buyer)}
               />
             </label>
-          </h4>
+            </center>
+          </h3>
           <Button size="small" onClick={(event) => registerUser(event)}>
             Register
           </Button>

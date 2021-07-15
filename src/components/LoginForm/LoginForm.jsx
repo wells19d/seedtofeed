@@ -32,7 +32,7 @@ function LoginForm() {
     <center>
       <Card className="formPanel">
         <form>
-          <h3>Login</h3>
+          <h2>User Login</h2>
           {errors.loginMessage && (
             <h3 className="alert" role="alert">
               {errors.loginMessage}
