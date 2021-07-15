@@ -38,7 +38,7 @@ function Nav() {
 
   return (
     <div className="nav">
-      <div className="nav-logo-span">
+      <div className="nav-logo-span"> 
         <h2 className="title">Tracker</h2>
       <Link to="/home">
         <img className="custom-logo-link-img" src={logo} alt="Seed to Feed Logo" />
