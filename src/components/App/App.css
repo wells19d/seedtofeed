@@ -180,3 +180,7 @@ caption {
     line-height:normal;
     width: 500px;
 }
+
+.field-button {
+    background-color: #fdb41b;
+}

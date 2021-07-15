@@ -69,6 +69,7 @@ function ViewFields(params) {
             <TableCell>Location</TableCell>
             <TableCell>Status</TableCell>
             <TableCell>Note</TableCell>
+            <TableCell>Image</TableCell>
             <TableCell>Buyers</TableCell>
             <TableCell></TableCell>
           </TableRow>
@@ -78,13 +79,14 @@ function ViewFields(params) {
             console.log('This field is: ', field);
             return (
             <TableRow key={field.id}>
-              <TableCell><Button onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button></TableCell>
+              <TableCell><Button className="field-button" onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button></TableCell>
               <TableCell>{field.location}</TableCell>
               <TableCell>{field.field_status}</TableCell>
               <TableCell>{field.field_note}</TableCell>
+              <TableCell>{field.image}</TableCell>
               <TableCell>Buyer Here {isOpen && <SetBuyer togglePopup={togglePopup} fieldID={field.id}/>}</TableCell>
               <TableCell>
-                <Button onClick={() => togglePopup()}>Add Potential Buyer</Button>
+                <Button onClick={() => togglePopup()}>Add Buyer</Button>
                 <Button onClick={() => history.push(`/edit_field/${field.id}`)} >Edit</Button> / 
                 <Button color="secondary" onClick={() => deleteButton(field.id)}>Delete</Button>
                 </TableCell>

@@ -21,6 +21,7 @@ function AddFieldForm() {
   const [location, setLocation] = useState('');
   const [acres, setAcres] = useState('');
   const [notes, setNotes] = useState('');
+  const [image, setImage] = useState('');
 
   const crops = useSelector((store) => store.cropListReducer);
   const fieldStatus = useSelector((store) => store.transactionTypesReducer);
@@ -47,6 +48,7 @@ function AddFieldForm() {
         location: location,
         acres: acres,
         field_note: notes,
+        image: image,
       },
     });
   };
@@ -148,6 +150,9 @@ function AddFieldForm() {
           shrink: true,
         }}
       />
+
+        {/* Image uploader here */}
+
       <center>
         <Button
           size="small"
