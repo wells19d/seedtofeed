@@ -24,12 +24,32 @@ function ViewContract() {
   const contractID = params.contractID;
   console.log('here is the contract ID:', contractID);
 
+
+
+
+
+
+  const user = useSelector((store) => store.user);
+
+
+
+
+
   useEffect(() => {
+    if (user.farmer === true) {
     dispatch({
       type: 'FETCH_CONTRACT_LIST',
-      payload: contractID,
-    });
-  }, []);
+    });}
+    if (user.buyer === true) {
+      dispatch({
+        type: 'FETCH_BUYER_CONTRACT_LIST',
+      });
+    }
+  }, [user]);
+
+
+
+
 
   const foundContract = contract.find((contract) => {
     console.log(contract);
