@@ -17,9 +17,6 @@ function UserPage() {
         <br />
 
 
-        <h4 className="page-title">This is a list of all of your current fields.  Please click field to see more details or add new field to enter a new field.</h4>
-
-
         {user.farmer && <ViewFields userID={user.id} />}
         {user.buyer && <BuyerViewFields userID={user.id} />}
         {/* <ViewFields userID={user.id}/> */}

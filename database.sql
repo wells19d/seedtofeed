@@ -92,7 +92,7 @@ CREATE TABLE "NIR" (
 CREATE TABLE "field_transactions" (
 	"id" serial NOT NULL,
 	"field_id" integer NOT NULL,
-	"timestamp" TIMESTAMP,
+	"timestamp" TIMESTAMP, -- Need to be fixed to be brought in as timestamp with timezone
 	"status_notes" TEXT,
 	"image" varchar(255),
 	"field_status" TEXT,
@@ -254,3 +254,10 @@ jason@field.com  1234
 
 */
 
+CREATE TABLE "uploads" (
+    "id" SERIAL PRIMARY KEY,
+    "file_type" VARCHAR(250) NOT NULL,
+    "description" VARCHAR(250) NOT NULL,
+    "file_url" VARCHAR(250) NOT NULL,
+    "uploaded_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
