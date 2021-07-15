@@ -39,7 +39,7 @@ function AddContract(params) {
   // LOCAL STATE
     const [user_field_id, setUserFieldID] = useState('');
     const [commodity, setCommodity] = useState('');
-    const [openStatus, setOpenStatus] = useState('');
+    const [openStatus, setOpenStatus] = useState(1);
     const [bushel_uid, setBushel_uid] = useState('');
     const [quantityFulfilled, setQuantityFulfilled] = useState('');
     const [price, setPrice] = useState('');
@@ -81,6 +81,14 @@ function AddContract(params) {
     history.push('/contract');
   }; // end addContract
 
+  const onFieldChange = (event) =>  {
+    setUserFieldID(event.target.value);
+    const newField = fields.find(f => f.user_field_id === parseInt(event.target.value));
+    if (newField !== -1) {
+      setCommodity(newField.crop_id);
+    }
+  };
+
   return (
     <Router>
       <h3>Add Contract</h3>
@@ -91,7 +99,7 @@ function AddContract(params) {
         style={{ width: '195px' }}
         required
         displayEmpty
-        onChange={(event) => setUserFieldID(event.target.value)}
+        onChange={onFieldChange}
         >
           <MenuItem value="" disabled size="small">
             <em>Select Field</em>
@@ -130,9 +138,9 @@ function AddContract(params) {
               })}
         </Select>
        </FormControl>
-        <br />
-        <br />
-        <FormControl size="small">
+        {/* <br />
+        <br /> */}
+        {/* <FormControl size="small">
         <Select
         variant="outlined"
         value={openStatus}
@@ -153,7 +161,7 @@ function AddContract(params) {
                 );
               })}
         </Select>
-       </FormControl>
+       </FormControl> */}
         <br />
         <br />
         <TextField
