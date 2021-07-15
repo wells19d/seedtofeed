@@ -3,12 +3,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 30px;
+    margin: 0 0 10px;
     background-color: #fdb418;
     color: #1b1c19;
     overflow: hidden;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
+    font-weight: 600;
     font-size: 1.5em;
 
 }
@@ -23,7 +23,7 @@
     padding-left: 10px;
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .navLink {
@@ -35,13 +35,14 @@
     text-decoration: none;
     font-size: 15px;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
+    font-weight: 600;
     /* these last two make the logout button in
   the nav bar look like another link */
     border: none;
     cursor: pointer;
     outline: 0;
-    font-weight: 800;
+    font-weight: 600;
+    
 }
 
 .navLink:hover {
@@ -53,11 +54,11 @@ a:link {
     text-decoration: none;
     color: #1b1c19;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .nav-logo {
-    margin-left: 50px;
+    margin-left: 20px;
     transform: rotate(-15deg);
     max-height: fit-content;
     max-height: fit-content;
@@ -71,6 +72,7 @@ a:link {
     margin-bottom: 0px;
     margin-top:10px;
     padding-bottom: 0px;
+    height: 90px;
 }
 
 .nav-logo-link {
@@ -78,7 +80,7 @@ a:link {
     max-width: 50px;
 }
 .nav-logo-title {
-    display:inline-flex;
+    display: inline-flex;
     font-family: 'Montserrat', sans-serif;
     justify-content: center;
     align-items: center;
@@ -86,4 +88,33 @@ a:link {
     padding-left: 25px;
     margin-top: -50px;
     padding-top: 0;
+}
+
+.custom-logo-link-img {
+    top: -4px;
+    position: absolute;
+    z-index: 999;
+    height: 160px;
+    margin-left: 30px;
+    transform: rotate(-15deg);
+}
+
+.menuButton{ 
+    position: right;
+    margin-right: 40px;
+    z-index: 999;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.menuPopup{ 
+    margin-top: 50px;
+    position: right;
+    z-index: 999;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.title {
+    margin-top: 20px;
+    margin-left: 225px;
+    font-family: 'Montserrat', sans-serif;
 }
