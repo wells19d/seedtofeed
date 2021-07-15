@@ -41,7 +41,7 @@ function RegisterForm() {
     <center>
       <Card className="formPanel">
         <form>
-          <h1>Register User</h1>
+          <h2>Register User</h2>
           {errors.registrationMessage && (
             <h1 className="alert" role="alert">
               {errors.registrationMessage}

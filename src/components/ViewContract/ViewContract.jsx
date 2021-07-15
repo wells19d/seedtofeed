@@ -27,7 +27,7 @@ function ViewContract() {
   useEffect(() => {
     dispatch({
       type: 'FETCH_CONTRACT_LIST',
-      payload: contractID,
+      payload: contractID
     });
   }, []);
 
@@ -48,31 +48,47 @@ function ViewContract() {
         <Grid item>
           <h4>{foundContract?.contract_handler}</h4>
           <TableContainer component={Paper}>
-            <Table size="small">
+            <Table size='small'>
               <TableHead>
                 <TableRow>
-                  <TableCell align="right">
+                  <TableCell align='right'>
                     <br />
-                    Contract ID:<br />
-                    Grower:<br />
-                    Commodity:<br />
-                    Status:<br />
-                    Contract Quantity:<br />
-                    Quantity Fulfilled:<br />
-                    Container S/N:<br />
-                    Price:<br />
+                    Contract ID:
+                    <br />
+                    Grower:
+                    <br />
+                    Commodity:
+                    <br />
+                    Status:
+                    <br />
+                    Contract Quantity:
+                    <br />
+                    Quantity Fulfilled:
+                    <br />
+                    Container S/N:
+                    <br />
+                    Price:
+                    <br />
                     <br />
                   </TableCell>
                   <TableCell>
                     <br />
-                    {foundContract?.contractID}<br />
-                    {foundContract?.first_name} {foundContract?.last_name}<br />
-                    {foundContract?.crop_type}<br />
-                    {foundContract?.name}<br />
-                    {foundContract?.contract_quantity}<br />
-                    {foundContract?.quantity_fulfilled}<br />
-                    {foundContract?.container_serial}<br />
-                    {foundContract?.price}<br />
+                    {foundContract?.contractID}
+                    <br />
+                    {foundContract?.first_name} {foundContract?.last_name}
+                    <br />
+                    {foundContract?.crop_type}
+                    <br />
+                    {foundContract?.name}
+                    <br />
+                    {foundContract?.contract_quantity}
+                    <br />
+                    {foundContract?.quantity_fulfilled}
+                    <br />
+                    {foundContract?.container_serial}
+                    <br />
+                    {foundContract?.price}
+                    <br />
                     <br />
                   </TableCell>
                 </TableRow>
@@ -83,16 +99,21 @@ function ViewContract() {
         <Grid item>
           <h4>NIR Analysis:</h4>
           <TableContainer component={Paper}>
-            <Table size="small">
+            <Table size='small'>
               <TableHead>
                 <TableRow>
-                  <TableCell align="right">
+                  <TableCell align='right'>
                     <br />
-                    Amino Acid:<br />
-                    Energy:<br />
-                    Protein:<br />
-                    Oil:<br />
-                    Moisture:<br />
+                    Amino Acid:
+                    <br />
+                    Energy:
+                    <br />
+                    Protein:
+                    <br />
+                    Oil:
+                    <br />
+                    Moisture:
+                    <br />
                     <br />
                     <br />
                     <br />
@@ -100,11 +121,16 @@ function ViewContract() {
                   </TableCell>
                   <TableCell>
                     <br />
-                    {foundContract?.amino_acids}<br />
-                    {foundContract?.energy}<br />
-                    {foundContract?.protein}<br />
-                    {foundContract?.oil}<br />
-                    {foundContract?.moisture}<br />
+                    {foundContract?.amino_acids}
+                    <br />
+                    {foundContract?.energy}
+                    <br />
+                    {foundContract?.protein}
+                    <br />
+                    {foundContract?.oil}
+                    <br />
+                    {foundContract?.moisture}
+                    <br />
                     <br />
                     <br />
                     <br />
@@ -117,6 +143,9 @@ function ViewContract() {
         </Grid>
         <Grid item xs={4} />
       </Grid>
+      <div className='back-button'>
+        <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
+      </div>
     </center>
   );
 }

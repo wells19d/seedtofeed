@@ -20,11 +20,11 @@ function EditTransaction() {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_TRANSACTION_TYPES',
+      type: 'FETCH_TRANSACTION_TYPES'
     });
     dispatch({
       type: 'FETCH_FIELD_TRANSACTIONS',
-      payload: field_id,
+      payload: field_id
     });
   }, []);
 
@@ -33,7 +33,8 @@ function EditTransaction() {
   const transactions = useSelector((store) => store.fieldTransactionsReducer);
 
   const transaction_index = transactions.findIndex(
-    (transaction) => transaction.field_transactions_ID === Number(transaction_id)
+    (transaction) =>
+      transaction.field_transactions_ID === Number(transaction_id)
   );
   const transaction_to_edit = transactions[transaction_index];
   //   const field_id = transaction_to_edit.field_id;
@@ -53,8 +54,8 @@ function EditTransaction() {
         transaction_id: transaction_id,
         status_notes: notes,
         field_status: transactionList[transactionType]?.name,
-        transaction_type: transactionType,
-      },
+        transaction_type: transactionType
+      }
     });
 
     history.push(`/field_details/${field_id}`);
@@ -63,16 +64,16 @@ function EditTransaction() {
   return (
     <>
       <div>
-        <form className="add-NIR" onSubmit={submitButton}>
+        <form className='add-NIR' onSubmit={submitButton}>
           <h1>Edit Transaction</h1>
 
           <div>
-            <label htmlFor="notes">
+            <label htmlFor='notes'>
               Notes:
               <input
-                placeholder="Notes"
-                type="text"
-                name="notes"
+                placeholder='Notes'
+                type='text'
+                name='notes'
                 value={notes}
                 required
                 onChange={(event) => setNotes(event.target.value)}
@@ -80,19 +81,20 @@ function EditTransaction() {
             </label>
           </div>
 
-
           <div>
-            <label htmlFor="transactionType">
+            <label htmlFor='transactionType'>
               Transaction Type:
               <select
                 autoFocus
-                type="text"
-                name="transactionType"
+                type='text'
+                name='transactionType'
                 value={transactionType}
                 required
                 onChange={(event) => setTransactionType(event.target.value)}
               >
-                <option disabled value={0}>Select</option>
+                <option disabled value={0}>
+                  Select
+                </option>
                 {transactionList?.map((transaction) => {
                   console.log('transaction type:', transaction);
                   return (
@@ -107,13 +109,16 @@ function EditTransaction() {
 
           <div>
             <input
-              className="btn"
-              type="submit"
-              name="submit"
-              value="Edit Transaction"
+              className='btn'
+              type='submit'
+              name='submit'
+              value='Edit Transaction'
             />
           </div>
         </form>
+        <div className='back-button'>
+          <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
+        </div>
       </div>
     </>
   );

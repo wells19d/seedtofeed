@@ -23,7 +23,7 @@ function ViewContractList(params) {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_CONTRACT_LIST',
+      type: 'FETCH_CONTRACT_LIST'
     });
   }, []);
 
@@ -38,7 +38,7 @@ function ViewContractList(params) {
     if (remove == true) {
       dispatch({
         type: 'DELETE_CONTRACT',
-        payload: contractID,
+        payload: contractID
       });
       // history.push(`/contract`);
     } else {
@@ -48,15 +48,18 @@ function ViewContractList(params) {
 
   return (
     <center>
-      <div className="title-indent">
+      <div className='title-indent'>
         <h1>Contract List</h1>
-        <h4>See a list of your contracts below, click details for more information.</h4>
+        <h4>
+          See a list of your contracts below, click details for more
+          information.
+        </h4>
       </div>
       <Grid container spacing={3}>
         <Grid item xs={1} />
         <Grid item xs={10}>
           <TableContainer component={Paper}>
-            <Table size="small">
+            <Table size='small'>
               <TableHead>
                 <TableRow>
                   <TableCell>Contract #</TableCell>
@@ -73,7 +76,7 @@ function ViewContractList(params) {
                     <TableCell>{contract.contractID}</TableCell>
                     <TableCell>
                       <Button
-                        size="small"
+                        size='small'
                         onClick={() =>
                           history.push(`/field_details/${contract.fieldID}`)
                         }
@@ -86,7 +89,7 @@ function ViewContractList(params) {
                     <TableCell>{contract.crop_type}</TableCell>
                     <TableCell>
                       <Button
-                        size="small"
+                        size='small'
                         onClick={() =>
                           history.push(
                             `/contract_details/${contract.contractID}`
@@ -96,8 +99,8 @@ function ViewContractList(params) {
                         Details
                       </Button>
                       <Button
-                        size="small"
-                        color="secondary"
+                        size='small'
+                        color='secondary'
                         onClick={() => deleteButton(contract.contractID)}
                       >
                         Delete
@@ -110,7 +113,7 @@ function ViewContractList(params) {
           </TableContainer>
           <p>
             <Button
-              size="small"
+              size='small'
               onClick={() => history.push(`/contract_form/`)}
             >
               Add New Contract
@@ -119,9 +122,10 @@ function ViewContractList(params) {
         </Grid>
         <Grid item xs={1} />
       </Grid>
-
-    </center >
-
+      <div className='back-button'>
+        <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
+      </div>
+    </center>
   );
 }
 
