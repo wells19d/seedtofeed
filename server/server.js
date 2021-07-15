@@ -12,6 +12,8 @@ const userRouter = require('./routes/user.router');
 const fieldRouter = require('./routes/field.router');
 const contractRouter = require('./routes/contract.router');
 const streamRouter = require('./routes/stream.router');
+const uploadRouter = require('./routes/upload.router');
+
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -29,6 +31,7 @@ app.use('/api/user', userRouter);
 app.use('/api/field', fieldRouter);
 app.use('/api/contract', contractRouter);
 app.use('/api/stream', streamRouter);
+app.use('/api/upload', uploadRouter);
 
 
 // Serve static files

@@ -32,6 +32,8 @@ import transactionTypesSaga from './transactionTypes.saga';
 import userListSaga from './userList.saga';
 import buyerFieldListSaga from './buyerFieldList.saga';
 
+import uploadSaga from './uploadSaga';
+
 // import buyerFieldListSaga from './buyerFieldList.saga';
 
 
@@ -86,6 +88,12 @@ export default function* rootSaga() {
     userListSaga(),
     buyerFieldListSaga(),
     addBuyerSaga(),
+
+
+    uploadSaga(),
+
+
     buyerContractListSaga(),
+
   ]);
 }

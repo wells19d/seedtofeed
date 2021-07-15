@@ -57,6 +57,8 @@ function EditFieldForm() {
   const [location, setLocation] = useState(field_to_edit.location);
   const [acres, setAcres] = useState(field_to_edit.acres);
   const [notes, setNotes] = useState(field_to_edit.field_note);
+  const [image, setImage] = useState(field_to_edit.image);
+
 
   const crops = useSelector((store) => store.cropListReducer);
   const fieldStatus = useSelector((store) => store.transactionTypesReducer);
@@ -188,6 +190,9 @@ function EditFieldForm() {
           shrink: true,
         }}
       />
+
+      {/* Image uploader here */}
+
       <center>
         <Button
           size="small"
