@@ -3,13 +3,16 @@ import axios from 'axios';
 
 // upload a file (from filestack) to the backend
 function* sendUpload(action) {
+  console.log('Upload saga', action.payload);
   try {
     // clear any alerts that may be in there already
     yield put({type: 'CLEAR_ALERT'});
-
+    console.log('Upload saga', action.payload);
     yield axios.post('/api/upload', action.payload);
+    console.log('Upload saga', action.payload);
     // dispatch an alert that the upload was successful
     yield put({type: 'SET_ALERT', payload: { message: 'Upload Successful', alert: 'alert-success' }});
+    console.log('Upload saga', action.payload);
     // refresh list of uploads
     yield put({type: 'FETCH_UPLOADS'});
   } catch (error) {
