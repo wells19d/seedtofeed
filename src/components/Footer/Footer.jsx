@@ -8,7 +8,7 @@ import './Footer.css';
 
 function Footer() {
   return (
-    <footer>
+    <footer align="center">
       Copyright 2021 Genesis Feed Technologies • (701) 448-7286 •
       contact@genesisfeedtech.com
     </footer>

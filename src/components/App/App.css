@@ -155,7 +155,28 @@ caption {
 
 }
 
+.title-indent {
+    margin-left: 125px;
+}
+
+.welcome-message {
+    text-align: left;
+}
+.about-container {
+    display: flex;
+}
+.container-about {
+    flex: 1;
+ 
+}
+.container-about:first-child {
+    margin-left: 50px;
+    padding-left: 50px;
+}
+.container-about:second-child {
+    padding-right: 50px;
+}
 .about-page {
-    margin-right: 300px;
-    margin-left: 300px;
+    line-height:normal;
+    width: 500px;
 }

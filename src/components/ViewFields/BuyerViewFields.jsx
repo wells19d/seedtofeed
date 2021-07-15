@@ -46,7 +46,7 @@ function BuyerViewFields(params) {
     <center>
       <h4>Below is a list of all of the fields you are listed as a buyer on.  Please click on the field below to see more details.</h4>
       <br />
-      <h3>Buyer Field</h3>
+      <h1>Buyer Field</h1>
       <Grid container spacing={3}>
         <Grid item xs={1} />
         <Grid item xs={10}>

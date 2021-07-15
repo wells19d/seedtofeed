@@ -12,16 +12,16 @@ function EditContract() {
     console.log('here is the contract ID', contractID)
 
     useEffect(() => {
-    dispatch({
-        type: 'FETCH_CROP_LIST',
-    })
-    dispatch({
-        type: 'FETCH_CONTRACT_STATUS',
+        dispatch({
+            type: 'FETCH_CROP_LIST',
         })
-    dispatch({
-        type: 'FETCH_CONTRACT_LIST',
-        dispatch: contractID
-    })
+        dispatch({
+            type: 'FETCH_CONTRACT_STATUS',
+        })
+        dispatch({
+            type: 'FETCH_CONTRACT_LIST',
+            dispatch: contractID
+        })
     }, [])
 
     //to be sent along with the contract obj
@@ -35,11 +35,11 @@ function EditContract() {
 
     // CURRENT CONTRACT TO BE EDITED
     const foundContract = contract.find((contract) => {
-    console.log('here is the current contract:', contract);
-    return contract.contractID === Number(params.contractID);
-  });
+        console.log('here is the current contract:', contract);
+        return contract.contractID === Number(params.contractID);
+    });
 
-     // LOCAL STATE
+    // LOCAL STATE
     const [commodity, setCommodity] = useState(foundContract?.commodity);
     const [openStatus, setOpenStatus] = useState(foundContract?.open_status);
     const [bushel_uid, setBushel_uid] = useState(foundContract?.bushel_uid);
@@ -90,7 +90,7 @@ function EditContract() {
     return (
         <div>
             <form className='edit-contract' onSubmit={editContract}>
-                <h3>Edit Contract</h3>
+                <h1>Edit Contract</h1>
 
                 <div>
                     <label htmlFor='contract-handler'>
@@ -190,7 +190,7 @@ function EditContract() {
                         />
                     </label>
                 </div>
-                
+
                 <div>
                     <label htmlFor='contract-quantity'>
                         Contract Quantity:

@@ -31,89 +31,89 @@ function ViewContract() {
     });
   }, []);
 
-const foundContract = contract.find((contract) => {
-        console.log(contract);
-        return contract.contractID === Number(params.contractID);
-    });
+  const foundContract = contract.find((contract) => {
+    console.log(contract);
+    return contract.contractID === Number(params.contractID);
+  });
 
-    console.log('here is the current contract:', foundContract);
+  console.log('here is the current contract:', foundContract);
 
   return (
     <center>
-      <h3>Contract Details</h3>
-      
+      <h1>Contract Details</h1>
+
       <Grid container spacing={3}>
         <Grid item xs={4} />
 
         <Grid item>
-        <h4>{foundContract?.contract_handler}</h4>
-        <TableContainer component={Paper}>
+          <h4>{foundContract?.contract_handler}</h4>
+          <TableContainer component={Paper}>
             <Table size="small">
-                <TableHead>
-                    <TableRow>
-                        <TableCell align="right">
-                            <br />
-                            Contract ID:<br/>
-                            Grower:<br />
-                            Commodity:<br />
-                            Status:<br />
-                            Contract Quantity:<br />
-                            Quantity Fulfilled:<br />
-                            Container S/N:<br />
-                            Price:<br />
-                            <br />
-                        </TableCell>
-                        <TableCell>
-                            <br />
-                            {foundContract?.contractID}<br />
-                            {foundContract?.first_name} {foundContract?.last_name}<br />
-                            {foundContract?.crop_type}<br />
-                            {foundContract?.name}<br />
-                            {foundContract?.contract_quantity}<br />
-                            {foundContract?.quantity_fulfilled}<br />
-                            {foundContract?.container_serial}<br />
-                            {foundContract?.price}<br />
-                            <br />
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="right">
+                    <br />
+                    Contract ID:<br />
+                    Grower:<br />
+                    Commodity:<br />
+                    Status:<br />
+                    Contract Quantity:<br />
+                    Quantity Fulfilled:<br />
+                    Container S/N:<br />
+                    Price:<br />
+                    <br />
+                  </TableCell>
+                  <TableCell>
+                    <br />
+                    {foundContract?.contractID}<br />
+                    {foundContract?.first_name} {foundContract?.last_name}<br />
+                    {foundContract?.crop_type}<br />
+                    {foundContract?.name}<br />
+                    {foundContract?.contract_quantity}<br />
+                    {foundContract?.quantity_fulfilled}<br />
+                    {foundContract?.container_serial}<br />
+                    {foundContract?.price}<br />
+                    <br />
+                  </TableCell>
+                </TableRow>
+              </TableHead>
             </Table>
-        </TableContainer>
+          </TableContainer>
         </Grid>
         <Grid item>
-        <h4>NIR Analysis:</h4>
-        <TableContainer component={Paper}>
+          <h4>NIR Analysis:</h4>
+          <TableContainer component={Paper}>
             <Table size="small">
-                <TableHead>
+              <TableHead>
                 <TableRow>
-                        <TableCell align="right">
-                        <br />
-                        Amino Acid:<br />
-                        Energy:<br />
-                        Protein:<br />
-                        Oil:<br />
-                        Moisture:<br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                        </TableCell>
-                        <TableCell>
-                        <br />
-                        {foundContract?.amino_acids}<br />
-                        {foundContract?.energy}<br />
-                        {foundContract?.protein}<br />
-                        {foundContract?.oil}<br />
-                        {foundContract?.moisture}<br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
+                  <TableCell align="right">
+                    <br />
+                    Amino Acid:<br />
+                    Energy:<br />
+                    Protein:<br />
+                    Oil:<br />
+                    Moisture:<br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </TableCell>
+                  <TableCell>
+                    <br />
+                    {foundContract?.amino_acids}<br />
+                    {foundContract?.energy}<br />
+                    {foundContract?.protein}<br />
+                    {foundContract?.oil}<br />
+                    {foundContract?.moisture}<br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </TableCell>
+                </TableRow>
+              </TableHead>
             </Table>
-        </TableContainer>
+          </TableContainer>
         </Grid>
         <Grid item xs={4} />
       </Grid>

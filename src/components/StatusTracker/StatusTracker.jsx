@@ -44,7 +44,7 @@ function StatusTracker(params) {
     <>
       <div>
         {/* <h2>Status Tracker</h2> */}
-        <h3>Status of {detail?.field_name}</h3>
+        <h1>Status of {detail?.field_name}</h1>
         <br />
       </div>
       <div>

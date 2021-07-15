@@ -92,7 +92,7 @@ function EditFieldForm() {
 
   return (
     <Router>
-      <h3>Edit Field</h3>
+      <h1>Edit Field</h1>
       <TextField
         variant="outlined"
         label="Field Name"
