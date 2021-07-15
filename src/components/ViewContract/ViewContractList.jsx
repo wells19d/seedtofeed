@@ -12,7 +12,14 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+
 import '../App/App.css';
+
+const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
+const details = <FontAwesomeIcon icon={faInfoCircle} />;
 
 function ViewContractList(params) {
   const dispatch = useDispatch();
@@ -89,21 +96,25 @@ function ViewContractList(params) {
                     <TableCell>{contract.crop_type}</TableCell>
                     <TableCell>
                       <Button
-                        size='small'
+                        size='large'
+                        title='Details'
+                        color='primary'
                         onClick={() =>
                           history.push(
                             `/contract_details/${contract.contractID}`
                           )
                         }
                       >
-                        Details
+                        {details}
                       </Button>
                       <Button
-                        size='small'
+                        className='button-icons'
+                        size='large'
+                        title='Delete'
                         color='secondary'
                         onClick={() => deleteButton(contract.contractID)}
                       >
-                        Delete
+                        {trashCan}
                       </Button>
                     </TableCell>
                   </TableRow>
