@@ -78,6 +78,7 @@ a:link {
 .nav-logo-link {
     max-height: 50px;
     max-width: 50px;
+    margin-left: 350px;
 }
 .nav-logo-title {
     display: inline-flex;
