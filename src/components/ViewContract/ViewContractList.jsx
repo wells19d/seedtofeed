@@ -21,11 +21,30 @@ function ViewContractList(params) {
   const userID = params.userID;
   console.log('Here is the user in ViewContractList:', userID);
 
+
+
+  const user = useSelector((store) => store.user);
+
+
+
+
+
   useEffect(() => {
+    if (user.farmer === true) {
     dispatch({
       type: 'FETCH_CONTRACT_LIST',
-    });
-  }, []);
+    });}
+    if (user.buyer === true) {
+      dispatch({
+        type: 'FETCH_BUYER_CONTRACT_LIST',
+      });
+    }
+  }, [user]);
+
+
+
+
+
 
   // REDUCER STORE
   const contractList = useSelector((store) => store.contractListReducer);
@@ -95,13 +114,18 @@ function ViewContractList(params) {
                       >
                         Details
                       </Button>
+
+
+                        {user.farmer &&
                       <Button
                         size="small"
                         color="secondary"
                         onClick={() => deleteButton(contract.contractID)}
                       >
                         Delete
-                      </Button>
+                      </Button>}
+
+
                     </TableCell>
                   </TableRow>
                 ))}
@@ -109,12 +133,20 @@ function ViewContractList(params) {
             </Table>
           </TableContainer>
           <p>
+
+
+
+            {user.farmer &&
             <Button
               size="small"
               onClick={() => history.push(`/contract_form/`)}
             >
               Add New Contract
-            </Button>
+            </Button>}
+
+
+
+
           </p>
         </Grid>
         <Grid item xs={1} />
