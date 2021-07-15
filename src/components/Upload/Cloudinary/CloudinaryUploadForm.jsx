@@ -65,12 +65,12 @@ function CloudifyUploadForm(props) {
             {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
 
             File to upload: <button type="button" onClick={openWidget}>Pick File</button>
-            <br />
+            {/* <br />
             File Type:
             <select onChange={(e) => setState({...state, file_type: e.target.value })} value={state.file_type}>
                <option value="image">Image</option>
                <option value="audio">Audio</option>
-            </select>
+            </select> */}
             {state.file_url && <p>Uploaded Image URL: {state.file_url} <br /><img src={state.file_url} width={100}/></p>}
             <br />
             Description: <input onChange={(e) => setState({...state, description: e.target.value })} value={state.description} />

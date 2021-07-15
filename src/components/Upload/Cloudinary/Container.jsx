@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Cloudinary from './CloudinaryUploadForm';
-import UploadList from '../UploadList';
 
 class Upload extends Component {
 
@@ -20,7 +19,6 @@ class Upload extends Component {
          <>
             <h1>Cloudinary Upload Demo</h1>
             <Cloudinary />
-            <UploadList />
          </>
       )
    }

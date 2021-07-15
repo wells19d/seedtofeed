@@ -32,9 +32,9 @@ function* fetchUploads() {
   }
 }
 
-function* uploadCloudinarySaga() {
+function* uploadSaga() {
   yield takeLatest('SEND_UPLOAD', sendUpload);
   yield takeLatest('FETCH_UPLOADS', fetchUploads);
 }
 
-export default uploadCloudinarySaga;
+export default uploadSaga;
