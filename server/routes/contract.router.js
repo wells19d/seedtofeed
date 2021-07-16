@@ -145,8 +145,7 @@ router.post('/add_contract', rejectUnauthenticated, (req, res) => {
 
     //used for inserting into field transactions table
     //StatusTracker should reflect the field status during which the contract was created
-    const field_status = req.body.field_status // $2
-    const transaction_type = req.body.transaction_type // $3
+    const field_status = req.body.field_status;
 
 
     const queryText = `
@@ -173,8 +172,8 @@ router.post('/add_contract', rejectUnauthenticated, (req, res) => {
                     // const created_contract = response.rows[0].id;
                     const insert_contract = `
                     INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", "transaction_type" ) 
-                    VALUES ($1, Now(), 'contract created during field status: ${field_status}', $2, $3);`;
-                    pool.query(insert_contract, [fieldID, field_status, transaction_type])
+                    VALUES ($1, Now(), 'contract created during field status: ${field_status}', $2, (SELECT "id" FROM "transaction_type" WHERE "name" = '${field_status}'));`;
+                    pool.query(insert_contract, [fieldID, field_status])
                         .then(result => {
                             res.sendStatus(201);
                         }).catch((err) => {
@@ -209,6 +208,8 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
     const contract_quantity = req.body.contract_quantity; // $10
     const container_serial = req.body.container_serial; // $11
     const contract_handler = req.body.contract_handler; // $12
+
+    //used to post to the field transactions table
     const transaction_type = req.body.transaction_type; // $??
 
 
@@ -248,7 +249,7 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
             const field_id = result.rows[0].user_field_id;
             console.log('field id is', field_id);
             const queryTransaction = `INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", 
-             "transaction_type" ) VALUES ($1, Now(), 'contract updated', , $2) RETURNING *;`;
+             "transaction_type" ) VALUES ($1, Now(), 'contract updated', (SELECT "name" FROM "transaction_type" WHERE "id" = $2) , $2);`;
 
             pool.query(queryTransaction, [field_id, transaction_type])
                 .then((result) => {
@@ -265,12 +266,6 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
 
         })
 });
-
-//Bushel API /receiveContracts
-router.put('/receiveContracts', rejectUnauthenticated, (req, res) => {
-    console.log('contracts coming in', req.body);
-    res.sendStatus(204);
-})
 
 
 // ---- DELETES ----

@@ -62,10 +62,8 @@ function AddContract(params) {
   const [oil, setOil] = useState('');
   const [moisture, setMoisture] = useState('');
 
-  //for posting to transaction table
-  const transType = useSelector((store) => store.fieldTransactionsReducer);
-  const fieldTrans = transType[0].transaction_type;
-  const fieldStatus = transType[0].field_status;
+  // for field transactions table
+  const [fieldStatus, setFieldStatus] = useState('');
 
 
   // ADD A CONTRACT
@@ -89,8 +87,7 @@ function AddContract(params) {
         contract_quantity: contractQuantity,
         container_serial: containerSerial,
         contract_handler: contractHandler,
-        field_status: fieldStatus,
-        transaction_type: fieldTrans
+        field_status: fieldStatus
         
       },
     });
@@ -105,6 +102,7 @@ function AddContract(params) {
     const newField = fields.find(f => f.user_field_id === parseInt(event.target.value));
     if (newField !== -1) {
       setCommodity(newField.crop_id);
+      setFieldStatus(newField.field_status);
     }
   };
 
