@@ -62,6 +62,12 @@ function AddContract(params) {
   const [oil, setOil] = useState('');
   const [moisture, setMoisture] = useState('');
 
+  //for posting to transaction table
+  const transType = useSelector((store) => store.fieldTransactionsReducer);
+  const fieldTrans = transType[0].transaction_type;
+  const fieldStatus = transType[0].field_status;
+
+
   // ADD A CONTRACT
   // will also grab the user info.
   const addContract = (event) => {
@@ -83,6 +89,9 @@ function AddContract(params) {
         contract_quantity: contractQuantity,
         container_serial: containerSerial,
         contract_handler: contractHandler,
+        field_status: fieldStatus,
+        transaction_type: fieldTrans
+        
       },
     });
 

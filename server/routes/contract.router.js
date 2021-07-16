@@ -5,6 +5,7 @@ const {
     rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
 const { response } = require('express');
+const { default: transitions } = require('@material-ui/core/styles/transitions');
 
 
 // -- GETS
@@ -142,6 +143,9 @@ router.post('/add_contract', rejectUnauthenticated, (req, res) => {
     const container_serial = req.body.container_serial; // $12
     const contract_handler = req.body.contract_handler; // $13
 
+    //used for inserting into field transactions table
+    const field_status = req.body.field_status // $2
+    const transaction_type = req.body.transaction_type // $3
 
 
     const queryText = `
@@ -168,12 +172,12 @@ router.post('/add_contract', rejectUnauthenticated, (req, res) => {
                     // const created_contract = response.rows[0].id;
                     const insert_contract = `
                     INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", "transaction_type" ) 
-                    VALUES ($1, Now(), 'contract created', 'plant', (SELECT "id" FROM "transaction_type" WHERE "name" = 'contract'));`;
-                    pool.query(insert_contract, [fieldID])
+                    VALUES ($1, Now(), 'contract created during field status: ${field_status}', $2, $3);`;
+                    pool.query(insert_contract, [fieldID, field_status, transaction_type])
                         .then(result => {
                             res.sendStatus(201);
                         }).catch((err) => {
-                            console.log(`Error in creating contract: ${err}`);
+                            console.log(`Error in posting contract to transactions: ${err}`);
                             res.sendStatus(500);
                         })
                 })
