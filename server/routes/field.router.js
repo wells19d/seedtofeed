@@ -116,27 +116,34 @@ WHERE "user_field"."user_id" = 1; */
 //GET field details by fieldID. Saga: fieldDetails.saga; Reducer: fieldDetails.reducer as an object
 router.get('/fieldDetails/:fieldID', rejectUnauthenticated, (req, res) => {
     //fieldID on url
-    const fieldID = req.params.fieldID;
+    const fieldID = Number(req.params.fieldID);
+    console.log('this is the fieldID for StatusTracker', fieldID);
 
     //replaced "*" for explicit columns in the query w/multiple joins. 
     //a captital "ID" was used as an alias to indicate the primaray key id of a table
     //for example, the field table now has "fieldID" instead of "id" in the query. 
     //attempt to clarify the columns in large joins
-    const queryText = `
-    SELECT "field"."id" AS "fieldID", "field"."year", "field"."location", "field"."acres", "field"."field_note", "field"."name" AS "field_name",
-    "field"."image" AS "field_image", "field"."shape_file", "field"."gmo", "field"."crop_id", "user_field"."id" AS "user_field_ID",
-    "user"."id" AS "userID", "user"."username", "user"."buyer", "user"."farmer", "user"."first_name", "user"."last_name", "user"."super_admin", 
-    "field_transactions"."id" AS "field_transactionsID", "field_transactions"."timestamp" AS "field_transactions_timestamp",
-    "field_transactions"."image" AS "field_transactions_image", "field_transactions"."field_status", "field_transactions"."transaction_type", 
-    "contract"."id" AS "contractID", "contract"."open_status", "contract"."bushel_uid", "contract"."commodity",
-    "contract"."container_serial", "contract"."quantity_fulfilled", "contract"."price", "contract"."protein", "contract"."oil", "contract"."moisture",
-    "contract"."contract_handler", "contract_status"."id" AS "contract_status_ID", "contract_status"."name" AS "contract_status_name"
+    // const queryText = `
+    // SELECT "field"."id" AS "fieldID", "field"."year", "field"."location", "field"."acres", "field"."field_note", "field"."name" AS "field_name",
+    // "field"."image" AS "field_image", "field"."shape_file", "field"."gmo", "field"."crop_id", "user_field"."id" AS "user_field_ID",
+    // "user"."id" AS "userID", "user"."username", "user"."buyer", "user"."farmer", "user"."first_name", "user"."last_name", "user"."super_admin", 
+    // "field_transactions"."id" AS "field_transactionsID", "field_transactions"."timestamp" AS "field_transactions_timestamp",
+    // "field_transactions"."image" AS "field_transactions_image", "field_transactions"."field_status", "field_transactions"."transaction_type", 
+    // "contract"."id" AS "contractID", "contract"."open_status", "contract"."bushel_uid", "contract"."commodity",
+    // "contract"."container_serial", "contract"."quantity_fulfilled", "contract"."price", "contract"."protein", "contract"."oil", "contract"."moisture",
+    // "contract"."contract_handler", "contract_status"."id" AS "contract_status_ID", "contract_status"."name" AS "contract_status_name"
+    // FROM "field"
+    // JOIN "user_field" ON "user_field"."field_id"="field"."id"
+    // JOIN "user" ON "user"."id"="user_field"."user_id"
+    // JOIN "field_transactions" ON "field_transactions"."field_id"="field"."id"
+    // JOIN "contract" ON "contract"."user_field_id"="user_field"."id"
+    // JOIN "contract_status" ON "contract_status"."id"="contract"."open_status"
+    // WHERE "field"."id"=$1;`;
+
+    const queryText = `SELECT "field"."id" AS "fieldID", "field"."name" AS "field_name", "field"."crop_id", "transaction_type"."name", "transaction_type"."workflow_images", "field_transactions"."field_status"
     FROM "field"
-    JOIN "user_field" ON "user_field"."field_id"="field"."id"
-    JOIN "user" ON "user"."id"="user_field"."user_id"
     JOIN "field_transactions" ON "field_transactions"."field_id"="field"."id"
-    JOIN "contract" ON "contract"."user_field_id"="user_field"."id"
-    JOIN "contract_status" ON "contract_status"."id"="contract"."open_status"
+    JOIN "transaction_type" ON "transaction_type"."id" = "field_transactions"."transaction_type" 
     WHERE "field"."id"=$1;`;
 
     pool.query(queryText, [fieldID]).then(response => {
@@ -241,7 +248,7 @@ router.post('/makefield', rejectUnauthenticated, async (req, res) => {
     const queryText = `
     INSERT INTO "field" (
     "year", "location", "acres", "field_note", "name", "image", "shape_file", "gmo", "crop_id")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id;`;
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id, name;`;
 
     try {
         const response = await pool.query(queryText, [year, location, acres, field_note, name, image, shape_file, gmo, crop_id]);
@@ -250,11 +257,21 @@ router.post('/makefield', rejectUnauthenticated, async (req, res) => {
 
         //second query creates entry into user_field table
         const created_field = response.rows[0].id;
+        const field_name = response.rows[0].name;
+        console.log('the field_name', field_name);
         const insert_field = `
         INSERT INTO "user_field" ("field_id", "user_id")
         VALUES ($1, $2);`;
         await pool.query(insert_field, [created_field, req.user.id])
         console.log(`Field ${created_field} connected to user_field`);
+
+        //third query insert field info into field_transactions table
+        const insertTransaction = `
+        INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", "transaction_type")
+        VALUES ($1, Now(), 'Field Created', (SELECT "name" FROM "transaction_type" WHERE "name" = 'pre-planting'), (SELECT "id" FROM "transaction_type" WHERE "name" = 'pre-planting'));`;
+        await pool.query(insertTransaction, [created_field])
+        res.sendStatus(201);
+        
         res.sendStatus(201);
     } catch (error) {
         console.log(`Error making database query ${queryText}`, error);
@@ -270,25 +287,24 @@ router.post('/create_transaction', rejectUnauthenticated, (req, res) => {
     console.log(`here is the created transaction`, req.body);
 
     const field_id = req.body.field_id; // $1
-    const timestamp = req.body.timestamp; // $2 
-    const status_notes = req.body.status_notes; //$3
-    const image = req.body.image; // $4
-    const field_status = req.body.field_status; //$5
-    const transaction_type = req.body.transaction_type; // $6
+    // const timestamp = req.body.timestamp; //
+    const status_notes = req.body.status_notes; //$2
+    const image = req.body.image; // $3
+    // const field_status = req.body.field_status; //
+    const transaction_type = req.body.transaction_type; // $4
 
     const queryText = `INSERT INTO "field_transactions" 
     ("field_id", "timestamp", "status_notes", "image", "field_status", "transaction_type")
-    VALUES ($1, $2, $3, $4, $5, $6)`
+    VALUES ($1, Now(), $2, $3, (SELECT "name" FROM "transaction_type" WHERE "id" = $4), $5);`;
 
-    pool.query(queryText, [field_id, timestamp, status_notes, image, field_status, transaction_type])
+    pool.query(queryText, [field_id, status_notes, image, transaction_type, transaction_type])
         .then(result => {
             res.sendStatus(201);
         })
         .catch(err => {
             console.log(err);
             res.sendStatus(500);
-        })
-
+        })      
 });
 
 
@@ -403,14 +419,14 @@ router.put('/update_transaction', rejectUnauthenticated, (req, res) => {
     const transaction_id = req.body.transaction_id;
     const status_notes = req.body.status_notes;
     const image = req.body.image;
-    const field_status = req.body.field_status;
+    // const field_status = req.body.field_status;
     const transaction_type = req.body.transaction_type;
 
     const queryText = `UPDATE "field_transactions"
-    SET "status_notes" = $1, "image" = $2, "field_status" = $3, "transaction_type" = $4
-    WHERE "id" = $5; `;
+    SET "status_notes" = $1, "image" = $2, "timestamp" = Now(), "field_status" = (SELECT "name" FROM "transaction_type" WHERE "id" = $3), "transaction_type" = $4
+    WHERE "id" = $5;`;
 
-    pool.query(queryText, [status_notes, image, field_status, transaction_type, transaction_id]).then(result => {
+    pool.query(queryText, [status_notes, image, transaction_type, transaction_type, transaction_id]).then(result => {
         res.sendStatus(204);
     })
         .catch(error => {
