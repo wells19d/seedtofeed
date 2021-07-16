@@ -194,3 +194,14 @@ caption {
     border: 1px solid lightgray;
 }
 
+.form-layout {
+  align-items: center;
+  margin-left: 500px;
+  padding-left: 50px;
+  padding-right: 50px;
+  justify-content: center;
+}
+
+.form-titles {
+  margin-left: 450px;
+}

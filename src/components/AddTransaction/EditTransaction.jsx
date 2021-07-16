@@ -60,66 +60,73 @@ function EditTransaction() {
   }, []);
 
   return (
-    <>
-      <div>
-        <form className="add-NIR" onSubmit={submitButton}>
-          <h1>Edit Transaction</h1>
+    <Router>
+      <h1 className="form-titles">Edit Transaction</h1>
+      <TextField
+        variant="outlined"
+        label="Notes"
+        type="text"
+        value={notes}
+        required
+        onChange={(event) => setNotes(event.target.value)}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        size="small"
+      />
+      <br />
+      <br />
+      <FormControl size="small">
+        <Select
+          variant="outlined"
+          value={transactionType}
+          required
+          style={{ width: '155px' }}
+          onChange={(event) => setTransactionType(event.target.value)}
+          displayEmpty
+        >
+          <MenuItem value="" disabled size="small">
+            <em>Transaction Type</em>
+          </MenuItem>
+          {transactionList?.map((transaction) => {
+            console.log('transaction type:', transaction);
+            return (
+              <MenuItem key={transaction.id} value={transaction.id}>
+                {transaction.name}
+              </MenuItem>
+            );
+          })}
 
-          <div>
-            <label htmlFor="notes">
-              Notes:
-              <input
-                placeholder="Notes"
-                type="text"
-                name="notes"
-                value={notes}
-                required
-                onChange={(event) => setNotes(event.target.value)}
-              />
-            </label>
-          </div>
 
-          <div>
-            <label htmlFor="transactionType">
-              Transaction Type:
-              <select
-                autoFocus
-                type="text"
-                name="transactionType"
-                value={transactionType}
-                required
-                onChange={(event) => setTransactionType(event.target.value)}
-              >
-                <option disabled value={0}>
-                  Select
-                </option>
-                {transactionList?.map((transaction) => {
-                  console.log('transaction type:', transaction);
-                  return (
-                    <option key={transaction.id} value={transaction.id}>
-                      {transaction.name}
-                    </option>
-                  );
-                })}
-              </select>
-            </label>
-          </div>
+        </Select>
 
-          <div>
-            <input
-              className="btn"
-              type="submit"
-              name="submit"
-              value="Edit Transaction"
-            />
-          </div>
-        </form>
-        <div className="back-button">
-          <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
-        </div>
+      </FormControl>
+      <br />
+      <br />
+      <Button
+        size="small"
+        onClick={() => {
+          history.push('/user');
+        }}
+      >
+        Cancel
+      </Button>
+      {`\u00A0\u00A0\u00A0\u00A0`}
+      <Button size="small" onClick={(event) => submitButton(event)}>
+        Submit
+      </Button>
+
+      <div className="back-button">
+        <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
       </div>
-    </>
-  );
+    </Router>);
 }
 
+
 export default EditTransaction;
+
+
+
+
+
+

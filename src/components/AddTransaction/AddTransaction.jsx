@@ -46,47 +46,49 @@ function AddTransaction() {
 
   return (
     <Router>
-      <h1>Add New Transaction</h1>
-      <TextField
-        variant="outlined"
-        label="Notes"
-        type="text"
-        value={notes}
-        required
-        onChange={(event) => setNotes(event.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <FormControl size="small">
-        <Select
+      <h1 className="form-titles">Add New Transaction</h1>
+      <div className="form-layout">
+        <TextField
           variant="outlined"
-          value={transactionType}
+          label="Notes"
+          type="text"
+          value={notes}
           required
-          style={{ width: '155px' }}
-          onChange={(event) => setTransactionType(event.target.value)}
-          displayEmpty
-        >
-          <MenuItem value="" disabled size="small">
-            <em>Transaction Type</em>
-          </MenuItem>
-          {transactionList?.map((transaction) => {
-            console.log('transaction type:', transaction);
-            return (
-              <MenuItem key={transaction.id} value={transaction.id}>
-                {transaction.name}
-              </MenuItem>
-            );
-          })}
+          onChange={(event) => setNotes(event.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          size="small"
+        />
+        <br />
+        <br />
+        <FormControl size="small">
+          <Select
+            variant="outlined"
+            value={transactionType}
+            required
+            style={{ width: '155px' }}
+            onChange={(event) => setTransactionType(event.target.value)}
+            displayEmpty
+          >
+            <MenuItem value="" disabled size="small">
+              <em>Transaction Type</em>
+            </MenuItem>
+            {transactionList?.map((transaction) => {
+              console.log('transaction type:', transaction);
+              return (
+                <MenuItem key={transaction.id} value={transaction.id}>
+                  {transaction.name}
+                </MenuItem>
+              );
+            })}
 
 
-        </Select>
+          </Select>
 
-      </FormControl>
-      <center>
+        </FormControl>
+        <br />
+        <br />
         <Button
           size="small"
           onClick={() => {
@@ -99,7 +101,7 @@ function AddTransaction() {
         <Button size="small" onClick={(event) => submitButton(event)}>
           Submit
         </Button>
-      </center>
+      </div>
       <div className="back-button">
         <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
       </div>
