@@ -39,8 +39,6 @@ import AddFieldForm from '../FieldForm/AddFieldForm';
 import AddTransaction from '../AddTransaction/AddTransaction';
 import EditTransaction from '../AddTransaction/EditTransaction';
 
-import CloudinaryUpload from '../Upload/Cloudinary/Container';
-
 import './App.css';
 
 function App() {
@@ -121,8 +119,6 @@ function App() {
           <Route exact path='/add_transaction/:fieldID'>
             <AddTransaction />
           </Route>
-
-          <Route exact path="/cloudinaryupload" component={CloudinaryUpload} />
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
