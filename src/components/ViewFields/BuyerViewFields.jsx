@@ -40,6 +40,13 @@ function BuyerViewFields(params) {
     )
   }
 
+  function farmerEmail(param) {
+    let farmer_index = userList.findIndex((user) => user.id === Number(param.farmer_id));
+    return (
+      alert(`Email ${userList[farmer_index].first_name} ${userList[farmer_index].last_name} at ${userList[farmer_index].username}.`)
+    )
+  }
+
 
 
   return (
@@ -73,7 +80,7 @@ function BuyerViewFields(params) {
                     <TableCell>{field.field_status}</TableCell>
                     <TableCell>{field.field_note}</TableCell>
                     <TableCell>{findFarmer(field)}</TableCell>
-                    <TableCell> <Button>Make an offer</Button> </TableCell>
+                    <TableCell> <Button onClick={()=>farmerEmail(field)}>Make an offer</Button> </TableCell>
 
                   </TableRow>
                 ))}

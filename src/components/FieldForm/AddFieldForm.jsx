@@ -32,20 +32,26 @@ function AddFieldForm() {
   // ADD A FIELD
   const addField = (event) => {
     event.preventDefault();
-    history.push('/user');
 
-    dispatch({
-      type: 'SET_FIELD',
-      payload: {
-        name: fieldName,
-        year: fieldYear,
-        crop_id: cropType,
-        location: location,
-        acres: acres,
-        field_note: notes,
-        image: image,
-      },
-    });
+    if (fieldName.length === 0, fieldYear.length === 0, cropType.length === 0, location.length === 0, acres.length === 0, notes.length === 0){
+      return alert('Please fill in required fields')
+    }
+    else {
+      history.push('/user');
+
+      dispatch({
+        type: 'SET_FIELD',
+        payload: {
+          name: fieldName,
+          year: fieldYear,
+          crop_id: cropType,
+          location: location,
+          acres: acres,
+          field_note: notes,
+          image: image,
+        },
+      });
+    }
   };
   const openWidget = () => {
     // Currently there is a bug with the Cloudinary <Widget /> component

@@ -16,7 +16,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 router.get('/userList', rejectUnauthenticated, (req, res) => {
 
-    const queryText = `SELECT "user"."id", "user"."first_name", "user"."last_name", "user"."farmer", "user"."buyer"
+    const queryText = `SELECT "user"."id", "user"."username", "user"."first_name", "user"."last_name", "user"."farmer", "user"."buyer"
                         FROM "user";`;
 
     pool.query(queryText).then(response => {

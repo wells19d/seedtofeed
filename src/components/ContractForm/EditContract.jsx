@@ -67,9 +67,15 @@ function EditContract() {
     const editContract = (event) => {
         event.preventDefault();
 
-        alert('Contract has been updated');
+        if (user_field_id.length === 0, commodity.length === 0, contractQuantity === 0, containerSerial.length === 0, contractHandler.length === 0 ) {
+            return alert('Fill in required fields') // Can change alert and which fields are required
+          }
+          else {
 
-        dispatch({
+
+            alert('Contract has been updated');
+
+           dispatch({
             type: 'UPDATE_CONTRACT', // dispatch to the updatecontract.saga
             payload: {
                 contractID: foundContract.contractID, //verify what id we need to dispatch here
@@ -86,10 +92,11 @@ function EditContract() {
                 contract_handler: contractHandler,
                 transaction_type: fieldTrans
 
-            }
-        });
+                }
+            });
 
-        history.push(`/contract`);
+            history.push(`/contract`);
+        }
     }; // end addContract
 
     return (

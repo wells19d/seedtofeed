@@ -50,17 +50,17 @@ function AddContract(params) {
   const [commodity, setCommodity] = useState('');
   const [openStatus, setOpenStatus] = useState(1);
   const [bushel_uid, setBushel_uid] = useState('');
-  const [quantityFulfilled, setQuantityFulfilled] = useState('');
-  const [price, setPrice] = useState('');
-  const [contractQuantity, setContractQuantity] = useState('');
+  const [quantityFulfilled, setQuantityFulfilled] = useState(null);
+  const [price, setPrice] = useState(null);
+  const [contractQuantity, setContractQuantity] = useState(null);
   const [containerSerial, setContainerSerial] = useState('');
   const [contractHandler, setContractHandler] = useState('');
 
 
   // for NIR analysis
-  const [protein, setProtein] = useState('');
-  const [oil, setOil] = useState('');
-  const [moisture, setMoisture] = useState('');
+  const [protein, setProtein] = useState(null);
+  const [oil, setOil] = useState(null);
+  const [moisture, setMoisture] = useState(null);
 
   // for field transactions table
   const [fieldStatus, setFieldStatus] = useState('');
@@ -70,6 +70,11 @@ function AddContract(params) {
   // will also grab the user info.
   const addContract = (event) => {
     event.preventDefault();
+
+    if (user_field_id.length === 0, commodity.length === 0, contractQuantity === 0, containerSerial.length === 0 ) {
+      return alert('Fill in required fields') // Can change alert and which fields are required
+    }
+    else {
 
     dispatch({
       type: 'SET_CONTRACT', // dispatch to the addContract.saga
@@ -92,9 +97,10 @@ function AddContract(params) {
       },
     });
 
-    alert('Contract has been created');
+      alert('Contract has been created');
 
-    history.push('/contract');
+      history.push('/contract');
+    }
   }; // end addContract
 
   const onFieldChange = (event) =>  {

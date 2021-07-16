@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './Nav.css';
 import { useSelector, useDispatch } from 'react-redux';
 import logo from './Logos/seedtofeed-badge_1-color-Texture (1).png';
@@ -13,6 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 function Nav() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector((store) => store.user);
   // console.log('users are', user);
 
@@ -36,6 +37,12 @@ function Nav() {
     setAnchorEl(null);
   };
 
+  function logOutFunction(){
+    dispatch({ type: 'LOGOUT' })
+
+    history.push('/home')
+  }
+
   return (
     <div className="nav">
       <div className="nav-logo-span"> 
@@ -58,7 +65,7 @@ function Nav() {
         <MenuItem onClick={handleClose}><Link to={loginLinkData.path}>{loginLinkData.text}</Link></MenuItem>
         <MenuItem onClick={handleClose}><Link to="/about">About</Link></MenuItem>
         <MenuItem onClick={handleClose}>{user.id && (<Link to='/contract'>Contracts</Link>)}</MenuItem>
-        <MenuItem onClick={handleClose}>{user.id && (<Link onClick={() => dispatch({ type: 'LOGOUT' })}>Logout</Link>)}</MenuItem>
+        <MenuItem onClick={handleClose}>{user.id && (<Link onClick={() => logOutFunction()}>Logout</Link>)}</MenuItem>
         
       </Menu>
     </div>

@@ -69,11 +69,11 @@ function FieldNIR(params) {
                   <TableCell>
                     {moment.utc(test.tested_at).format('MMM Do, YYYY')}
                   </TableCell>
-                  <TableCell>{test.oil}</TableCell>
-                  <TableCell>{test.moisture}</TableCell>
-                  <TableCell>{test.protein}</TableCell>
-                  <TableCell>{test.energy}</TableCell>
-                  <TableCell>{test.amino_acids}</TableCell>
+                  <TableCell>{test.oil}%</TableCell>
+                  <TableCell>{test.moisture}%</TableCell>
+                  <TableCell>{test.protein}%</TableCell>
+                  <TableCell>{test.energy}%</TableCell>
+                  <TableCell>{test.amino_acids}%</TableCell>
 
                   {user.farmer && (
                     <TableCell>

@@ -83,7 +83,12 @@ function EditFieldForm() {
 
     // alert('Your field has been updated');
 
-    dispatch({
+    if (fieldName.length === 0, fieldYear.length === 0, cropType.length === 0, location.length === 0, acres.length === 0, notes.length === 0){
+      return alert('Please fill in required fields')
+    }
+    else {
+
+      dispatch({
       type: 'UPDATE_FIELD',
       payload: {
         name: fieldName,
