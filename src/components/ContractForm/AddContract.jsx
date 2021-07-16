@@ -62,6 +62,10 @@ function AddContract(params) {
   const [oil, setOil] = useState(null);
   const [moisture, setMoisture] = useState(null);
 
+  // for field transactions table
+  const [fieldStatus, setFieldStatus] = useState('');
+
+
   // ADD A CONTRACT
   // will also grab the user info.
   const addContract = (event) => {
@@ -72,24 +76,26 @@ function AddContract(params) {
     }
     else {
 
-      dispatch({
-        type: 'SET_CONTRACT', // dispatch to the addContract.saga
-        payload: {
-          user_field_id: user_field_id, //have to review how this is coming in?
-          buyer_id: buyerID,
-          commodity: commodity,
-          open_status: openStatus,
-          bushel_uid: bushel_uid,
-          quantity_fulfilled: quantityFulfilled,
-          price: price,
-          protein: protein,
-          oil: oil,
-          moisture: moisture,
-          contract_quantity: contractQuantity,
-          container_serial: containerSerial,
-          contract_handler: contractHandler,
-        },
-      });
+    dispatch({
+      type: 'SET_CONTRACT', // dispatch to the addContract.saga
+      payload: {
+        user_field_id: user_field_id, //have to review how this is coming in?
+        buyer_id: buyerID,
+        commodity: commodity,
+        open_status: openStatus,
+        bushel_uid: bushel_uid,
+        quantity_fulfilled: quantityFulfilled,
+        price: price,
+        protein: protein,
+        oil: oil,
+        moisture: moisture,
+        contract_quantity: contractQuantity,
+        container_serial: containerSerial,
+        contract_handler: contractHandler,
+        field_status: fieldStatus
+        
+      },
+    });
 
       alert('Contract has been created');
 
@@ -102,6 +108,7 @@ function AddContract(params) {
     const newField = fields.find(f => f.user_field_id === parseInt(event.target.value));
     if (newField !== -1) {
       setCommodity(newField.crop_id);
+      setFieldStatus(newField.field_status);
     }
   };
 

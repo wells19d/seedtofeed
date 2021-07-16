@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { HashRouter as Router, useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useScript } from '../../hooks/useScript';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -30,12 +31,21 @@ function EditFieldForm() {
   const fieldID = params.fieldID;
   // console.log(`check`, fieldID, 3);
 
+
+
   const field_index = fieldList.findIndex(
     (list) => list.id === Number(fieldID)
   );
   // console.log('The index is', field_index);
 
   const field_to_edit = fieldList[field_index];
+
+  const transType = useSelector((store) => store.fieldTransactionsReducer)
+
+  //obtain field status of field that is being edited
+  const fieldTrans = transType[0].transaction_type;
+  const fieldStatus2 = transType[0].field_status;
+
 
   // console.log('What is the id?', field_to_edit.id);
   // console.log('What is the name?', field_to_edit.name);
@@ -65,37 +75,64 @@ function EditFieldForm() {
   // console.log('here is the list of crops:', crops);
   // console.log('here is the field status list:', fieldStatus);
 
-  useEffect(() => {
-    dispatch({
-      type: 'FETCH_CROP_LIST',
-    });
-  }, []);
+
 
   // EDIT A FIELD
   const updateField = (event) => {
     event.preventDefault();
 
     // alert('Your field has been updated');
+
     if (fieldName.length === 0, fieldYear.length === 0, cropType.length === 0, location.length === 0, acres.length === 0, notes.length === 0){
       return alert('Please fill in required fields')
     }
     else {
 
       dispatch({
-        type: 'UPDATE_FIELD',
-        payload: {
-          name: fieldName,
-          year: fieldYear,
-          crop_id: cropType,
-          location: location,
-          acres: acres,
-          field_note: notes,
-          fieldID: fieldID,
-        },
-      });
-      history.push('/user');
-    }
+      type: 'UPDATE_FIELD',
+      payload: {
+        name: fieldName,
+        year: fieldYear,
+        crop_id: cropType,
+        location: location,
+        acres: acres,
+        field_note: notes,
+        fieldID: fieldID,
+        fieldTrans: fieldTrans,
+        fieldStatus2: fieldStatus2,
+        image: image,
+      },
+    });
+    history.push('/user');
   };
+
+  const openWidget = () => {
+    // Currently there is a bug with the Cloudinary <Widget /> component
+    // where the button defaults to a non type="button" which causes the form
+    // to submit when clicked. So for now just using the standard widget that
+    // is available on window.cloudinary
+    // See docs: https://cloudinary.com/documentation/upload_widget#look_and_feel_customization
+    !!window.cloudinary && window.cloudinary.createUploadWidget(
+      {
+        sources: ['local', 'url', 'camera'],
+        cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
+        uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
+      },
+      function (error, result) {
+        console.log(result);
+        if (!error && result && result.event === "success") {
+          // When an upload is successful, save the uploaded URL to local state!
+          setImage(result.info.secure_url);
+        }
+      },
+    ).open();
+  }
+
+  useEffect(() => {
+    dispatch({
+      type: 'FETCH_CROP_LIST',
+    });
+  }, []);
 
   return (
     <Router>
@@ -182,6 +219,10 @@ function EditFieldForm() {
       </FormControl>
       <br />
       <br />
+      {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
+      <Button type="button" onClick={openWidget}>Upload Field Image</Button>
+      <br />
+      <br />
       <TextField
         variant="outlined"
         label="Field Notes"
@@ -195,9 +236,6 @@ function EditFieldForm() {
           shrink: true,
         }}
       />
-
-      {/* Image uploader here */}
-
       <center>
         <Button
           size="small"

@@ -56,6 +56,11 @@ function EditContract() {
     // const [aminoAcids, setAminoAcids] = useState(foundContract.amino_acids);
     // const [energy, setEnergy] = useState(foundContract.energy);
 
+    //obtain field status of field the contract is being edited
+    const transType = useSelector((store) => store.fieldTransactionsReducer)
+    const fieldTrans = transType[0].transaction_type;
+
+
 
     // EDIT A CONTRACT
     // will also grab the user info.
@@ -67,24 +72,25 @@ function EditContract() {
           }
           else {
 
+
             alert('Contract has been updated');
 
-            dispatch({
-                type: 'UPDATE_CONTRACT', // dispatch to the updatecontract.saga
-                payload: {
-                    contractID: foundContract.contractID, //verify what id we need to dispatch here
-                    commodity: commodity,
-                    open_status: openStatus,
-                    bushel_uid: bushel_uid,
-                    quantity_fulfilled: quantityFulfilled,
-                    price: price,
-                    protein: protein,
-                    oil: oil,
-                    moisture: moisture,
-                    contract_quantity: contractQuantity,
-                    container_serial: containerSerial,
-                    contract_handler: contractHandler,
-                    // userID: user.id //to be used in the updatecontract.saga //verify this one as well
+           dispatch({
+            type: 'UPDATE_CONTRACT', // dispatch to the updatecontract.saga
+            payload: {
+                contractID: foundContract.contractID, //verify what id we need to dispatch here
+                commodity: commodity,
+                open_status: openStatus,
+                bushel_uid: bushel_uid,
+                quantity_fulfilled: quantityFulfilled,
+                price: price,
+                protein: protein,
+                oil: oil,
+                moisture: moisture,
+                contract_quantity: contractQuantity,
+                container_serial: containerSerial,
+                contract_handler: contractHandler,
+                transaction_type: fieldTrans
 
                 }
             });

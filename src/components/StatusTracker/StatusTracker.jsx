@@ -3,6 +3,11 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import '../App/App.css';
 
+import Card from '@material-ui/core/Card';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+
+
 function StatusTracker(params) {
   const fieldID = params.fieldID;
 
@@ -45,22 +50,10 @@ function StatusTracker(params) {
   // console.log('What is the fieldID', fieldID);
 
   return (
-    <>
-      <div>
-        {/* <h2>Status Tracker</h2> */}
-        <h1>Status of {detail?.field_name}</h1>
-        <br />
-      </div>
-      <div>
+    <center>
+        <h1><u>{detail?.field_name}</u></h1>
+      <br />
         {statuses.map((status) => {
-          //setDetail(); // This calls the function to set detail to the object with the newest date.
-          // console.log('the name of field is', detail?.field_name);
-
-          // console.log('the status name is', status.name);
-          // console.log('the field status is', detail?.field_status);
-          // console.log('the image is', status.workflow_images);
-          // console.log('What do we have here?', statuses)
-
           return (
             <div key={status.id}>
               {status.name === detail?.field_status && (
@@ -68,16 +61,11 @@ function StatusTracker(params) {
                   <img src={status.workflow_images} />
                 </span>
               )}
-              
             </div>
-
           );
         })}
-
-        <h4>Transactions and NIR are in the dropdown menu.</h4>
-        <p>Contract Status: {detail?.contract_status_name}</p> {/* This should be detail.contract_status_name but errors out on refresh */}
-      </div>
-    </>
+        <h3>Contract Status: {detail?.contract_status_name}</h3>
+    </center>
   );
 }
 
