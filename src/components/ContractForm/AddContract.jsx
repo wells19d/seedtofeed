@@ -24,7 +24,7 @@ function AddContract(params) {
   console.log('Here is the crop list', crops);
 
   const userList = useSelector((store) => store.userListReducer);
-  const [buyerID, setBuyerID] = useState('');
+  const [buyerID, setBuyerID] = useState(null);
 
   useEffect(() => {
     dispatch({
@@ -132,7 +132,6 @@ function AddContract(params) {
           variant="outlined"
           value={commodity}
           style={{ width: '195px' }}
-          required
           displayEmpty
           onChange={(event) => setCommodity(event.target.value)}
         >
@@ -211,7 +210,6 @@ function AddContract(params) {
         type="text"
         value={bushel_uid}
         onChange={(event) => setBushel_uid(event.target.value)}
-        required
         InputLabelProps={{
           shrink: true,
         }}
@@ -226,7 +224,6 @@ function AddContract(params) {
         value={quantityFulfilled}
         InputProps={{ inputProps: { min: 0 } }}
         onChange={(event) => setQuantityFulfilled(event.target.value)}
-        required
         InputLabelProps={{
           shrink: true,
         }}
@@ -241,7 +238,6 @@ function AddContract(params) {
         value={price}
         InputProps={{ inputProps: { min: 0 } }}
         onChange={(event) => setPrice(event.target.value)}
-        required
         InputLabelProps={{
           shrink: true,
         }}
@@ -256,7 +252,6 @@ function AddContract(params) {
         value={protein}
         InputProps={{ inputProps: { min: 0 } }}
         onChange={(event) => setProtein(event.target.value)}
-        required
         InputLabelProps={{
           shrink: true,
         }}
@@ -271,7 +266,6 @@ function AddContract(params) {
         value={moisture}
         InputProps={{ inputProps: { min: 0 } }}
         onChange={(event) => setMoisture(event.target.value)}
-        required
         InputLabelProps={{
           shrink: true,
         }}
@@ -286,7 +280,6 @@ function AddContract(params) {
         value={oil}
         InputProps={{ inputProps: { min: 0 } }}
         onChange={(event) => setOil(event.target.value)}
-        required
         InputLabelProps={{
           shrink: true,
         }}
@@ -299,9 +292,9 @@ function AddContract(params) {
         label="Contract Quantity"
         type="number"
         value={contractQuantity}
+        required
         InputProps={{ inputProps: { min: 0 } }}
         onChange={(event) => setContractQuantity(event.target.value)}
-        required
         InputLabelProps={{
           shrink: true,
         }}
@@ -314,9 +307,9 @@ function AddContract(params) {
         label="Container Serial Number"
         type="number"
         value={containerSerial}
+        required
         InputProps={{ inputProps: { min: 0 } }}
         onChange={(event) => setContainerSerial(event.target.value)}
-        required
         InputLabelProps={{
           shrink: true,
         }}
@@ -330,7 +323,6 @@ function AddContract(params) {
         type="text"
         value={contractHandler}
         onChange={(event) => setContractHandler(event.target.value)}
-        required
         InputLabelProps={{
           shrink: true,
         }}
