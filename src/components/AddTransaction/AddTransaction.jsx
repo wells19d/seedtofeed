@@ -19,12 +19,6 @@ function AddTransaction() {
   const [notes, setNotes] = useState('');
   const [transactionType, setTransactionType] = useState(1);
 
-  useEffect(() => {
-    dispatch({
-      type: 'FETCH_TRANSACTION_TYPES'
-    });
-  }, []);
-
   const transactionList = useSelector((store) => store.transactionTypesReducer);
 
   function submitButton() {
@@ -34,28 +28,34 @@ function AddTransaction() {
       type: 'SET_TRANSACTION',
       payload: {
         field_id: field_id,
-        timestamp: new Date(),
+        // timestamp: new Date(),
         status_notes: notes,
-        field_status: transactionList[transactionType]?.name,
-        transaction_type: transactionType
-      }
+        // field_status: transactionList[transactionType]?.name,
+        transaction_type: transactionType,
+      },
     });
 
     history.push(`/field_details/${field_id}`);
   }
 
+  useEffect(() => {
+    dispatch({
+      type: 'FETCH_TRANSACTION_TYPES',
+    });
+  }, []);
+
   return (
     <>
       <div>
-        <form className='add-NIR' onSubmit={submitButton}>
+        <form className="add-NIR" onSubmit={submitButton}>
           <h1>Add New Transaction</h1>
           <div>
-            <label htmlFor='notes'>
+            <label htmlFor="notes">
               Notes:
               <input
-                placeholder='Notes'
-                type='text'
-                name='notes'
+                placeholder="Notes"
+                type="text"
+                name="notes"
                 value={notes}
                 required
                 onChange={(event) => setNotes(event.target.value)}
@@ -64,12 +64,12 @@ function AddTransaction() {
           </div>
 
           <div>
-            <label htmlFor='transactionType'>
+            <label htmlFor="transactionType">
               Transaction Type:
               <select
                 autoFocus
-                type='text'
-                name='transactionType'
+                type="text"
+                name="transactionType"
                 value={transactionType}
                 required
                 onChange={(event) => setTransactionType(event.target.value)}
@@ -89,14 +89,14 @@ function AddTransaction() {
 
           <div>
             <input
-              className='btn'
-              type='submit'
-              name='submit'
-              value='Add Transaction'
+              className="btn"
+              type="submit"
+              name="submit"
+              value="Add Transaction"
             />
           </div>
         </form>
-        <div className='back-button'>
+        <div className="back-button">
           <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
         </div>
       </div>
