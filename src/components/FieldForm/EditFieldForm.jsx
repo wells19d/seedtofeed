@@ -31,12 +31,21 @@ function EditFieldForm() {
   const fieldID = params.fieldID;
   // console.log(`check`, fieldID, 3);
 
+
+
   const field_index = fieldList.findIndex(
     (list) => list.id === Number(fieldID)
   );
   // console.log('The index is', field_index);
 
   const field_to_edit = fieldList[field_index];
+
+  const transType = useSelector((store) => store.fieldTransactionsReducer)
+
+  //obtain field status of field that is being edited
+  const fieldTrans = transType[0].transaction_type;
+  const fieldStatus2 = transType[0].field_status;
+
 
   // console.log('What is the id?', field_to_edit.id);
   // console.log('What is the name?', field_to_edit.name);
@@ -66,7 +75,7 @@ function EditFieldForm() {
   // console.log('here is the list of crops:', crops);
   // console.log('here is the field status list:', fieldStatus);
 
-  
+
 
   // EDIT A FIELD
   const updateField = (event) => {
@@ -84,6 +93,8 @@ function EditFieldForm() {
         acres: acres,
         field_note: notes,
         fieldID: fieldID,
+        fieldTrans: fieldTrans,
+        fieldStatus2: fieldStatus2,
         image: image,
       },
     });
@@ -97,20 +108,20 @@ function EditFieldForm() {
     // is available on window.cloudinary
     // See docs: https://cloudinary.com/documentation/upload_widget#look_and_feel_customization
     !!window.cloudinary && window.cloudinary.createUploadWidget(
-       {
-          sources: ['local', 'url', 'camera'],
-          cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
-          uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
-       },
-       function(error, result) {
-          console.log(result);
-          if (!error && result && result.event === "success") {
-             // When an upload is successful, save the uploaded URL to local state!
-             setImage(result.info.secure_url);
-          }
-       },
+      {
+        sources: ['local', 'url', 'camera'],
+        cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
+        uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
+      },
+      function (error, result) {
+        console.log(result);
+        if (!error && result && result.event === "success") {
+          // When an upload is successful, save the uploaded URL to local state!
+          setImage(result.info.secure_url);
+        }
+      },
     ).open();
- }
+  }
 
   useEffect(() => {
     dispatch({
