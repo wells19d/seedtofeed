@@ -94,7 +94,7 @@ function EditFieldForm() {
         field_note: notes,
         fieldID: fieldID,
         fieldTrans: fieldTrans,
-        fieldStatus2: fieldStatus2,
+        field_status: fieldStatus2,
         image: image,
       },
     });

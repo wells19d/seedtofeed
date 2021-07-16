@@ -361,7 +361,7 @@ router.put('/update/:fieldID', rejectUnauthenticated, (req, res) => {
     const gmo = req.body.gmo; // $8
     const crop_id = req.body.crop_id; //$9
     const transaction = req.body.fieldTrans;
-    const fieldStatus = req.body.fieldStatus;
+    const fieldStatus = req.body.field_status;
 
     //second query to update transaction table
     const queryText = `
@@ -399,7 +399,7 @@ router.put('/update_NIR/', rejectUnauthenticated, (req, res) => {
     const energy = req.body.energy;
     const amino_acids = req.body.amino_acids;
     const transaction = req.body.fieldTrans;
-    const fieldStatus = req.body.fieldStatus;
+    const field_status = req.body.fieldStatus2;
 
     //second query to update transaction table
 
