@@ -93,7 +93,7 @@ function EditFieldForm() {
         acres: acres,
         field_note: notes,
         fieldID: fieldID,
-        fieldTrans: fieldTrans,
+        transaction_type: fieldTrans,
         field_status: fieldStatus2,
         image: image,
       },
