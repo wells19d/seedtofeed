@@ -45,7 +45,7 @@ function AddTransaction() {
   }, []);
 
   return (
-    <>
+    <Router>
       <div>
         <form className="add-NIR" onSubmit={submitButton}>
           <h1>Add New Transaction</h1>
@@ -100,8 +100,7 @@ function AddTransaction() {
           <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
         </div>
       </div>
-    </>
-  );
+    </Router>);
 }
 
 export default AddTransaction;
