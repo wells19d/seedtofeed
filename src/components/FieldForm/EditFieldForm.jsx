@@ -76,20 +76,25 @@ function EditFieldForm() {
     event.preventDefault();
 
     // alert('Your field has been updated');
+    if (fieldName.length === 0, fieldYear.length === 0, cropType.length === 0, location.length === 0, acres.length === 0, notes.length === 0){
+      return alert('Please fill in required fields')
+    }
+    else {
 
-    dispatch({
-      type: 'UPDATE_FIELD',
-      payload: {
-        name: fieldName,
-        year: fieldYear,
-        crop_id: cropType,
-        location: location,
-        acres: acres,
-        field_note: notes,
-        fieldID: fieldID,
-      },
-    });
-    history.push('/user');
+      dispatch({
+        type: 'UPDATE_FIELD',
+        payload: {
+          name: fieldName,
+          year: fieldYear,
+          crop_id: cropType,
+          location: location,
+          acres: acres,
+          field_note: notes,
+          fieldID: fieldID,
+        },
+      });
+      history.push('/user');
+    }
   };
 
   return (

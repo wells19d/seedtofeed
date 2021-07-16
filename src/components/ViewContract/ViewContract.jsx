@@ -62,7 +62,7 @@ function ViewContract() {
         <Grid item xs={4} />
 
         <Grid item>
-          <h4>{foundContract?.contract_handler}</h4>
+          <h4>Contract Handler: {foundContract?.contract_handler}</h4>
           <TableContainer component={Paper}>
             <Table size='small'>
               <TableHead>
@@ -113,7 +113,7 @@ function ViewContract() {
           </TableContainer>
         </Grid>
         <Grid item>
-          <h4>NIR Analysis:</h4>
+          <h4>NIR Quality Expectations:</h4>
           <TableContainer component={Paper}>
             <Table size='small'>
               <TableHead>
@@ -137,15 +137,15 @@ function ViewContract() {
                   </TableCell>
                   <TableCell>
                     <br />
-                    {foundContract?.amino_acids}
+                    {foundContract?.amino_acids}%
                     <br />
-                    {foundContract?.energy}
+                    {foundContract?.energy}%
                     <br />
-                    {foundContract?.protein}
+                    {foundContract?.protein}%
                     <br />
-                    {foundContract?.oil}
+                    {foundContract?.oil}%
                     <br />
-                    {foundContract?.moisture}
+                    {foundContract?.moisture}%
                     <br />
                     <br />
                     <br />

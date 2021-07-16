@@ -62,29 +62,35 @@ function EditContract() {
     const editContract = (event) => {
         event.preventDefault();
 
-        alert('Contract has been updated');
+        if (user_field_id.length === 0, commodity.length === 0, contractQuantity === 0, containerSerial.length === 0, contractHandler.length === 0 ) {
+            return alert('Fill in required fields') // Can change alert and which fields are required
+          }
+          else {
 
-        dispatch({
-            type: 'UPDATE_CONTRACT', // dispatch to the updatecontract.saga
-            payload: {
-                contractID: foundContract.contractID, //verify what id we need to dispatch here
-                commodity: commodity,
-                open_status: openStatus,
-                bushel_uid: bushel_uid,
-                quantity_fulfilled: quantityFulfilled,
-                price: price,
-                protein: protein,
-                oil: oil,
-                moisture: moisture,
-                contract_quantity: contractQuantity,
-                container_serial: containerSerial,
-                contract_handler: contractHandler,
-                // userID: user.id //to be used in the updatecontract.saga //verify this one as well
+            alert('Contract has been updated');
 
-            }
-        });
+            dispatch({
+                type: 'UPDATE_CONTRACT', // dispatch to the updatecontract.saga
+                payload: {
+                    contractID: foundContract.contractID, //verify what id we need to dispatch here
+                    commodity: commodity,
+                    open_status: openStatus,
+                    bushel_uid: bushel_uid,
+                    quantity_fulfilled: quantityFulfilled,
+                    price: price,
+                    protein: protein,
+                    oil: oil,
+                    moisture: moisture,
+                    contract_quantity: contractQuantity,
+                    container_serial: containerSerial,
+                    contract_handler: contractHandler,
+                    // userID: user.id //to be used in the updatecontract.saga //verify this one as well
 
-        history.push(`/contract`);
+                }
+            });
+
+            history.push(`/contract`);
+        }
     }; // end addContract
 
     return (

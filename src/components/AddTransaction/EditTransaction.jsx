@@ -35,18 +35,23 @@ function EditTransaction() {
   function submitButton() {
     event.preventDefault();
 
-    dispatch({
-      type: 'UPDATE_TRANSACTION',
-      payload: {
-        field_id: field_id,
-        transaction_id: transaction_id,
-        status_notes: notes,
-        // field_status: transactionList[transactionType]?.name,
-        transaction_type: transactionType,
-      },
-    });
+    if (notes.length === 0) {
+      return alert('Fill in required fields')
+    }
+    else {
+      dispatch({
+        type: 'UPDATE_TRANSACTION',
+        payload: {
+          field_id: field_id,
+          transaction_id: transaction_id,
+          status_notes: notes,
+          // field_status: transactionList[transactionType]?.name,
+          transaction_type: transactionType,
+        },
+      });
 
-    history.push(`/field_details/${field_id}`);
+      history.push(`/field_details/${field_id}`);
+    }
   }
 
   useEffect(() => {
