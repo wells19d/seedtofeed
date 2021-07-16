@@ -62,6 +62,10 @@ function AddContract(params) {
   const [oil, setOil] = useState('');
   const [moisture, setMoisture] = useState('');
 
+  // for field transactions table
+  const [fieldStatus, setFieldStatus] = useState('');
+
+
   // ADD A CONTRACT
   // will also grab the user info.
   const addContract = (event) => {
@@ -83,6 +87,8 @@ function AddContract(params) {
         contract_quantity: contractQuantity,
         container_serial: containerSerial,
         contract_handler: contractHandler,
+        field_status: fieldStatus
+        
       },
     });
 
@@ -96,6 +102,7 @@ function AddContract(params) {
     const newField = fields.find(f => f.user_field_id === parseInt(event.target.value));
     if (newField !== -1) {
       setCommodity(newField.crop_id);
+      setFieldStatus(newField.field_status);
     }
   };
 

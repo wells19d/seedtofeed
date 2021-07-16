@@ -56,6 +56,11 @@ function EditContract() {
     // const [aminoAcids, setAminoAcids] = useState(foundContract.amino_acids);
     // const [energy, setEnergy] = useState(foundContract.energy);
 
+    //obtain field status of field the contract is being edited
+    const transType = useSelector((store) => store.fieldTransactionsReducer)
+    const fieldTrans = transType[0].transaction_type;
+
+
 
     // EDIT A CONTRACT
     // will also grab the user info.
@@ -79,7 +84,7 @@ function EditContract() {
                 contract_quantity: contractQuantity,
                 container_serial: containerSerial,
                 contract_handler: contractHandler,
-                // userID: user.id //to be used in the updatecontract.saga //verify this one as well
+                transaction_type: fieldTrans
 
             }
         });

@@ -5,6 +5,7 @@ const {
     rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
 const { response } = require('express');
+const { default: transitions } = require('@material-ui/core/styles/transitions');
 
 
 // -- GETS
@@ -142,6 +143,9 @@ router.post('/add_contract', rejectUnauthenticated, (req, res) => {
     const container_serial = req.body.container_serial; // $12
     const contract_handler = req.body.contract_handler; // $13
 
+    //used for inserting into field transactions table
+    //StatusTracker should reflect the field status during which the contract was created
+    const field_status = req.body.field_status;
 
 
     const queryText = `
@@ -168,12 +172,12 @@ router.post('/add_contract', rejectUnauthenticated, (req, res) => {
                     // const created_contract = response.rows[0].id;
                     const insert_contract = `
                     INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", "transaction_type" ) 
-                    VALUES ($1, Now(), 'contract created', 'plant', (SELECT "id" FROM "transaction_type" WHERE "name" = 'contract'));`;
-                    pool.query(insert_contract, [fieldID])
+                    VALUES ($1, Now(), 'contract created during field status: ${field_status}', $2, (SELECT "id" FROM "transaction_type" WHERE "name" = '${field_status}'));`;
+                    pool.query(insert_contract, [fieldID, field_status])
                         .then(result => {
                             res.sendStatus(201);
                         }).catch((err) => {
-                            console.log(`Error in creating contract: ${err}`);
+                            console.log(`Error in posting contract to transactions: ${err}`);
                             res.sendStatus(500);
                         })
                 })
@@ -204,7 +208,9 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
     const contract_quantity = req.body.contract_quantity; // $10
     const container_serial = req.body.container_serial; // $11
     const contract_handler = req.body.contract_handler; // $12
-    const user_field_id = req.body.user_field_id;
+
+    //used to post to the field transactions table
+    const transaction_type = req.body.transaction_type; // $2 on the second query
 
 
     const queryText =
@@ -243,9 +249,9 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
             const field_id = result.rows[0].user_field_id;
             console.log('field id is', field_id);
             const queryTransaction = `INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", 
-             "transaction_type" ) VALUES ($1, Now(), 'contract updated', 'harvest_farm', (SELECT "id" FROM "transaction_type" WHERE "name" = 'contract')) RETURNING *;`;
+             "transaction_type" ) VALUES ($1, Now(), 'contract updated', (SELECT "name" FROM "transaction_type" WHERE "id" = $2) , $2);`;
 
-            pool.query(queryTransaction, [field_id])
+            pool.query(queryTransaction, [field_id, transaction_type])
                 .then((result) => {
                     console.log('Updating transaction table', result.rows);
                     res.sendStatus(204);
@@ -260,12 +266,6 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
 
         })
 });
-
-//Bushel API /receiveContracts
-router.put('/receiveContracts', rejectUnauthenticated, (req, res) => {
-    console.log('contracts coming in', req.body);
-    res.sendStatus(204);
-})
 
 
 // ---- DELETES ----
