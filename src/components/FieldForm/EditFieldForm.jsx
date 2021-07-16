@@ -28,7 +28,7 @@ function EditFieldForm() {
   const fieldList = useSelector((store) => store.fieldListReducer);
   // console.log('Field List Details', fieldList);
 
-  const fieldID = params.fieldID;
+  const fieldID = Number(params.fieldID);
   // console.log(`check`, fieldID, 3);
 
 
@@ -43,8 +43,8 @@ function EditFieldForm() {
   const transType = useSelector((store) => store.fieldTransactionsReducer)
 
   //obtain field status of field that is being edited
-  const fieldTrans = transType[0].transaction_type;
-  const fieldStatus2 = transType[0].field_status;
+  const fieldTrans = transType[0]?.transaction_type;
+  const fieldStatus2 = transType[0]?.field_status;
 
 
   // console.log('What is the id?', field_to_edit.id);

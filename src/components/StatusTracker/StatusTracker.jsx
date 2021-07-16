@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 
 
 function StatusTracker(params) {
-  const fieldID = params.fieldID;
+  const fieldID = Number(params.fieldID);
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -51,20 +51,20 @@ function StatusTracker(params) {
 
   return (
     <center>
-        <h1><u>{detail?.field_name}</u></h1>
+      <h1><u>{detail?.field_name}</u></h1>
       <br />
-        {statuses.map((status) => {
-          return (
-            <div key={status.id}>
-              {status.name === detail?.field_status && (
-                <span className="Current_Status">
-                  <img src={status.workflow_images} />
-                </span>
-              )}
-            </div>
-          );
-        })}
-        <h3>Contract Status: {detail?.contract_status_name}</h3>
+      {statuses.map((status) => {
+        return (
+          <div key={status.id}>
+            {status.name === detail?.field_status && (
+              <span className="Current_Status">
+                <img src={status.workflow_images} />
+              </span>
+            )}
+          </div>
+        );
+      })}
+      <h3>Contract Status: {detail?.contract_status_name}</h3>
     </center>
   );
 }

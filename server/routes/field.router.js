@@ -117,7 +117,7 @@ WHERE "user_field"."user_id" = 1; */
 router.get('/fieldDetails/:fieldID', rejectUnauthenticated, (req, res) => {
     //fieldID on url
     const fieldID = Number(req.params.fieldID);
-    console.log('this is the fieldID for StatusTracker', fieldID);
+    console.log('this is the fieldID for StatusTracker', Number(fieldID));
 
     //replaced "*" for explicit columns in the query w/multiple joins. 
     //a captital "ID" was used as an alias to indicate the primaray key id of a table
