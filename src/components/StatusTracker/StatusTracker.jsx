@@ -15,7 +15,9 @@ function StatusTracker(params) {
 
   let detail = details[details.length - 1]; // This would get the latest entry in the store, assuming that the newest entry is also the newest date.
   //let detail = details[0];
-  console.log('here are the field details:', detail);
+  // console.log('here are the field details:', details);
+  // console.log('What do we have here?', statuses);
+  // console.log('What is the detail?', detail);
 
   // let detail;
   // function setDetail(){
@@ -40,6 +42,8 @@ function StatusTracker(params) {
     });
   }, []);
 
+  // console.log('What is the fieldID', fieldID);
+
   return (
     <>
       <div>
@@ -50,11 +54,13 @@ function StatusTracker(params) {
       <div>
         {statuses.map((status) => {
           //setDetail(); // This calls the function to set detail to the object with the newest date.
-          console.log('the name of field is', detail?.field_name);
+          // console.log('the name of field is', detail?.field_name);
 
-          console.log('the status name is', status.name);
-          console.log('the field status is', detail?.field_status);
-          console.log('the image is', status.workflow_images);
+          // console.log('the status name is', status.name);
+          // console.log('the field status is', detail?.field_status);
+          // console.log('the image is', status.workflow_images);
+          // console.log('What do we have here?', statuses)
+
           return (
             <div key={status.id}>
               {status.name === detail?.field_status && (
@@ -62,6 +68,7 @@ function StatusTracker(params) {
                   <img src={status.workflow_images} />
                 </span>
               )}
+              
             </div>
 
           );

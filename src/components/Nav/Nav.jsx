@@ -14,7 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 function Nav() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  console.log('users are', user);
+  // console.log('users are', user);
 
   let loginLinkData = {
     path: '/login',

@@ -35,7 +35,7 @@ function ViewFields(params) {
   useEffect(() => {
     dispatch({
       type: 'FETCH_FIELD_LIST',
-      payload: userID
+      payload: userID,
     });
   }, []);
 
@@ -49,15 +49,20 @@ function ViewFields(params) {
     if (confirm('Are you sure you would like to delete this field?')) {
       dispatch({
         type: 'DELETE_FIELD',
-        payload: fieldID
+        payload: fieldID,
       });
-    } 
+    }
   }
 
   return (
     <center>
+      <h4 className="page-title">
+        This is a list of all of your current fields. Please click field to see
+        more details or add new field to enter a new field.
+      </h4>
+      <br />
       <TableContainer component={Paper}>
-        <Table size='small'>
+        <Table size="small">
           <TableHead>
             <TableRow>
               <TableCell>Field Name</TableCell>
@@ -65,7 +70,7 @@ function ViewFields(params) {
               <TableCell>Status</TableCell>
               <TableCell>Note</TableCell>
               <TableCell>Buyers</TableCell>
-              <TableCell></TableCell>
+              <TableCell>Edit / Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -90,21 +95,19 @@ function ViewFields(params) {
                     )}
                   </TableCell>
                   <TableCell>
-                    <Button onClick={() => togglePopup()}>
-                      Add Potential Buyer
-                    </Button>
+                    <Button onClick={() => togglePopup()}>Add Buyer</Button>
                     <Button
-                      className='button-icons'
-                      title='Edit'
-                      color='primary'
+                      className="button-icons"
+                      title="Edit"
+                      color="primary"
                       onClick={() => history.push(`/edit_field/${field.id}`)}
                     >
                       {edit}
                     </Button>{' '}
                     <Button
-                      className='button-icons'
-                      title='Delete'
-                      color='secondary'
+                      className="button-icons"
+                      title="Delete"
+                      color="secondary"
                       onClick={() => deleteButton(field.id)}
                     >
                       {trashCan}
