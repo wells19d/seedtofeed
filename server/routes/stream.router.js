@@ -92,7 +92,7 @@ router.post('/bushel', async (req, res) => {
             const queryText4 = `INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "field_status", "transaction_type")
                   VALUES ($1, Now(), 
                   '${item.contract.company_name} delivered ${item.contract.quantity_submitted}-${item.contract.quantity_uom} of ${item.contract.commodity.name} to ${item.contract.elevator_name}. ${quantityDelivered}-${item.contract.quantity_uom} in storage : ${quantityOutstanding}-${item.contract.quantity_uom} remain to fill ${foundContract.contract_quantity}-${item.contract.quantity_uom} order on contract ${item.contract.id}', 
-                  'harvest_transit', (SELECT "id" FROM "transaction_type" WHERE "name" ='elevator'));`;
+                  'harvest_farm', (SELECT "id" FROM "transaction_type" WHERE "name" ='elevator'));`;
             await pool.query(queryText4, [transactionInsert.rows[0].field_id]);
             console.log(`posted transaction for field: ${transactionInsert.rows[0].field_id}`);
 
