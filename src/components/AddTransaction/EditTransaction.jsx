@@ -41,7 +41,7 @@ function EditTransaction() {
         field_id: field_id,
         transaction_id: transaction_id,
         status_notes: notes,
-        field_status: transactionList[transactionType]?.name,
+        // field_status: transactionList[transactionType]?.name,
         transaction_type: transactionType,
       },
     });

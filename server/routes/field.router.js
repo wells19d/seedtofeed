@@ -419,14 +419,14 @@ router.put('/update_transaction', rejectUnauthenticated, (req, res) => {
     const transaction_id = req.body.transaction_id;
     const status_notes = req.body.status_notes;
     const image = req.body.image;
-    const field_status = req.body.field_status;
+    // const field_status = req.body.field_status;
     const transaction_type = req.body.transaction_type;
 
     const queryText = `UPDATE "field_transactions"
-    SET "status_notes" = $1, "image" = $2, "field_status" = $3, "transaction_type" = $4
-    WHERE "id" = $5; `;
+    SET "status_notes" = $1, "image" = $2, "timestamp" = Now(), "field_status" = (SELECT "name" FROM "transaction_type" WHERE "id" = $3), "transaction_type" = $4
+    WHERE "id" = $5;`;
 
-    pool.query(queryText, [status_notes, image, field_status, transaction_type, transaction_id]).then(result => {
+    pool.query(queryText, [status_notes, image, transaction_type, transaction_type, transaction_id]).then(result => {
         res.sendStatus(204);
     })
         .catch(error => {
