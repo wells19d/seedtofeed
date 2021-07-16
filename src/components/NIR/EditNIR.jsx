@@ -16,6 +16,12 @@ function EditNIR() {
   const NIRID = params.NIRID;
   const field_id = params.fieldID;
 
+  const transType = useSelector((store) => store.transactionTypesReducer)
+
+  //obtain field status of field NIR that is being added
+  const fieldTrans = transType.filter((transaction) => transaction.id === Number(field_id));
+  console.log('transaction type is', fieldTrans);
+
   console.log(params);
 
   useEffect(() => {
@@ -48,6 +54,7 @@ function EditNIR() {
         protein: protein,
         energy: energy,
         amino_acids: amino_acids,
+        fieldTrans: fieldTrans,
       },
     });
 

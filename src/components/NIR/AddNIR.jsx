@@ -18,6 +18,12 @@ function AddNIR() {
   //gets current date and time.
   const tested_at = new Date();
 
+  const transType = useSelector((store) => store.transactionTypesReducer)
+
+  //obtain field status of field NIR that is being added
+  const fieldTrans = transType.filter((transaction) => transaction.id === Number(field_id));
+  console.log('transaction type is', fieldTrans);
+
   // If we want a different format, we can use this:
   // const cDay = tested_at.getDate()
   // const cMonth = tested_at.getMonth() + 1
@@ -41,6 +47,7 @@ function AddNIR() {
         protein: protein,
         energy: energy,
         amino_acids: amino_acids,
+        fieldTrans: fieldTrans,
         tested_at: tested_at,
       },
     });
