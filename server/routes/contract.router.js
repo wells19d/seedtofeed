@@ -210,7 +210,7 @@ router.put('/update_contract/:contractID', rejectUnauthenticated, (req, res) => 
     const contract_handler = req.body.contract_handler; // $12
 
     //used to post to the field transactions table
-    const transaction_type = req.body.transaction_type; // $??
+    const transaction_type = req.body.transaction_type; // $2 on the second query
 
 
     const queryText =
