@@ -20,6 +20,7 @@ function EditNIR() {
 
   //obtain field status of field NIR that is being edited
   const fieldTrans = transType[0].transaction_type;
+  const fieldStatus = transType[0].field_status;
 
   console.log(params);
 
@@ -54,6 +55,7 @@ function EditNIR() {
         energy: energy,
         amino_acids: amino_acids,
         fieldTrans: fieldTrans,
+        fieldStatus: fieldStatus,
       },
     });
 

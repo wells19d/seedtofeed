@@ -271,8 +271,6 @@ router.post('/makefield', rejectUnauthenticated, async (req, res) => {
         VALUES ($1, Now(), 'Field Created', (SELECT "name" FROM "transaction_type" WHERE "name" = 'pre-planting'), (SELECT "id" FROM "transaction_type" WHERE "name" = 'pre-planting'));`;
         await pool.query(insertTransaction, [created_field])
         res.sendStatus(201);
-        
-        res.sendStatus(201);
     } catch (error) {
         console.log(`Error making database query ${queryText}`, error);
         res.sendStatus(500);
@@ -304,7 +302,7 @@ router.post('/create_transaction', rejectUnauthenticated, (req, res) => {
         .catch(err => {
             console.log(err);
             res.sendStatus(500);
-        })      
+        })
 });
 
 
@@ -353,7 +351,7 @@ router.post('/create_NIR', rejectUnauthenticated, (req, res) => {
 router.put('/update/:fieldID', rejectUnauthenticated, (req, res) => {
     console.log('field table update', req.body);
 
-    const fieldID = req.params.fieldID; // $1
+    const fieldID = Number(req.params.fieldID); // $1
     const year = req.body.year; // $2
     const location = req.body.location; // $3
     const acres = req.body.acres; // $4
@@ -362,21 +360,33 @@ router.put('/update/:fieldID', rejectUnauthenticated, (req, res) => {
     const shape_file = req.body.shape_file; // $7
     const gmo = req.body.gmo; // $8
     const crop_id = req.body.crop_id; //$9
+    const transaction = req.body.fieldTrans;
+    const fieldStatus = req.body.fieldStatus;
 
-
+    //second query to update transaction table
     const queryText = `
             UPDATE "field"
     SET "year" = $2, "location" = $3, "acres" = $4, "field_note" = $5, "name" = $6, "shape_file" = $7, "gmo" = $8, "crop_id" = $9
     FROM "user_field"
     WHERE "field"."id" = $1 AND "user_field"."user_id" = $10;
     `;
-    pool.query(queryText, [fieldID, year, location, acres, field_note, name, shape_file, gmo, crop_id, req.user.id]).then((response) => {
-        res.sendStatus(204);
-    }).catch((err) => {
-        console.log('Error occurred for field UPDATE', err);
-        res.sendStatus(500);
-    })
-})
+    pool.query(queryText, [fieldID, year, location, acres, field_note, name, shape_file, gmo, crop_id, req.user.id])
+        .then((result) => {
+            const queryUpdate = `INSERT INTO"field_transactions"("field_id", "timestamp", "status_notes", "field_status",
+        "transaction_type") VALUES($1, Now(), 'Field updated', $2, $3) RETURNING *;`;
+            pool.query(queryUpdate, [fieldID, fieldStatus, transaction])
+                .then((result) => {
+                    console.log('Updating transaction table with field edit', result.rows);
+                    res.sendStatus(201);
+                }).catch((err) => {
+                    console.log('Error updating transaction table with field edit', err);
+                    res.sendStatus(500);
+                })
+        }).catch(error => {
+            console.log('Error making query: ', error);
+            res.sendStatus(500);
+        })
+});
 
 
 router.put('/update_NIR/', rejectUnauthenticated, (req, res) => {
@@ -391,6 +401,7 @@ router.put('/update_NIR/', rejectUnauthenticated, (req, res) => {
     const transaction = req.body.fieldTrans;
     const fieldStatus = req.body.fieldStatus;
 
+    //second query to update transaction table
 
     const queryText = `UPDATE "NIR"
     SET "oil" = $1, "moisture" = $2, "protein" = $3, "energy" = $4, "amino_acids" = $5
