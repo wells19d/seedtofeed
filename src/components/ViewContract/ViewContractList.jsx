@@ -83,7 +83,8 @@ function ViewContractList(params) {
                   <TableCell>Location</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Commodity</TableCell>
-                  <TableCell>Details / Delete</TableCell>
+                  <TableCell>Details Delete</TableCell>
+
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -117,17 +118,19 @@ function ViewContractList(params) {
                         {details}
                       </Button>
 
-                      {user.farmer && (
-                        <Button
-                          className="button-icons"
-                          size="large"
-                          title="Delete"
-                          color="secondary"
-                          onClick={() => deleteButton(contract.contractID)}
-                        >
-                          {trashCan}
-                        </Button>
-                      )}
+
+                        {user.farmer &&
+                      <Button
+                        className='button-icons'
+                        size='large'
+                        title='Delete'
+                        color='secondary'
+                        onClick={() => deleteButton(contract.contractID)}
+                      >
+
+                        {trashCan}
+                      </Button>}
+
                     </TableCell>
                   </TableRow>
                 ))}
