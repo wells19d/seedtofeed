@@ -4,18 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+} from '@material-ui/core';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
+
+const style = {
+  background: '#fdb41b',
+  padding: '3px 10px',
+  boxShadow: '3px 3px 4px 0px black',
+};
 
 const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
 const edit = <FontAwesomeIcon icon={faEdit} />;
@@ -31,9 +36,14 @@ function ViewTransactions(params) {
   useEffect(() => {
     dispatch({
       type: 'FETCH_FIELD_TRANSACTIONS',
-      payload: fieldID
+      payload: fieldID,
+    });
+    dispatch({
+      type: 'FETCH_FIELD_LIST',
     });
   }, []);
+
+  console.log('Looking for the image', fieldID);
 
   function deleteButton(transactionID) {
     if (confirm('Do you wish to delete this transaction?')) {
@@ -41,17 +51,72 @@ function ViewTransactions(params) {
         type: 'DELETE_TRANSACTION',
         payload: {
           transactionID: transactionID,
-          fieldID: fieldID
-        }
+          fieldID: fieldID,
+        },
       });
     }
   }
 
   return (
-    <center>
+    <Card>
+      <Typography>Field Transations</Typography>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="100"
+          image=""
+          alt="Image of a field"
+          title="Image of a field"
+        />
+      </CardActionArea>
+      <CardContent>
+          {transactions.map((event) => {
+            return (
+              <tr key={event.field_transactions_ID}>
+                <td>
+                  <Moment format='LLL'>{event.timestamp}</Moment>
+                </td>
+                <td>{event.field_status}</td>
+                <td>{event.status_notes}</td>
+
+                {user.farmer && (
+                  <td>
+                    <Button
+                      title='Edit'
+                      color='primary'
+                      onClick={() =>
+                        history.push(
+                          `/edit_transaction/${fieldID}/${event.field_transactions_ID}`
+                        )
+                      }
+                    >
+                      {edit}
+                    </Button>
+                    <Button
+                      title='Delete'
+                      color='secondary'
+                      onClick={() => deleteButton(event.field_transactions_ID)}
+                    >
+                      {trashCan}
+                    </Button>
+                  </td>
+                )}
+              </tr>
+            )
+          })}
+          <Button style={style}>Add Transaction</Button>
+      </CardContent>
+    </Card>
+  );
+}
+
+export default ViewTransactions;
+
+/*
+
+<center>
       <table className='sampleTable'>
         <caption>Transactions on field</caption>
-        {/* caption can be changed to an h4 once material is brought in */}
         <thead>
           <tr>
             <th>Timestamp</th>
@@ -105,7 +170,5 @@ function ViewTransactions(params) {
         </Button>
       )}
     </center>
-  );
-}
 
-export default ViewTransactions;
+*/

@@ -12,6 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -46,7 +47,15 @@ function FieldNIR(params) {
   }
 
   return (
-    <center>
+    <Card>NIR Analysis</Card>
+  );
+}
+
+export default FieldNIR;
+
+/*
+
+<center>
       <br />
       <h4>NIR Analysis</h4>
       <TableContainer component={Paper}>
@@ -109,7 +118,5 @@ function FieldNIR(params) {
         </Button>
       )}
     </center>
-  );
-}
 
-export default FieldNIR;
+*/
