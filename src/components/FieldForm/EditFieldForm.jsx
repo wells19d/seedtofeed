@@ -251,7 +251,8 @@ function EditFieldForm() {
         </Button>
       </center>
     </Router>
-  );
+    );
+  }
 }
 
 export default EditFieldForm;
