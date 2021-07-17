@@ -16,7 +16,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 
-const style = {
+const buttons = {
   background: '#fdb41b',
   padding: '3px 10px',
   boxShadow: '3px 3px 4px 0px black',
@@ -58,30 +58,21 @@ function ViewTransactions(params) {
   }
 
   return (
-    <Card>
-      <Typography>Field Transations</Typography>
+    <>
+    <Typography><b>Field Transation:</b></Typography>
+<Card>
+      
       <CardActionArea>
         <CardMedia
           component="img"
-          height="100"
-          image=""
+          height="194"
+          image="images/StraightSoybeans.jpeg"
           alt="Image of a field"
           title="Image of a field"
         />
       </CardActionArea>
       <CardContent>
-          {transactions.map((event) => {
-            return (
-              <tr key={event.field_transactions_ID}>
-                <td>
-                  <Moment format='LLL'>{event.timestamp}</Moment>
-                </td>
-                <td>{event.field_status}</td>
-                <td>{event.status_notes}</td>
-
-                {user.farmer && (
-                  <td>
-                    <Button
+          <span>July 17, 2021 {`\u00A0\u00A0`} - {`\u00A0\u00A0`} Pre-Planting {`\u00A0\u00A0`} - {`\u00A0\u00A0`} Cultivating {`\u00A0\u00A0`} - {`\u00A0\u00A0`} <Button
                       title='Edit'
                       color='primary'
                       onClick={() =>
@@ -98,21 +89,28 @@ function ViewTransactions(params) {
                       onClick={() => deleteButton(event.field_transactions_ID)}
                     >
                       {trashCan}
-                    </Button>
-                  </td>
-                )}
-              </tr>
-            )
-          })}
-          <Button style={style}>Add Transaction</Button>
+                    </Button></span>
+          <br/>
+          <br/>
+          <Button style={buttons}>Add Transaction</Button>
       </CardContent>
     </Card>
+    </>
   );
 }
 
 export default ViewTransactions;
 
 /*
+
+
+
+
+
+
+
+
+
 
 <center>
       <table className='sampleTable'>
