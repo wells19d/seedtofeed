@@ -65,6 +65,7 @@ function Nav() {
         <MenuItem onClick={handleClose}><Link to={loginLinkData.path}>{loginLinkData.text}</Link></MenuItem>
         <MenuItem onClick={handleClose}><Link to="/about">About</Link></MenuItem>
         <MenuItem onClick={handleClose}>{user.id && (<Link to='/contract'>Contracts</Link>)}</MenuItem>
+        <MenuItem onClick={handleClose}>{user.id && (<Link to='/signum'>Signum</Link>)}</MenuItem>
         <MenuItem onClick={handleClose}>{user.id && (<Link onClick={() => logOutFunction()}>Logout</Link>)}</MenuItem>
         
       </Menu>
