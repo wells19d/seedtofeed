@@ -181,10 +181,14 @@ router.get('/transactions/:fieldID', rejectUnauthenticated, (req, res) => {
     const queryText = `
     SELECT "field_transactions"."id" AS "field_transactions_ID", "field_transactions"."field_id", "field_transactions"."timestamp",
     "field_transactions"."status_notes", "field_transactions"."image", "field_transactions"."field_status", "field_transactions"."transaction_type",
-    "transaction_type"."id" AS "transaction_type_ID", "transaction_type"."name"
+    "transaction_type"."id" AS "transaction_type_ID", "transaction_type"."name", "transaction_type"."workflow_images", "field"."name" AS "field_name",
+    "contract"."open_status", "field"."crop_id", "field"."image" AS "field_image"
     FROM "field_transactions"
+    JOIN "field" ON "field"."id" = "field_transactions"."field_id"
     JOIN "transaction_type" ON "transaction_type"."id"="field_transactions"."transaction_type"
-    WHERE "field_id"=$1
+    JOIN "user_field" ON "user_field"."field_id" = "field_transactions"."field_id"
+    JOIN "contract" ON "contract"."user_field_id" = "user_field"."id"
+    WHERE "field_transactions"."field_id"=$1
     ORDER BY "field_transactions"."timestamp" DESC;`;
 
     pool.query(queryText, [fieldID]).then(response => {
