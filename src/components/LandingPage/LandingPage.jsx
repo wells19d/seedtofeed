@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
-import logo2 from './logos/logo2.png';
+import supplychain from './logos/supplychain.png';
 
 import Button from '@material-ui/core/Button';
 
@@ -19,7 +19,8 @@ function LandingPage() {
     <div className="container">
       <div className="grid">
         <div className="grid-col grid-col_8">
-          <img className="landing-page" src={logo2} alt="Seed to Feed Logo" />
+          <h1 align="center">Welcome to the Seed to Feed Tracker</h1>
+          <img className="landing-page" src={supplychain} alt="Seed to Feed Logo" />
           <p>
             Seed to Feed was created to help increase profitability for farmers
             and feed producers, as well as the partners in-between. This project
