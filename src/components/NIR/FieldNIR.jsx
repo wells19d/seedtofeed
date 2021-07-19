@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
+import '../../../src/index.css';
+
 import {
   Grid,
   Card,
@@ -83,7 +85,7 @@ function FieldNIR(params) {
 
   return (
     <>
-      <Typography style={title}>NIR Analysis:</Typography>
+      <Typography className='card-header'>NIR Analysis:</Typography>
       <Card style={cards}>
         <center>
           <TableContainer component={Paper}>

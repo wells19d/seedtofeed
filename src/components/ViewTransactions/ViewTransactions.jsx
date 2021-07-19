@@ -14,6 +14,8 @@ import {
   Typography,
 } from '@material-ui/core';
 
+import '../../../src/index.css';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 
@@ -84,7 +86,7 @@ function ViewTransactions(params) {
 
   return (
     <>
-      <Typography style={title}>Field Transaction:</Typography>
+      <Typography className='card-header'>Field Transaction:</Typography>
       <Card style={cards}>
         <CardActionArea>
           <CardMedia
@@ -99,7 +101,7 @@ function ViewTransactions(params) {
           <Grid container spacing={1}>
             <Grid item xs={3} align="left">
               <b>
-                <u>Date - Time</u>
+                <div className="field-header"><u>Date - Time</u></div>
               </b>
             </Grid>
             <Grid item xs={3} align="left">
