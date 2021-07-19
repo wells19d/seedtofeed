@@ -52,4 +52,6 @@
     width: 25px !important;
   }
 
-  
+  .capitalize{
+    text-transform: capitalize;
+  }
