@@ -39,6 +39,8 @@ import AddFieldForm from '../FieldForm/AddFieldForm';
 import AddTransaction from '../AddTransaction/AddTransaction';
 import EditTransaction from '../AddTransaction/EditTransaction';
 
+import Signum from '../Signum/Signum';
+
 import './App.css';
 
 function App() {
@@ -116,6 +118,10 @@ function App() {
 
           <Route exact path='/add_transaction/:fieldID'>
             <AddTransaction />
+          </Route>
+
+          <Route exact path = '/signum'>
+            <Signum />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.

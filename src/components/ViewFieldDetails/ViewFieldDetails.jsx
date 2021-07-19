@@ -36,8 +36,10 @@ function ViewFieldDetails() {
           <Grid item xs={1} />
 
           <Grid item xs={1} />
+
           <Grid item xs={5}><FieldNIR fieldID={fieldID} /></Grid>
           <Grid item xs={5}><ViewTransactions fieldID={fieldID} /></Grid>
+
           <Grid item xs={1} />
 
       </Grid>
