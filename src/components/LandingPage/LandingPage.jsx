@@ -19,6 +19,7 @@ function LandingPage() {
     <div className="container">
       <div className="grid">
         <div className="grid-col grid-col_8">
+          <h1 align="center">Welcome to the Seed to Feed Tracker</h1>
           <img className="landing-page" src={supplychain} alt="Seed to Feed Logo" />
           <p>
             Seed to Feed was created to help increase profitability for farmers
