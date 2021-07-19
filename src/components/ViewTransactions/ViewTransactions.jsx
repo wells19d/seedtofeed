@@ -23,11 +23,17 @@ const title = {
   fontWeight: '600',
 };
 
-const buttons = {
+const submitButton = {
   border: 'solid black 0px',
   background: '#fdb41b',
   padding: '3px 10px',
   boxShadow: '3px 3px 4px 0px grey',
+};
+
+const standardButtons = {
+  border: 'solid black 0px',
+  boxShadow: '2px 2px 3px 0px grey',
+  minWidth: '1px',
 };
 
 const cards = {
@@ -39,6 +45,8 @@ const cards = {
   boxShadow: '3px 3px 4px 1px grey',
 };
 
+
+
 const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
 const edit = <FontAwesomeIcon icon={faEdit} />;
 
@@ -49,16 +57,6 @@ function ViewTransactions(params) {
   const user = useSelector((store) => store.user);
   const history = useHistory();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch({
-      type: 'FETCH_FIELD_TRANSACTIONS',
-      payload: fieldID,
-    });
-    dispatch({
-      type: 'FETCH_FIELD_LIST',
-    });
-  }, []);
 
   console.log('Looking for the image', transactions[0]?.field_image);
 
@@ -74,6 +72,15 @@ function ViewTransactions(params) {
     }
   }
 
+  useEffect(() => {
+    dispatch({
+      type: 'FETCH_FIELD_TRANSACTIONS',
+      payload: fieldID,
+    });
+    dispatch({
+      type: 'FETCH_FIELD_LIST',
+    });
+  }, []);
 
   return (
     <>
@@ -89,196 +96,54 @@ function ViewTransactions(params) {
           />
         </CardActionArea>
         <CardContent>
-          <Grid container spacing={0}>
-           
+          <Grid container spacing={1}>
             <Grid item xs={3} align="left">
-              07/17/21 - 10:45pm
+              <b>
+                <u>Date - Time</u>
+              </b>
             </Grid>
             <Grid item xs={3} align="left">
-              Elevator Transit
+              <b>
+                <u>Field Status</u>
+              </b>
             </Grid>
-            <Grid item xs={3} align="left">
-              Delivery
+            <Grid item xs={4} align="left">
+              <b>
+                <u>Notes</u>
+              </b>
             </Grid>
-            <Grid item xs={3} align="left">
-              <Button
-                title="Edit"
-                color="primary"
-                onClick={(event) =>
-                  history.push(
-                    `/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
-                {edit}
-              </Button>
-              <Button
-                title="Delete"
-                color="secondary"
-                onClick={() => deleteButton(event.field_transactions_ID)}>
-                {trashCan}
-              </Button>
+            <Grid item xs={2} align="center">
+              {`\u00A0\u00A0\u00A0`}
+              <b>
+                <u>Edit</u>
+              </b>
+              {`\u00A0\u00A0\u00A0`}
+              <b>
+                <u>Delete</u>
+              </b>
             </Grid>
-            
-            <Grid item xs={3} align="left">
-              07/16/21 - 08:25
-            </Grid>
-            <Grid item xs={3} align="left">
-              Harvest
-            </Grid>
-            <Grid item xs={3} align="left">
-              Harvesting
-            </Grid>
-            <Grid item xs={3} align="left">
-              <Button
-                title="Edit"
-                color="primary"
-                onClick={(event) =>
-                  history.push(
-                    `/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
-                {edit}
-              </Button>
-              <Button
-                title="Delete"
-                color="secondary"
-                onClick={() => deleteButton(event.field_transactions_ID)}>
-                {trashCan}
-              </Button>
-            </Grid>
-            
-            <Grid item xs={3} align="left">
-              06/19/21 - 13:30
-            </Grid>
-            <Grid item xs={3} align="left">
-              Application
-            </Grid>
-            <Grid item xs={3} align="left">
-              Growing
-            </Grid>
-            <Grid item xs={3} align="left">
-              <Button
-                title="Edit"
-                color="primary"
-                onClick={(event) =>
-                  history.push(
-                    `/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
-                {edit}
-              </Button>
-              <Button
-                title="Delete"
-                color="secondary"
-                onClick={() => deleteButton(event.field_transactions_ID)}>
-                {trashCan}
-              </Button>
-            </Grid>
-            
-            <Grid item xs={3} align="left">
-              06/18/21 - 08:45
-            </Grid>
-            <Grid item xs={3} align="left">
-              Application
-            </Grid>
-            <Grid item xs={3} align="left">
-              Spraying
-            </Grid>
-            <Grid item xs={3} align="left">
-              <Button
-                title="Edit"
-                color="primary"
-                onClick={() =>
-                  history.push(
-                    `/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
-                {edit}
-              </Button>
-              <Button
-                title="Delete"
-                color="secondary"
-                onClick={() => deleteButton(event.field_transactions_ID)}
-              >
-                {trashCan}
-              </Button>
-            </Grid>
-            
-            <Grid item xs={3} align="left">
-              06/17/21 - 16:15
-            </Grid>
-            <Grid item xs={3} align="left">
-              Planting
-            </Grid>
-            <Grid item xs={3} align="left">
-              Started Planting
-            </Grid>
-            <Grid item xs={3} align="left">
-              <Button
-                title="Edit"
-                color="primary"
-                onClick={() =>
-                  history.push(
-                    `/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
-                {edit}
-              </Button>
-              <Button
-                title="Delete"
-                color="secondary"
-                onClick={() => deleteButton(event.field_transactions_ID)}>
-                {trashCan}
-              </Button>
-            </Grid>
-            
-            <Grid item xs={3} align="left">
-              06/16/21 - 09:15
-            </Grid>
-            <Grid item xs={3} align="left">
-              Pre-Planting
-            </Grid>
-            <Grid item xs={3} align="left">
-              Cultivating
-            </Grid>
-            <Grid item xs={3} align="left">
-              <Button
-                title="Edit"
-                color="primary"
-                onClick={() =>
-                  history.push(
-                    `/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
-                {edit}
-              </Button>
-              <Button
-                title="Delete"
-                color="secondary"
-                onClick={() => deleteButton(event.field_transactions_ID)}>
-                {trashCan}
-              </Button>
-            </Grid>
-            
-            <Grid item xs={3} align="left">
-              06/15/21 - 08:00
-            </Grid>
-            <Grid item xs={3} align="left">
-              Pre-Planting
-            </Grid>
-            <Grid item xs={3} align="left">
-              Field Created
-            </Grid>
-            <Grid item xs={3} align="left">
-              <Button
-                title="Edit"
-                color="primary"
-                onClick={() =>
-                  history.push(
-                    `/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
-                {edit}
-              </Button>
-              <Button
-                title="Delete"
-                color="secondary"
-                onClick={() => deleteButton(event.field_transactions_ID)}>
-                {trashCan}
-              </Button>
-            </Grid>
-            
+            <br />
+            <br />
+            {transactions.map((event) => {
+              return (
+                <>
+                  <Grid item xs={3} key={event.field_transactions_ID} align="left" ><Moment format="lll">{event.timestamp}</Moment></Grid>
+                  <Grid item xs={3} align="left">{event.field_status}</Grid>
+                  <Grid item xs={4} align="left">{event.status_notes}</Grid>
+                  <Grid item xs={2} align="center">
+                    <Button style={standardButtons} title="Edit" color="default" onClick={() => history.push(`/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>{edit}</Button>
+                    {`\u00A0\u00A0\u00A0\u00A0\u00A0`}
+                    <Button style={standardButtons} title="Delete" color="default" onClick={() => deleteButton(event.field_transactions_ID)}>{trashCan}</Button>
+                  </Grid>
+                </>
+              );
+            })}
           </Grid>
-
           <br />
           <br />
-          <Button style={buttons}>Add Transaction</Button>
+          {user.farmer && (
+            <Button style={submitButton} onClick={() => history.push(`/add_transaction/${fieldID}`)}>New Transaction</Button>
+          )}
         </CardContent>
       </Card>
     </>
@@ -286,275 +151,3 @@ function ViewTransactions(params) {
 }
 
 export default ViewTransactions;
-
-/*
-
-<>
-      <Typography style={title}>Field Transaction:</Typography>
-      <Card style={cards}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            height="194"
-            image="images/StraightSoybeans.jpeg"
-            alt="Image of a field"
-            title="Image of a field"
-          />
-        </CardActionArea>
-        <CardContent>
-          <Grid container spacing={0}>
-           
-            <Grid item xs={3} align="left">
-              07/17/21 - 15:45
-            </Grid>
-            <Grid item xs={3} align="left">
-              Elevator Transit
-            </Grid>
-            <Grid item xs={3} align="left">
-              Delivery
-            </Grid>
-            <Grid item xs={3} align="left">
-              <Button
-                title="Edit"
-                color="primary"
-                onClick={(event) =>
-                  history.push(
-                    `/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
-                {edit}
-              </Button>
-              <Button
-                title="Delete"
-                color="secondary"
-                onClick={() => deleteButton(event.field_transactions_ID)}>
-                {trashCan}
-              </Button>
-            </Grid>
-            
-            <Grid item xs={3} align="left">
-              07/16/21 - 08:25
-            </Grid>
-            <Grid item xs={3} align="left">
-              Harvest
-            </Grid>
-            <Grid item xs={3} align="left">
-              Harvesting
-            </Grid>
-            <Grid item xs={3} align="left">
-              <Button
-                title="Edit"
-                color="primary"
-                onClick={(event) =>
-                  history.push(
-                    `/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
-                {edit}
-              </Button>
-              <Button
-                title="Delete"
-                color="secondary"
-                onClick={() => deleteButton(event.field_transactions_ID)}>
-                {trashCan}
-              </Button>
-            </Grid>
-            
-            <Grid item xs={3} align="left">
-              06/19/21 - 13:30
-            </Grid>
-            <Grid item xs={3} align="left">
-              Application
-            </Grid>
-            <Grid item xs={3} align="left">
-              Growing
-            </Grid>
-            <Grid item xs={3} align="left">
-              <Button
-                title="Edit"
-                color="primary"
-                onClick={(event) =>
-                  history.push(
-                    `/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
-                {edit}
-              </Button>
-              <Button
-                title="Delete"
-                color="secondary"
-                onClick={() => deleteButton(event.field_transactions_ID)}>
-                {trashCan}
-              </Button>
-            </Grid>
-            
-            <Grid item xs={3} align="left">
-              06/18/21 - 08:45
-            </Grid>
-            <Grid item xs={3} align="left">
-              Application
-            </Grid>
-            <Grid item xs={3} align="left">
-              Spraying
-            </Grid>
-            <Grid item xs={3} align="left">
-              <Button
-                title="Edit"
-                color="primary"
-                onClick={() =>
-                  history.push(
-                    `/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
-                {edit}
-              </Button>
-              <Button
-                title="Delete"
-                color="secondary"
-                onClick={() => deleteButton(event.field_transactions_ID)}
-              >
-                {trashCan}
-              </Button>
-            </Grid>
-            
-            <Grid item xs={3} align="left">
-              06/17/21 - 16:15
-            </Grid>
-            <Grid item xs={3} align="left">
-              Planting
-            </Grid>
-            <Grid item xs={3} align="left">
-              Started Planting
-            </Grid>
-            <Grid item xs={3} align="left">
-              <Button
-                title="Edit"
-                color="primary"
-                onClick={() =>
-                  history.push(
-                    `/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
-                {edit}
-              </Button>
-              <Button
-                title="Delete"
-                color="secondary"
-                onClick={() => deleteButton(event.field_transactions_ID)}>
-                {trashCan}
-              </Button>
-            </Grid>
-            
-            <Grid item xs={3} align="left">
-              06/16/21 - 09:15
-            </Grid>
-            <Grid item xs={3} align="left">
-              Pre-Planting
-            </Grid>
-            <Grid item xs={3} align="left">
-              Cultivating
-            </Grid>
-            <Grid item xs={3} align="left">
-              <Button
-                title="Edit"
-                color="primary"
-                onClick={() =>
-                  history.push(
-                    `/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
-                {edit}
-              </Button>
-              <Button
-                title="Delete"
-                color="secondary"
-                onClick={() => deleteButton(event.field_transactions_ID)}>
-                {trashCan}
-              </Button>
-            </Grid>
-            
-            <Grid item xs={3} align="left">
-              06/15/21 - 08:00
-            </Grid>
-            <Grid item xs={3} align="left">
-              Pre-Planting
-            </Grid>
-            <Grid item xs={3} align="left">
-              Field Created
-            </Grid>
-            <Grid item xs={3} align="left">
-              <Button
-                title="Edit"
-                color="primary"
-                onClick={() =>
-                  history.push(
-                    `/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>
-                {edit}
-              </Button>
-              <Button
-                title="Delete"
-                color="secondary"
-                onClick={() => deleteButton(event.field_transactions_ID)}>
-                {trashCan}
-              </Button>
-            </Grid>
-            
-          </Grid>
-
-          <br />
-          <br />
-          <Button style={buttons}>Add Transaction</Button>
-        </CardContent>
-      </Card>
-    </>
-
-
-
-
-
-<center>
-      <table className='sampleTable'>
-        <caption>Transactions on field</caption>
-        <thead>
-          <tr>
-            <th>Timestamp</th>
-            <th>Field Status</th>
-            <th>Notes</th>
-
-            {user.farmer && <th>Edit  Delete</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.map((event) => {
-            return (
-              <tr key={event.field_transactions_ID}>
-                <td>
-                  <Moment format='LLL'>{event.timestamp}</Moment>
-                </td>
-                <td>{event.field_status}</td>
-                <td>{event.status_notes}</td>
-
-                {user.farmer && (
-                  <td>
-                    <Button
-                      title='Edit'
-                      color='primary'
-                      onClick={() =>
-                        history.push(
-                          `/edit_transaction/${fieldID}/${event.field_transactions_ID}`
-                        )
-                      }
-                    >
-                      {edit}
-                    </Button>
-                    <Button
-                      title='Delete'
-                      color='secondary'
-                      onClick={() => deleteButton(event.field_transactions_ID)}
-                    >
-                      {trashCan}
-                    </Button>
-                  </td>
-                )}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-
-      {user.farmer && (
-        <Button onClick={() => history.push(`/add_transaction/${fieldID}`)}>
-          New Transaction
-        </Button>
-      )}
-    </center>
-
-*/
