@@ -46,7 +46,7 @@ function ViewFieldRows(param){
                 </Button>
                 </TableCell>
                 <TableCell>{field.location}</TableCell>
-                <TableCell>{field.field_status}</TableCell>
+                <TableCell className='capitalize'>{field.field_status}</TableCell>
                 <TableCell>{field.field_note}</TableCell>
                 <TableCell>
                 No buyers yet

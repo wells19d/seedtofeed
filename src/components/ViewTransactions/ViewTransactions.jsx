@@ -129,8 +129,8 @@ function ViewTransactions(params) {
               return (
                 <>
                   <Grid item xs={2} key={event.field_transactions_ID} align="left" ><Moment format="lll">{event.timestamp}</Moment></Grid>
-                  <Grid item xs={2} align="left">{event.field_status}</Grid>
-                  <Grid item xs={5} align="left">{event.status_notes}</Grid>
+                  <Grid item xs={2} align="left" className='capitalize'>{event.field_status}</Grid>
+                  <Grid item xs={5} align="left" className='capitalize'>{event.status_notes}</Grid>
                   <Grid item xs={2} align="center">
                     <Button  className='standard-buttons' title="Edit" color="default" onClick={() => history.push(`/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>{edit}</Button>
                     {`\u00A0\u00A0\u00A0\u00A0\u00A0`}
