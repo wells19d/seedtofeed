@@ -19,26 +19,9 @@ function StatusTracker(params) {
   const details = useSelector((store) => store.fieldDetailsReducer);
   const contracts = useSelector((store) => store.contractListReducer);
 
+
   let detail = details[details.length - 1]; // This would get the latest entry in the store, assuming that the newest entry is also the newest date.
   const userContract = contracts?.filter((contract) => (contract.userID === user.id) && contract.fieldID === fieldID);
-
-  
-  // console.log('user Contract', userContract);
-  //let detail = details[0];
-  // console.log('here are the field details:', details);
-  // console.log('What do we have here?', statuses);
-  // console.log('What is the detail?', detail);
-
-  // let detail;
-  // function setDetail(){
-  //   detail = details[0];
-  //   for (i=1;i<details.length;i++){
-  //     if (details[i].timestamp > detail.timestamp){ // This should check which Date is greater than the rest and will set detail to the object with the newest date.
-  //       detail = details[i];
-  //     }
-  //   }
-  // }
-
 
 
   useEffect(() => {
@@ -68,9 +51,9 @@ function StatusTracker(params) {
         return (
           <div key={status.id}>
             {status.name === detail?.field_status && (
-              <span className="Current_Status">
+              <div className="Current_Status">
                 <img src={status.workflow_images} />
-              </span>
+              </div>
             )}
           </div>
         );

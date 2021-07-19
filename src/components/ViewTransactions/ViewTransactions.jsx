@@ -4,18 +4,48 @@ import { useDispatch, useSelector } from 'react-redux';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import {
+  Grid,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+} from '@material-ui/core';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
+
+const title = {
+  fontFamily: 'Montserrat',
+  fontStyle: 'italic',
+  fontWeight: '600',
+};
+
+const submitButton = {
+  border: 'solid black 0px',
+  background: '#fdb41b',
+  padding: '3px 10px',
+  boxShadow: '3px 3px 4px 0px grey',
+};
+
+const standardButtons = {
+  border: 'solid black 0px',
+  boxShadow: '2px 2px 3px 0px grey',
+  minWidth: '1px',
+};
+
+const cards = {
+  border: 'solid black 2px',
+  fontFamily: 'Montserrat',
+  overflow: 'auto',
+  height: '500px',
+  fontSize: '14px',
+  boxShadow: '3px 3px 4px 1px grey',
+};
+
+
 
 const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
 const edit = <FontAwesomeIcon icon={faEdit} />;
@@ -28,12 +58,7 @@ function ViewTransactions(params) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch({
-      type: 'FETCH_FIELD_TRANSACTIONS',
-      payload: fieldID
-    });
-  }, []);
+  console.log('Looking for the image', transactions[0]?.field_image);
 
   function deleteButton(transactionID) {
     if (confirm('Do you wish to delete this transaction?')) {
@@ -41,70 +66,87 @@ function ViewTransactions(params) {
         type: 'DELETE_TRANSACTION',
         payload: {
           transactionID: transactionID,
-          fieldID: fieldID
-        }
+          fieldID: fieldID,
+        },
       });
     }
   }
 
+  useEffect(() => {
+    dispatch({
+      type: 'FETCH_FIELD_TRANSACTIONS',
+      payload: fieldID,
+    });
+    dispatch({
+      type: 'FETCH_FIELD_LIST',
+    });
+  }, []);
+
   return (
-    <center>
-      <table className='sampleTable'>
-        <caption>Transactions on field</caption>
-        {/* caption can be changed to an h4 once material is brought in */}
-        <thead>
-          <tr>
-            <th>Timestamp</th>
-            <th>Field Status</th>
-            <th>Notes</th>
-
-            {user.farmer && <th>Edit  Delete</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.map((event) => {
-            return (
-              <tr key={event.field_transactions_ID}>
-                <td>
-                  <Moment format='LLL'>{event.timestamp}</Moment>
-                </td>
-                <td>{event.field_status}</td>
-                <td>{event.status_notes}</td>
-
-                {user.farmer && (
-                  <td>
-                    <Button
-                      title='Edit'
-                      color='primary'
-                      onClick={() =>
-                        history.push(
-                          `/edit_transaction/${fieldID}/${event.field_transactions_ID}`
-                        )
-                      }
-                    >
-                      {edit}
-                    </Button>
-                    <Button
-                      title='Delete'
-                      color='secondary'
-                      onClick={() => deleteButton(event.field_transactions_ID)}
-                    >
-                      {trashCan}
-                    </Button>
-                  </td>
-                )}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-
-      {user.farmer && (
-        <Button onClick={() => history.push(`/add_transaction/${fieldID}`)}>
-          New Transaction
-        </Button>
-      )}
-    </center>
+    <>
+      <Typography style={title}>Field Transaction:</Typography>
+      <Card style={cards}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            height="194"
+            image={transactions[0]?.field_image}
+            alt="Image of a field"
+            title="Image of a field"
+          />
+        </CardActionArea>
+        <CardContent>
+          <Grid container spacing={1}>
+            <Grid item xs={3} align="left">
+              <b>
+                <u>Date - Time</u>
+              </b>
+            </Grid>
+            <Grid item xs={3} align="left">
+              <b>
+                <u>Field Status</u>
+              </b>
+            </Grid>
+            <Grid item xs={4} align="left">
+              <b>
+                <u>Notes</u>
+              </b>
+            </Grid>
+            <Grid item xs={2} align="center">
+              {`\u00A0\u00A0\u00A0`}
+              <b>
+                <u>Edit</u>
+              </b>
+              {`\u00A0\u00A0\u00A0`}
+              <b>
+                <u>Delete</u>
+              </b>
+            </Grid>
+            <br />
+            <br />
+            {transactions.map((event) => {
+              return (
+                <>
+                  <Grid item xs={3} key={event.field_transactions_ID} align="left" ><Moment format="lll">{event.timestamp}</Moment></Grid>
+                  <Grid item xs={3} align="left">{event.field_status}</Grid>
+                  <Grid item xs={4} align="left">{event.status_notes}</Grid>
+                  <Grid item xs={2} align="center">
+                    <Button style={standardButtons} title="Edit" color="default" onClick={() => history.push(`/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>{edit}</Button>
+                    {`\u00A0\u00A0\u00A0\u00A0\u00A0`}
+                    <Button style={standardButtons} title="Delete" color="default" onClick={() => deleteButton(event.field_transactions_ID)}>{trashCan}</Button>
+                  </Grid>
+                </>
+              );
+            })}
+          </Grid>
+          <br />
+          <br />
+          {user.farmer && (
+            <Button style={submitButton} onClick={() => history.push(`/add_transaction/${fieldID}`)}>New Transaction</Button>
+          )}
+        </CardContent>
+      </Card>
+    </>
   );
 }
 
