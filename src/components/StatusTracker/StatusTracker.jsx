@@ -18,10 +18,14 @@ function StatusTracker(params) {
   const statuses = useSelector((store) => store.transactionTypesReducer);
   const details = useSelector((store) => store.fieldDetailsReducer);
   const contracts = useSelector((store) => store.contractListReducer);
+  const transactions = useSelector((store) => store.fieldTransactionsReducer);
+  console.log('the transactions for statusTracker', transactions);
 
 
   let detail = details[details.length - 1]; // This would get the latest entry in the store, assuming that the newest entry is also the newest date.
+  const currentTransaction = transactions[0] //the fieldTransaction endpoin is sorted in DESC order by timestamp
   const userContract = contracts?.filter((contract) => (contract.userID === user.id) && contract.fieldID === fieldID);
+  
 
 
   useEffect(() => {
@@ -35,7 +39,12 @@ function StatusTracker(params) {
     });
 
     dispatch({
-      type: 'FETCH_CONTRACT_LIST'
+      type: 'FETCH_CONTRACT_LIST',
+    })
+
+    dispatch({
+      type: 'FETCH_FIELD_TRANSACTIONS',
+      payload: fieldID
     })
   }, []);
 
@@ -50,7 +59,7 @@ function StatusTracker(params) {
       {statuses.map((status) => {
         return (
           <div key={status.id}>
-            {status.name === detail?.field_status && (
+            {status.name === currentTransaction.field_status && (
               <div className="Current_Status">
                 <img src={status.workflow_images} />
               </div>
