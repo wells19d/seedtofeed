@@ -78,9 +78,10 @@ function StatusTracker(params) {
 
       {userContract?.length === 1 && <h3>Contract {userContract[0]?.bushel_uid} Status: {userContract[0]?.name}</h3>}
       {userContract?.length > 1 && userContract.map((contract) => {
-      <h3>Contract {contract.bushel_uid} Status: {contract.name}</h3>}
-
-  )}
+        return (
+          <h3>Contract {contract.bushel_uid} Status: {contract.name}</h3>
+        )}
+        )}
 
     </center>
   );
