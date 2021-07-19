@@ -13,19 +13,7 @@ import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
 const edit = <FontAwesomeIcon icon={faEdit} />;
 
-const submitButton = {
-    border: 'solid black 0px',
-    background: '#fdb41b',
-    padding: '3px 10px',
-    boxShadow: '3px 3px 4px 0px grey',
-  };
-  
-  const standardButtons = {
-    border: 'solid black 0px',
-    boxShadow: '2px 2px 3px 0px grey',
-    minWidth: '1px',
-  };
-
+import '../../index.css';
 
 function ViewFieldRows(param){
     const dispatch = useDispatch();
@@ -48,11 +36,10 @@ function ViewFieldRows(param){
         }
       }
 
-
     return (
         <>
-            <TableCell>
-                <Button style={submitButton}
+             <TableCell>
+                <Button className="submit-buttons"
                     onClick={() => history.push(`/field_details/${field.id}`)}
                 >
                     {field.name}
@@ -62,27 +49,29 @@ function ViewFieldRows(param){
                 <TableCell>{field.field_status}</TableCell>
                 <TableCell>{field.field_note}</TableCell>
                 <TableCell>
-                No buyers yet{' '}
+                No buyers yet
                 {isOpen && (
                     <SetBuyer togglePopup={togglePopup} fieldID={field.id} />
                 )}
                 </TableCell>
+
+                <TableCell align='center'>
+                {/* <Button className='submitButton' onClick={() => togglePopup()}>Add Buyer</Button> */}
+                <Button className='submit-buttons' onClick={() => togglePopup()}>Add</Button>
+                </TableCell>
                 <TableCell>
-                <Button style={submitButton} onClick={() => togglePopup()}>Add Buyer</Button>
-                {`\u00A0\u00A0\u00A0\u00A0`}
                 <Button
-                style={standardButtons} 
-                    className="button-icons"
+                    className='standard-buttons'
                     title="Edit"
                     color="default"
                     onClick={() => history.push(`/edit_field/${field.id}`)}
                 >
                     {edit}
                 </Button>
-                {`\u00A0\u00A0\u00A0\u00A0`}
+                </TableCell>
+                <TableCell>
                 <Button 
-                style={standardButtons} 
-                    className="button-icons"
+                    className='standard-buttons'
                     title="Delete"
                     color="default"
                     onClick={() => deleteButton(field.id)}

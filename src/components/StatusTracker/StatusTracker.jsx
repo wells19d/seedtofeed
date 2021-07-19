@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import '../App/App.css';
 
-import Card from '@material-ui/core/Card';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import { Card, Grid, Paper } from '@material-ui/core';
+
+import '../../../src/index.css';
 
 
 function StatusTracker(params) {
@@ -19,9 +19,18 @@ function StatusTracker(params) {
   const details = useSelector((store) => store.fieldDetailsReducer);
   const contracts = useSelector((store) => store.contractListReducer);
 
+  const transactions = useSelector((store) => store.fieldTransactionsReducer);
+  console.log('the transactions for statusTracker', transactions);
 
-  let detail = details[details.length - 1]; // This would get the latest entry in the store, assuming that the newest entry is also the newest date.
+
+
+  //let detail = details[details.length - 1]; // This would get the latest entry in the store, assuming that the newest entry is also the newest date.
+  let detail = details[0]; // This gets the first entry in the store, assuming that the order has the newest in the first spot.
   const userContract = contracts?.filter((contract) => (contract.userID === user.id) && contract.fieldID === fieldID);
+  const currentTransaction = transactions[0]; //the fieldTransaction endpoin is sorted in DESC order by timestamp
+
+
+ 
 
 
   useEffect(() => {
@@ -35,7 +44,11 @@ function StatusTracker(params) {
     });
 
     dispatch({
-      type: 'FETCH_CONTRACT_LIST'
+      type: 'FETCH_CONTRACT_LIST',
+    })
+
+    dispatch({
+      type: 'FETCH_FIELD_TRANSACTIONS'
     })
   }, []);
 
@@ -43,14 +56,24 @@ function StatusTracker(params) {
 
   return (
     <center>
-      <h1><u>{detail?.field_name}</u></h1>
-      <h2>{detail?.crop_type}</h2>
-
+      {/* {JSON.stringify(details)} */}
+      <h1><u>Seed Tracker Dashboard</u></h1>
+      <Card className="status-tracker">
+      <br />
+        <Grid container spacing={1}>
+        <Grid item xs={3}><b>Field Name: {detail?.field_name}</b></Grid>
+        <Grid item xs={3}><b>Crop Type: {detail?.crop_type}</b></Grid>
+         {userContract?.length>=1 && <>
+        <Grid item xs={3}><b>Contract Number: {userContract[0]?.bushel_uid}</b></Grid>
+       
+        <Grid item xs={3}><b>Contract Status: {userContract[0]?.name}</b></Grid>
+      </>}
+      </Grid>
       <br />
       {statuses.map((status) => {
         return (
           <div key={status.id}>
-            {status.name === detail?.field_status && (
+            {status.name === currentTransaction?.field_status && (
               <div className="Current_Status">
                 <img src={status.workflow_images} />
               </div>
@@ -58,14 +81,8 @@ function StatusTracker(params) {
           </div>
         );
       })}
-
-      {userContract?.length >=1 && <h3>Contract: {userContract[0]?.bushel_uid}{`\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0`}Status: {userContract[0]?.name}</h3>}
-      {/* {userContract?.length > 1 && userContract.map((contract) => {
-        return (
-          <h3>Contract {contract.bushel_uid} Status: {contract.name}</h3>
-        )}
-        )} */}
-
+      </Card>
+      <br />
     </center>
   );
 }

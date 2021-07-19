@@ -80,7 +80,7 @@ function LoginForm() {
           />
           <br />
           <br />
-          <Button style={submitButton} size="small" onClick={(event) => login(event)}>
+          <Button className='submit-buttons' size="small" onClick={(event) => login(event)}>
             Login
           </Button>
         </form>

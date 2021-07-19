@@ -2,14 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Card} from '@material-ui/core';
+
 
 const submitButton = {
   border: 'solid black 0px',
@@ -24,7 +18,9 @@ const standardButtons = {
   minWidth: '1px',
 };
 
-import '../App/App.css';
+
+
+import '../../index.css';
 
 import ViewFieldRows from './ViewFieldRows';
 
@@ -52,16 +48,18 @@ function ViewFields(params) {
         more details or add new field to enter a new field.
       </h4>
       <br />
-      <TableContainer component={Paper}>
+      <TableContainer>
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>Field Name</TableCell>
-              <TableCell>Location</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Note</TableCell>
-              <TableCell>Buyers</TableCell>
-              <TableCell>Edit / Delete</TableCell>
+              <TableCell><b>Field Name</b></TableCell>
+              <TableCell><b>Location</b></TableCell>
+              <TableCell><b>Status</b></TableCell>
+              <TableCell><b>Note</b></TableCell>
+              <TableCell><b>Buyers</b></TableCell>
+              <TableCell align='center'><b>Prospective Buyer</b></TableCell>
+              <TableCell align='center'><b>Edit</b></TableCell>
+                <TableCell align='center'><b>Delete</b></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -79,7 +77,7 @@ function ViewFields(params) {
         </Table>
       </TableContainer>
       <p>
-        <Button style={submitButton} onClick={() => history.push(`/add_field/`)}>
+        <Button className='submit-buttons' onClick={() => history.push(`/add_field/`)}>
           Add new Field
         </Button>
       </p>

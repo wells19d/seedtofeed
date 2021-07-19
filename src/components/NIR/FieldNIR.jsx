@@ -52,7 +52,6 @@ const cards = {
   border: 'solid black 2px',
   fontFamily: 'Montserrat',
   overflow: 'auto',
-  height: '500px',
   fontSize: '14px',
   boxShadow: '3px 3px 4px 1px grey',
 };
@@ -95,23 +94,23 @@ function FieldNIR(params) {
                   <TableCell>
                     <b>Test Date</b>
                   </TableCell>
-                  <TableCell width="5%">
+                  <TableCell>
                     <b>Oil</b>
                   </TableCell>
-                  <TableCell width="5%">
+                  <TableCell>
                     <b>Moisture</b>
                   </TableCell>
-                  <TableCell width="5%">
+                  <TableCell>
                     <b>Protein</b>
                   </TableCell>
-                  <TableCell width="5%">
+                  <TableCell >
                     <b>Energy</b>
                   </TableCell>
-                  <TableCell width="5%">
+                  <TableCell >
                     <b>Amino Acids</b>
                   </TableCell>
                   {user.farmer && (
-                    <TableCell width="5%">
+                    <TableCell>
                       <b>Edit</b>
                       {`\u00A0\u00A0\u00A0\u00A0`}
                       <b>Delete</b>
@@ -145,7 +144,7 @@ function FieldNIR(params) {
                       {user.farmer && (
                         <TableCell>
                           <Button
-                            style={standardButtons}
+                            className='standard-buttons'
                             title="Edit"
                             color="default"
                             onClick={() =>
@@ -156,7 +155,7 @@ function FieldNIR(params) {
                           </Button>
                           {`\u00A0\u00A0\u00A0\u00A0`}
                           <Button
-                            style={standardButtons}
+                            className='standard-buttons'
                             title="Delete"
                             color="default"
                             onClick={() => deleteButton(test.id)}
@@ -175,12 +174,14 @@ function FieldNIR(params) {
         <br />
         {user.farmer && (
           <Button
-            style={submitButton}
+            className='submit-buttons'
             onClick={() => history.push(`/NIR_form/${fieldID}`)}
           >
             Add NIR Data
           </Button>
         )}
+        <br />
+        <br />
       </Card>
     </>
   );

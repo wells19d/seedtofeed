@@ -208,7 +208,7 @@ function AddFieldForm() {
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
         <Button 
-        style={submitButton}
+        className='submit-buttons'
         size="small" onClick={(event) => addField(event)}>
           Submit
         </Button>

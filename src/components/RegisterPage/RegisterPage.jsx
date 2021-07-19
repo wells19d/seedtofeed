@@ -25,7 +25,7 @@ function RegisterPage() {
       <RegisterForm />
 
       <center>
-        <Button style={submitButton} size="small" onClick={() => {history.push('/login');}}>
+        <Button className='submit-buttons' size="small" onClick={() => {history.push('/login');}}>
           Login Page
         </Button>
       </center>

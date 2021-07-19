@@ -8,6 +8,19 @@ import Button from '@material-ui/core/Button';
 // CUSTOM COMPONENTS
 import LoginForm from '../LoginForm/LoginForm';
 
+const submitButton = {
+  border: 'solid black 0px',
+  background: '#fdb41b',
+  padding: '3px 10px',
+  boxShadow: '3px 3px 4px 0px grey',
+};
+
+const standardButtons = {
+  border: 'solid black 0px',
+  boxShadow: '2px 2px 3px 0px grey',
+  minWidth: '1px',
+};
+
 function LandingPage() {
   const history = useHistory();
 
@@ -34,11 +47,12 @@ function LandingPage() {
           <center>
             <br />
             <Button
+              className='submit-buttons'
               size="small"
               className="btn btn_sizeSm"
               onClick={registration}
             >
-              New Member ? <br />Register Here
+              Register User
             </Button>
           </center>
         </div>

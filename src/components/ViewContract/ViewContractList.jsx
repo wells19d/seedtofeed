@@ -106,7 +106,7 @@ function ViewContractList(params) {
                     <TableCell>{contract.contractID}</TableCell>
                     <TableCell>
                       <Button
-                       style={submitButton}
+                       className='submit-buttons'
                         size="small"
                         onClick={() =>
                           history.push(`/field_details/${contract.fieldID}`)
@@ -120,7 +120,7 @@ function ViewContractList(params) {
                     <TableCell>{contract.crop_type}</TableCell>
                     <TableCell>
                       <Button
-                      style={standardButtons}
+                      className='standard-buttons'
                         size="large"
                         title="Details"
                         color="default"
@@ -136,7 +136,7 @@ function ViewContractList(params) {
 
                         {user.farmer &&
                       <Button
-                      style={standardButtons}
+                      className='standard-buttons'
                         className='button-icons'
                         size='large'
                         title='Delete'
@@ -156,7 +156,7 @@ function ViewContractList(params) {
           <p>
             {user.farmer && (
               <Button
-              style={submitButton}
+              className='submit-buttons'
                 size="small"
                 onClick={() => history.push(`/contract_form/`)}
               >
@@ -168,7 +168,7 @@ function ViewContractList(params) {
         <Grid item xs={1} />
       </Grid>
       <div className="back-button">
-        <Button style={submitButton} onClick={() => history.goBack()}>⬅ Go Back</Button>
+        <Button className='submit-buttons' onClick={() => history.goBack()}>⬅ Go Back</Button>
       </div>
     </center>
   );

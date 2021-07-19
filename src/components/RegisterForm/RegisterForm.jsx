@@ -138,7 +138,7 @@ function RegisterForm() {
               </label>
             </center>
           </h3>
-          <Button style={submitButton} size='small' onClick={(event) => registerUser(event)}>
+          <Button className='submit-buttons' size='small' onClick={(event) => registerUser(event)}>
             Register
           </Button>
         </form>

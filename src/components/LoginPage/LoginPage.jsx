@@ -26,7 +26,7 @@ function LoginPage() {
 
       <center>
         <Button
-        style={submitButton}
+        className='submit-buttons'
           size="small"
           onClick={() => {
             history.push('/registration');
