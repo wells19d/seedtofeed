@@ -106,7 +106,7 @@ function ViewContractList(params) {
                     <TableCell>{contract.contractID}</TableCell>
                     <TableCell>
                       <Button
-                       className='submit-buttons'
+                        className='submit-buttons'
                         size="small"
                         onClick={() =>
                           history.push(`/field_details/${contract.fieldID}`)
@@ -120,7 +120,7 @@ function ViewContractList(params) {
                     <TableCell>{contract.crop_type}</TableCell>
                     <TableCell>
                       <Button
-                      className='standard-buttons'
+                        className='standard-buttons'
                         size="large"
                         title="Details"
                         color="default"
@@ -134,18 +134,17 @@ function ViewContractList(params) {
                       </Button>
 
 
-                        {user.farmer &&
-                      <Button
-                      className='standard-buttons'
-                        className='button-icons'
-                        size='large'
-                        title='Delete'
-                        color='default'
-                        onClick={() => deleteButton(contract.contractID)}
-                      >
+                      {user.farmer &&
+                        <Button
+                          className='standard-buttons'
+                          size='large'
+                          title='Delete'
+                          color='default'
+                          onClick={() => deleteButton(contract.contractID)}
+                        >
 
-                        {trashCan}
-                      </Button>}
+                          {trashCan}
+                        </Button>}
 
                     </TableCell>
                   </TableRow>
@@ -156,7 +155,7 @@ function ViewContractList(params) {
           <p>
             {user.farmer && (
               <Button
-              className='submit-buttons'
+                className='submit-buttons'
                 size="small"
                 onClick={() => history.push(`/contract_form/`)}
               >
