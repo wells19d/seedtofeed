@@ -1,5 +1,55 @@
 .card-header{
-    font-family: 'Montserrat';
-    font-style: italic;
-    font-weight: bolder !important
+    font-family: 'Montserrat' !important;
+    font-style: italic !important;
+    font-weight: bolder !important;
+    font-size: 22px !important;
   }
+
+  .status-tracker{
+    border: solid black 2px !important;
+    box-shadow: 3px 3px 4px 0px grey !important;
+    font-family: 'Montserrat' !important;
+  }
+
+  .welcome-message {
+    margin-top: 25px !important;
+    margin-left: 25px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    padding-bottom: 20px !important;
+    width: 240px !important;
+    height: 50px !important;
+    border: solid black 2px !important;
+    box-shadow: 2px 2px 3px 0px grey !important;
+    font-family: 'Montserrat' !important;
+  }
+
+  .cards{
+    border: solid black 2px !important;
+    font-family: 'Montserrat' !important;
+    box-shadow: 3px 3px 4px 0px grey !important;
+  }
+
+  .fieldlist-card{
+    margin-top: 50px !important;
+    width: 1000px !important;
+  }
+
+  .submit-buttons{
+    background-color: #fdb41b !important;
+    padding: '3px 10px' !important;
+    box-shadow: 3px 3px 4px 0px grey !important;
+    padding: 0px 10px 0px 10px !important;
+  }
+
+  .standard-buttons{
+    border: solid #fdb41b 2px !important;
+    box-shadow: 2px 2px 3px 0px grey !important;
+    padding: 5px 5px 5px 5px !important;
+  }
+
+  .field-submit{
+    width: 25px !important;
+  }
+
+  

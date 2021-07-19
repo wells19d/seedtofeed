@@ -114,6 +114,7 @@ function AddContract(params) {
 
   return (
     <Router>
+      <center>
       <h1>Add Contract</h1>
       <FormControl size="small">
         <Select
@@ -257,8 +258,7 @@ function AddContract(params) {
         size="small"
       />
       <br />
-      <br />
-      <TextField
+      {/* <TextField
         variant="outlined"
         label="Protein"
         type="number"
@@ -297,8 +297,7 @@ function AddContract(params) {
           shrink: true,
         }}
         size="small"
-      />
-      <br />
+      /> */}
       <br />
       <TextField
         variant="outlined"
@@ -355,6 +354,7 @@ function AddContract(params) {
       <Button size="small" onClick={(event) => addContract(event)}>
         Submit
       </Button>
+      </center>
     </Router>
   );
 }

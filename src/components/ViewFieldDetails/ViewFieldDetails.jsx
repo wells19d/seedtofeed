@@ -35,12 +35,13 @@ function ViewFieldDetails() {
           <Grid item xs={10}><StatusTracker fieldID={fieldID} /></Grid>
           <Grid item xs={1} />
 
-          <Grid item xs={1} />
+          <Grid item xs={2} />
+          <Grid item xs={8}><ViewTransactions fieldID={fieldID} /></Grid>
+          <Grid item xs={2} />
 
-          <Grid item xs={5}><FieldNIR fieldID={fieldID} /></Grid>
-          <Grid item xs={5}><ViewTransactions fieldID={fieldID} /></Grid>
-
-          <Grid item xs={1} />
+          <Grid item xs={2} />
+          <Grid item xs={8}><FieldNIR fieldID={fieldID} /></Grid>
+          <Grid item xs={2} />
 
       </Grid>
     </center>

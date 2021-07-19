@@ -60,6 +60,7 @@ function AddNIR() {
   }
 
   return (
+    <center>
     <Router>
       <h1>Add NIR Analysis</h1>
       <TextField
@@ -151,6 +152,7 @@ function AddNIR() {
         Add NIR
       </Button>
     </Router>
+    </center>
   );
 }
 

@@ -13,6 +13,7 @@ import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
 const edit = <FontAwesomeIcon icon={faEdit} />;
 
+import '../../index.css';
 
 function ViewFieldRows(param){
     const dispatch = useDispatch();
@@ -35,11 +36,10 @@ function ViewFieldRows(param){
         }
       }
 
-
     return (
         <>
-            <TableCell>
-                <Button
+             <TableCell>
+                <Button className="submit-buttons"
                     onClick={() => history.push(`/field_details/${field.id}`)}
                 >
                     {field.name}
@@ -49,25 +49,31 @@ function ViewFieldRows(param){
                 <TableCell>{field.field_status}</TableCell>
                 <TableCell>{field.field_note}</TableCell>
                 <TableCell>
-                Buyer Here{' '}
+                No buyers yet
                 {isOpen && (
                     <SetBuyer togglePopup={togglePopup} fieldID={field.id} />
                 )}
                 </TableCell>
+
+                <TableCell align='center'>
+                {/* <Button className='submitButton' onClick={() => togglePopup()}>Add Buyer</Button> */}
+                <Button className='submit-buttons' onClick={() => togglePopup()}>Add</Button>
+                </TableCell>
                 <TableCell>
-                <Button onClick={() => togglePopup()}>Add Buyer</Button>
                 <Button
-                    className="button-icons"
+                    className='standard-buttons'
                     title="Edit"
-                    color="primary"
+                    color="default"
                     onClick={() => history.push(`/edit_field/${field.id}`)}
                 >
                     {edit}
-                </Button>{' '}
-                <Button
-                    className="button-icons"
+                </Button>
+                </TableCell>
+                <TableCell>
+                <Button 
+                    className='standard-buttons'
                     title="Delete"
-                    color="secondary"
+                    color="default"
                     onClick={() => deleteButton(field.id)}
                 >
                     {trashCan}
