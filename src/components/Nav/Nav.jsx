@@ -37,7 +37,7 @@ function Nav() {
     setAnchorEl(null);
   };
 
-  function logOutFunction(){
+  function logOutFunction() {
     dispatch({ type: 'LOGOUT' })
 
     history.push('/home')
@@ -45,10 +45,10 @@ function Nav() {
 
   return (
     <div className="nav">
-      <div className="nav-logo-span"> 
+      <div className="nav-logo-span">
         <h3 className="title">TRACKER</h3>
-      <Link to="/home">
-        <img className="custom-logo-link-img" src={logo} alt="Seed to Feed Logo" />
+        <Link to="/home">
+          <img className="custom-logo-link-img" src={logo} alt="Seed to Feed Logo" />
         </Link>
       </div>
       <Link className="menuButton" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
@@ -66,8 +66,9 @@ function Nav() {
         <MenuItem onClick={handleClose}><Link to="/about">About</Link></MenuItem>
         <MenuItem onClick={handleClose}>{user.id && (<Link to='/contract'>Contracts</Link>)}</MenuItem>
         <MenuItem onClick={handleClose}>{user.id && (<Link to='/signum'>Signum</Link>)}</MenuItem>
+        <MenuItem onClick={handleClick}><a href='http://www.seedtofeed.info/' target="_blank">Seed to Feed</a></MenuItem>
         <MenuItem onClick={handleClose}>{user.id && (<Link onClick={() => logOutFunction()}>Logout</Link>)}</MenuItem>
-        
+
       </Menu>
     </div>
   );
@@ -83,8 +84,8 @@ export default Nav;
       </Link>
           <Link className="navLink" to={loginLinkData.path}>{loginLinkData.text}</Link>
           <Link className="navLink" to="/about">About</Link>
-            
-          
+
+
               {user.farmer === true && user.id && (<Link to='/contract'>Contracts</Link>)}
               {user.farmer === true && user.id && (<Link to='/fieldDB'>Fields</Link>)}
               {user.farmer === true && user.id && (<Link to='/field'>Transactions</Link>)}
