@@ -232,7 +232,7 @@ function ViewContract({ fieldID }) {
             </TableContainer>
           </Grid>
           <Grid item>
-            <h4>NIR Quality Expectations:</h4>
+            <h4>NIR Quality Expectations: {contract.bushel_uid}</h4>
             <TableContainer component={Paper}>
               <Table size='small'>
                 <TableHead>
