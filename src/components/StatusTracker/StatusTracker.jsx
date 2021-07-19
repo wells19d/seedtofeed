@@ -10,15 +10,20 @@ import Button from '@material-ui/core/Button';
 
 function StatusTracker(params) {
   const fieldID = Number(params.fieldID);
+  const user = useSelector((store) => store.user);
 
   const history = useHistory();
   const dispatch = useDispatch();
 
   const statuses = useSelector((store) => store.transactionTypesReducer);
   const details = useSelector((store) => store.fieldDetailsReducer);
-
+  const contracts = useSelector((store) => store.contractListReducer);
 
   let detail = details[details.length - 1]; // This would get the latest entry in the store, assuming that the newest entry is also the newest date.
+  const userContract = contracts?.filter((contract) => (contract.userID === user.id) && contract.fieldID === fieldID);
+
+  
+  // console.log('user Contract', userContract);
   //let detail = details[0];
   // console.log('here are the field details:', details);
   // console.log('What do we have here?', statuses);
@@ -45,6 +50,10 @@ function StatusTracker(params) {
     dispatch({
       type: 'FETCH_TRANSACTION_TYPES',
     });
+
+    dispatch({
+      type: 'FETCH_CONTRACT_LIST'
+    })
   }, []);
 
   // console.log('What is the fieldID', fieldID);
@@ -52,6 +61,8 @@ function StatusTracker(params) {
   return (
     <center>
       <h1><u>{detail?.field_name}</u></h1>
+      <h2>{detail?.crop_type}</h2>
+
       <br />
       {statuses.map((status) => {
         return (
@@ -64,7 +75,13 @@ function StatusTracker(params) {
           </div>
         );
       })}
-      <h3>Contract Status: {detail?.contract_status_name}</h3>
+
+      {userContract?.length === 1 && <h3>Contract {userContract[0]?.bushel_uid} Status: {userContract[0]?.name}</h3>}
+      {userContract?.length > 1 && userContract.map((contract) => {
+      <h3>Contract {contract.bushel_uid} Status: {contract.name}</h3>}
+
+  )}
+
     </center>
   );
 }
