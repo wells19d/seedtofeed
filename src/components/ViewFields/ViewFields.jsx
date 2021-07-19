@@ -11,6 +11,19 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
+const submitButton = {
+  border: 'solid black 0px',
+  background: '#fdb41b',
+  padding: '3px 10px',
+  boxShadow: '3px 3px 4px 0px grey',
+};
+
+const standardButtons = {
+  border: 'solid black 0px',
+  boxShadow: '2px 2px 3px 0px grey',
+  minWidth: '1px',
+};
+
 import '../App/App.css';
 
 import ViewFieldRows from './ViewFieldRows';
@@ -57,7 +70,7 @@ function ViewFields(params) {
               return (
                 <TableRow key={field.id}>
 
-                  <ViewFieldRows field={field} />
+                  <ViewFieldRows field={field}/>
 
                 </TableRow>
               );
@@ -66,7 +79,7 @@ function ViewFields(params) {
         </Table>
       </TableContainer>
       <p>
-        <Button onClick={() => history.push(`/add_field/`)}>
+        <Button style={submitButton} onClick={() => history.push(`/add_field/`)}>
           Add new Field
         </Button>
       </p>

@@ -132,6 +132,10 @@ function EditFieldForm() {
     dispatch({
       type: 'FETCH_CROP_LIST',
     });
+    dispatch({
+          type: 'FETCH_FIELD_LIST',
+          payload: userID,
+        });
   }, []);
 
   return (
@@ -212,7 +216,7 @@ function EditFieldForm() {
             return (
               <MenuItem key={crop.id} value={crop.id}>
                 {crop.crop_type}
-              </MenuItem>
+                </MenuItem>
             );
           })}
         </Select>

@@ -5,6 +5,19 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 
+const submitButton = {
+  border: 'solid black 0px',
+  background: '#fdb41b',
+  padding: '3px 10px',
+  boxShadow: '3px 3px 4px 0px grey',
+};
+
+const standardButtons = {
+  border: 'solid black 0px',
+  boxShadow: '2px 2px 3px 0px grey',
+  minWidth: '1px',
+};
+
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -125,7 +138,7 @@ function RegisterForm() {
               </label>
             </center>
           </h3>
-          <Button size='small' onClick={(event) => registerUser(event)}>
+          <Button style={submitButton} size='small' onClick={(event) => registerUser(event)}>
             Register
           </Button>
         </form>

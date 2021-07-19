@@ -63,6 +63,7 @@ function EditNIR() {
   }
 
   return (
+    <center>
     <Router>
       <h1>Update NIR Analysis</h1>
 
@@ -150,6 +151,7 @@ function EditNIR() {
         Update
       </Button>
     </Router>
+    </center>
   );
 }
 

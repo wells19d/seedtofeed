@@ -10,6 +10,19 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 
+const submitButton = {
+  border: 'solid black 0px',
+  background: '#fdb41b',
+  padding: '3px 10px',
+  boxShadow: '3px 3px 4px 0px grey',
+};
+
+const standardButtons = {
+  border: 'solid black 0px',
+  boxShadow: '2px 2px 3px 0px grey',
+  minWidth: '1px',
+};
+
 function AddFieldForm() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -82,6 +95,7 @@ function AddFieldForm() {
 }, []);
 
   return (
+    <center>
     <Router>
       <h1>Add Field</h1>
       <TextField
@@ -184,6 +198,7 @@ function AddFieldForm() {
       />
       <center>
         <Button
+
           size="small"
           onClick={() => {
             history.push('/user');
@@ -192,11 +207,14 @@ function AddFieldForm() {
           Cancel
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button size="small" onClick={(event) => addField(event)}>
+        <Button 
+        style={submitButton}
+        size="small" onClick={(event) => addField(event)}>
           Submit
         </Button>
       </center>
     </Router>
+    </center>
   );
 }
 

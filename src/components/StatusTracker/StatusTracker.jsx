@@ -59,12 +59,12 @@ function StatusTracker(params) {
         );
       })}
 
-      {userContract?.length === 1 && <h3>Contract {userContract[0]?.bushel_uid} Status: {userContract[0]?.name}</h3>}
-      {userContract?.length > 1 && userContract.map((contract) => {
+      {userContract?.length >=1 && <h3>Contract: {userContract[0]?.bushel_uid}{`\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0`}Status: {userContract[0]?.name}</h3>}
+      {/* {userContract?.length > 1 && userContract.map((contract) => {
         return (
           <h3>Contract {contract.bushel_uid} Status: {contract.name}</h3>
         )}
-        )}
+        )} */}
 
     </center>
   );

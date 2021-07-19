@@ -65,7 +65,7 @@ function Nav() {
         <MenuItem onClick={handleClose}><Link to={loginLinkData.path}>{loginLinkData.text}</Link></MenuItem>
         <MenuItem onClick={handleClose}><Link to="/about">About</Link></MenuItem>
         <MenuItem onClick={handleClose}>{user.id && (<Link to='/contract'>Contracts</Link>)}</MenuItem>
-        <MenuItem onClick={handleClick}><Link to='http://www.seedtofeed.info/' target="_blank">Info Page</Link></MenuItem>
+        <MenuItem onClick={handleClick}><a href='http://www.seedtofeed.info/' target='_blank'>Info Page</a></MenuItem>
         <MenuItem onClick={handleClose}><Link to='/signum'>Signum</Link></MenuItem>
         
         <MenuItem onClick={handleClose}>{user.id && (<Link onClick={() => logOutFunction()}>Logout</Link>)}</MenuItem>
@@ -76,82 +76,3 @@ function Nav() {
 }
 
 export default Nav;
-
-/*
-
-<div className="nav">
-      <Link to="/home">
-          <img className="nav nav-logo-span nav-logo" src={logo} alt="Seed to Feed Logo" />
-      </Link>
-          <Link className="navLink" to={loginLinkData.path}>{loginLinkData.text}</Link>
-          <Link className="navLink" to="/about">About</Link>
-
-
-              {user.farmer === true && user.id && (<Link to='/contract'>Contracts</Link>)}
-              {user.farmer === true && user.id && (<Link to='/fieldDB'>Fields</Link>)}
-              {user.farmer === true && user.id && (<Link to='/field'>Transactions</Link>)}
-              {user.buyer === true && user.id && (<Link to='/contract'>Contracts</Link>)}
-              {user.buyer === true && user.id && (<Link to='/contract_form'>Contract Form</Link>)}
-              {user.id && (<Link className="navLink" to="/info">Info Page</Link>)}
-              {user.id && (<LogOutButton className="navLink" />)}
-    </div >
-
-
-
-
-
-
-<div className="nav">
-      <Link to="/home">
-        <div className="nav-logo-span">
-          <img className="nav-logo" src={logo} alt="Seed to Feed Logo" />
-        </div>
-        <div className="nav-logo-title">
-          <h2>TRACKER</h2>
-        </div>
-
-      </Link>
-      <div>
-        <Link className="navLink" to={loginLinkData.path}>
-          {loginLinkData.text}
-        </Link>
-        <Link className="navLink" to="/about">
-          About
-        </Link>
-
-        {user.id && (
-          <>
-            <Link className="navLink" to="/info">
-              Info Page
-            </Link>
-            <LogOutButton className="navLink" />
-          </>
-        )}
-        <div>
-          {user.farmer === true && user.id && (
-            <Link className="navLink" to='/contract'>Contracts</Link>
-
-          )}
-          {/* {user.farmer === true && user.id && (
-            <Link className="navLink" to='/contract_form'>CONTRACT FORM</Link>
-          )}
-          {user.farmer === true && user.id && (
-            <Link className="navLink" to='/fieldDB'>Fields</Link>
-
-          )}
-          {user.farmer === true && user.id && (
-            <Link className="navLink" to='/field'>TRANSACTIONS</Link>
-          )}
-         {user.buyer === true && user.id && (
-            <Link className="navLink" to='/contract'>Contracts</Link>
-          )}
-
-          {/* {user.buyer === true && user.id && (
-            <Link className="navLink" to='/contract_form'>Contract Form</Link>
-          )}
-        </div>
-
-      </div>
-    </div >
-
-*/
