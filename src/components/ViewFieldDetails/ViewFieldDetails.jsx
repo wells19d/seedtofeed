@@ -29,19 +29,19 @@ function ViewFieldDetails() {
 
   return (
     <center>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} display>
 
-          <Grid item xs={1} />
-          <Grid item xs={10}><StatusTracker fieldID={fieldID} /></Grid>
-          <Grid item xs={1} />
+        <Grid item xs={1} />
+        <Grid item xs={10}><StatusTracker fieldID={fieldID} /></Grid>
+        <Grid item xs={1} />
 
-          <Grid item xs={2} />
-          <Grid item xs={8}><ViewTransactions fieldID={fieldID} /></Grid>
-          <Grid item xs={2} />
+        <Grid item xs={2} />
+        <Grid item xs={8}><ViewTransactions fieldID={fieldID} /></Grid>
+        <Grid item xs={2} />
 
-          <Grid item xs={2} />
-          <Grid item xs={8}><FieldNIR fieldID={fieldID} /></Grid>
-          <Grid item xs={2} />
+        <Grid item xs={2} />
+        <Grid item xs={8}><FieldNIR fieldID={fieldID} /></Grid>
+        <Grid item xs={2} />
 
       </Grid>
     </center>

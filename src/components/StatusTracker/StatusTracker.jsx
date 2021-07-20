@@ -18,6 +18,11 @@ function StatusTracker(params) {
   const statuses = useSelector((store) => store.transactionTypesReducer);
   const details = useSelector((store) => store.fieldDetailsReducer);
   const contracts = useSelector((store) => store.contractListReducer);
+  const fields = useSelector((store) => store.fieldListReducer);
+
+  let field = fields[0];
+
+  console.log('the field is', field);
 
   const transactions = useSelector((store) => store.fieldTransactionsReducer);
   console.log('the transactions for statusTracker', transactions);
@@ -30,7 +35,7 @@ function StatusTracker(params) {
   const currentTransaction = transactions[0]; //the fieldTransaction endpoin is sorted in DESC order by timestamp
 
 
- 
+
 
 
   useEffect(() => {
@@ -57,30 +62,33 @@ function StatusTracker(params) {
   return (
     <center>
       {/* {JSON.stringify(details)} */}
-      <h1><u>Seed Tracker Dashboard</u></h1>
+      <h1><u>Dashboard</u></h1>
       <Card className="status-tracker">
-      <br />
+        <br />
         <Grid container spacing={1}>
-        <Grid item xs={3}><b>Field Name: {detail?.field_name}</b></Grid>
-        <Grid item xs={3}><b>Crop Type: {detail?.crop_type}</b></Grid>
-         {userContract?.length>=1 && <>
-        <Grid item xs={3}><b>Contract Number: {userContract[0]?.bushel_uid}</b></Grid>
-       
-        <Grid item xs={3}><b>Contract Status: {userContract[0]?.name}</b></Grid>
-      </>}
-      </Grid>
-      <br />
-      {statuses.map((status) => {
-        return (
-          <div key={status.id}>
-            {status.name === currentTransaction?.field_status && (
-              <div className="Current_Status">
-                <img src={status.workflow_images} />
-              </div>
-            )}
-          </div>
-        );
-      })}
+          <Grid item xs={3}><b>Field Name: {detail?.field_name}</b></Grid>
+          <Grid item xs={3}><b>Location: {field?.location}</b></Grid>
+          <Grid item xs={3}><b>Crop Type: {detail?.crop_type}</b></Grid>
+          <Grid item xs={3}><b>Acres: {field?.acres}</b></Grid>
+
+
+          {userContract?.length >= 1 && <>
+            <Grid item xs={3}><b>Contract Number: {userContract[0]?.bushel_uid}</b></Grid>
+            <Grid item xs={3}><b>Contract Status: {userContract[0]?.name}</b></Grid>
+          </>}
+        </Grid>
+        <br />
+        {statuses.map((status) => {
+          return (
+            <div key={status.id}>
+              {status.name === currentTransaction?.field_status && (
+                <div className="Current_Status">
+                  <img src={status.workflow_images} />
+                </div>
+              )}
+            </div>
+          );
+        })}
       </Card>
       <br />
     </center>

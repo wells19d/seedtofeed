@@ -36,25 +36,32 @@ function AboutPage() {
       justifyContent: 'space-around',
       overflow: 'hidden',
       backgroundColor: theme.palette.background.paper,
+      textAlign: 'center',
+      margin: theme.spacing(10),
     },
     paper: {
-      padding: theme.spacing(1), //grid padding
+      padding: theme.spacing(2), //grid padding
       textAlign: 'center',
       color: theme.palette.text.secondary,
+
+
     },
     imageList: {
       flexWrap: 'nowrap',
       // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
       transform: 'translateZ(0)',
       color: theme.palette.text.secondary,
+      padding: theme.spacing(2),
 
     },
     title: {
       color: 'black',
+      textAlign: 'left',
+      alignContent: 'bottom',
     },
     titleBar: {
       background:
-        'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+        'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
       color: theme.palette.text.default,
 
     },
