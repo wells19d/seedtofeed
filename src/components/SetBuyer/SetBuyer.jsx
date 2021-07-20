@@ -36,8 +36,6 @@ function SetBuyer(params){
             fieldID: fieldID
             }
     })
-
-    // history.push('/user'); 
     }
 
     return (

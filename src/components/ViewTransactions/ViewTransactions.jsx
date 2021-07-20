@@ -42,12 +42,11 @@ const cards = {
   border: 'solid black 2px',
   fontFamily: 'Montserrat',
   overflow: 'auto',
-  height: '500px',
   fontSize: '14px',
   boxShadow: '3px 3px 4px 1px grey',
 };
 
-
+import '../../index.css';
 
 const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
 const edit = <FontAwesomeIcon icon={faEdit} />;
@@ -99,17 +98,17 @@ function ViewTransactions(params) {
         </CardActionArea>
         <CardContent>
           <Grid container spacing={1}>
-            <Grid item xs={3} align="left">
+            <Grid item xs={2} align="left">
               <b>
                 <div className="field-header"><u>Date - Time</u></div>
               </b>
             </Grid>
-            <Grid item xs={3} align="left">
+            <Grid item xs={2} align="left">
               <b>
                 <u>Field Status</u>
               </b>
             </Grid>
-            <Grid item xs={4} align="left">
+            <Grid item xs={5} align="left">
               <b>
                 <u>Notes</u>
               </b>
@@ -129,13 +128,13 @@ function ViewTransactions(params) {
             {transactions.map((event) => {
               return (
                 <>
-                  <Grid item xs={3} key={event.field_transactions_ID} align="left" ><Moment format="lll">{event.timestamp}</Moment></Grid>
-                  <Grid item xs={3} align="left">{event.field_status}</Grid>
-                  <Grid item xs={4} align="left">{event.status_notes}</Grid>
+                  <Grid item xs={2} key={event.field_transactions_ID} align="left" ><Moment format="lll">{event.timestamp}</Moment></Grid>
+                  <Grid item xs={2} align="left" className='capitalize'>{event.field_status}</Grid>
+                  <Grid item xs={5} align="left" className='capitalize'>{event.status_notes}</Grid>
                   <Grid item xs={2} align="center">
-                    <Button style={standardButtons} title="Edit" color="default" onClick={() => history.push(`/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>{edit}</Button>
+                    <Button  className='standard-buttons' title="Edit" color="default" onClick={() => history.push(`/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>{edit}</Button>
                     {`\u00A0\u00A0\u00A0\u00A0\u00A0`}
-                    <Button style={standardButtons} title="Delete" color="default" onClick={() => deleteButton(event.field_transactions_ID)}>{trashCan}</Button>
+                    <Button  className='standard-buttons' title="Delete" color="default" onClick={() => deleteButton(event.field_transactions_ID)}>{trashCan}</Button>
                   </Grid>
                 </>
               );
@@ -144,7 +143,7 @@ function ViewTransactions(params) {
           <br />
           <br />
           {user.farmer && (
-            <Button style={submitButton} onClick={() => history.push(`/add_transaction/${fieldID}`)}>New Transaction</Button>
+            <Button className='submit-buttons' onClick={() => history.push(`/add_transaction/${fieldID}`)}>New Transaction</Button>
           )}
         </CardContent>
       </Card>

@@ -1,12 +1,25 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
-import logo2 from './logos/logo2.png';
+import supplychain from './logos/supplychain.png';
 
 import Button from '@material-ui/core/Button';
 
 // CUSTOM COMPONENTS
 import LoginForm from '../LoginForm/LoginForm';
+
+const submitButton = {
+  border: 'solid black 0px',
+  background: '#fdb41b',
+  padding: '3px 10px',
+  boxShadow: '3px 3px 4px 0px grey',
+};
+
+const standardButtons = {
+  border: 'solid black 0px',
+  boxShadow: '2px 2px 3px 0px grey',
+  minWidth: '1px',
+};
 
 function LandingPage() {
   const history = useHistory();
@@ -19,7 +32,8 @@ function LandingPage() {
     <div className="container">
       <div className="grid">
         <div className="grid-col grid-col_8">
-          <img className="landing-page" src={logo2} alt="Seed to Feed Logo" />
+          <h1 align="center">Welcome to the Seed to Feed Tracker</h1>
+          <img className="landing-page" src={supplychain} alt="Seed to Feed Logo" />
           <p>
             Seed to Feed was created to help increase profitability for farmers
             and feed producers, as well as the partners in-between. This project
@@ -34,11 +48,12 @@ function LandingPage() {
           <center>
             <br />
             <Button
+              className='submit-buttons'
               size="small"
               className="btn btn_sizeSm"
               onClick={registration}
             >
-              New Member ? <br />Register Here
+              Register User
             </Button>
           </center>
         </div>

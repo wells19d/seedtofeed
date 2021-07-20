@@ -16,15 +16,6 @@ function EditFieldForm() {
   const CHARACTER_LIMIT = 500;
   const params = useParams();
 
-  // const userID = params.userID;
-
-  // useEffect(() => {
-  //   dispatch({
-  //     type: 'FETCH_FIELD_LIST',
-  //     payload: userID,
-  //   });
-  // }, []);
-
   const fieldList = useSelector((store) => store.fieldListReducer);
   // console.log('Field List Details', fieldList);
 
@@ -46,15 +37,6 @@ function EditFieldForm() {
   const fieldTrans = transType[0]?.transaction_type;
   const fieldStatus2 = transType[0]?.field_status;
 
-
-  // console.log('What is the id?', field_to_edit.id);
-  // console.log('What is the name?', field_to_edit.name);
-  // console.log('What is the year', field_to_edit.year);
-  // console.log('What is the crop type?', field_to_edit.crop_id);
-  // console.log('What is location?', field_to_edit.location);
-  // console.log('What is acres?', field_to_edit.acres);
-  // console.log('What is status?', field_to_edit.currentStatus);
-  // console.log('What are the notes?', field_to_edit.field_note);
 
   // LOCAL STATE
 
@@ -132,6 +114,10 @@ function EditFieldForm() {
     dispatch({
       type: 'FETCH_CROP_LIST',
     });
+    dispatch({
+          type: 'FETCH_FIELD_LIST',
+          payload: userID,
+        });
   }, []);
 
   return (
@@ -212,7 +198,7 @@ function EditFieldForm() {
             return (
               <MenuItem key={crop.id} value={crop.id}>
                 {crop.crop_type}
-              </MenuItem>
+                </MenuItem>
             );
           })}
         </Select>

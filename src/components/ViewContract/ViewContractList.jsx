@@ -17,6 +17,19 @@ import { faTrashAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 import '../App/App.css';
 
+const submitButton = {
+  border: 'solid black 0px',
+  background: '#fdb41b',
+  padding: '3px 10px',
+  boxShadow: '3px 3px 4px 0px grey',
+};
+
+const standardButtons = {
+  border: 'solid black 0px',
+  boxShadow: '2px 2px 3px 0px grey',
+  minWidth: '1px',
+};
+
 const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
 const details = <FontAwesomeIcon icon={faInfoCircle} />;
 
@@ -93,6 +106,7 @@ function ViewContractList(params) {
                     <TableCell>{contract.contractID}</TableCell>
                     <TableCell>
                       <Button
+                       className='submit-buttons'
                         size="small"
                         onClick={() =>
                           history.push(`/field_details/${contract.fieldID}`)
@@ -106,9 +120,10 @@ function ViewContractList(params) {
                     <TableCell>{contract.crop_type}</TableCell>
                     <TableCell>
                       <Button
+                      className='standard-buttons'
                         size="large"
                         title="Details"
-                        color="primary"
+                        color="default"
                         onClick={() =>
                           history.push(
                             `/contract_details/${contract.contractID}`
@@ -121,10 +136,11 @@ function ViewContractList(params) {
 
                         {user.farmer &&
                       <Button
+                      className='standard-buttons'
                         className='button-icons'
                         size='large'
                         title='Delete'
-                        color='secondary'
+                        color='default'
                         onClick={() => deleteButton(contract.contractID)}
                       >
 
@@ -140,6 +156,7 @@ function ViewContractList(params) {
           <p>
             {user.farmer && (
               <Button
+              className='submit-buttons'
                 size="small"
                 onClick={() => history.push(`/contract_form/`)}
               >
@@ -151,7 +168,7 @@ function ViewContractList(params) {
         <Grid item xs={1} />
       </Grid>
       <div className="back-button">
-        <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
+        <Button className='submit-buttons' onClick={() => history.goBack()}>⬅ Go Back</Button>
       </div>
     </center>
   );

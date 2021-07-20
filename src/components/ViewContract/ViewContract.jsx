@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 
+
 function ViewContract({ fieldID }) {
   const history = useHistory();
   const params = useParams();
