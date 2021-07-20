@@ -57,11 +57,11 @@ function StatusTracker(params) {
   return (
     <center>
       {/* {JSON.stringify(details)} */}
-      <h1><u>Seed Tracker Dashboard</u></h1>
+      <h1><u>{detail?.field_name} Dashboard</u></h1>
       <Card className="status-tracker">
       <br />
         <Grid container spacing={1}>
-        <Grid item xs={3}><b>Field Name: {detail?.field_name}</b></Grid>
+        <Grid item xs={3}><b>Acres: {detail?.acres}</b></Grid>
         <Grid item xs={3}><b>Crop Type: {detail?.crop_type}</b></Grid>
          {userContract?.length>=1 && <>
         <Grid item xs={3}><b>Contract Number: {userContract[0]?.bushel_uid}</b></Grid>
