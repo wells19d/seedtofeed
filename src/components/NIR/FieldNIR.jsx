@@ -85,7 +85,7 @@ function FieldNIR(params) {
   return (
     <>
       <Typography className='card-header'>NIR Analysis:</Typography>
-      <Card style={cards}>
+      <Card className='cards'>
         <center>
           <TableContainer component={Paper}>
             <Table size="small">

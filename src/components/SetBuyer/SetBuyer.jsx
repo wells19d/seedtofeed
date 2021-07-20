@@ -62,10 +62,11 @@ function SetBuyer(params){
             </Select>
 
             {/* <Button type="button" onClick={() => {history.push('/user')}}> */}
-            <Button type="button" onClick={() => params.togglePopup()}>
+            <Button className='form-cancel' type="button" onClick={() => params.togglePopup()}>
                 Cancel
             </Button>
-            <Button type="button" onClick={()=>setProspectiveBuyer()}>
+            {`\u00A0\u00A0\u00A0`}
+            <Button className='form-submit' type="button" onClick={()=>setProspectiveBuyer()}>
                 Add
             </Button>
         </div>

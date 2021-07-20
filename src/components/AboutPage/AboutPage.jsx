@@ -186,7 +186,7 @@ function AboutPage() {
         <br />
         <br />
         <div>
-          <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
+          <Button className='submit-buttons' onClick={() => history.goBack()}>⬅ Go Back</Button>
         </div>
       </center>
     </React.Fragment >

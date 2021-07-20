@@ -139,6 +139,7 @@ function AddNIR() {
       <br />
       <br />
       <Button
+      className='form-cancel'
         size="small"
         type="button"
         onClick={() => {
@@ -148,7 +149,7 @@ function AddNIR() {
         Cancel
       </Button>
       {`\u00A0\u00A0\u00A0\u00A0`}
-      <Button size="small" type="submit" onClick={(event) => addNIR(event)}>
+      <Button className='form-submit' size="small" type="submit" onClick={(event) => addNIR(event)}>
         Add NIR
       </Button>
     </Router>

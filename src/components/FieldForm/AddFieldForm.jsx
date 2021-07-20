@@ -180,7 +180,7 @@ function AddFieldForm() {
       <br />
       <br />
       {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
-      <Button type="button" onClick={openWidget}>Upload Field Image</Button>
+      <Button className='submit-buttons' onClick={openWidget}>Upload Field Image</Button>
       <br />
       <br />
       <TextField
@@ -198,7 +198,7 @@ function AddFieldForm() {
       />
       <center>
         <Button
-
+          className='form-cancel'
           size="small"
           onClick={() => {
             history.push('/user');
@@ -208,7 +208,7 @@ function AddFieldForm() {
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
         <Button 
-        className='submit-buttons'
+        className='form-submit'
         size="small" onClick={(event) => addField(event)}>
           Submit
         </Button>

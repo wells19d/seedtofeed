@@ -166,7 +166,7 @@ function ViewContract({ fieldID }) {
           <Grid item xs={4} />
         </Grid>
         <div className='back-button'>
-          <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
+          <Button className='form-submit' onClick={() => history.goBack()}>⬅ Go Back</Button>
         </div>
       </center>
     );
@@ -284,7 +284,7 @@ function ViewContract({ fieldID }) {
         
       })}
       <div className='back-button'>
-        <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
+        <Button className='form-submit' onClick={() => history.goBack()}>⬅ Go Back</Button>
       </div>
     </center>
 

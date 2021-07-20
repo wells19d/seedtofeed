@@ -109,6 +109,7 @@ function EditTransaction() {
       <br />
       <br />
       <Button
+      className='form-cancel'
         size="small"
         onClick={() => {
           history.push('/user');
@@ -117,7 +118,7 @@ function EditTransaction() {
         Cancel
       </Button>
       {`\u00A0\u00A0\u00A0\u00A0`}
-      <Button size="small" onClick={(event) => submitButton(event)}>
+      <Button className='form-submit' size="small" onClick={(event) => submitButton(event)}>
         Submit
       </Button>
 

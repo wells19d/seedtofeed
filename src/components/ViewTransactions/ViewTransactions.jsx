@@ -86,7 +86,7 @@ function ViewTransactions(params) {
   return (
     <>
       <Typography className='card-header'>Field Transaction:</Typography>
-      <Card style={cards}>
+      <Card className='cards'>
         <CardActionArea>
           <CardMedia
             component="img"
