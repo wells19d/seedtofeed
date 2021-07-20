@@ -63,7 +63,7 @@ const id = open ? 'simple-popover' : undefined;
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>
+              <TableCell width="16%">
                 <b>Field Name</b>
               </TableCell>
               <TableCell>
