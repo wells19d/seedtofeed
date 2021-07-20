@@ -21,10 +21,6 @@ function StatusTracker(params) {
   const transactions = useSelector((store) => store.fieldTransactionsReducer);
   console.log('the transactions for statusTracker', transactions);
 
-  const transactions = useSelector((store) => store.fieldTransactionsReducer);
-  console.log('the transactions for statusTracker', transactions);
-
-
 
   //let detail = details[details.length - 1]; // This would get the latest entry in the store, assuming that the newest entry is also the newest date.
   let detail = details[0]; // This gets the first entry in the store, assuming that the order has the newest in the first spot.
