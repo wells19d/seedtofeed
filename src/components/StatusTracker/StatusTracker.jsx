@@ -65,7 +65,7 @@ function StatusTracker(params) {
       <h1>Dashboard</h1>
       <Card className="status-tracker">
         <br />
-        <Grid container spacing={1}>
+        <Grid container spacing={0}>
           <Grid item xs={3}><b>Field Name: {detail?.field_name}</b></Grid>
           <Grid item xs={3}><b>Location: {field?.location}</b></Grid>
           <Grid item xs={3}><b>Crop Type: {detail?.crop_type}</b></Grid>
