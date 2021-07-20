@@ -279,7 +279,7 @@ function ViewContract({ fieldID }) {
         
       })}
       <div className='back-button'>
-        <Button className='form-submit' onClick={() => history.goBack()}>⬅ Go Back</Button>
+        <Button className='submit-buttons' onClick={() => history.goBack()}>⬅ Go Back</Button>
       </div>
     </center>
 
