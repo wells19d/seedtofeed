@@ -138,6 +138,7 @@ function EditNIR() {
       <br />
       <br />
       <Button
+      className='form-cancel'
         size="small"
         type="button"
         onClick={() => {
@@ -147,7 +148,7 @@ function EditNIR() {
         Cancel
       </Button>
       {`\u00A0\u00A0\u00A0\u00A0`}
-      <Button size="small" type="submit" onClick={(event) => button(event)}>
+      <Button className='form-submit' size="small" type="submit" onClick={(event) => button(event)}>
         Update
       </Button>
     </Router>

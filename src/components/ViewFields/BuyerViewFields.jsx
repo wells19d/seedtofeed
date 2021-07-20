@@ -74,20 +74,21 @@ function BuyerViewFields(params) {
                   <TableRow key={field.id}>
                     <TableCell>
 
-                      <Button size="small" onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button>
+                      <Button className='submit-buttons' size="small" onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button>
                     </TableCell>
                     <TableCell>{field.location}</TableCell>
                     <TableCell>{field.field_status}</TableCell>
                     <TableCell>{field.field_note}</TableCell>
                     <TableCell>{findFarmer(field)}</TableCell>
-                    <TableCell> <Button onClick={()=>farmerEmail(field)}>Make an offer</Button> </TableCell>
+                    <TableCell> <Button className='submit-buttons' onClick={()=>farmerEmail(field)}>Make an offer</Button> </TableCell>
 
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
-
+          <br /> 
+          <br />   
         </Grid>
         <Grid item xs={1} />
       </Grid>
