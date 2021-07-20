@@ -11,6 +11,12 @@ import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
+const standardButtons = {
+  border: 'solid black 0px',
+  boxShadow: '2px 2px 3px 0px grey',
+  minWidth: '1px'
+};
+
 // NEED TO CREATE AND IMPORT STATUSTRACKER COMPONENT
 
 function ViewFieldDetails() {
@@ -28,23 +34,32 @@ function ViewFieldDetails() {
   const fieldID = params.fieldID;
 
   return (
-    <center>
-      <Grid container spacing={2}>
-
+    <>
+      <center>
+        <Grid container spacing={2}>
           <Grid item xs={1} />
-          <Grid item xs={10}><StatusTracker fieldID={fieldID} /></Grid>
+          <Grid item xs={10}>
+            <StatusTracker fieldID={fieldID} />
+          </Grid>
           <Grid item xs={1} />
 
           <Grid item xs={2} />
-          <Grid item xs={8}><ViewTransactions fieldID={fieldID} /></Grid>
+          <Grid item xs={8}>
+            <ViewTransactions fieldID={fieldID} />
+          </Grid>
           <Grid item xs={2} />
 
           <Grid item xs={2} />
-          <Grid item xs={8}><FieldNIR fieldID={fieldID} /></Grid>
+          <Grid item xs={8}>
+            <FieldNIR fieldID={fieldID} />
+          </Grid>
           <Grid item xs={2} />
-
-      </Grid>
-    </center>
+        </Grid>
+      </center>
+      <Button style={standardButtons} onClick={() => history.goBack()}>
+        ⬅ Go Back
+      </Button>
+    </>
   );
 }
 
