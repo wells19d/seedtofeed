@@ -143,7 +143,7 @@ function AddNIR() {
         size="small"
         type="button"
         onClick={() => {
-          history.push(`/user`);
+          window.location.reload();
         }}
       >
         Cancel

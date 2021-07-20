@@ -24,34 +24,40 @@ function BuyerViewFields(params) {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_BUYER_FIELD_LIST'
+      type: 'FETCH_BUYER_FIELD_LIST',
     });
 
     dispatch({
-      type: 'FETCH_USER_LIST'
-    })
+      type: 'FETCH_USER_LIST',
+    });
   }, []);
 
-
   function findFarmer(param) {
-    let farmer_index = userList.findIndex((user) => user.id === Number(param.farmer_id));
+    let farmer_index = userList.findIndex(
+      (user) => user.id === Number(param.farmer_id)
+    );
     return (
-      <span>{userList[farmer_index]?.first_name} {userList[farmer_index]?.last_name}</span>
-    )
+      <span>
+        {userList[farmer_index]?.first_name} {userList[farmer_index]?.last_name}
+      </span>
+    );
   }
 
   function farmerEmail(param) {
-    let farmer_index = userList.findIndex((user) => user.id === Number(param.farmer_id));
-    return (
-      alert(`Email ${userList[farmer_index].first_name} ${userList[farmer_index].last_name} at ${userList[farmer_index].username}.`)
-    )
+    let farmer_index = userList.findIndex(
+      (user) => user.id === Number(param.farmer_id)
+    );
+    return alert(
+      `Email ${userList[farmer_index].first_name} ${userList[farmer_index].last_name} at ${userList[farmer_index].username}.`
+    );
   }
-
-
 
   return (
     <center>
-      <h4>Below is a list of all of the fields you are listed as a buyer on.  Please click on the field below to see more details.</h4>
+      <h4 className="page-title">
+        Below is a list of all of the fields you are listed as a buyer on.
+        Please click on the field below to see more details.
+      </h4>
       <br />
       <h1>Buyer Field</h1>
       <Grid container spacing={3}>
@@ -73,22 +79,36 @@ function BuyerViewFields(params) {
                 {fieldList.map((field) => (
                   <TableRow key={field.id}>
                     <TableCell>
-
-                      <Button className='submit-buttons' size="small" onClick={() => history.push(`/field_details/${field.id}`)}>{field.name}</Button>
+                      <Button
+                        className="submit-buttons"
+                        size="small"
+                        onClick={() =>
+                          history.push(`/field_details/${field.id}`)
+                        }
+                      >
+                        {field.name}
+                      </Button>
                     </TableCell>
                     <TableCell>{field.location}</TableCell>
                     <TableCell>{field.field_status}</TableCell>
                     <TableCell>{field.field_note}</TableCell>
                     <TableCell>{findFarmer(field)}</TableCell>
-                    <TableCell> <Button className='submit-buttons' onClick={()=>farmerEmail(field)}>Make an offer</Button> </TableCell>
-
+                    <TableCell>
+                      {' '}
+                      <Button
+                        className="submit-buttons"
+                        onClick={() => farmerEmail(field)}
+                      >
+                        Make an offer
+                      </Button>{' '}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
-          <br /> 
-          <br />   
+          <br />
+          <br />
         </Grid>
         <Grid item xs={1} />
       </Grid>

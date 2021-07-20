@@ -98,7 +98,7 @@ function AddTransaction() {
           className='form-cancel'
           size="small"
           onClick={() => {
-            history.push('/user');
+            window.location.reload();
           }}
         >
           Cancel

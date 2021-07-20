@@ -25,19 +25,18 @@ function ViewFields(params) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-
-// -- Add Field Popup
-const [anchorEl, setAnchorEl] = React.useState(null);
-const handleClick = (event) => {
+  // -- Add Field Popup
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-const handleClose = () => {
+  const handleClose = () => {
     setAnchorEl(null);
   };
 
-const open = Boolean(anchorEl);
-const id = open ? 'simple-popover' : undefined; 
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   const fieldList = useSelector((store) => store.fieldListReducer);
   // console.log('The fieldList', fieldList);
