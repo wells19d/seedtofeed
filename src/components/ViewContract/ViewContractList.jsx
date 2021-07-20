@@ -2,33 +2,29 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import AddContract from '../ContractForm/AddContract';
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Grid,
+  Card,
+  Popover,
+  Typography,
+} from '@material-ui/core';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 import '../App/App.css';
 
-const submitButton = {
-  border: 'solid black 0px',
-  background: '#fdb41b',
-  padding: '3px 10px',
-  boxShadow: '3px 3px 4px 0px grey',
-};
 
-const standardButtons = {
-  border: 'solid black 0px',
-  boxShadow: '2px 2px 3px 0px grey',
-  minWidth: '1px',
-};
 
 const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
 const details = <FontAwesomeIcon icon={faInfoCircle} />;
@@ -36,6 +32,18 @@ const details = <FontAwesomeIcon icon={faInfoCircle} />;
 function ViewContractList(params) {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+  
+  const handleClose = () => {
+      setAnchorEl(null);
+    };
+  
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined; 
 
   const userID = params.userID;
   console.log('Here is the user in ViewContractList:', userID);
@@ -155,6 +163,7 @@ function ViewContractList(params) {
           </TableContainer>
           <p>
             {user.farmer && (
+              <>
               <Button
               className='submit-buttons'
                 size="small"
@@ -162,8 +171,25 @@ function ViewContractList(params) {
               >
                 Add New Contract
               </Button>
+              </>
             )}
           </p>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'center',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+          >
+            <Typography ><Card className='popup-cards'><AddContract/></Card></Typography>
+          </Popover>
         </Grid>
         <Grid item xs={1} />
       </Grid>

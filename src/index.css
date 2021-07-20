@@ -31,6 +31,15 @@
     box-shadow: 3px 3px 4px 0px grey !important;
   }
 
+  .popup-cards{
+    border: solid black 2px !important;
+    font-family: 'Montserrat' !important;
+    box-shadow: 3px 3px 4px 0px grey !important;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+    padding-bottom: 35px !important;
+  }
+
   .fieldlist-card{
     margin-top: 50px !important;
     width: 1000px !important;

@@ -143,7 +143,7 @@ function AddNIR() {
         size="small"
         type="button"
         onClick={() => {
-          history.push(`/field_details/${field_id}`);
+          history.push(`/user`);
         }}
       >
         Cancel
