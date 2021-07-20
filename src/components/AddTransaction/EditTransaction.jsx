@@ -14,6 +14,8 @@ function EditTransaction() {
   const history = useHistory();
   const params = useParams();
 
+ 
+
   const field_id = params.fieldID;
   const transaction_id = params.transactionID;
 
@@ -65,66 +67,65 @@ function EditTransaction() {
   }, []);
 
   return (
+    <center>
     <Router>
-      <h1 className="form-titles">Edit Transaction</h1>
-      <TextField
-        variant="outlined"
-        label="Notes"
-        type="text"
-        value={notes}
-        required
-        onChange={(event) => setNotes(event.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <FormControl size="small">
-        <Select
+      <h1>Edit Transaction</h1>
+        <TextField
           variant="outlined"
-          value={transactionType}
+          label="Notes"
+          type="text"
+          value={notes}
           required
-          style={{ width: '155px' }}
-          onChange={(event) => setTransactionType(event.target.value)}
-          displayEmpty
+          onChange={(event) => setNotes(event.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          size="small"
+        />
+        <br />
+        <br />
+        <FormControl size="small">
+          <Select
+            variant="outlined"
+            value={transactionType}
+            required
+            style={{ width: '155px' }}
+            onChange={(event) => setTransactionType(event.target.value)}
+            displayEmpty
+          >
+            <MenuItem value="" disabled size="small">
+              <em>Transaction Type</em>
+            </MenuItem>
+            {transactionList?.map((transaction) => {
+              console.log('transaction type:', transaction);
+              return (
+                <MenuItem key={transaction.id} value={transaction.id}>
+                  {transaction.name}
+                </MenuItem>
+              );
+            })}
+
+
+          </Select>
+
+        </FormControl>
+        <br />
+        <br />
+        <Button
+          className='form-cancel'
+          size="small"
+          onClick={() => {
+            history.push('/field_details');
+          }}
         >
-          <MenuItem value="" disabled size="small">
-            <em>Transaction Type</em>
-          </MenuItem>
-          {transactionList?.map((transaction) => {
-            console.log('transaction type:', transaction);
-            return (
-              <MenuItem key={transaction.id} value={transaction.id}>
-                {transaction.name}
-              </MenuItem>
-            );
-          })}
-
-
-        </Select>
-
-      </FormControl>
-      <br />
-      <br />
-      <Button
-        size="small"
-        onClick={() => {
-          history.push('/user');
-        }}
-      >
-        Cancel
-      </Button>
-      {`\u00A0\u00A0\u00A0\u00A0`}
-      <Button size="small" onClick={(event) => submitButton(event)}>
-        Submit
-      </Button>
-
-      <div className="back-button">
-        <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
-      </div>
-    </Router>);
+          Cancel
+        </Button>
+        {`\u00A0\u00A0\u00A0\u00A0`}
+        <Button className='form-submit' size="small" onClick={(event) => submitButton(event)}>
+          Submit
+        </Button>
+    </Router >
+    </center>);
 }
 
 

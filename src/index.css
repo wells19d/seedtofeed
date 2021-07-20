@@ -17,17 +17,27 @@
     padding-left: 15px !important;
     padding-right: 15px !important;
     padding-bottom: 20px !important;
-    width: 240px !important;
+    width: 350px !important;
     height: 50px !important;
     border: solid black 2px !important;
     box-shadow: 2px 2px 3px 0px grey !important;
     font-family: 'Montserrat' !important;
+    text-align: center !important;
   }
 
   .cards{
     border: solid black 2px !important;
     font-family: 'Montserrat' !important;
     box-shadow: 3px 3px 4px 0px grey !important;
+  }
+
+  .popup-cards{
+    border: solid black 2px !important;
+    font-family: 'Montserrat' !important;
+    box-shadow: 3px 3px 4px 0px grey !important;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+    padding-bottom: 35px !important;
   }
 
   .fieldlist-card{
@@ -37,6 +47,22 @@
 
   .submit-buttons{
     background-color: #fdb41b !important;
+    padding: '3px 10px' !important;
+    box-shadow: 3px 3px 4px 0px grey !important;
+    padding: 0px 10px 0px 10px !important;
+  }
+
+  .form-cancel{
+    color: red !important;
+    border: solid black 1px !important;
+    padding: '3px 10px' !important;
+    box-shadow: 3px 3px 4px 0px grey !important;
+    padding: 0px 10px 0px 10px !important;
+  }
+
+  .form-submit{
+    color: green !important;
+    border: solid black 1px !important;
     padding: '3px 10px' !important;
     box-shadow: 3px 3px 4px 0px grey !important;
     padding: 0px 10px 0px 10px !important;

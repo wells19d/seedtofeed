@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
+import AddNIR from '../NIR/AddNIR';
+
 import '../../../src/index.css';
 
 import {
@@ -13,6 +15,7 @@ import {
   CardMedia,
   Button,
   Typography,
+  Popover,
 } from '@material-ui/core';
 
 import Table from '@material-ui/core/Table';
@@ -29,36 +32,23 @@ import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
 const edit = <FontAwesomeIcon icon={faEdit} />;
 
-const title = {
-  fontFamily: 'Montserrat',
-  fontStyle: 'italic',
-  fontWeight: '600',
-};
-
-const submitButton = {
-  border: 'solid black 0px',
-  background: '#fdb41b',
-  padding: '3px 10px',
-  boxShadow: '3px 3px 4px 0px grey',
-};
-
-const standardButtons = {
-  border: 'solid black 0px',
-  boxShadow: '2px 2px 3px 0px grey',
-  minWidth: '1px',
-};
-
-const cards = {
-  border: 'solid black 2px',
-  fontFamily: 'Montserrat',
-  overflow: 'auto',
-  fontSize: '14px',
-  boxShadow: '3px 3px 4px 1px grey',
-};
 
 function FieldNIR(params) {
   const history = useHistory();
   const dispatch = useDispatch();
+
+  // -- Add NIR Popup
+const [anchorEl, setAnchorEl] = React.useState(null);
+const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+const open = Boolean(anchorEl);
+const id = open ? 'simple-popover' : undefined; 
 
   const fieldNIR = useSelector((store) => store.fieldNIRReducer);
   const user = useSelector((store) => store.user);
@@ -83,9 +73,9 @@ function FieldNIR(params) {
   }
 
   return (
-    <>
+    <center>
       <Typography className='card-header'>NIR Analysis:</Typography>
-      <Card style={cards}>
+      <Card className='cards'>
         <center>
           <TableContainer component={Paper}>
             <Table size="small">
@@ -173,17 +163,32 @@ function FieldNIR(params) {
         </center>
         <br />
         {user.farmer && (
-          <Button
-            className='submit-buttons'
-            onClick={() => history.push(`/NIR_form/${fieldID}`)}
-          >
+          <>
+          <Button className='submit-buttons' onClick={handleClick}>
             Add NIR Data
           </Button>
+          </>
         )}
         <br />
         <br />
       </Card>
-    </>
+      <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'center',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+          >
+            <Typography ><Card className='popup-cards'><AddNIR/></Card></Typography>
+          </Popover>
+    </center>
   );
 }
 

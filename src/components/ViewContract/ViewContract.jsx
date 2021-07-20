@@ -2,16 +2,20 @@ import React, { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Grid,
+  Card,
+  Popover,
+} from '@material-ui/core';
+
 
 
 function ViewContract({ fieldID }) {
@@ -25,16 +29,7 @@ function ViewContract({ fieldID }) {
   const contractID = params.contractID;
   console.log('here is the contract ID:', contractID);
 
-
-
-
-
-
   const user = useSelector((store) => store.user);
-
-
-
-
 
   useEffect(() => {
     if (user.farmer === true) {
@@ -166,7 +161,7 @@ function ViewContract({ fieldID }) {
           <Grid item xs={4} />
         </Grid>
         <div className='back-button'>
-          <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
+          <Button className='form-submit' onClick={() => history.goBack()}>⬅ Go Back</Button>
         </div>
       </center>
     );
@@ -284,7 +279,7 @@ function ViewContract({ fieldID }) {
         
       })}
       <div className='back-button'>
-        <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
+        <Button className='form-submit' onClick={() => history.goBack()}>⬅ Go Back</Button>
       </div>
     </center>
 

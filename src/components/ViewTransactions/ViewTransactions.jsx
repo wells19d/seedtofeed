@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
+import AddTransaction from '../AddTransaction/AddTransaction';
+import EditTransaction from '../AddTransaction/EditTransaction';
+
 import {
   Grid,
   Card,
@@ -11,40 +14,12 @@ import {
   CardContent,
   CardMedia,
   Button,
-  Typography,
+  Typography, Popover,
 } from '@material-ui/core';
 
-import '../../../src/index.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
-
-const title = {
-  fontFamily: 'Montserrat',
-  fontStyle: 'italic',
-  fontWeight: '600',
-};
-
-const submitButton = {
-  border: 'solid black 0px',
-  background: '#fdb41b',
-  padding: '3px 10px',
-  boxShadow: '3px 3px 4px 0px grey',
-};
-
-const standardButtons = {
-  border: 'solid black 0px',
-  boxShadow: '2px 2px 3px 0px grey',
-  minWidth: '1px',
-};
-
-const cards = {
-  border: 'solid black 2px',
-  fontFamily: 'Montserrat',
-  overflow: 'auto',
-  fontSize: '14px',
-  boxShadow: '3px 3px 4px 1px grey',
-};
 
 import '../../index.css';
 
@@ -53,6 +28,20 @@ const edit = <FontAwesomeIcon icon={faEdit} />;
 
 function ViewTransactions(params) {
   const fieldID = params.fieldID;
+
+  // -- Add Transaction Popup
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   const transactions = useSelector((store) => store.fieldTransactionsReducer);
   const user = useSelector((store) => store.user);
@@ -84,9 +73,9 @@ function ViewTransactions(params) {
   }, []);
 
   return (
-    <>
+    <center>
       <Typography className='card-header'>Field Transaction:</Typography>
-      <Card style={cards}>
+      <Card className='cards'>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -143,11 +132,33 @@ function ViewTransactions(params) {
           <br />
           <br />
           {user.farmer && (
-            <Button className='submit-buttons' onClick={() => history.push(`/add_transaction/${fieldID}`)}>New Transaction</Button>
+            <>
+            <Button className='submit-buttons' onClick={handleClick}>
+            Add Transaction
+          </Button>
+          
+          </>
           )}
+
         </CardContent>
       </Card>
-    </>
+      <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'center',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+          >
+            <Typography ><Card className='popup-cards'><AddTransaction/></Card></Typography>
+          </Popover>
+    </center>
   );
 }
 

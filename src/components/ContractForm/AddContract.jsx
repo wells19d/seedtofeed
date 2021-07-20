@@ -343,6 +343,7 @@ function AddContract(params) {
       <br />
       <br />
       <Button
+      className='form-cancel'
         size="small"
         onClick={() => {
           history.push('/contract');
@@ -351,7 +352,7 @@ function AddContract(params) {
         Cancel
       </Button>
       {`\u00A0\u00A0\u00A0\u00A0`}
-      <Button size="small" onClick={(event) => addContract(event)}>
+      <Button className='form-submit' size="small" onClick={(event) => addContract(event)}>
         Submit
       </Button>
       </center>

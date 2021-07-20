@@ -206,7 +206,7 @@ function EditFieldForm() {
       <br />
       <br />
       {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
-      <Button type="button" onClick={openWidget}>Upload Field Image</Button>
+      <Button className='submit-buttons' onClick={openWidget}>Upload Field Image</Button>
       <br />
       <br />
       <TextField
@@ -224,6 +224,7 @@ function EditFieldForm() {
       />
       <center>
         <Button
+        className='form-cancel'
           size="small"
           onClick={() => {
             history.push('/user');
@@ -232,7 +233,8 @@ function EditFieldForm() {
           Cancel
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button size="small" onClick={(event) => updateField(event)}>
+        <Button className='form-submit'
+        size="small" onClick={(event) => updateField(event)}>
           Submit
         </Button>
       </center>

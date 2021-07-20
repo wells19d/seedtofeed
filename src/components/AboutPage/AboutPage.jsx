@@ -63,137 +63,185 @@ function AboutPage() {
 
 
   return (
-    <React.Fragment>
-      <center>
-        <Grid direction='flex' container spacing={1} >
-          <Grid item xs>
-            <Paper className={classes.paper}>
-              The Seed to Feed Tracker is an app and dashboard that will show the
-              process of seed to feed while including information about quality of
-              the commodity. This will be done by allowing producers to enter
-              information about the planting and growing process up until elevator
-              delivery. After the grain is delivered we will be aggregating
-              information from already existing players (Grand Farm, Bushel,
-              AgriDigital, Geora) and displaying that information as a way to
-              further market grain by showing the added value received from
-              purchasing Seed to Feed product.
-            </Paper>
+    <center>
+        <Grid direction="flex" container spacing={1}>
+          <br />
+          <Grid item xs={12} />
+          <br />
+          <Grid item xs={2} />
+          <Grid item xs={8}>
+            <p>
+              The Seed to Feed Tracker is an app and dashboard that will show
+              the process of seed to feed while including information about
+              quality of the commodity. This will be done by allowing producers
+              to enter information about the planting and growing process up
+              until elevator delivery. After the grain is delivered we will be
+              aggregating information from already existing players (Grand Farm,
+              Bushel, AgriDigital, Geora) and displaying that information as a
+              way to further market grain by showing the added value received
+              from purchasing Seed to Feed product.
+            </p>
+            <br />
           </Grid>
+          <Grid item xs={2} />
+
+          <Grid item xs={1} />
+          <Grid item xs={10}>
+            <ImageList className={classes.imageList} cols={4}>
+            <ImageListItem>
+            <img
+              src={photo1}
+              alt="Planting"
+              className="about-image"
+              width="500"
+            />
+            <ImageListItemBar
+              position="bottom"
+              title="Seed"
+              classes={{
+                root: classes.titleBar,
+                title: classes.title,
+              }}
+            />
+          </ImageListItem>
+
+          <ImageListItem>
+            <img
+              src={photo2}
+              alt="Soybean lifecycle"
+              className="about-image"
+              width="500"
+            />
+            <ImageListItemBar
+              position="bottom"
+              title="Lifecycle"
+              classes={{
+                root: classes.titleBar,
+                title: classes.title,
+              }}
+            />
+          </ImageListItem>
+
+          <ImageListItem>
+            <img
+              src={photo3}
+              alt="Harvest"
+              className="about-image"
+              width="500"
+            />
+            <ImageListItemBar
+              position="bottom"
+              title="Harvest"
+              classes={{
+                root: classes.titleBar,
+                title: classes.title,
+              }}
+            />
+          </ImageListItem>
+
+          <ImageListItem>
+            <img
+              src={photo4}
+              alt="Transit to elevator"
+              className="about-image"
+              width="500"
+            />
+            <ImageListItemBar
+              position="bottom"
+              title="Elevator"
+              classes={{
+                root: classes.titleBar,
+                title: classes.title,
+              }}
+            />
+          </ImageListItem>
+            </ImageList>
+          </Grid>
+          <Grid item xs={1} />
+
+          <Grid item xs={1} />
+          <Grid item xs={10}>
+            <ImageList className={classes.imageList} cols={4}>
+            <ImageListItem>
+            <img
+              src={photo5}
+              alt="Train to storage"
+              className="about-image"
+              width="500"
+            />
+            <ImageListItemBar
+              position="bottom"
+              title="Storage"
+              classes={{
+                root: classes.titleBar,
+                title: classes.title,
+              }}
+            />
+          </ImageListItem>
+
+          <ImageListItem>
+            <img
+              src={photo6}
+              alt="Shipped around world"
+              className="about-image"
+              width="500"
+            />
+            <ImageListItemBar
+              position="bottom"
+              title="Shipped Worldwide"
+              classes={{
+                root: classes.titleBar,
+                title: classes.title,
+              }}
+            />
+          </ImageListItem>
+
+          <ImageListItem>
+            <img
+              src={photo7}
+              alt="Mills receive soybeans"
+              className="about-image"
+              width="500"
+            />
+            <ImageListItemBar
+              position="bottom"
+              title="Milling"
+              classes={{
+                root: classes.titleBar,
+                title: classes.title,
+              }}
+            />
+          </ImageListItem>
+
+          <ImageListItem>
+            <img
+              src={photo8}
+              alt="Mill to farm"
+              className="about-image"
+              width="500"
+            />
+            <ImageListItemBar
+              position="bottom"
+              title="Feed"
+              classes={{
+                root: classes.titleBar,
+                title: classes.title,
+              }}
+            />
+          </ImageListItem>
+            </ImageList>
+          </Grid>
+          <Grid item xs={1} />
         </Grid>
-
-
-        <ImageList className={classes.imageList} cols={6}>
-          <ImageListItem>
-
-            <img src={photo1} alt="Planting" className="about-image" width="500" />
-            <ImageListItemBar
-              position="bottom"
-              title='Seed'
-              classes={{
-                root: classes.titleBar,
-                title: classes.title,
-              }} />
-          </ImageListItem>
-
-          <ImageListItem>
-            <img src={photo2} alt="Soybean lifecycle" className="about-image" width="500" />
-            <ImageListItemBar
-              position="bottom"
-
-              title='Lifecycle'
-              classes={{
-                root: classes.titleBar,
-                title: classes.title,
-              }} />
-          </ImageListItem>
-
-          <ImageListItem>
-
-            <img src={photo3} alt="Harvest" className="about-image" width="500" />
-            <ImageListItemBar
-              position="bottom"
-
-              title='Harvest'
-              classes={{
-                root: classes.titleBar,
-                title: classes.title,
-              }} />
-          </ImageListItem>
-
-          <ImageListItem>
-
-            <img src={photo4} alt="Transit to elevator" className="about-image" width="500" />
-            <ImageListItemBar
-              position="bottom"
-
-              title='Elevator'
-              classes={{
-                root: classes.titleBar,
-                title: classes.title,
-              }} />
-          </ImageListItem>
-
-          <ImageListItem>
-            <img src={photo5} alt="Train to storage" className="about-image" width="500" />
-            <ImageListItemBar
-              position="bottom"
-
-              title='Storage'
-              classes={{
-                root: classes.titleBar,
-                title: classes.title,
-              }} />
-          </ImageListItem>
-
-          <ImageListItem>
-            <img src={photo6} alt="Shipped around world" className="about-image" width="500" />
-            <ImageListItemBar
-              position="bottom"
-
-              title='Shipped Worldwide'
-              classes={{
-                root: classes.titleBar,
-                title: classes.title,
-              }} />
-          </ImageListItem>
-
-          <ImageListItem>
-            <img src={photo7} alt="Mills receive soybeans" className="about-image" width="500" />
-            <ImageListItemBar
-              position="bottom"
-
-              title='Milling'
-              classes={{
-                root: classes.titleBar,
-                title: classes.title,
-              }} />
-          </ImageListItem>
-
-          <ImageListItem>
-            <img src={photo8} alt="Mill to farm" className="about-image" width="500" />
-            <ImageListItemBar
-              position="bottom"
-
-              title='Feed'
-              classes={{
-                root: classes.titleBar,
-                title: classes.title,
-              }} />
-          </ImageListItem>
-
-
-        </ImageList>
         <br />
         <br />
         <div>
-          <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
+          <Button className="submit-buttons" onClick={() => history.goBack()}>
+            ⬅ Go Back
+          </Button>
         </div>
       </center>
-    </React.Fragment >
-
-
   );
 
 }
 export default AboutPage;
-

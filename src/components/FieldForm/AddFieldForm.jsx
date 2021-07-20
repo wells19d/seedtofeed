@@ -10,19 +10,6 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 
-const submitButton = {
-  border: 'solid black 0px',
-  background: '#fdb41b',
-  padding: '3px 10px',
-  boxShadow: '3px 3px 4px 0px grey',
-};
-
-const standardButtons = {
-  border: 'solid black 0px',
-  boxShadow: '2px 2px 3px 0px grey',
-  minWidth: '1px',
-};
-
 function AddFieldForm() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -46,10 +33,16 @@ function AddFieldForm() {
   const addField = (event) => {
     event.preventDefault();
 
-    if (fieldName.length === 0, fieldYear.length === 0, cropType.length === 0, location.length === 0, acres.length === 0, notes.length === 0){
-      return alert('Please fill in required fields')
-    }
-    else {
+    if (
+      (fieldName.length === 0,
+      fieldYear.length === 0,
+      cropType.length === 0,
+      location.length === 0,
+      acres.length === 0,
+      notes.length === 0)
+    ) {
+      return alert('Please fill in required fields');
+    } else {
       history.push('/user');
 
       dispatch({
@@ -72,148 +65,155 @@ function AddFieldForm() {
     // to submit when clicked. So for now just using the standard widget that
     // is available on window.cloudinary
     // See docs: https://cloudinary.com/documentation/upload_widget#look_and_feel_customization
-    !!window.cloudinary && window.cloudinary.createUploadWidget(
-       {
-          sources: ['local', 'url', 'camera'],
-          cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
-          uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
-       },
-       function(error, result) {
-          console.log(result);
-          if (!error && result && result.event === "success") {
-             // When an upload is successful, save the uploaded URL to local state!
-             setImage(result.info.secure_url);
+    !!window.cloudinary &&
+      window.cloudinary
+        .createUploadWidget(
+          {
+            sources: ['local', 'url', 'camera'],
+            cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
+            uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+          },
+          function (error, result) {
+            console.log(result);
+            if (!error && result && result.event === 'success') {
+              // When an upload is successful, save the uploaded URL to local state!
+              setImage(result.info.secure_url);
+            }
           }
-       },
-    ).open();
- }
+        )
+        .open();
+  };
 
- useEffect(() => {
-  dispatch({
-    type: 'FETCH_CROP_LIST',
-  });
-}, []);
+  useEffect(() => {
+    dispatch({
+      type: 'FETCH_CROP_LIST',
+    });
+  }, []);
 
   return (
     <center>
-    <Router>
-      <h1>Add Field</h1>
-      <TextField
-        variant="outlined"
-        label="Field Name"
-        type="text"
-        value={fieldName}
-        onChange={(event) => setFieldName(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Location"
-        type="text"
-        value={location}
-        onChange={(event) => setLocation(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Number of Acres"
-        type="number"
-        value={acres}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setAcres(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Year"
-        type="number"
-        value={fieldYear}
-        InputProps={{ inputProps: { min: 1900 } }}
-        onChange={(event) => setFieldYear(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <FormControl size="small">
-        <Select
+      <Router>
+        <h1>Add Field</h1>
+        <TextField
           variant="outlined"
-          value={cropType}
+          label="Field Name"
+          type="text"
+          value={fieldName}
+          onChange={(event) => setFieldName(event.target.value)}
           required
-          style={{ width: '155px' }}
-          onChange={(event) => setCropType(event.target.value)}
-          displayEmpty
-        >
-          <MenuItem value="" disabled size="small">
-            <em>Crop Type</em>
-          </MenuItem>
-          {crops?.map((crop) => {
-            return (
-              <MenuItem key={crop.id} value={crop.id}>
-                {crop.crop_type}
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </FormControl>
-      <br />
-      <br />
-      {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
-      <Button type="button" onClick={openWidget}>Upload Field Image</Button>
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Field Notes"
-        type="text"
-        value={notes}
-        style={{ minWidth: '500px' }}
-        helperText={`${notes.length}/${CHARACTER_LIMIT}`}
-        onChange={(event) => setNotes(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <center>
-        <Button
-
-          size="small"
-          onClick={() => {
-            history.push('/user');
+          InputLabelProps={{
+            shrink: true,
           }}
-        >
-          Cancel
+          size="small"
+        />
+        <br />
+        <br />
+        <TextField
+          variant="outlined"
+          label="Location"
+          type="text"
+          value={location}
+          onChange={(event) => setLocation(event.target.value)}
+          required
+          InputLabelProps={{
+            shrink: true,
+          }}
+          size="small"
+        />
+        <br />
+        <br />
+        <TextField
+          variant="outlined"
+          label="Number of Acres"
+          type="number"
+          value={acres}
+          InputProps={{ inputProps: { min: 0 } }}
+          onChange={(event) => setAcres(event.target.value)}
+          required
+          InputLabelProps={{
+            shrink: true,
+          }}
+          size="small"
+        />
+        <br />
+        <br />
+        <TextField
+          variant="outlined"
+          label="Year"
+          type="number"
+          value={fieldYear}
+          InputProps={{ inputProps: { min: 1900 } }}
+          onChange={(event) => setFieldYear(event.target.value)}
+          required
+          InputLabelProps={{
+            shrink: true,
+          }}
+          size="small"
+        />
+        <br />
+        <br />
+        <FormControl size="small">
+          <Select
+            variant="outlined"
+            value={cropType}
+            required
+            style={{ width: '155px' }}
+            onChange={(event) => setCropType(event.target.value)}
+            displayEmpty
+          >
+            <MenuItem value="" disabled size="small">
+              <em>Crop Type</em>
+            </MenuItem>
+            {crops?.map((crop) => {
+              return (
+                <MenuItem key={crop.id} value={crop.id}>
+                  {crop.crop_type}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+        <br />
+        <br />
+        {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
+        <Button className="submit-buttons" onClick={openWidget}>
+          Upload Field Image
         </Button>
-        {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button 
-        className='submit-buttons'
-        size="small" onClick={(event) => addField(event)}>
-          Submit
-        </Button>
-      </center>
-    </Router>
+        <br />
+        <br />
+        <TextField
+          variant="outlined"
+          label="Field Notes"
+          type="text"
+          value={notes}
+          style={{ minWidth: '500px' }}
+          helperText={`${notes.length}/${CHARACTER_LIMIT}`}
+          onChange={(event) => setNotes(event.target.value)}
+          required
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <center>
+          <Button
+            className="form-cancel"
+            size="small"
+            onClick={() => {
+              history.push('/user');
+            }}
+          >
+            Cancel
+          </Button>
+          {`\u00A0\u00A0\u00A0\u00A0`}
+          <Button
+            className="form-submit"
+            size="small"
+            onClick={(event) => addField(event)}
+          >
+            Submit
+          </Button>
+        </center>
+      </Router>
     </center>
   );
 }
