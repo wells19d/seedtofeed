@@ -18,6 +18,7 @@ function StatusTracker(params) {
   const statuses = useSelector((store) => store.transactionTypesReducer);
   const details = useSelector((store) => store.fieldDetailsReducer);
   const contracts = useSelector((store) => store.contractListReducer);
+
   const fields = useSelector((store) => store.fieldListReducer);
 
   let field = fields[0];
@@ -26,7 +27,6 @@ function StatusTracker(params) {
 
   const transactions = useSelector((store) => store.fieldTransactionsReducer);
   console.log('the transactions for statusTracker', transactions);
-
 
 
   //let detail = details[details.length - 1]; // This would get the latest entry in the store, assuming that the newest entry is also the newest date.
@@ -53,7 +53,9 @@ function StatusTracker(params) {
     })
 
     dispatch({
-      type: 'FETCH_FIELD_TRANSACTIONS'
+      type: 'FETCH_FIELD_TRANSACTIONS',
+      payload: fieldID
+
     })
   }, []);
 

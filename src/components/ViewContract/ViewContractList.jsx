@@ -55,6 +55,10 @@ function ViewContractList(params) {
       dispatch({
         type: 'FETCH_CONTRACT_LIST',
       });
+
+      dispatch({
+        type: 'FETCH_CONTRACT_SHORTLIST'
+      })
     }
     if (user.buyer === true) {
       dispatch({
@@ -66,6 +70,9 @@ function ViewContractList(params) {
   // REDUCER STORE
   const contractList = useSelector((store) => store.contractListReducer);
   console.log('The contractList', contractList);
+
+  const contractShortList = useSelector((store) => store.contractShortListReducer); //just for list of contract on this page
+  console.log('The contract Short List', contractShortList);
 
   function deleteButton(contractID) {
     let remove = confirm(
@@ -114,7 +121,7 @@ function ViewContractList(params) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {contractList.map((contract) => (
+                {contractShortList.map((contract) => (
                   <TableRow key={contract.contractID}>
                     <TableCell>{contract.contractID}</TableCell>
                     <TableCell>
