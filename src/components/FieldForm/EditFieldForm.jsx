@@ -4,20 +4,13 @@ import { HashRouter as Router, useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useScript } from '../../hooks/useScript';
 
-import TextField from '@material-ui/core/TextField';
-// import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-
 import {
-  Grid,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
   Button,
-  Typography
+  Card,
+  FormControl,
+  MenuItem,
+  Select,
+  TextField
 } from '@material-ui/core';
 
 const cards = {
@@ -276,7 +269,7 @@ function EditFieldForm() {
           </center>
         </Card>
       </center>
-      <Button  style={standardButtons} onClick={() => history.goBack()}>
+      <Button style={standardButtons} onClick={() => history.goBack()}>
         ⬅ Go Back
       </Button>
     </Router>

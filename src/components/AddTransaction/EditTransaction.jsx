@@ -3,11 +3,30 @@ import { useSelector } from 'react-redux';
 import { HashRouter as Router, useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
+import {
+  Button,
+  Card,
+  FormControl,
+  MenuItem,
+  Select,
+  TextField
+} from '@material-ui/core';
+
+const cards = {
+  border: 'solid black 2px',
+  fontFamily: 'Montserrat',
+  overflow: 'auto',
+  fontSize: '14px',
+  boxShadow: '3px 3px 4px 1px grey',
+  width: '400px',
+  padding: '20px'
+};
+
+const standardButtons = {
+  border: 'solid black 0px',
+  boxShadow: '2px 2px 3px 0px grey',
+  minWidth: '1px'
+};
 
 function EditTransaction() {
   const dispatch = useDispatch();
@@ -36,9 +55,8 @@ function EditTransaction() {
     event.preventDefault();
 
     if (notes.length === 0) {
-      return alert('Fill in required fields')
-    }
-    else {
+      return alert('Fill in required fields');
+    } else {
       dispatch({
         type: 'UPDATE_TRANSACTION',
         payload: {
@@ -46,8 +64,8 @@ function EditTransaction() {
           transaction_id: transaction_id,
           status_notes: notes,
           // field_status: transactionList[transactionType]?.name,
-          transaction_type: transactionType,
-        },
+          transaction_type: transactionType
+        }
       });
 
       history.push(`/field_details/${field_id}`);
@@ -56,82 +74,81 @@ function EditTransaction() {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_TRANSACTION_TYPES',
+      type: 'FETCH_TRANSACTION_TYPES'
     });
     dispatch({
       type: 'FETCH_FIELD_TRANSACTIONS',
-      payload: field_id,
+      payload: field_id
     });
   }, []);
 
   return (
     <Router>
-      <h1 className="form-titles">Edit Transaction</h1>
-      <TextField
-        variant="outlined"
-        label="Notes"
-        type="text"
-        value={notes}
-        required
-        onChange={(event) => setNotes(event.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <FormControl size="small">
-        <Select
-          variant="outlined"
-          value={transactionType}
-          required
-          style={{ width: '155px' }}
-          onChange={(event) => setTransactionType(event.target.value)}
-          displayEmpty
-        >
-          <MenuItem value="" disabled size="small">
-            <em>Transaction Type</em>
-          </MenuItem>
-          {transactionList?.map((transaction) => {
-            console.log('transaction type:', transaction);
-            return (
-              <MenuItem key={transaction.id} value={transaction.id}>
-                {transaction.name}
+      <center>
+        <Card style={cards}>
+          <h1>Edit Transaction</h1>
+          <TextField
+            variant='outlined'
+            label='Notes'
+            type='text'
+            value={notes}
+            required
+            onChange={(event) => setNotes(event.target.value)}
+            InputLabelProps={{
+              shrink: true
+            }}
+            size='small'
+          />
+          <br />
+          <br />
+          <FormControl size='small'>
+            <Select
+              variant='outlined'
+              value={transactionType}
+              required
+              style={{ width: '155px' }}
+              onChange={(event) => setTransactionType(event.target.value)}
+              displayEmpty
+            >
+              <MenuItem value='' disabled size='small'>
+                <em>Transaction Type</em>
               </MenuItem>
-            );
-          })}
-
-
-        </Select>
-
-      </FormControl>
-      <br />
-      <br />
-      <Button
-        size="small"
-        onClick={() => {
-          history.push('/user');
-        }}
-      >
-        Cancel
+              {transactionList?.map((transaction) => {
+                console.log('transaction type:', transaction);
+                return (
+                  <MenuItem key={transaction.id} value={transaction.id}>
+                    {transaction.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <br />
+          <br />
+          <Button
+            className='submit-buttons'
+            size='small'
+            onClick={() => {
+              history.push('/user');
+            }}
+          >
+            Cancel
+          </Button>
+          {`\u00A0\u00A0\u00A0\u00A0`}
+          <Button
+            className='submit-buttons'
+            size='small'
+            onClick={(event) => submitButton(event)}
+          >
+            Submit
+          </Button>
+        </Card>
+      </center>
+      <Button style={standardButtons} onClick={() => history.goBack()}>
+        ⬅ Go Back
       </Button>
-      {`\u00A0\u00A0\u00A0\u00A0`}
-      <Button size="small" onClick={(event) => submitButton(event)}>
-        Submit
-      </Button>
-
-      <div className="back-button">
-        <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
-      </div>
-    </Router>);
+    </Router>
+  );
 }
 
-
 export default EditTransaction;
-
-
-
-
-
-
