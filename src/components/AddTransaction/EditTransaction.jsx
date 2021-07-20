@@ -14,8 +14,6 @@ function EditTransaction() {
   const history = useHistory();
   const params = useParams();
 
- 
-
   const field_id = params.fieldID;
   const transaction_id = params.transactionID;
 
@@ -38,9 +36,8 @@ function EditTransaction() {
     event.preventDefault();
 
     if (notes.length === 0) {
-      return alert('Fill in required fields')
-    }
-    else {
+      return alert('Fill in required fields');
+    } else {
       dispatch({
         type: 'UPDATE_TRANSACTION',
         payload: {
@@ -68,8 +65,8 @@ function EditTransaction() {
 
   return (
     <center>
-    <Router>
-      <h1>Edit Transaction</h1>
+      <Router>
+        <h1>Edit Transaction</h1>
         <TextField
           variant="outlined"
           label="Notes"
@@ -104,35 +101,30 @@ function EditTransaction() {
                 </MenuItem>
               );
             })}
-
-
           </Select>
-
         </FormControl>
         <br />
         <br />
         <Button
-          className='form-cancel'
+          className="form-cancel"
           size="small"
           onClick={() => {
-            history.push('/field_details');
+            history.push(`/field_details/${field_id}`);
           }}
         >
           Cancel
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button className='form-submit' size="small" onClick={(event) => submitButton(event)}>
+        <Button
+          className="form-submit"
+          size="small"
+          onClick={(event) => submitButton(event)}
+        >
           Submit
         </Button>
-    </Router >
-    </center>);
+      </Router>
+    </center>
+  );
 }
 
-
 export default EditTransaction;
-
-
-
-
-
-
