@@ -102,6 +102,8 @@ function ViewTransactions(params) {
                 <u>Notes</u>
               </b>
             </Grid>
+
+            {user.farmer &&
             <Grid item xs={2} align="center">
               {`\u00A0\u00A0\u00A0`}
               <b>
@@ -111,7 +113,12 @@ function ViewTransactions(params) {
               <b>
                 <u>Delete</u>
               </b>
-            </Grid>
+            </Grid>}
+
+            {user.buyer &&
+            <Grid item xs={2} align="center"></Grid>}
+
+
             <br />
             <br />
             {transactions.map((event) => {
@@ -120,11 +127,17 @@ function ViewTransactions(params) {
                   <Grid item xs={2} key={event.field_transactions_ID} align="left" ><Moment format="lll">{event.timestamp}</Moment></Grid>
                   <Grid item xs={2} align="left" className='capitalize'>{event.field_status}</Grid>
                   <Grid item xs={5} align="left" className='capitalize'>{event.status_notes}</Grid>
+
+                  {user.farmer &&
                   <Grid item xs={2} align="center">
                     <Button  className='standard-buttons' title="Edit" color="default" onClick={() => history.push(`/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>{edit}</Button>
                     {`\u00A0\u00A0\u00A0\u00A0\u00A0`}
                     <Button  className='standard-buttons' title="Delete" color="default" onClick={() => deleteButton(event.field_transactions_ID)}>{trashCan}</Button>
-                  </Grid>
+                  </Grid>}
+
+                  {user.buyer &&
+                  <Grid item xs={2} align="center"></Grid>}
+
                 </>
               );
             })}

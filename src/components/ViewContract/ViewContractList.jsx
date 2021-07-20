@@ -104,7 +104,12 @@ function ViewContractList(params) {
                   <TableCell>Location</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Commodity</TableCell>
-                  <TableCell>Details Delete</TableCell>
+
+                  {user.farmer &&
+                  <TableCell>Details Delete</TableCell>}
+
+                  {user.buyer &&
+                  <TableCell>Details</TableCell>}
 
                 </TableRow>
               </TableHead>
