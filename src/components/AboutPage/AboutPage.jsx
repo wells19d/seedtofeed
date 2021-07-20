@@ -18,7 +18,6 @@ import Grid from '@material-ui/core/Grid';
 import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import ImageListItemBar from '@material-ui/core/ImageListItemBar';
-import IconButton from '@material-ui/core/IconButton';
 
 // This is one of our simplest components
 // It doesn't have local state,
@@ -36,9 +35,11 @@ function AboutPage() {
       justifyContent: 'space-around',
       overflow: 'hidden',
       backgroundColor: theme.palette.background.paper,
+      textAlign: 'center',
+      margin: theme.spacing(10),
     },
     paper: {
-      padding: theme.spacing(1), //grid padding
+      padding: theme.spacing(2), //grid padding
       textAlign: 'center',
       color: theme.palette.text.secondary,
     },
@@ -47,15 +48,23 @@ function AboutPage() {
       // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
       transform: 'translateZ(0)',
       color: theme.palette.text.secondary,
-
+      padding: theme.spacing(2),
     },
     title: {
       color: 'black',
+      padding: theme.spacing(0),
+      textAlign: 'left',
+      alignContent: 'bottom',
+      height: 20,
+
     },
     titleBar: {
       background:
-        'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+        'linear-gradient(to top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.3) 10%, rgba(0,0,0,0) 100%)',
       color: theme.palette.text.default,
+      padding: theme.spacing(0),
+      position: 'top',
+
 
     },
   }));
