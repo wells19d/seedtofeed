@@ -64,6 +64,7 @@ function StatusTracker(params) {
   return (
     <center>
       {/* {JSON.stringify(details)} */}
+
       <h1>Dashboard</h1>
       <Card className="status-tracker">
         <br />

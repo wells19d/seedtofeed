@@ -3,8 +3,23 @@ import { HashRouter as Router } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { Button, Card, TextField } from '@material-ui/core';
+
+const cards = {
+  border: 'solid black 2px',
+  fontFamily: 'Montserrat',
+  overflow: 'auto',
+  fontSize: '14px',
+  boxShadow: '3px 3px 4px 1px grey',
+  width: '400px',
+  padding: '20px'
+};
+
+const standardButtons = {
+  border: 'solid black 0px',
+  boxShadow: '2px 2px 3px 0px grey',
+  minWidth: '1px'
+};
 
 function EditNIR() {
   const dispatch = useDispatch();
@@ -16,7 +31,7 @@ function EditNIR() {
   const NIRID = params.NIRID;
   const field_id = params.fieldID;
 
-  const transType = useSelector((store) => store.fieldTransactionsReducer)
+  const transType = useSelector((store) => store.fieldTransactionsReducer);
 
   //obtain field status of field NIR that is being edited
   const fieldTrans = transType[0].transaction_type;
@@ -27,7 +42,7 @@ function EditNIR() {
   useEffect(() => {
     dispatch({
       type: 'FETCH_FIELD_NIR',
-      payload: field_id,
+      payload: field_id
     });
   }, []);
 
@@ -55,14 +70,15 @@ function EditNIR() {
         energy: energy,
         amino_acids: amino_acids,
         fieldTrans: fieldTrans,
-        fieldStatus: fieldStatus,
-      },
+        fieldStatus: fieldStatus
+      }
     });
 
     history.push(`/field_details/${field_id}`);
   }
 
   return (
+
     <center>
     <Router>
       <h1>Update NIR Analysis</h1>

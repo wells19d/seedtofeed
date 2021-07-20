@@ -18,11 +18,12 @@ function LandingPage() {
   };
 
   return (
+
     <Grid container={1}>
 
       <Grid item xs={1}/>
       <Grid itme xs={6}><center>
-      <h1>Welcome to the Seed to Feed Tracker</h1>
+      <h1>Welcome to the Seed to Feed Tracker!</h1>
         <img src={supplychain}/>
               Seed to Feed was created to help increase profitability for
               farmers and feed producers, as well as the partners in-between.

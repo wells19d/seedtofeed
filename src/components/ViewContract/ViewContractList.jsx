@@ -25,7 +25,6 @@ import { faTrashAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import '../App/App.css';
 
 
-
 const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
 const details = <FontAwesomeIcon icon={faInfoCircle} />;
 
@@ -53,7 +52,7 @@ function ViewContractList(params) {
   useEffect(() => {
     if (user.farmer === true) {
       dispatch({
-        type: 'FETCH_CONTRACT_LIST',
+        type: 'FETCH_CONTRACT_LIST'
       });
 
       dispatch({
@@ -62,7 +61,7 @@ function ViewContractList(params) {
     }
     if (user.buyer === true) {
       dispatch({
-        type: 'FETCH_BUYER_CONTRACT_LIST',
+        type: 'FETCH_BUYER_CONTRACT_LIST'
       });
     }
   }, [user]);
@@ -81,7 +80,7 @@ function ViewContractList(params) {
     if (remove == true) {
       dispatch({
         type: 'DELETE_CONTRACT',
-        payload: contractID,
+        payload: contractID
       });
       // history.push(`/contract`);
     } else {
@@ -90,6 +89,7 @@ function ViewContractList(params) {
   }
 
   return (
+
     <center>
       <div className="title-indent">
         <h1>Contract List</h1>
@@ -202,12 +202,11 @@ function ViewContractList(params) {
             <Typography ><Card className='popup-cards'><AddContract/></Card></Typography>
           </Popover>
         </Grid>
-        <Grid item xs={1} />
-      </Grid>
-      <div className="back-button">
-        <Button className='submit-buttons' onClick={() => history.goBack()}>⬅ Go Back</Button>
-      </div>
-    </center>
+      </center>
+      <Button style={standardButtons} onClick={() => history.goBack()}>
+        ⬅ Go Back
+      </Button>
+    </>
   );
 }
 

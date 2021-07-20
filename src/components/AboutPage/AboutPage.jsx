@@ -11,7 +11,6 @@ import photo6 from './images/6.png';
 import photo7 from './images/7.png';
 import photo8 from './images/8.png';
 
-
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -19,10 +18,11 @@ import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 
-// This is one of our simplest components
-// It doesn't have local state,
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is'
+const standardButtons = {
+  border: 'solid black 0px',
+  boxShadow: '2px 2px 3px 0px grey',
+  minWidth: '1px'
+};
 
 function AboutPage() {
   // for GO BACK button
@@ -41,12 +41,13 @@ function AboutPage() {
     paper: {
       padding: theme.spacing(2), //grid padding
       textAlign: 'center',
-      color: theme.palette.text.secondary,
+      color: theme.palette.text.secondary
     },
     imageList: {
       flexWrap: 'nowrap',
       // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
       transform: 'translateZ(0)',
+
       color: theme.palette.text.secondary,
       padding: theme.spacing(2),
     },
@@ -70,8 +71,8 @@ function AboutPage() {
   }));
   const classes = useStyles();
 
-
   return (
+
     <center>
         <Grid direction="flex" container spacing={1}>
           <br />
@@ -89,6 +90,7 @@ function AboutPage() {
               Bushel, AgriDigital, Geora) and displaying that information as a
               way to further market grain by showing the added value received
               from purchasing Seed to Feed product.
+
             </p>
             <br />
           </Grid>
@@ -117,6 +119,8 @@ function AboutPage() {
           <ImageListItem>
             <img
               src={photo2}
+
+
               alt="Soybean lifecycle"
               className="about-image"
               width="500"
@@ -134,6 +138,7 @@ function AboutPage() {
           <ImageListItem>
             <img
               src={photo3}
+
               alt="Harvest"
               className="about-image"
               width="500"
@@ -151,6 +156,7 @@ function AboutPage() {
           <ImageListItem>
             <img
               src={photo4}
+
               alt="Transit to elevator"
               className="about-image"
               width="500"
@@ -191,6 +197,7 @@ function AboutPage() {
           <ImageListItem>
             <img
               src={photo6}
+
               alt="Shipped around world"
               className="about-image"
               width="500"
@@ -208,6 +215,7 @@ function AboutPage() {
           <ImageListItem>
             <img
               src={photo7}
+
               alt="Mills receive soybeans"
               className="about-image"
               width="500"
@@ -225,6 +233,7 @@ function AboutPage() {
           <ImageListItem>
             <img
               src={photo8}
+
               alt="Mill to farm"
               className="about-image"
               width="500"
@@ -251,6 +260,5 @@ function AboutPage() {
         </div>
       </center>
   );
-
 }
 export default AboutPage;
