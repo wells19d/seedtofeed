@@ -50,9 +50,9 @@ function AddTransaction() {
   }, []);
 
   return (
+    <center>
     <Router>
-      <h1 className="form-titles">Add New Transaction</h1>
-      <div className="form-layout">
+      <h1>Add New Transaction</h1>
         <TextField
           variant="outlined"
           label="Notes"
@@ -95,6 +95,7 @@ function AddTransaction() {
         <br />
         <br />
         <Button
+          className='form-cancel'
           size="small"
           onClick={() => {
             history.push('/user');
@@ -103,14 +104,12 @@ function AddTransaction() {
           Cancel
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button size="small" onClick={(event) => submitButton(event)}>
+        <Button className='form-submit' size="small" onClick={(event) => submitButton(event)}>
           Submit
         </Button>
-      </div>
-      <div className="back-button">
-        <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
-      </div>
-    </Router >);
+    </Router >
+    </center>
+    );
 }
 
 export default AddTransaction;

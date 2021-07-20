@@ -316,68 +316,63 @@ function AddContract(params) {
         }}
         size="small"
       /> */}
-          <br />
-          <TextField
-            variant='outlined'
-            label='Contract Quantity'
-            type='number'
-            value={contractQuantity}
-            required
-            InputProps={{ inputProps: { min: 0 } }}
-            onChange={(event) => setContractQuantity(event.target.value)}
-            InputLabelProps={{
-              shrink: true
-            }}
-            size='small'
-          />
-          <br />
-          <br />
-          <TextField
-            variant='outlined'
-            label='Container Serial Number'
-            type='number'
-            value={containerSerial}
-            required
-            InputProps={{ inputProps: { min: 0 } }}
-            onChange={(event) => setContainerSerial(event.target.value)}
-            InputLabelProps={{
-              shrink: true
-            }}
-            size='small'
-          />
-          <br />
-          <br />
-          <TextField
-            variant='outlined'
-            label='Contract Handler'
-            type='text'
-            value={contractHandler}
-            onChange={(event) => setContractHandler(event.target.value)}
-            InputLabelProps={{
-              shrink: true
-            }}
-            size='small'
-          />
-          <br />
-          <br />
-          <Button
-            className='submit-buttons'
-            size='small'
-            onClick={() => {
-              history.push('/contract');
-            }}
-          >
-            Cancel
-          </Button>
-          {`\u00A0\u00A0\u00A0\u00A0`}
-          <Button
-            className='submit-buttons'
-            size='small'
-            onClick={(event) => addContract(event)}
-          >
-            Submit
-          </Button>
-        </Card>
+      <br />
+      <TextField
+        variant="outlined"
+        label="Contract Quantity"
+        type="number"
+        value={contractQuantity}
+        required
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setContractQuantity(event.target.value)}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        size="small"
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Container Serial Number"
+        type="number"
+        value={containerSerial}
+        required
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setContainerSerial(event.target.value)}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        size="small"
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Contract Handler"
+        type="text"
+        value={contractHandler}
+        onChange={(event) => setContractHandler(event.target.value)}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        size="small"
+      />
+      <br />
+      <br />
+      <Button
+      className='form-cancel'
+        size="small"
+        onClick={() => {
+          history.push('/contract');
+        }}
+      >
+        Cancel
+      </Button>
+      {`\u00A0\u00A0\u00A0\u00A0`}
+      <Button className='form-submit' size="small" onClick={(event) => addContract(event)}>
+        Submit
+      </Button>
       </center>
       <Button style={standardButtons} onClick={() => history.goBack()}>
         ⬅ Go Back

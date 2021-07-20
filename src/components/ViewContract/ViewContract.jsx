@@ -2,19 +2,23 @@ import React, { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Grid,
+  Card,
+  Popover,
+} from '@material-ui/core';
 
 
-function ViewContract({ fieldID }) {
+
+function ViewContract() {
   const history = useHistory();
   const params = useParams();
   const dispatch = useDispatch();
@@ -22,19 +26,13 @@ function ViewContract({ fieldID }) {
   const contracts = useSelector((store) => store.contractListReducer); // Currently we only have contract list in server and planned reducer. Must create a specific view now.
   console.log('here is the contract list:', contracts);
 
-  const contractID = params.contractID;
+  const contractID = Number(params.contractID);
   console.log('here is the contract ID:', contractID);
-
-
-
-
-
 
   const user = useSelector((store) => store.user);
 
-
-
-
+  const contractsFiltered = contracts.filter((contract) => Number(contract.contractID) === contractID);
+  console.log(`filtered contracts`, contractsFiltered);
 
   useEffect(() => {
     if (user.farmer === true) {
@@ -53,10 +51,10 @@ function ViewContract({ fieldID }) {
   //   console.log(contract);
   //   return contract.contractID === Number(params.contractID);
   // });
-  console.log('the fieldID for the contract', fieldID);
+  // console.log('the fieldID for the contract', fieldID);
   console.log('the userID for the contract', user.id);
 
-  if (contracts?.length === 1) {
+  if (contractsFiltered?.length === 1) {
     return (
 
       <center>
@@ -68,7 +66,7 @@ function ViewContract({ fieldID }) {
   
           <Grid item>
   
-            <h4>Contract Handler: {contracts[0]?.contract_handler}</h4>
+            <h4>Contract Handler: {contractsFiltered[0]?.contract_handler}</h4>
             <TableContainer component={Paper}>
               <Table size='small'>
                 <TableHead>
@@ -95,21 +93,21 @@ function ViewContract({ fieldID }) {
                     </TableCell>
                     <TableCell>
                       <br />
-                      {contracts[0]?.contractID}
+                      {contractsFiltered[0]?.contractID}
                       <br />
-                      {contracts[0]?.first_name} {contracts[0]?.last_name}
+                      {contractsFiltered[0]?.first_name} {contractsFiltered[0]?.last_name}
                       <br />
-                      {contracts[0]?.crop_type}
+                      {contractsFiltered[0]?.crop_type}
                       <br />
-                      {contracts[0]?.name}
+                      {contractsFiltered[0]?.name}
                       <br />
-                      {contracts[0]?.contract_quantity}
+                      {contractsFiltered[0]?.contract_quantity}
                       <br />
-                      {contracts[0]?.quantity_fulfilled}
+                      {contractsFiltered[0]?.quantity_fulfilled}
                       <br />
-                      {contracts[0]?.container_serial}
+                      {contractsFiltered[0]?.container_serial}
                       <br />
-                      {contracts[0]?.price}
+                      {contractsFiltered[0]?.price}
                       <br />
                       <br />
                     </TableCell>
@@ -143,15 +141,15 @@ function ViewContract({ fieldID }) {
                     </TableCell>
                     <TableCell>
                       <br />
-                      {contracts[0]?.amino_acids}%
+                      {contractsFiltered[0]?.amino_acids}%
                       <br />
-                      {contracts[0]?.energy}%
+                      {contractsFiltered[0]?.energy}%
                       <br />
-                      {contracts[0]?.protein}%
+                      {contractsFiltered[0]?.protein}%
                       <br />
-                      {contracts[0]?.oil}%
+                      {contractsFiltered[0]?.oil}%
                       <br />
-                      {contracts[0]?.moisture}%
+                      {contractsFiltered[0]?.moisture}%
                       <br />
                       <br />
                       <br />
@@ -166,7 +164,7 @@ function ViewContract({ fieldID }) {
           <Grid item xs={4} />
         </Grid>
         <div className='back-button'>
-          <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
+          <Button className='form-submit' onClick={() => history.goBack()}>⬅ Go Back</Button>
         </div>
       </center>
     );
@@ -176,7 +174,7 @@ function ViewContract({ fieldID }) {
       <center>
       
       <h1>Contract Details</h1>
-      {contracts?.map((contract) => {
+      {contractsFiltered?.map((contract) => {
         return (
           <Grid container spacing={3}>
           <Grid item xs={4} />
@@ -284,7 +282,7 @@ function ViewContract({ fieldID }) {
         
       })}
       <div className='back-button'>
-        <Button onClick={() => history.goBack()}>⬅ Go Back</Button>
+        <Button className='submit-buttons' onClick={() => history.goBack()}>⬅ Go Back</Button>
       </div>
     </center>
 

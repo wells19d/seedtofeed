@@ -78,108 +78,97 @@ function EditNIR() {
   }
 
   return (
-    <>
-      <center>
-        <Card style={cards}>
-          <Router>
-            <h1>Update NIR Analysis</h1>
 
-            <TextField
-              variant='outlined'
-              label='Oil Level'
-              type='number'
-              value={oil}
-              InputProps={{ inputProps: { min: 0 } }}
-              onChange={(event) => setOil(event.target.value)}
-              required
-              InputLabelProps={{
-                shrink: true
-              }}
-            />
-            <br />
-            <br />
-            <TextField
-              variant='outlined'
-              label='Moisture Level'
-              type='number'
-              value={moisture}
-              InputProps={{ inputProps: { min: 0 } }}
-              onChange={(event) => setMoisture(event.target.value)}
-              required
-              InputLabelProps={{
-                shrink: true
-              }}
-            />
-            <br />
-            <br />
-            <TextField
-              variant='outlined'
-              label='Protein Level'
-              type='number'
-              value={protein}
-              InputProps={{ inputProps: { min: 0 } }}
-              onChange={(event) => setProtein(event.target.value)}
-              required
-              InputLabelProps={{
-                shrink: true
-              }}
-            />
-            <br />
-            <br />
-            <TextField
-              variant='outlined'
-              label='Energy Level'
-              type='number'
-              value={energy}
-              InputProps={{ inputProps: { min: 0 } }}
-              onChange={(event) => setEnergy(event.target.value)}
-              required
-              InputLabelProps={{
-                shrink: true
-              }}
-            />
-            <br />
-            <br />
-            <TextField
-              variant='outlined'
-              label='Amino Acid Level'
-              type='number'
-              value={amino_acids}
-              InputProps={{ inputProps: { min: 0 } }}
-              onChange={(event) => setAminoAcids(event.target.value)}
-              required
-              InputLabelProps={{
-                shrink: true
-              }}
-            />
-            <br />
-            <br />
-            <Button
-              className='submit-buttons'
-              size='small'
-              type='button'
-              onClick={() => {
-                history.push(`/field_details/${field_id}`);
-              }}
-            >
-              Cancel
-            </Button>
-            {`\u00A0\u00A0\u00A0\u00A0`}
-            <Button
-              className='submit-buttons'
-              size='small'
-              type='submit'
-              onClick={(event) => button(event)}
-            >
-              Update
-            </Button>
-          </Router>
-        </Card>
-      </center>
-      <Button style={standardButtons} onClick={() => history.goBack()}>
-        ⬅ Go Back
+    <center>
+    <Router>
+      <h1>Update NIR Analysis</h1>
+
+      <TextField
+        variant="outlined"
+        label="Oil Level"
+        type="number"
+        value={oil}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setOil(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Moisture Level"
+        type="number"
+        value={moisture}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setMoisture(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Protein Level"
+        type="number"
+        value={protein}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setProtein(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Energy Level"
+        type="number"
+        value={energy}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setEnergy(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        label="Amino Acid Level"
+        type="number"
+        value={amino_acids}
+        InputProps={{ inputProps: { min: 0 } }}
+        onChange={(event) => setAminoAcids(event.target.value)}
+        required
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <br />
+      <br />
+      <Button
+      className='form-cancel'
+        size="small"
+        type="button"
+        onClick={() => {
+          history.push(`/field_details/${field_id}`);
+        }}
+      >
+        Cancel
       </Button>
-    </>
+      {`\u00A0\u00A0\u00A0\u00A0`}
+      <Button className='form-submit' size="small" type="submit" onClick={(event) => button(event)}>
+        Update
+      </Button>
+    </Router>
+    </center>
   );
 }
 

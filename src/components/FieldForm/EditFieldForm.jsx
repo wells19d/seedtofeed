@@ -268,6 +268,7 @@ function EditFieldForm() {
             </Button>
           </center>
         </Card>
+
       </center>
       <Button style={standardButtons} onClick={() => history.goBack()}>
         ⬅ Go Back

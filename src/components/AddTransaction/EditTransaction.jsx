@@ -33,6 +33,8 @@ function EditTransaction() {
   const history = useHistory();
   const params = useParams();
 
+ 
+
   const field_id = params.fieldID;
   const transaction_id = params.transactionID;
 
@@ -83,6 +85,7 @@ function EditTransaction() {
   }, []);
 
   return (
+    <center>
     <Router>
       <center>
         <Card style={cards}>
@@ -126,7 +129,7 @@ function EditTransaction() {
           <br />
           <br />
           <Button
-            className='submit-buttons'
+            className='form-cancel'
             size='small'
             onClick={() => {
               history.push('/user');
@@ -136,7 +139,7 @@ function EditTransaction() {
           </Button>
           {`\u00A0\u00A0\u00A0\u00A0`}
           <Button
-            className='submit-buttons'
+            className='form-submit'
             size='small'
             onClick={(event) => submitButton(event)}
           >
@@ -149,6 +152,7 @@ function EditTransaction() {
       </Button>
     </Router>
   );
+
 }
 
 export default EditTransaction;

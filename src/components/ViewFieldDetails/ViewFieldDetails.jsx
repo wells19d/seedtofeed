@@ -34,32 +34,27 @@ function ViewFieldDetails() {
   const fieldID = params.fieldID;
 
   return (
-    <>
-      <center>
-        <Grid container spacing={2}>
-          <Grid item xs={1} />
-          <Grid item xs={10}>
-            <StatusTracker fieldID={fieldID} />
-          </Grid>
-          <Grid item xs={1} />
 
-          <Grid item xs={2} />
-          <Grid item xs={8}>
-            <ViewTransactions fieldID={fieldID} />
-          </Grid>
-          <Grid item xs={2} />
+    <center>
+      <Grid container spacing={2} display>
 
-          <Grid item xs={2} />
-          <Grid item xs={8}>
-            <FieldNIR fieldID={fieldID} />
-          </Grid>
-          <Grid item xs={2} />
-        </Grid>
-      </center>
-      <Button style={standardButtons} onClick={() => history.goBack()}>
+        <Grid item xs={1} />
+        <Grid item xs={10}><StatusTracker fieldID={fieldID} /></Grid>
+        <Grid item xs={1} />
+
+        <Grid item xs={2} />
+        <Grid item xs={8}><ViewTransactions fieldID={fieldID} /></Grid>
+        <Grid item xs={2} />
+
+        <Grid item xs={2} />
+        <Grid item xs={8}><FieldNIR fieldID={fieldID} /></Grid>
+        <Grid item xs={2} />
+
+      </Grid>
+ <Button className="submit-buttons" onClick={() => history.goBack()}>
         ⬅ Go Back
       </Button>
-    </>
+    </center>
   );
 }
 

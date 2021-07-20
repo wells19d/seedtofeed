@@ -12,6 +12,7 @@ import contractDetailsReducer from './contractDetails.reducer';
 import contractStatusReducer from './contractStatus.reducer';
 import transactionTypesReducer from './transactionTypes.reducer';
 import uploadReducer from './uploadReducer';
+import contractShortListReducer from './contractShortList.reducer';
 
 
 import userListReducer from './userList.reducer';
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
   transactionTypesReducer,
   userListReducer,
   uploadReducer,
+  contractShortListReducer,
 });
 
 export default rootReducer;
