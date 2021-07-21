@@ -3,11 +3,30 @@ import { useSelector } from 'react-redux';
 import { HashRouter as Router, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
+import {
+  Button,
+  Card,
+  FormControl,
+  MenuItem,
+  Select,
+  TextField
+} from '@material-ui/core';
+
+const cards = {
+  border: 'solid black 2px',
+  fontFamily: 'Montserrat',
+  overflow: 'auto',
+  fontSize: '14px',
+  boxShadow: '3px 3px 4px 1px grey',
+  width: '400px',
+  padding: '20px'
+};
+
+const standardButtons = {
+  border: 'solid black 0px',
+  boxShadow: '2px 2px 3px 0px grey',
+  minWidth: '1px'
+};
 
 function AddContract(params) {
   const userID = params.userID;
@@ -28,20 +47,19 @@ function AddContract(params) {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_CROP_LIST',
+      type: 'FETCH_CROP_LIST'
     });
     dispatch({
-      type: 'FETCH_CONTRACT_STATUS',
+      type: 'FETCH_CONTRACT_STATUS'
     });
     dispatch({
       type: 'FETCH_FIELD_LIST',
-      payload: userID,
+      payload: userID
     });
 
     dispatch({
       type: 'FETCH_USER_LIST'
-  })
-
+    });
   }, []);
 
   // LOCAL STATE
@@ -56,7 +74,6 @@ function AddContract(params) {
   const [containerSerial, setContainerSerial] = useState('');
   const [contractHandler, setContractHandler] = useState('');
 
-
   // for NIR analysis
   const [protein, setProtein] = useState(null);
   const [oil, setOil] = useState(null);
@@ -65,37 +82,38 @@ function AddContract(params) {
   // for field transactions table
   const [fieldStatus, setFieldStatus] = useState('');
 
-
   // ADD A CONTRACT
   // will also grab the user info.
   const addContract = (event) => {
     event.preventDefault();
 
-    if (user_field_id.length === 0, commodity.length === 0, contractQuantity === 0, containerSerial.length === 0 ) {
-      return alert('Fill in required fields') // Can change alert and which fields are required
-    }
-    else {
-
-    dispatch({
-      type: 'SET_CONTRACT', // dispatch to the addContract.saga
-      payload: {
-        user_field_id: user_field_id, //have to review how this is coming in?
-        buyer_id: buyerID,
-        commodity: commodity,
-        open_status: openStatus,
-        bushel_uid: bushel_uid,
-        quantity_fulfilled: quantityFulfilled,
-        price: price,
-        protein: protein,
-        oil: oil,
-        moisture: moisture,
-        contract_quantity: contractQuantity,
-        container_serial: containerSerial,
-        contract_handler: contractHandler,
-        field_status: fieldStatus
-        
-      },
-    });
+    if (
+      (user_field_id.length === 0,
+      commodity.length === 0,
+      contractQuantity === 0,
+      containerSerial.length === 0)
+    ) {
+      return alert('Fill in required fields'); // Can change alert and which fields are required
+    } else {
+      dispatch({
+        type: 'SET_CONTRACT', // dispatch to the addContract.saga
+        payload: {
+          user_field_id: user_field_id, //have to review how this is coming in?
+          buyer_id: buyerID,
+          commodity: commodity,
+          open_status: openStatus,
+          bushel_uid: bushel_uid,
+          quantity_fulfilled: quantityFulfilled,
+          price: price,
+          protein: protein,
+          oil: oil,
+          moisture: moisture,
+          contract_quantity: contractQuantity,
+          container_serial: containerSerial,
+          contract_handler: contractHandler,
+          field_status: fieldStatus
+        }
+      });
 
       alert('Contract has been created');
 
@@ -103,9 +121,11 @@ function AddContract(params) {
     }
   }; // end addContract
 
-  const onFieldChange = (event) =>  {
+  const onFieldChange = (event) => {
     setUserFieldID(event.target.value);
-    const newField = fields.find(f => f.user_field_id === parseInt(event.target.value));
+    const newField = fields.find(
+      (f) => f.user_field_id === parseInt(event.target.value)
+    );
     if (newField !== -1) {
       setCommodity(newField.crop_id);
       setFieldStatus(newField.field_status);
@@ -115,56 +135,56 @@ function AddContract(params) {
   return (
     <Router>
       <center>
-      <h1>Add Contract</h1>
-      <FormControl size="small">
-        <Select
-
-        variant="outlined"
-        value={user_field_id}
-        style={{ width: '195px' }}
-        required
-        displayEmpty
-        onChange={onFieldChange}
-        >
-          <MenuItem value="" disabled size="small">
-            <em>Select Field</em>
-          </MenuItem>
-          {fields.map((field) => {
-            console.log('fieldtype:', field);
-            return (
-              <MenuItem key={field.id} value={field.user_field_id}>
-                {field.name}
+        <Card style={cards}>
+          <h1>Add Contract</h1>
+          <FormControl size='small'>
+            <Select
+              variant='outlined'
+              value={user_field_id}
+              style={{ width: '195px' }}
+              required
+              displayEmpty
+              onChange={onFieldChange}
+            >
+              <MenuItem value='' disabled size='small'>
+                <em>Select Field</em>
               </MenuItem>
-            );
-          })}
-        </Select>
-      </FormControl>
-      <br />
-      <br />
-      <FormControl size="small">
-        <Select
-          variant="outlined"
-          value={commodity}
-          style={{ width: '195px' }}
-          displayEmpty
-          onChange={(event) => setCommodity(event.target.value)}
-        >
-          <MenuItem value="" disabled size="small">
-            <em>Select Commodity</em>
-          </MenuItem>
-          {crops.map((crop) => {
-            console.log('fieldtype:', crop);
-            return (
-              <MenuItem key={crop.id} value={crop.id}>
-                {crop.crop_type}
+              {fields.map((field) => {
+                console.log('fieldtype:', field);
+                return (
+                  <MenuItem key={field.id} value={field.user_field_id}>
+                    {field.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <br />
+          <br />
+          <FormControl size='small'>
+            <Select
+              variant='outlined'
+              value={commodity}
+              style={{ width: '195px' }}
+              displayEmpty
+              onChange={(event) => setCommodity(event.target.value)}
+            >
+              <MenuItem value='' disabled size='small'>
+                <em>Select Commodity</em>
               </MenuItem>
-            );
-          })}
-        </Select>
-       </FormControl>
-        <br />
-        <br />
-        {/* <FormControl size="small">
+              {crops.map((crop) => {
+                console.log('fieldtype:', crop);
+                return (
+                  <MenuItem key={crop.id} value={crop.id}>
+                    {crop.crop_type}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <br />
+          <br />
+          {/* <FormControl size="small">
         <Select
           variant="outlined"
           value={openStatus}
@@ -187,78 +207,76 @@ function AddContract(params) {
         </Select>
        </FormControl> */}
 
-
-
-
-        <FormControl size="small">
-          <Select
-                variant="outlined"
-                value={buyerID}
-                style={{ width: '195px' }}
-                // required
-                displayEmpty
-                onChange={(event) => setBuyerID(event.target.value)}
-                >
-            <MenuItem value="" disabled size="small">
+          <FormControl size='small'>
+            <Select
+              variant='outlined'
+              value={buyerID}
+              style={{ width: '195px' }}
+              // required
+              displayEmpty
+              onChange={(event) => setBuyerID(event.target.value)}
+            >
+              <MenuItem value='' disabled size='small'>
                 <em>Buyer (optional)</em>
-            </MenuItem>
-            {userList?.map(buyer => {
-                console.log('The buyer is: ', buyer)
-            return (
-                <span key={buyer.id} value={buyer.id}>
-                {buyer.buyer && <MenuItem key={buyer.id} value={buyer.id}>{buyer.first_name} {buyer.last_name}</MenuItem>}
-                </span>
-            )
-            })}
-          </Select>
-        </FormControl>
+              </MenuItem>
+              {userList?.map((buyer) => {
+                console.log('The buyer is: ', buyer);
+                return (
+                  <span key={buyer.id} value={buyer.id}>
+                    {buyer.buyer && (
+                      <MenuItem key={buyer.id} value={buyer.id}>
+                        {buyer.first_name} {buyer.last_name}
+                      </MenuItem>
+                    )}
+                  </span>
+                );
+              })}
+            </Select>
+          </FormControl>
 
-
-
-
-        <br />
-        <br />
-        <TextField
-        variant="outlined"
-        label="Bushel UID"
-        type="text"
-        value={bushel_uid}
-        onChange={(event) => setBushel_uid(event.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Quantity Fulfilled"
-        type="number"
-        value={quantityFulfilled}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setQuantityFulfilled(event.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Price"
-        type="number"
-        value={price}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setPrice(event.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      {/* <TextField
+          <br />
+          <br />
+          <TextField
+            variant='outlined'
+            label='Bushel UID'
+            type='text'
+            value={bushel_uid}
+            onChange={(event) => setBushel_uid(event.target.value)}
+            InputLabelProps={{
+              shrink: true
+            }}
+            size='small'
+          />
+          <br />
+          <br />
+          <TextField
+            variant='outlined'
+            label='Quantity Fulfilled'
+            type='number'
+            value={quantityFulfilled}
+            InputProps={{ inputProps: { min: 0 } }}
+            onChange={(event) => setQuantityFulfilled(event.target.value)}
+            InputLabelProps={{
+              shrink: true
+            }}
+            size='small'
+          />
+          <br />
+          <br />
+          <TextField
+            variant='outlined'
+            label='Price'
+            type='number'
+            value={price}
+            InputProps={{ inputProps: { min: 0 } }}
+            onChange={(event) => setPrice(event.target.value)}
+            InputLabelProps={{
+              shrink: true
+            }}
+            size='small'
+          />
+          <br />
+          {/* <TextField
         variant="outlined"
         label="Protein"
         type="number"
@@ -355,7 +373,11 @@ function AddContract(params) {
       <Button className='form-submit' size="small" onClick={(event) => addContract(event)}>
         Submit
       </Button>
+      </Card>
       </center>
+      <Button style={standardButtons} onClick={() => history.goBack()}>
+        ⬅ Go Back
+      </Button>
     </Router>
   );
 }

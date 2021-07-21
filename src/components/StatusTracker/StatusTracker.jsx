@@ -65,6 +65,7 @@ function StatusTracker(params) {
     <center>
       {/* {JSON.stringify(details)} */}
       <h1>{detail?.field_name} Dashboard</h1>
+
       <Card className="status-tracker">
         <br />
         <Grid container spacing={0}>

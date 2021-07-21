@@ -18,6 +18,7 @@ function LandingPage() {
   };
 
   return (
+
     <Grid container={1}>
       <Grid item xs={1} />
       <Grid itme xs={6}>
@@ -33,6 +34,7 @@ function LandingPage() {
         </center>
       </Grid>
       <Grid item xs={1} />
+
       <Grid itme xs={3}>
         <center>
           <p>
