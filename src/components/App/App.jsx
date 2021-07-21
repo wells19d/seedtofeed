@@ -19,7 +19,6 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
-import FieldDB from '../DashBoards/FieldDB';
 import ViewContractList from '../ViewContract/ViewContractList';
 import ViewContract from '../ViewContract/ViewContract';
 import AddContract from '../ContractForm/AddContract';
@@ -65,9 +64,6 @@ function App() {
             path="/about"
           >
             <AboutPage />
-          </Route>
-          <Route exact path="/fieldDB">
-            <FieldDB />
           </Route>
 
           <Route exact path="/viewfields/:userID">

@@ -9,15 +9,15 @@ import {
   FormControl,
   MenuItem,
   Select,
-  TextField,
+  TextField
 } from '@material-ui/core';
-
-import '../../index.css';
 
 function EditTransaction() {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
+
+ 
 
   const field_id = params.fieldID;
   const transaction_id = params.transactionID;
@@ -30,11 +30,12 @@ function EditTransaction() {
       transaction.field_transactions_ID === Number(transaction_id)
   );
   const transaction_to_edit = transactions[transaction_index];
+  //   const field_id = transaction_to_edit.field_id;
 
-  const [notes, setNotes] = useState(transaction_to_edit?.status_notes);
+  const [notes, setNotes] = useState(transaction_to_edit?.status_notes); // Added the ? as it was coming in undefined
   const [transactionType, setTransactionType] = useState(
     transaction_to_edit?.transaction_type
-  );
+  ); // Added the ? as it was coming in undefined
 
   function submitButton() {
     event.preventDefault();
@@ -48,99 +49,91 @@ function EditTransaction() {
           field_id: field_id,
           transaction_id: transaction_id,
           status_notes: notes,
+          // field_status: transactionList[transactionType]?.name,
           transaction_type: transactionType
-        },
+        }
       });
 
       history.push(`/field_details/${field_id}`);
     }
   }
-  
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_TRANSACTION_TYPES',
+      type: 'FETCH_TRANSACTION_TYPES'
     });
     dispatch({
       type: 'FETCH_FIELD_TRANSACTIONS',
-      payload: field_id,
+      payload: field_id
     });
   }, []);
 
   return (
-    <>
-      <Router>
-          
-      </Router>
-    </>
+    <Router>
+      <center>
+        <Card className="cards card-width">
+          <h1>Edit Transaction</h1>
+          <TextField
+            variant='outlined'
+            label='Notes'
+            type='text'
+            value={notes}
+            required
+            onChange={(event) => setNotes(event.target.value)}
+            InputLabelProps={{
+              shrink: true
+            }}
+            size='small'
+          />
+          <br />
+          <br />
+          <FormControl size='small'>
+            <Select
+              variant='outlined'
+              value={transactionType}
+              required
+              style={{ width: '155px' }}
+              onChange={(event) => setTransactionType(event.target.value)}
+              displayEmpty
+            >
+              <MenuItem value='' disabled size='small'>
+                <em>Transaction Type</em>
+              </MenuItem>
+              {transactionList?.map((transaction) => {
+                console.log('transaction type:', transaction);
+                return (
+                  <MenuItem key={transaction.id} value={transaction.id}>
+                    {transaction.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <br />
+          <br />
+          <Button
+            className='form-cancel'
+            size='small'
+            onClick={() => {
+              window.location.reload();
+            }}
+          >
+            Cancel
+          </Button>
+          {`\u00A0\u00A0\u00A0\u00A0`}
+          <Button
+            className='form-submit'
+            size='small'
+            onClick={(event) => submitButton(event)}
+          >
+            Submit
+          </Button>
+        </Card>
+      </center>
+    </Router>
   );
+
 }
 
+
 export default EditTransaction;
-
-
-/*
-
-<center>
-            <Card className="cards card-width">
-              <h1>Edit Transaction</h1>
-              <TextField
-                variant="outlined"
-                label="Notes"
-                type="text"
-                value={notes}
-                required
-                onChange={(event) => setNotes(event.target.value)}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                size="small"
-              />
-              <br />
-              <br />
-              <FormControl size="small">
-                <Select
-                  variant="outlined"
-                  value={transactionType}
-                  required
-                  style={{ width: '155px' }}
-                  onChange={(event) => setTransactionType(event.target.value)}
-                  displayEmpty
-                >
-                  <MenuItem value="" disabled size="small">
-                    <em>Transaction Type</em>
-                  </MenuItem>
-                  {transactionList?.map((transaction) => {
-                    return (
-                      <MenuItem key={transaction.id} value={transaction.id}>
-                        {transaction.name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-              <br />
-              <br />
-              <Button
-                className="form-cancel"
-                size="small"
-                onClick={() => history.push(`/field_details/${field_id}`)}
-              >
-                Cancel
-              </Button>
-              {`\u00A0\u00A0\u00A0\u00A0`}
-              <Button
-                className="form-submit"
-                size="small"
-                onClick={(event) => submitButton(event)}
-              >
-                Submit
-              </Button>
-            </Card>
-            <br />
-            <Button className="submit-buttons" onClick={() => history.goBack()}>
-              ⬅ Go Back
-            </Button>
-          </center>
-
-*/

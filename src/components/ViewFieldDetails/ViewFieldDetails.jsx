@@ -11,12 +11,6 @@ import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-const standardButtons = {
-  border: 'solid black 0px',
-  boxShadow: '2px 2px 3px 0px grey',
-  minWidth: '1px',
-};
-
 function ViewFieldDetails() {
   const dispatch = useDispatch();
   const history = useHistory();
