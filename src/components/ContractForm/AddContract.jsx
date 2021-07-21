@@ -289,7 +289,7 @@ function AddContract(params) {
           </Button>
           {`\u00A0\u00A0\u00A0\u00A0`}
           <Button
-            className='form-submit'
+            className="form-submit"
             size="small"
             onClick={(event) => addContract(event)}
           >
@@ -300,10 +300,9 @@ function AddContract(params) {
         </Card>
         <br />
         <Button className="submit-buttons" onClick={() => history.goBack()}>
-        ⬅ Go Back
-      </Button>
+          ⬅ Go Back
+        </Button>
       </center>
-      
     </Router>
   );
 }

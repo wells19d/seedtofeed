@@ -58,11 +58,11 @@ function EditTransaction() {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_TRANSACTION_TYPES'
+      type: 'FETCH_TRANSACTION_TYPES',
     });
     dispatch({
       type: 'FETCH_FIELD_TRANSACTIONS',
-      payload: field_id
+      payload: field_id,
     });
   }, []);
 
@@ -126,11 +126,8 @@ function EditTransaction() {
           >
             Submit
           </Button>
-
-
         </Card>
       </center>
-
     </Router>
   );
 }

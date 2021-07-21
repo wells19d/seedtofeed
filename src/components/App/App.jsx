@@ -79,13 +79,14 @@ function App() {
             <ViewContract />
           </Route>
 
-        
-
           <FarmerProtectedRoute exact path="/edit_NIR/:fieldID/:NIRID">
             <EditNIR />
           </FarmerProtectedRoute>
 
-          <FarmerProtectedRoute exact path="/edit_transaction/:fieldID/:transactionID">
+          <FarmerProtectedRoute
+            exact
+            path="/edit_transaction/:fieldID/:transactionID"
+          >
             <EditTransaction />
           </FarmerProtectedRoute>
 

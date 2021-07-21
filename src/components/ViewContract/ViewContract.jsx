@@ -10,7 +10,7 @@ import {
   TableRow,
   Paper,
   Button,
-  Grid
+  Grid,
 } from '@material-ui/core';
 
 function ViewContract() {

@@ -303,7 +303,6 @@ router.post('/create_NIR', rejectUnauthenticated, (req, res) => {
           console.log(`Error updating table with NIR`, error);
           res.sendStatus(500);
         });
-      
     })
     .catch((err) => {
       console.log(err);

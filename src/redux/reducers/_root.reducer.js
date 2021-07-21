@@ -13,9 +13,7 @@ import transactionTypesReducer from './transactionTypes.reducer';
 import uploadReducer from './uploadReducer';
 import contractShortListReducer from './contractShortList.reducer';
 
-
 import userListReducer from './userList.reducer';
-
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.

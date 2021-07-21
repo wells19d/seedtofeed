@@ -34,7 +34,6 @@ import buyerFieldListSaga from './buyerFieldList.saga';
 
 import uploadSaga from './uploadSaga';
 
-
 import addBuyerSaga from './addBuyer.saga';
 import buyerContractListSaga from './buyerContractList.saga';
 
@@ -63,7 +62,7 @@ export default function* rootSaga() {
 
     contractListSaga(),
     contractStatusSaga(),
-    contractShortListSaga(), 
+    contractShortListSaga(),
 
     addFieldSaga(),
     addTransactionSaga(),
@@ -92,6 +91,5 @@ export default function* rootSaga() {
 
     // bushelSaga(),
     // streamSaga(),
-
   ]);
 }

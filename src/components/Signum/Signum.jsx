@@ -3,8 +3,6 @@ import { useHistory } from 'react-router-dom';
 
 import { Button, Card } from '@material-ui/core';
 
-
-
 function Signum() {
   const history = useHistory();
 

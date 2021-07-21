@@ -7,12 +7,7 @@ import AddNIR from '../NIR/AddNIR';
 
 import '../../../src/index.css';
 
-import {
-  Card,
-  Button,
-  Typography,
-  Popover,
-} from '@material-ui/core';
+import { Card, Button, Typography, Popover } from '@material-ui/core';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';

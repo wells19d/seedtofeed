@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, Select, MenuItem } from '@material-ui/core'
+import { Button, Select, MenuItem } from '@material-ui/core';
 
 function SetBuyer(params) {
   const dispatch = useDispatch();

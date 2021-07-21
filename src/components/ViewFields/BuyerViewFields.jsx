@@ -11,7 +11,7 @@ import {
   TableRow,
   Paper,
   Button,
-  Grid
+  Grid,
 } from '@material-ui/core';
 
 import '../App/App.css';
