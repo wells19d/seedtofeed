@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Select, MenuItem } from '@material-ui/core'
 
 function SetBuyer(params) {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const userList = useSelector((store) => store.userListReducer);
 

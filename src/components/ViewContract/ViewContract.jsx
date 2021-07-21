@@ -149,7 +149,7 @@ function ViewContract() {
           <Grid item xs={4} />
         </Grid>
         <div className="back-button">
-          <Button className="form-submit" onClick={() => history.goBack()}>
+          <Button className="submit-buttons" onClick={() => history.goBack()}>
             ⬅ Go Back
           </Button>
         </div>

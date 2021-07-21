@@ -18,7 +18,6 @@ function AddContract(params) {
   const history = useHistory();
 
   //to be sent along with the contract obj
-  const user = useSelector((store) => store.user.username);
   const contractStatus = useSelector((store) => store.contractStatusReducer);
   const crops = useSelector((store) => store.cropListReducer);
   const fields = useSelector((store) => store.fieldListReducer);
@@ -118,7 +117,7 @@ function AddContract(params) {
   return (
     <Router>
       <center>
-        <Card className="cards">
+        <Card className="cards card-width">
           <h1>Add Contract</h1>
           <FormControl size="small">
             <Select
@@ -290,17 +289,21 @@ function AddContract(params) {
           </Button>
           {`\u00A0\u00A0\u00A0\u00A0`}
           <Button
-            className="form-cancel"
+            className='form-submit'
             size="small"
             onClick={(event) => addContract(event)}
           >
             Submit
           </Button>
+          <br />
+          <br />
         </Card>
-      </center>
-      <Button className="form-submit" onClick={() => history.goBack()}>
+        <br />
+        <Button className="submit-buttons" onClick={() => history.goBack()}>
         ⬅ Go Back
       </Button>
+      </center>
+      
     </Router>
   );
 }

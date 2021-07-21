@@ -95,13 +95,12 @@ function BuyerViewFields(params) {
                     <TableCell>{field.field_note}</TableCell>
                     <TableCell>{findFarmer(field)}</TableCell>
                     <TableCell>
-                      {' '}
                       <Button
                         className="submit-buttons"
                         onClick={() => farmerEmail(field)}
                       >
                         Make an offer
-                      </Button>{' '}
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}

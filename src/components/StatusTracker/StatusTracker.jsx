@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import '../App/App.css';
 
@@ -11,7 +10,6 @@ function StatusTracker(params) {
   const fieldID = Number(params.fieldID);
   const user = useSelector((store) => store.user);
 
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const statuses = useSelector((store) => store.transactionTypesReducer);

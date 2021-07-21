@@ -28,14 +28,10 @@ import EditContract from '../ContractForm/EditContract';
 import ViewFields from '../ViewFields/ViewFields';
 import ViewFieldDetails from '../ViewFieldDetails/ViewFieldDetails';
 
-import AddNIR from '../NIR/AddNIR';
-import FieldNIR from '../NIR/FieldNIR';
 import EditNIR from '../NIR/EditNIR';
 
 import EditFieldForm from '../FieldForm/EditFieldForm';
-import AddFieldForm from '../FieldForm/AddFieldForm';
 
-import AddTransaction from '../AddTransaction/AddTransaction';
 import EditTransaction from '../AddTransaction/EditTransaction';
 
 import Signum from '../Signum/Signum';
@@ -83,41 +79,27 @@ function App() {
             <ViewContract />
           </Route>
 
-          {/* <Route exact path="/edit_NIR/:fieldID/:NIRID">
-            <EditNIR />
-          </Route> */}
+        
 
           <FarmerProtectedRoute exact path="/edit_NIR/:fieldID/:NIRID">
             <EditNIR />
           </FarmerProtectedRoute>
 
-          <Route exact path="/edit_transaction/:fieldID/:transactionID">
+          <FarmerProtectedRoute exact path="/edit_transaction/:fieldID/:transactionID">
             <EditTransaction />
-          </Route>
+          </FarmerProtectedRoute>
 
-          <Route exact path="/contract_form">
+          <FarmerProtectedRoute exact path="/contract_form">
             <AddContract />
-          </Route>
+          </FarmerProtectedRoute>
 
-          <Route exact path="/NIR_form/:fieldID">
-            <AddNIR />
-          </Route>
-
-          <Route exact path="/edit_contract/:contractID">
+          <FarmerProtectedRoute exact path="/edit_contract/:contractID">
             <EditContract />
-          </Route>
+          </FarmerProtectedRoute>
 
-          <Route exact path="/edit_field/:fieldID">
+          <FarmerProtectedRoute exact path="/edit_field/:fieldID">
             <EditFieldForm />
-          </Route>
-
-          <Route exact path="/add_field/">
-            <AddFieldForm />
-          </Route>
-
-          <Route exact path="/add_transaction/:fieldID">
-            <AddTransaction />
-          </Route>
+          </FarmerProtectedRoute>
 
           <Route exact path="/signum">
             <Signum />

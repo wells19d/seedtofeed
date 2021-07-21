@@ -113,7 +113,7 @@ function EditTransaction() {
             className="form-cancel"
             size="small"
             onClick={() => {
-              window.location.reload();
+              history.push(`/field_details/${field_id}`);
             }}
           >
             Cancel

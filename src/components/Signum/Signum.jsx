@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Button, Card } from '@material-ui/core';
-import { use } from 'passport';
 
 
 
-function Signum(props) {
-  const store = useSelector((store) => store);
+function Signum() {
   const history = useHistory();
 
   return (
