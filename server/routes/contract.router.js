@@ -107,6 +107,34 @@ router.get('/getContractShortList', rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.get('/getBuyerContractShortList', rejectUnauthenticated, (req, res) => {
+  // GET route code here
+
+  const userID = req.user.id;
+
+  const queryText = `
+    SELECT "contract"."id" AS "contractID", "field"."name" AS "field_name", "field"."location",
+    "crop"."crop_type", "contract"."buyer_id" AS "buyerID", "contract_status"."name" AS "contract_status",
+    "contract"."quantity_fulfilled", "contract"."contract_handler", "user"."id" AS "userID"
+    FROM "user_field"
+    JOIN "user" ON ("user_field"."user_id" = "user"."id")
+    JOIN "contract" ON ("contract"."user_field_id" = "user_field"."id")
+    JOIN "field" ON ("field"."id" = "user_field"."field_id")
+    JOIN "crop" ON ("field"."crop_id" = "crop"."id")
+    JOIN "contract_status" ON ("contract"."open_status" = "contract_status"."id")
+    WHERE "user"."id" = $1;`;
+
+  pool
+    .query(queryText, [userID])
+    .then((response) => {
+      res.send(response.rows);
+    })
+    .catch((error) => {
+      console.log(`Error making database query ${queryText}`, error);
+      res.sendStatus(500);
+    });
+});
+
 //GET contract status list for the dropdown on the contract form
 router.get('/contractStatus', rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT * FROM "contract_status";`;

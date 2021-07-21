@@ -61,6 +61,10 @@ function ViewContractList(params) {
       dispatch({
         type: 'FETCH_BUYER_CONTRACT_LIST',
       });
+
+      dispatch({
+        type: 'FETCH_BUYER_CONTRACT_SHORTLIST',
+      });
     }
   }, [user]);
 

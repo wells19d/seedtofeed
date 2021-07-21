@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import '../App/App.css';
 
-import { Card, Grid, Paper } from '@material-ui/core';
+import { Card, Grid } from '@material-ui/core';
 
 import '../../../src/index.css';
 

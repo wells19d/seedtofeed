@@ -3,17 +3,7 @@ import { useSelector } from 'react-redux';
 
 import BuyerViewFields from '../ViewFields/BuyerViewFields';
 import ViewFields from '../ViewFields/ViewFields';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  Card,
-} from '@material-ui/core';
+import Card from '@material-ui/core/Card';
 
 import '../../index.css';
 

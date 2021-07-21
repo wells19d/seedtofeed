@@ -8,11 +8,7 @@ import AddNIR from '../NIR/AddNIR';
 import '../../../src/index.css';
 
 import {
-  Grid,
   Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
   Button,
   Typography,
   Popover,

@@ -4,16 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
   Table,
-  TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
   Paper,
   Button,
-  Grid,
-  Card,
-  Popover,
+  Grid
 } from '@material-ui/core';
 
 function ViewContract() {

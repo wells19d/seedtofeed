@@ -9,15 +9,13 @@ import {
   FormControl,
   MenuItem,
   Select,
-  TextField
+  TextField,
 } from '@material-ui/core';
 
 function EditTransaction() {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
-
- 
 
   const field_id = params.fieldID;
   const transaction_id = params.transactionID;
@@ -50,8 +48,8 @@ function EditTransaction() {
           transaction_id: transaction_id,
           status_notes: notes,
           // field_status: transactionList[transactionType]?.name,
-          transaction_type: transactionType
-        }
+          transaction_type: transactionType,
+        },
       });
 
       history.push(`/field_details/${field_id}`);
@@ -60,43 +58,44 @@ function EditTransaction() {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_TRANSACTION_TYPES'
+      type: 'FETCH_TRANSACTION_TYPES',
     });
     dispatch({
       type: 'FETCH_FIELD_TRANSACTIONS',
-      payload: field_id
+      payload: field_id,
     });
   }, []);
 
   return (
+    <React.Fragment>
     <Router>
       <center>
         <Card className="cards card-width">
           <h1>Edit Transaction</h1>
           <TextField
-            variant='outlined'
-            label='Notes'
-            type='text'
+            variant="outlined"
+            label="Notes"
+            type="text"
             value={notes}
             required
             onChange={(event) => setNotes(event.target.value)}
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
-            size='small'
+            size="small"
           />
           <br />
           <br />
-          <FormControl size='small'>
+          <FormControl size="small">
             <Select
-              variant='outlined'
+              variant="outlined"
               value={transactionType}
               required
               style={{ width: '155px' }}
               onChange={(event) => setTransactionType(event.target.value)}
               displayEmpty
             >
-              <MenuItem value='' disabled size='small'>
+              <MenuItem value="" disabled size="small">
                 <em>Transaction Type</em>
               </MenuItem>
               {transactionList?.map((transaction) => {
@@ -112,8 +111,8 @@ function EditTransaction() {
           <br />
           <br />
           <Button
-            className='form-cancel'
-            size='small'
+            className="form-cancel"
+            size="small"
             onClick={() => {
               window.location.reload();
             }}
@@ -122,8 +121,8 @@ function EditTransaction() {
           </Button>
           {`\u00A0\u00A0\u00A0\u00A0`}
           <Button
-            className='form-submit'
-            size='small'
+            className="form-submit"
+            size="small"
             onClick={(event) => submitButton(event)}
           >
             Submit
@@ -131,9 +130,9 @@ function EditTransaction() {
         </Card>
       </center>
     </Router>
+    </React.Fragment>
+
   );
-
 }
-
 
 export default EditTransaction;

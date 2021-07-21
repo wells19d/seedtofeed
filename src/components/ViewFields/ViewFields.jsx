@@ -16,7 +16,7 @@ import {
   TableRow,
   Paper,
   Button,
-  Card,
+  Card
 } from '@material-ui/core';
 
 import '../../index.css';
