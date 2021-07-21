@@ -373,6 +373,7 @@ function AddContract(params) {
       <Button className='form-submit' size="small" onClick={(event) => addContract(event)}>
         Submit
       </Button>
+      </Card>
       </center>
       <Button style={standardButtons} onClick={() => history.goBack()}>
         ⬅ Go Back
