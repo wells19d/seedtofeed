@@ -102,15 +102,16 @@ After running the login route above, you can try any other route you've created 
 - [Redux-Saga](https://redux-saga.js.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Material](https://material-ui.com/)
-- [Moment](https://momentjs.com/)
-- [Cloudinary](https://cloudinary.com/)
-- [FontAwesome](https://fontawesome.com/)
+
 
 - (a full list of dependencies can be found in `package.json`).
 
 
 
 # Miscellaneous Technologies Used
+- [Moment](https://momentjs.com/)
+- [Cloudinary](https://cloudinary.com/)
+- [FontAwesome](https://fontawesome.com/)
 - [Trello](https://trello.com)
 - [Heroku](https://www.heroku.com)
 
