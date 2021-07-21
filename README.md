@@ -95,20 +95,19 @@ After running the login route above, you can try any other route you've created 
 
 # Technologies
 
-- React
-- Node
-- Express
-- PostgreSQL
-- Material
-
-(a full list of dependencies can be found in `package.json`).
-
-=======
 - [React](https://reactjs.org/)
 - [Node](https://nodejs.org/en/)
-- Express
+- [Express](https://expressjs.com/)
+- [Redux](https://redux.js.org/)
+- [Redux-Saga](https://redux-saga.js.org/)
 - [PostgreSQL](https://www.postgresql.org/)
-- Material
+- [Material](https://material-ui.com/)
+- [Moment](https://momentjs.com/)
+- [Cloudinary](https://cloudinary.com/)
+- [FontAwesome](https://fontawesome.com/)
+
+- (a full list of dependencies can be found in `package.json`).
+
 
 
 # Miscellaneous Technologies Used
