@@ -16,6 +16,8 @@ const defaultState = {
           contract_error: null,
           contract_success: action.payload
        };
+      case 'LOGOUT':
+         return defaultState;
       default:
         return state;
     }

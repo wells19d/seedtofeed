@@ -151,8 +151,8 @@ function EditTransaction() {
         ⬅ Go Back
       </Button>
     </Router>
+    </center>
   );
-
 }
 
 export default EditTransaction;

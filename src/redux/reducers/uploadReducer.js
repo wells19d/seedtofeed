@@ -3,6 +3,9 @@ const uploadReducer = (state = [], action) => {
       // clear uploads and set to a new list (action.payload)
       return [...action.payload]
     }
+    else if (action.type === 'LOGOUT') {
+      return []
+    }
     return state;
   };
   

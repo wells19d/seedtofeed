@@ -15,6 +15,11 @@ const streamsReducer = (state = { is_loading: false, streams: [] }, action) => {
              ...state,
              is_loading: false
           }
+       case 'LOGOUT':
+          return {
+             is_loading: false,
+             streams: []
+          }
        default:
           return state;
     }

@@ -89,7 +89,7 @@ function ViewContractList(params) {
   }
 
   return (
-
+    <>
     <center>
       <div className="title-indent">
         <h1>Contract List</h1>
@@ -201,6 +201,7 @@ function ViewContractList(params) {
           >
             <Typography ><Card className='popup-cards'><AddContract/></Card></Typography>
           </Popover>
+        </Grid>
         </Grid>
       </center>
       <Button style={standardButtons} onClick={() => history.goBack()}>
