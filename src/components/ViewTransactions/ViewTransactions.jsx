@@ -5,7 +5,6 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 
 import AddTransaction from '../AddTransaction/AddTransaction';
-import EditTransaction from '../AddTransaction/EditTransaction';
 
 import {
   Grid,
@@ -14,9 +13,9 @@ import {
   CardContent,
   CardMedia,
   Button,
-  Typography, Popover,
+  Typography,
+  Popover,
 } from '@material-ui/core';
-
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -48,8 +47,6 @@ function ViewTransactions(params) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  console.log('Looking for the image', transactions[0]?.field_image);
-
   function deleteButton(transactionID) {
     if (confirm('Do you wish to delete this transaction?')) {
       dispatch({
@@ -74,8 +71,8 @@ function ViewTransactions(params) {
 
   return (
     <center>
-      <Typography className='card-header'>Field Transaction:</Typography>
-      <Card className='cards'>
+      <Typography className="card-header">Field Transaction:</Typography>
+      <Card className="cards">
         <CardActionArea>
           <CardMedia
             component="img"
@@ -89,7 +86,9 @@ function ViewTransactions(params) {
           <Grid container spacing={1}>
             <Grid item xs={2} align="left">
               <b>
-                <div className="field-header"><u>Date - Time</u></div>
+                <div className="field-header">
+                  <u>Date - Time</u>
+                </div>
               </b>
             </Grid>
             <Grid item xs={2} align="left">
@@ -103,41 +102,70 @@ function ViewTransactions(params) {
               </b>
             </Grid>
 
-            {user.farmer &&
-            <Grid item xs={2} align="center">
-              {`\u00A0\u00A0\u00A0`}
-              <b>
-                <u>Edit</u>
-              </b>
-              {`\u00A0\u00A0\u00A0`}
-              <b>
-                <u>Delete</u>
-              </b>
-            </Grid>}
+            {user.farmer && (
+              <Grid item xs={2} align="center">
+                {`\u00A0\u00A0\u00A0`}
+                <b>
+                  <u>Edit</u>
+                </b>
+                {`\u00A0\u00A0\u00A0`}
+                <b>
+                  <u>Delete</u>
+                </b>
+              </Grid>
+            )}
 
-            {user.buyer &&
-            <Grid item xs={2} align="center"></Grid>}
-
+            {user.buyer && <Grid item xs={2} align="center"></Grid>}
 
             <br />
             <br />
             {transactions.map((event) => {
               return (
                 <>
-                  <Grid item xs={2} key={event.field_transactions_ID} align="left" ><Moment format="lll">{event.timestamp}</Moment></Grid>
-                  <Grid item xs={2} align="left" className='capitalize'>{event.field_status}</Grid>
-                  <Grid item xs={5} align="left" className='capitalize'>{event.status_notes}</Grid>
+                  <Grid
+                    item
+                    xs={2}
+                    key={event.field_transactions_ID}
+                    align="left"
+                  >
+                    <Moment format="lll">{event.timestamp}</Moment>
+                  </Grid>
+                  <Grid item xs={2} align="left" className="capitalize">
+                    {event.field_status}
+                  </Grid>
+                  <Grid item xs={5} align="left" className="capitalize">
+                    {event.status_notes}
+                  </Grid>
 
-                  {user.farmer &&
-                  <Grid item xs={2} align="center">
-                    <Button  className='standard-buttons' title="Edit" color="default" onClick={() => history.push(`/edit_transaction/${fieldID}/${event.field_transactions_ID}`)}>{edit}</Button>
-                    {`\u00A0\u00A0\u00A0\u00A0\u00A0`}
-                    <Button  className='standard-buttons' title="Delete" color="default" onClick={() => deleteButton(event.field_transactions_ID)}>{trashCan}</Button>
-                  </Grid>}
+                  {user.farmer && (
+                    <Grid item xs={2} align="center">
+                      <Button
+                        className="standard-buttons"
+                        title="Edit"
+                        color="default"
+                        onClick={() =>
+                          history.push(
+                            `/edit_transaction/${fieldID}/${event.field_transactions_ID}`
+                          )
+                        }
+                      >
+                        {edit}
+                      </Button>
+                      {`\u00A0\u00A0\u00A0\u00A0\u00A0`}
+                      <Button
+                        className="standard-buttons"
+                        title="Delete"
+                        color="default"
+                        onClick={() =>
+                          deleteButton(event.field_transactions_ID)
+                        }
+                      >
+                        {trashCan}
+                      </Button>
+                    </Grid>
+                  )}
 
-                  {user.buyer &&
-                  <Grid item xs={2} align="center"></Grid>}
-
+                  {user.buyer && <Grid item xs={2} align="center"></Grid>}
                 </>
               );
             })}
@@ -146,31 +174,33 @@ function ViewTransactions(params) {
           <br />
           {user.farmer && (
             <>
-            <Button className='submit-buttons' onClick={handleClick}>
-            Add Transaction
-          </Button>
-          
-          </>
+              <Button className="submit-buttons" onClick={handleClick}>
+                Add Transaction
+              </Button>
+            </>
           )}
-
         </CardContent>
       </Card>
       <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'center',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-          >
-            <Typography ><Card className='popup-cards'><AddTransaction/></Card></Typography>
-          </Popover>
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'center',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+      >
+        <Typography>
+          <Card className="popup-cards">
+            <AddTransaction />
+          </Card>
+        </Typography>
+      </Popover>
     </center>
   );
 }

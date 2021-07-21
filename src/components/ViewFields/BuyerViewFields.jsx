@@ -2,15 +2,17 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Grid,
+} from '@material-ui/core';
 
 import '../App/App.css';
 
@@ -20,7 +22,6 @@ function BuyerViewFields(params) {
 
   const fieldList = useSelector((store) => store.fieldListReducer);
   const userList = useSelector((store) => store.userListReducer);
-  // console.log('The fieldList', fieldList);
 
   useEffect(() => {
     dispatch({
@@ -94,13 +95,12 @@ function BuyerViewFields(params) {
                     <TableCell>{field.field_note}</TableCell>
                     <TableCell>{findFarmer(field)}</TableCell>
                     <TableCell>
-                      {' '}
                       <Button
                         className="submit-buttons"
                         onClick={() => farmerEmail(field)}
                       >
                         Make an offer
-                      </Button>{' '}
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}

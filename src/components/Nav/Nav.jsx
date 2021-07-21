@@ -4,18 +4,12 @@ import './Nav.css';
 import { useSelector, useDispatch } from 'react-redux';
 import logo from './Logos/seedtofeed-badge_1-color-Texture (1).png';
 
-// import FarmerNav from '../Nav/FarmerNav';
-// import BuyerNav from '../Nav/BuyerNav';
-
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import { Menu, MenuItem } from '@material-ui/core/';
 
 function Nav() {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((store) => store.user);
-  // console.log('users are', user);
 
   let loginLinkData = {
     path: '/login',
@@ -38,9 +32,9 @@ function Nav() {
   };
 
   function logOutFunction() {
-    dispatch({ type: 'LOGOUT' })
+    dispatch({ type: 'LOGOUT' });
 
-    history.push('/home')
+    history.push('/home');
   }
 
   return (
@@ -48,10 +42,19 @@ function Nav() {
       <div className="nav-logo-span">
         <h3 className="title">TRACKER</h3>
         <Link to="/home">
-          <img className="custom-logo-link-img" src={logo} alt="Seed to Feed Logo" />
+          <img
+            className="custom-logo-link-img"
+            src={logo}
+            alt="Seed to Feed Logo"
+          />
         </Link>
       </div>
-      <Link className="menuButton" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      <Link
+        className="menuButton"
+        aria-controls="simple-menu"
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
         Menu
       </Link>
       <Menu
@@ -62,14 +65,27 @@ function Nav() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}><Link to={loginLinkData.path}>{loginLinkData.text}</Link></MenuItem>
-        <MenuItem onClick={handleClose}><Link to="/about">About</Link></MenuItem>
-        <MenuItem onClick={handleClose}>{user.id && (<Link to='/contract'>Contracts</Link>)}</MenuItem>
-        <MenuItem onClick={handleClick}><a href='http://www.seedtofeed.info/' target='_blank'>Info Page</a></MenuItem>
-        <MenuItem onClick={handleClose}><Link to='/signum'>Signum</Link></MenuItem>
-        
-        <MenuItem onClick={handleClose}>{user.id && (<Link onClick={() => logOutFunction()}>Logout</Link>)}</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to={loginLinkData.path}>{loginLinkData.text}</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/about">About</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          {user.id && <Link to="/contract">Contracts</Link>}
+        </MenuItem>
+        <MenuItem onClick={handleClick}>
+          <a href="http://www.seedtofeed.info/" target="_blank">
+            Info Page
+          </a>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/signum">Signum</Link>
+        </MenuItem>
 
+        <MenuItem onClick={handleClose}>
+          {user.id && <Link onClick={() => logOutFunction()}>Logout</Link>}
+        </MenuItem>
       </Menu>
     </div>
   );

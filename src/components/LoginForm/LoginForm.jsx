@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import TextField from '@material-ui/core/TextField';
+import { Button, Card, TextField } from '@material-ui/core/';
 
 import '../../index.css';
 
@@ -69,7 +67,11 @@ function LoginForm() {
           />
           <br />
           <br />
-          <Button className='submit-buttons' size="small" onClick={(event) => login(event)}>
+          <Button
+            className="submit-buttons"
+            size="small"
+            onClick={(event) => login(event)}
+          >
             Login
           </Button>
         </form>

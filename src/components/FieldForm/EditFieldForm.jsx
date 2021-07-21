@@ -10,24 +10,8 @@ import {
   FormControl,
   MenuItem,
   Select,
-  TextField
+  TextField,
 } from '@material-ui/core';
-
-const cards = {
-  border: 'solid black 2px',
-  fontFamily: 'Montserrat',
-  overflow: 'auto',
-  fontSize: '14px',
-  boxShadow: '3px 3px 4px 1px grey',
-  width: '400px',
-  padding: '20px'
-};
-
-const standardButtons = {
-  border: 'solid black 0px',
-  boxShadow: '2px 2px 3px 0px grey',
-  minWidth: '1px'
-};
 
 function EditFieldForm() {
   const dispatch = useDispatch();
@@ -36,15 +20,12 @@ function EditFieldForm() {
   const params = useParams();
 
   const fieldList = useSelector((store) => store.fieldListReducer);
-  // console.log('Field List Details', fieldList);
 
   const fieldID = Number(params.fieldID);
-  // console.log(`check`, fieldID, 3);
 
   const field_index = fieldList.findIndex(
     (list) => list.id === Number(fieldID)
   );
-  // console.log('The index is', field_index);
 
   const field_to_edit = fieldList[field_index];
 
@@ -53,11 +34,6 @@ function EditFieldForm() {
   //obtain field status of field that is being edited
   const fieldTrans = transType[0]?.transaction_type;
   const fieldStatus2 = transType[0]?.field_status;
-
-  // LOCAL STATE
-
-  // These need to be fixed to pull in the values
-  // right now all they do is empty the fields
 
   const [fieldName, setFieldName] = useState(field_to_edit?.name);
   const [fieldYear, setFieldYear] = useState(field_to_edit?.year);
@@ -69,24 +45,20 @@ function EditFieldForm() {
 
   const crops = useSelector((store) => store.cropListReducer);
   const fieldStatus = useSelector((store) => store.transactionTypesReducer);
-  // console.log('here is the list of crops:', crops);
-  // console.log('here is the field status list:', fieldStatus);
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_CROP_LIST'
+      type: 'FETCH_CROP_LIST',
     });
     dispatch({
       type: 'FETCH_FIELD_LIST',
-      payload: fieldID
+      payload: fieldID,
     });
   }, []);
 
   // EDIT A FIELD
   const updateField = (event) => {
     event.preventDefault();
-
-    // alert('Your field has been updated');
 
     if (
       (fieldName.length === 0,
@@ -110,31 +82,25 @@ function EditFieldForm() {
           fieldID: fieldID,
           transaction_type: fieldTrans,
           field_status: fieldStatus2,
-          image: image
-        }
+          image: image,
+        },
       });
+      alert('Your field has been updated');
       history.push('/user');
     }
   };
 
   const openWidget = () => {
-    // Currently there is a bug with the Cloudinary <Widget /> component
-    // where the button defaults to a non type="button" which causes the form
-    // to submit when clicked. So for now just using the standard widget that
-    // is available on window.cloudinary
-    // See docs: https://cloudinary.com/documentation/upload_widget#look_and_feel_customization
     !!window.cloudinary &&
       window.cloudinary
         .createUploadWidget(
           {
             sources: ['local', 'url', 'camera'],
             cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
-            uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
+            uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
           },
           function (error, result) {
-            console.log(result);
             if (!error && result && result.event === 'success') {
-              // When an upload is successful, save the uploaded URL to local state!
               setImage(result.info.secure_url);
             }
           }
@@ -145,77 +111,77 @@ function EditFieldForm() {
   return (
     <Router>
       <center>
-        <Card style={cards}>
+        <Card className="cards card-width">
           <h1>Edit Field</h1>
           <TextField
-            variant='outlined'
-            label='Field Name'
-            type='text'
+            variant="outlined"
+            label="Field Name"
+            type="text"
             value={fieldName}
             onChange={(event) => setFieldName(event.target.value)}
             required
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
-            size='small'
+            size="small"
           />
           <br />
           <br />
           <TextField
-            variant='outlined'
-            label='Location'
-            type='text'
+            variant="outlined"
+            label="Location"
+            type="text"
             value={location}
             onChange={(event) => setLocation(event.target.value)}
             required
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
-            size='small'
+            size="small"
           />
           <br />
           <br />
           <TextField
-            variant='outlined'
-            label='Number of Acres'
-            type='number'
+            variant="outlined"
+            label="Number of Acres"
+            type="number"
             value={acres}
             InputProps={{ inputProps: { min: 0 } }}
             onChange={(event) => setAcres(event.target.value)}
             required
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
-            size='small'
+            size="small"
           />
           <br />
           <br />
           <TextField
-            variant='outlined'
-            label='Year'
-            type='number'
+            variant="outlined"
+            label="Year"
+            type="number"
             value={fieldYear}
             InputProps={{ inputProps: { min: 1900 } }}
             onChange={(event) => setFieldYear(event.target.value)}
             required
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
-            size='small'
+            size="small"
           />
           <br />
           <br />
-          <FormControl size='small'>
+          <FormControl size="small">
             <Select
-              variant='outlined'
+              variant="outlined"
               value={cropType}
               required
               style={{ width: '155px' }}
-              size='small'
+              size="small"
               onChange={(event) => setCropType(event.target.value)}
               displayEmpty
             >
-              <MenuItem value='' disabled size='small'>
+              <MenuItem value="" disabled size="small">
                 <em>Crop Type</em>
               </MenuItem>
               {crops?.map((crop) => {
@@ -230,28 +196,28 @@ function EditFieldForm() {
           <br />
           <br />
           {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
-          <Button type='button' onClick={openWidget}>
+          <Button type="button" onClick={openWidget}>
             Upload Field Image
           </Button>
           <br />
           <br />
           <TextField
-            variant='outlined'
-            label='Field Notes'
-            type='text'
+            variant="outlined"
+            label="Field Notes"
+            type="text"
             value={notes}
             style={{ minWidth: '300px' }}
             helperText={`${notes?.length}/${CHARACTER_LIMIT}`}
             onChange={(event) => setNotes(event.target.value)}
             required
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
           />
           <center>
             <Button
-              className='submit-buttons'
-              size='small'
+              className="form-cancel"
+              size="small"
               onClick={() => {
                 history.push('/user');
               }}
@@ -260,19 +226,22 @@ function EditFieldForm() {
             </Button>
             {`\u00A0\u00A0\u00A0\u00A0`}
             <Button
-              className='submit-buttons'
-              size='small'
+              className="form-submit"
+              size="small"
               onClick={(event) => updateField(event)}
             >
               Submit
             </Button>
+            <br />
+            <br />
           </center>
         </Card>
+        <br />
 
+        <Button className="submit-buttons" onClick={() => history.goBack()}>
+          ⬅ Go Back
+        </Button>
       </center>
-      <Button style={standardButtons} onClick={() => history.goBack()}>
-        ⬅ Go Back
-      </Button>
     </Router>
   );
 }

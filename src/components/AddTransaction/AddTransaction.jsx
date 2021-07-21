@@ -3,11 +3,13 @@ import { useSelector } from 'react-redux';
 import { HashRouter as Router, useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
+import {
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+} from '@material-ui/core';
 
 function AddTransaction() {
   const dispatch = useDispatch();
@@ -25,16 +27,13 @@ function AddTransaction() {
     event.preventDefault();
 
     if (notes.length === 0) {
-      return alert('Fill in required fields')
-    }
-    else {
+      return alert('Fill in required fields');
+    } else {
       dispatch({
         type: 'SET_TRANSACTION',
         payload: {
           field_id: field_id,
-          // timestamp: new Date(),
           status_notes: notes,
-          // field_status: transactionList[transactionType]?.name,
           transaction_type: transactionType,
         },
       });
@@ -51,8 +50,8 @@ function AddTransaction() {
 
   return (
     <center>
-    <Router>
-      <h1>Add New Transaction</h1>
+      <Router>
+        <h1>Add New Transaction</h1>
         <TextField
           variant="outlined"
           label="Notes"
@@ -80,22 +79,18 @@ function AddTransaction() {
               <em>Transaction Type</em>
             </MenuItem>
             {transactionList?.map((transaction) => {
-              console.log('transaction type:', transaction);
               return (
                 <MenuItem key={transaction.id} value={transaction.id}>
                   {transaction.name}
                 </MenuItem>
               );
             })}
-
-
           </Select>
-
         </FormControl>
         <br />
         <br />
         <Button
-          className='form-cancel'
+          className="form-cancel"
           size="small"
           onClick={() => {
             window.location.reload();
@@ -104,12 +99,16 @@ function AddTransaction() {
           Cancel
         </Button>
         {`\u00A0\u00A0\u00A0\u00A0`}
-        <Button className='form-submit' size="small" onClick={(event) => submitButton(event)}>
+        <Button
+          className="form-submit"
+          size="small"
+          onClick={(event) => submitButton(event)}
+        >
           Submit
         </Button>
-    </Router >
+      </Router>
     </center>
-    );
+  );
 }
 
 export default AddTransaction;

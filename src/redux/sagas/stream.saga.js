@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-// worker Saga: will be fired on "FETCH_USER" actions
+// this saga is get api JSON info from the stream table
 function* fetchStreams() {
   try {
-     yield put({ type: 'FETCHING_STREAMS_START'})
+    yield put({ type: 'FETCHING_STREAMS_START' });
     const config = {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
@@ -15,7 +15,7 @@ function* fetchStreams() {
   } catch (error) {
     console.log('Stream get request failed', error);
   }
-  yield put({ type: 'FETCHING_STREAMS_COMPLETE'})
+  yield put({ type: 'FETCHING_STREAMS_COMPLETE' });
 }
 
 function* streamSaga() {

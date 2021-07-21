@@ -9,24 +9,8 @@ import {
   FormControl,
   MenuItem,
   Select,
-  TextField
+  TextField,
 } from '@material-ui/core';
-
-const cards = {
-  border: 'solid black 2px',
-  fontFamily: 'Montserrat',
-  overflow: 'auto',
-  fontSize: '14px',
-  boxShadow: '3px 3px 4px 1px grey',
-  width: '400px',
-  padding: '20px'
-};
-
-const standardButtons = {
-  border: 'solid black 0px',
-  boxShadow: '2px 2px 3px 0px grey',
-  minWidth: '1px'
-};
 
 function AddContract(params) {
   const userID = params.userID;
@@ -34,7 +18,6 @@ function AddContract(params) {
   const history = useHistory();
 
   //to be sent along with the contract obj
-  const user = useSelector((store) => store.user.username);
   const contractStatus = useSelector((store) => store.contractStatusReducer);
   const crops = useSelector((store) => store.cropListReducer);
   const fields = useSelector((store) => store.fieldListReducer);
@@ -47,18 +30,17 @@ function AddContract(params) {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_CROP_LIST'
+      type: 'FETCH_CROP_LIST',
     });
     dispatch({
-      type: 'FETCH_CONTRACT_STATUS'
+      type: 'FETCH_CONTRACT_STATUS',
     });
     dispatch({
       type: 'FETCH_FIELD_LIST',
-      payload: userID
+      payload: userID,
     });
-
     dispatch({
-      type: 'FETCH_USER_LIST'
+      type: 'FETCH_USER_LIST',
     });
   }, []);
 
@@ -93,12 +75,12 @@ function AddContract(params) {
       contractQuantity === 0,
       containerSerial.length === 0)
     ) {
-      return alert('Fill in required fields'); // Can change alert and which fields are required
+      return alert('Fill in required fields');
     } else {
       dispatch({
-        type: 'SET_CONTRACT', // dispatch to the addContract.saga
+        type: 'SET_CONTRACT',
         payload: {
-          user_field_id: user_field_id, //have to review how this is coming in?
+          user_field_id: user_field_id,
           buyer_id: buyerID,
           commodity: commodity,
           open_status: openStatus,
@@ -111,8 +93,8 @@ function AddContract(params) {
           contract_quantity: contractQuantity,
           container_serial: containerSerial,
           contract_handler: contractHandler,
-          field_status: fieldStatus
-        }
+          field_status: fieldStatus,
+        },
       });
 
       alert('Contract has been created');
@@ -135,18 +117,18 @@ function AddContract(params) {
   return (
     <Router>
       <center>
-        <Card style={cards}>
+        <Card className="cards card-width">
           <h1>Add Contract</h1>
-          <FormControl size='small'>
+          <FormControl size="small">
             <Select
-              variant='outlined'
+              variant="outlined"
               value={user_field_id}
               style={{ width: '195px' }}
               required
               displayEmpty
               onChange={onFieldChange}
             >
-              <MenuItem value='' disabled size='small'>
+              <MenuItem value="" disabled size="small">
                 <em>Select Field</em>
               </MenuItem>
               {fields.map((field) => {
@@ -161,15 +143,15 @@ function AddContract(params) {
           </FormControl>
           <br />
           <br />
-          <FormControl size='small'>
+          <FormControl size="small">
             <Select
-              variant='outlined'
+              variant="outlined"
               value={commodity}
               style={{ width: '195px' }}
               displayEmpty
               onChange={(event) => setCommodity(event.target.value)}
             >
-              <MenuItem value='' disabled size='small'>
+              <MenuItem value="" disabled size="small">
                 <em>Select Commodity</em>
               </MenuItem>
               {crops.map((crop) => {
@@ -184,39 +166,15 @@ function AddContract(params) {
           </FormControl>
           <br />
           <br />
-          {/* <FormControl size="small">
-        <Select
-          variant="outlined"
-          value={openStatus}
-          style={{ width: '195px' }}
-          required
-          displayEmpty
-          onChange={(event) => setOpenStatus(event.target.value)}
-        >
-          <MenuItem value="" disabled size="small">
-            <em>Status</em>
-          </MenuItem>
-          {contractStatus.map((status) => {
-            console.log('contract status:', status);
-            return (
-              <MenuItem key={status.id} value={status.id}>
-                {status.name}
-              </MenuItem>
-            );
-          })}
-        </Select>
-       </FormControl> */}
-
-          <FormControl size='small'>
+          <FormControl size="small">
             <Select
-              variant='outlined'
+              variant="outlined"
               value={buyerID}
               style={{ width: '195px' }}
-              // required
               displayEmpty
               onChange={(event) => setBuyerID(event.target.value)}
             >
-              <MenuItem value='' disabled size='small'>
+              <MenuItem value="" disabled size="small">
                 <em>Buyer (optional)</em>
               </MenuItem>
               {userList?.map((buyer) => {
@@ -237,147 +195,114 @@ function AddContract(params) {
           <br />
           <br />
           <TextField
-            variant='outlined'
-            label='Bushel UID'
-            type='text'
+            variant="outlined"
+            label="Bushel UID"
+            type="text"
             value={bushel_uid}
             onChange={(event) => setBushel_uid(event.target.value)}
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
-            size='small'
+            size="small"
           />
           <br />
           <br />
           <TextField
-            variant='outlined'
-            label='Quantity Fulfilled'
-            type='number'
+            variant="outlined"
+            label="Quantity Fulfilled"
+            type="number"
             value={quantityFulfilled}
             InputProps={{ inputProps: { min: 0 } }}
             onChange={(event) => setQuantityFulfilled(event.target.value)}
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
-            size='small'
+            size="small"
           />
           <br />
           <br />
           <TextField
-            variant='outlined'
-            label='Price'
-            type='number'
+            variant="outlined"
+            label="Price"
+            type="number"
             value={price}
             InputProps={{ inputProps: { min: 0 } }}
             onChange={(event) => setPrice(event.target.value)}
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
-            size='small'
+            size="small"
           />
           <br />
-          {/* <TextField
-        variant="outlined"
-        label="Protein"
-        type="number"
-        value={protein}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setProtein(event.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Moisture"
-        type="number"
-        value={moisture}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setMoisture(event.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Oil"
-        type="number"
-        value={oil}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setOil(event.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      /> */}
-      <br />
-      <TextField
-        variant="outlined"
-        label="Contract Quantity"
-        type="number"
-        value={contractQuantity}
-        required
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setContractQuantity(event.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Container Serial Number"
-        type="number"
-        value={containerSerial}
-        required
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setContainerSerial(event.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Contract Handler"
-        type="text"
-        value={contractHandler}
-        onChange={(event) => setContractHandler(event.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <Button
-      className='form-cancel'
-        size="small"
-        onClick={() => {
-          history.push('/contract');
-        }}
-      >
-        Cancel
-      </Button>
-      {`\u00A0\u00A0\u00A0\u00A0`}
-      <Button className='form-submit' size="small" onClick={(event) => addContract(event)}>
-        Submit
-      </Button>
-      </Card>
+          <br />
+          <TextField
+            variant="outlined"
+            label="Contract Quantity"
+            type="number"
+            value={contractQuantity}
+            required
+            InputProps={{ inputProps: { min: 0 } }}
+            onChange={(event) => setContractQuantity(event.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            size="small"
+          />
+          <br />
+          <br />
+          <TextField
+            variant="outlined"
+            label="Container Serial Number"
+            type="number"
+            value={containerSerial}
+            required
+            InputProps={{ inputProps: { min: 0 } }}
+            onChange={(event) => setContainerSerial(event.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            size="small"
+          />
+          <br />
+          <br />
+          <TextField
+            variant="outlined"
+            label="Contract Handler"
+            type="text"
+            value={contractHandler}
+            onChange={(event) => setContractHandler(event.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            size="small"
+          />
+          <br />
+          <br />
+          <Button
+            className="form-cancel"
+            size="small"
+            onClick={() => {
+              history.push('/contract');
+            }}
+          >
+            Cancel
+          </Button>
+          {`\u00A0\u00A0\u00A0\u00A0`}
+          <Button
+            className="form-submit"
+            size="small"
+            onClick={(event) => addContract(event)}
+          >
+            Submit
+          </Button>
+          <br />
+          <br />
+        </Card>
+        <br />
+        <Button className="submit-buttons" onClick={() => history.goBack()}>
+          ⬅ Go Back
+        </Button>
       </center>
-      <Button style={standardButtons} onClick={() => history.goBack()}>
-        ⬅ Go Back
-      </Button>
     </Router>
   );
 }

@@ -4,11 +4,13 @@ import { HashRouter as Router, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useScript } from '../../hooks/useScript';
 
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
+import {
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+} from '@material-ui/core';
 
 function AddFieldForm() {
   const dispatch = useDispatch();
@@ -26,8 +28,6 @@ function AddFieldForm() {
 
   const crops = useSelector((store) => store.cropListReducer);
   const fieldStatus = useSelector((store) => store.transactionTypesReducer);
-  // console.log('here is the list of crops:', crops);
-  // console.log('here is the field status list:', fieldStatus);
 
   // ADD A FIELD
   const addField = (event) => {
@@ -60,11 +60,6 @@ function AddFieldForm() {
     }
   };
   const openWidget = () => {
-    // Currently there is a bug with the Cloudinary <Widget /> component
-    // where the button defaults to a non type="button" which causes the form
-    // to submit when clicked. So for now just using the standard widget that
-    // is available on window.cloudinary
-    // See docs: https://cloudinary.com/documentation/upload_widget#look_and_feel_customization
     !!window.cloudinary &&
       window.cloudinary
         .createUploadWidget(
@@ -74,9 +69,7 @@ function AddFieldForm() {
             uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
           },
           function (error, result) {
-            console.log(result);
             if (!error && result && result.event === 'success') {
-              // When an upload is successful, save the uploaded URL to local state!
               setImage(result.info.secure_url);
             }
           }

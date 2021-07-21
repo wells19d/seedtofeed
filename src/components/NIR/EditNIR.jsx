@@ -3,23 +3,7 @@ import { HashRouter as Router } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, Card, TextField } from '@material-ui/core';
-
-const cards = {
-  border: 'solid black 2px',
-  fontFamily: 'Montserrat',
-  overflow: 'auto',
-  fontSize: '14px',
-  boxShadow: '3px 3px 4px 1px grey',
-  width: '400px',
-  padding: '20px'
-};
-
-const standardButtons = {
-  border: 'solid black 0px',
-  boxShadow: '2px 2px 3px 0px grey',
-  minWidth: '1px'
-};
+import { Button, TextField } from '@material-ui/core';
 
 function EditNIR() {
   const dispatch = useDispatch();
@@ -33,22 +17,18 @@ function EditNIR() {
 
   const transType = useSelector((store) => store.fieldTransactionsReducer);
 
-  //obtain field status of field NIR that is being edited
   const fieldTrans = transType[0].transaction_type;
   const fieldStatus = transType[0].field_status;
-
-  console.log(params);
 
   useEffect(() => {
     dispatch({
       type: 'FETCH_FIELD_NIR',
-      payload: field_id
+      payload: field_id,
     });
   }, []);
 
   const NIR_index = fieldNIR.findIndex((NIR) => NIR.id === Number(NIRID));
   const NIR_to_edit = fieldNIR[NIR_index];
-  // const field_id = NIR_to_edit.field_id;
 
   const [oil, setOil] = useState(NIR_to_edit.oil);
   const [moisture, setMoisture] = useState(NIR_to_edit.moisture);
@@ -70,104 +50,108 @@ function EditNIR() {
         energy: energy,
         amino_acids: amino_acids,
         fieldTrans: fieldTrans,
-        fieldStatus: fieldStatus
-      }
+        fieldStatus: fieldStatus,
+      },
     });
 
     history.push(`/field_details/${field_id}`);
   }
 
   return (
-
     <center>
-    <Router>
-      <h1>Update NIR Analysis</h1>
+      <Router>
+        <h1>Edit NIR Analysis</h1>
 
-      <TextField
-        variant="outlined"
-        label="Oil Level"
-        type="number"
-        value={oil}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setOil(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Moisture Level"
-        type="number"
-        value={moisture}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setMoisture(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Protein Level"
-        type="number"
-        value={protein}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setProtein(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Energy Level"
-        type="number"
-        value={energy}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setEnergy(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Amino Acid Level"
-        type="number"
-        value={amino_acids}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setAminoAcids(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <br />
-      <br />
-      <Button
-      className='form-cancel'
-        size="small"
-        type="button"
-        onClick={() => {
-          history.push(`/field_details/${field_id}`);
-        }}
-      >
-        Cancel
-      </Button>
-      {`\u00A0\u00A0\u00A0\u00A0`}
-      <Button className='form-submit' size="small" type="submit" onClick={(event) => button(event)}>
-        Update
-      </Button>
-    </Router>
+        <TextField
+          variant="outlined"
+          label="Oil Level"
+          type="number"
+          value={oil}
+          InputProps={{ inputProps: { min: 0 } }}
+          onChange={(event) => setOil(event.target.value)}
+          required
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <br />
+        <br />
+        <TextField
+          variant="outlined"
+          label="Moisture Level"
+          type="number"
+          value={moisture}
+          InputProps={{ inputProps: { min: 0 } }}
+          onChange={(event) => setMoisture(event.target.value)}
+          required
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <br />
+        <br />
+        <TextField
+          variant="outlined"
+          label="Protein Level"
+          type="number"
+          value={protein}
+          InputProps={{ inputProps: { min: 0 } }}
+          onChange={(event) => setProtein(event.target.value)}
+          required
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <br />
+        <br />
+        <TextField
+          variant="outlined"
+          label="Energy Level"
+          type="number"
+          value={energy}
+          InputProps={{ inputProps: { min: 0 } }}
+          onChange={(event) => setEnergy(event.target.value)}
+          required
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <br />
+        <br />
+        <TextField
+          variant="outlined"
+          label="Amino Acid Level"
+          type="number"
+          value={amino_acids}
+          InputProps={{ inputProps: { min: 0 } }}
+          onChange={(event) => setAminoAcids(event.target.value)}
+          required
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <br />
+        <br />
+        <Button
+          className="form-cancel"
+          size="small"
+          type="button"
+          onClick={() => {
+            history.push(`/field_details/${field_id}`);
+          }}
+        >
+          Cancel
+        </Button>
+        {`\u00A0\u00A0\u00A0\u00A0`}
+        <Button
+          className="form-submit"
+          size="small"
+          type="submit"
+          onClick={(event) => button(event)}
+        >
+          Update
+        </Button>
+      </Router>
     </center>
   );
 }

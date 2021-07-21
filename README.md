@@ -50,6 +50,7 @@ View a Contract
 - Stretch goals include third party API integration and pushing to blockchain platforms.
 
 
+
 # Prerequisites
 
 Link to software that is required to install the app (e.g. node).

@@ -3,19 +3,15 @@ import { HashRouter as Router } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { Button, TextField } from '@material-ui/core/';
 
 function AddNIR() {
-  //(field_id, oil, moisture, protein, energy, amino_acids, tested_at)
-
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
 
   const field_id = params.fieldID;
 
-  //gets current date and time.
   const tested_at = new Date();
 
   const transType = useSelector((store) => store.fieldTransactionsReducer);
@@ -23,14 +19,6 @@ function AddNIR() {
   const fieldTrans = transType[0].transaction_type;
 
   const fieldStatus = transType[0].field_status;
-
-
-
-
-  // If we want a different format, we can use this:
-  // const cDay = tested_at.getDate()
-  // const cMonth = tested_at.getMonth() + 1
-  // const cYear = tested_at.getFullYear()
 
   const [oil, setOil] = useState('');
   const [moisture, setMoisture] = useState('');
@@ -61,98 +49,103 @@ function AddNIR() {
 
   return (
     <center>
-    <Router>
-      <h1>Add NIR Analysis</h1>
-      <TextField
-        variant="outlined"
-        label="Oil Level"
-        type="number"
-        value={oil}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setOil(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Moisture Level"
-        type="number"
-        value={moisture}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setMoisture(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Protein Level"
-        type="number"
-        value={protein}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setProtein(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Energy Level"
-        type="number"
-        value={energy}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setEnergy(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <TextField
-        variant="outlined"
-        label="Amino Acid Level"
-        type="number"
-        value={amino_acids}
-        InputProps={{ inputProps: { min: 0 } }}
-        onChange={(event) => setAminoAcids(event.target.value)}
-        required
-        InputLabelProps={{
-          shrink: true,
-        }}
-        size="small"
-      />
-      <br />
-      <br />
-      <Button
-      className='form-cancel'
-        size="small"
-        type="button"
-        onClick={() => {
-          window.location.reload();
-        }}
-      >
-        Cancel
-      </Button>
-      {`\u00A0\u00A0\u00A0\u00A0`}
-      <Button className='form-submit' size="small" type="submit" onClick={(event) => addNIR(event)}>
-        Add NIR
-      </Button>
-    </Router>
+      <Router>
+        <h1>Add NIR Analysis</h1>
+        <TextField
+          variant="outlined"
+          label="Oil Level"
+          type="number"
+          value={oil}
+          InputProps={{ inputProps: { min: 0 } }}
+          onChange={(event) => setOil(event.target.value)}
+          required
+          InputLabelProps={{
+            shrink: true,
+          }}
+          size="small"
+        />
+        <br />
+        <br />
+        <TextField
+          variant="outlined"
+          label="Moisture Level"
+          type="number"
+          value={moisture}
+          InputProps={{ inputProps: { min: 0 } }}
+          onChange={(event) => setMoisture(event.target.value)}
+          required
+          InputLabelProps={{
+            shrink: true,
+          }}
+          size="small"
+        />
+        <br />
+        <br />
+        <TextField
+          variant="outlined"
+          label="Protein Level"
+          type="number"
+          value={protein}
+          InputProps={{ inputProps: { min: 0 } }}
+          onChange={(event) => setProtein(event.target.value)}
+          required
+          InputLabelProps={{
+            shrink: true,
+          }}
+          size="small"
+        />
+        <br />
+        <br />
+        <TextField
+          variant="outlined"
+          label="Energy Level"
+          type="number"
+          value={energy}
+          InputProps={{ inputProps: { min: 0 } }}
+          onChange={(event) => setEnergy(event.target.value)}
+          required
+          InputLabelProps={{
+            shrink: true,
+          }}
+          size="small"
+        />
+        <br />
+        <br />
+        <TextField
+          variant="outlined"
+          label="Amino Acid Level"
+          type="number"
+          value={amino_acids}
+          InputProps={{ inputProps: { min: 0 } }}
+          onChange={(event) => setAminoAcids(event.target.value)}
+          required
+          InputLabelProps={{
+            shrink: true,
+          }}
+          size="small"
+        />
+        <br />
+        <br />
+        <Button
+          className="form-cancel"
+          size="small"
+          type="button"
+          onClick={() => {
+            window.location.reload();
+          }}
+        >
+          Cancel
+        </Button>
+        {`\u00A0\u00A0\u00A0\u00A0`}
+        <Button
+          className="form-submit"
+          size="small"
+          type="submit"
+          onClick={(event) => addNIR(event)}
+        >
+          Add NIR
+        </Button>
+      </Router>
     </center>
   );
 }

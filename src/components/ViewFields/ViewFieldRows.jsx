@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import SetBuyer from '../SetBuyer/SetBuyer';
 
-import TableCell from '@material-ui/core/TableCell';
-import Button from '@material-ui/core/Button';
+import { TableCell, Button } from '@material-ui/core/';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -55,7 +54,6 @@ function ViewFieldRows(param) {
       </TableCell>
 
       <TableCell align="center">
-        {/* <Button className='submitButton' onClick={() => togglePopup()}>Add Buyer</Button> */}
         <Button className="submit-buttons" onClick={() => togglePopup()}>
           Add
         </Button>

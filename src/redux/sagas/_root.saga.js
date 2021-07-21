@@ -10,7 +10,6 @@ import fieldNIRSaga from './fieldNIR.saga';
 import cropListSaga from './cropList.saga';
 
 import contractListSaga from './contractList.saga';
-import contractDetailsSaga from './contractDetails.saga';
 import contractStatusSaga from './contractStatus.saga';
 import contractShortListSaga from './getContractShortList.saga';
 
@@ -35,14 +34,12 @@ import buyerFieldListSaga from './buyerFieldList.saga';
 
 import uploadSaga from './uploadSaga';
 
-// import buyerFieldListSaga from './buyerFieldList.saga';
-
-
 import addBuyerSaga from './addBuyer.saga';
 import buyerContractListSaga from './buyerContractList.saga';
 
-import bushelSaga from './bushel.saga';
-import streamSaga from './stream.saga';
+// The bushelSaga and streamSaga will be used when connected to bushel platform
+// import bushelSaga from './bushel.saga';
+// import streamSaga from './stream.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -64,9 +61,8 @@ export default function* rootSaga() {
     cropListSaga(),
 
     contractListSaga(),
-    contractDetailsSaga(),
     contractStatusSaga(),
-    contractShortListSaga(), 
+    contractShortListSaga(),
 
     addFieldSaga(),
     addTransactionSaga(),
@@ -77,7 +73,6 @@ export default function* rootSaga() {
     updateTransactionSaga(),
     updateContractSaga(),
     updateNIRSaga(),
-    // We will need to have a PUT to set a buyer if we want that functionality.
 
     deleteFieldSaga(),
     deleteTransactionSaga(),
@@ -86,16 +81,15 @@ export default function* rootSaga() {
 
     transactionTypesSaga(),
 
-
     userListSaga(),
     buyerFieldListSaga(),
     addBuyerSaga(),
 
-
     uploadSaga(),
-
 
     buyerContractListSaga(),
 
+    // bushelSaga(),
+    // streamSaga(),
   ]);
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
 import supplychain from './logos/supplychain.png';
@@ -18,7 +18,6 @@ function LandingPage() {
   };
 
   return (
-
     <Grid container={1}>
       <Grid item xs={1} />
       <Grid itme xs={6}>

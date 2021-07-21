@@ -28,7 +28,12 @@
   .cards{
     border: solid black 2px !important;
     font-family: 'Montserrat' !important;
-    box-shadow: 3px 3px 4px 0px grey !important;
+    box-shadow: 0px 3px 4px 0px grey !important;
+  }
+
+  .card-width{
+    width: 500px !important;
+    padding: 5px 15px 30px 15px;
   }
 
   .popup-cards{

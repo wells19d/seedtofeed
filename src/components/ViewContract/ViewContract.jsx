@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
   Table,
-  TableBody,
   TableCell,
   TableContainer,
   TableHead,
@@ -12,27 +11,22 @@ import {
   Paper,
   Button,
   Grid,
-  Card,
-  Popover,
 } from '@material-ui/core';
-
-
 
 function ViewContract() {
   const history = useHistory();
   const params = useParams();
   const dispatch = useDispatch();
 
-  const contracts = useSelector((store) => store.contractListReducer); // Currently we only have contract list in server and planned reducer. Must create a specific view now.
-  console.log('here is the contract list:', contracts);
+  const contracts = useSelector((store) => store.contractListReducer);
 
   const contractID = Number(params.contractID);
-  console.log('here is the contract ID:', contractID);
 
   const user = useSelector((store) => store.user);
 
-  const contractsFiltered = contracts.filter((contract) => Number(contract.contractID) === contractID);
-  console.log(`filtered contracts`, contractsFiltered);
+  const contractsFiltered = contracts.filter(
+    (contract) => Number(contract.contractID) === contractID
+  );
 
   useEffect(() => {
     if (user.farmer === true) {
@@ -47,31 +41,21 @@ function ViewContract() {
     }
   }, [user]);
 
-  // const foundContract = contracts?.find((contract) => {
-  //   console.log(contract);
-  //   return contract.contractID === Number(params.contractID);
-  // });
-  // console.log('the fieldID for the contract', fieldID);
-  console.log('the userID for the contract', user.id);
-
   if (contractsFiltered?.length === 1) {
     return (
-
       <center>
-  
         <h1>Contract Details</h1>
-  
+
         <Grid container spacing={3}>
           <Grid item xs={4} />
-  
+
           <Grid item>
-  
             <h4>Contract Handler: {contractsFiltered[0]?.contract_handler}</h4>
             <TableContainer component={Paper}>
-              <Table size='small'>
+              <Table size="small">
                 <TableHead>
                   <TableRow>
-                    <TableCell align='right'>
+                    <TableCell align="right">
                       <br />
                       Contract ID:
                       <br />
@@ -95,7 +79,8 @@ function ViewContract() {
                       <br />
                       {contractsFiltered[0]?.contractID}
                       <br />
-                      {contractsFiltered[0]?.first_name} {contractsFiltered[0]?.last_name}
+                      {contractsFiltered[0]?.first_name}{' '}
+                      {contractsFiltered[0]?.last_name}
                       <br />
                       {contractsFiltered[0]?.crop_type}
                       <br />
@@ -119,10 +104,10 @@ function ViewContract() {
           <Grid item>
             <h4>NIR Quality Expectations:</h4>
             <TableContainer component={Paper}>
-              <Table size='small'>
+              <Table size="small">
                 <TableHead>
                   <TableRow>
-                    <TableCell align='right'>
+                    <TableCell align="right">
                       <br />
                       Amino Acid:
                       <br />
@@ -163,134 +148,130 @@ function ViewContract() {
           </Grid>
           <Grid item xs={4} />
         </Grid>
-        <div className='back-button'>
-          <Button className='form-submit' onClick={() => history.goBack()}>⬅ Go Back</Button>
+        <div className="back-button">
+          <Button className="submit-buttons" onClick={() => history.goBack()}>
+            ⬅ Go Back
+          </Button>
         </div>
       </center>
     );
-  
   } else {
     return (
       <center>
-      
-      <h1>Contract Details</h1>
-      {contractsFiltered?.map((contract) => {
-        return (
-          <Grid container spacing={3}>
-          <Grid item xs={4} />
-  
-          <Grid item>
-            <h4>Contract Handler: {contract.contract_handler}</h4>
-            <TableContainer component={Paper}>
-              <Table size='small'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell align='right'>
-                      <br />
-                      Contract ID:
-                      <br />
-                      Grower:
-                      <br />
-                      Commodity:
-                      <br />
-                      Status:
-                      <br />
-                      Contract Quantity:
-                      <br />
-                      Quantity Fulfilled:
-                      <br />
-                      Container S/N:
-                      <br />
-                      Price:
-                      <br />
-                      <br />
-                    </TableCell>
-                    <TableCell>
-                      <br />
-                      {contract.contractID}
-                      <br />
-                      {contract.first_name} {contract.last_name}
-                      <br />
-                      {contract.crop_type}
-                      <br />
-                      {contract.name}
-                      <br />
-                      {contract.contract_quantity}
-                      <br />
-                      {contract.quantity_fulfilled}
-                      <br />
-                      {contract.container_serial}
-                      <br />
-                      {contract.price}
-                      <br />
-                      <br />
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-              </Table>
-            </TableContainer>
-          </Grid>
-          <Grid item>
-            <h4>NIR Quality Expectations: {contract.bushel_uid}</h4>
-            <TableContainer component={Paper}>
-              <Table size='small'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell align='right'>
-                      <br />
-                      Amino Acid:
-                      <br />
-                      Energy:
-                      <br />
-                      Protein:
-                      <br />
-                      Oil:
-                      <br />
-                      Moisture:
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                    </TableCell>
-                    <TableCell>
-                      <br />
-                      {contract.amino_acids}%
-                      <br />
-                      {contract.energy}%
-                      <br />
-                      {contract.protein}%
-                      <br />
-                      {contract.oil}%
-                      <br />
-                      {contract.moisture}%
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-              </Table>
-            </TableContainer>
-          </Grid>
-          <Grid item xs={4} />
-        </Grid>
-  
-        );
-        
-      })}
-      <div className='back-button'>
-        <Button className='submit-buttons' onClick={() => history.goBack()}>⬅ Go Back</Button>
-      </div>
-    </center>
+        <h1>Contract Details</h1>
+        {contractsFiltered?.map((contract) => {
+          return (
+            <Grid container spacing={3}>
+              <Grid item xs={4} />
 
+              <Grid item>
+                <h4>Contract Handler: {contract.contract_handler}</h4>
+                <TableContainer component={Paper}>
+                  <Table size="small">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="right">
+                          <br />
+                          Contract ID:
+                          <br />
+                          Grower:
+                          <br />
+                          Commodity:
+                          <br />
+                          Status:
+                          <br />
+                          Contract Quantity:
+                          <br />
+                          Quantity Fulfilled:
+                          <br />
+                          Container S/N:
+                          <br />
+                          Price:
+                          <br />
+                          <br />
+                        </TableCell>
+                        <TableCell>
+                          <br />
+                          {contract.contractID}
+                          <br />
+                          {contract.first_name} {contract.last_name}
+                          <br />
+                          {contract.crop_type}
+                          <br />
+                          {contract.name}
+                          <br />
+                          {contract.contract_quantity}
+                          <br />
+                          {contract.quantity_fulfilled}
+                          <br />
+                          {contract.container_serial}
+                          <br />
+                          {contract.price}
+                          <br />
+                          <br />
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                  </Table>
+                </TableContainer>
+              </Grid>
+              <Grid item>
+                <h4>NIR Quality Expectations: {contract.bushel_uid}</h4>
+                <TableContainer component={Paper}>
+                  <Table size="small">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="right">
+                          <br />
+                          Amino Acid:
+                          <br />
+                          Energy:
+                          <br />
+                          Protein:
+                          <br />
+                          Oil:
+                          <br />
+                          Moisture:
+                          <br />
+                          <br />
+                          <br />
+                          <br />
+                          <br />
+                        </TableCell>
+                        <TableCell>
+                          <br />
+                          {contract.amino_acids}%
+                          <br />
+                          {contract.energy}%
+                          <br />
+                          {contract.protein}%
+                          <br />
+                          {contract.oil}%
+                          <br />
+                          {contract.moisture}%
+                          <br />
+                          <br />
+                          <br />
+                          <br />
+                          <br />
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                  </Table>
+                </TableContainer>
+              </Grid>
+              <Grid item xs={4} />
+            </Grid>
+          );
+        })}
+        <div className="back-button">
+          <Button className="submit-buttons" onClick={() => history.goBack()}>
+            ⬅ Go Back
+          </Button>
+        </div>
+      </center>
     );
-    
   }
-  
-
 }
 
 export default ViewContract;
