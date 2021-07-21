@@ -5,7 +5,6 @@ function* updateContract(action){
     try {
         const response = yield axios.put(`/api/contract/update_contract/${action.payload.contractID}`, action.payload) 
         yield put({ type: 'FETCH_CONTRACT_LIST', payload: response }) 
-        yield put({ type: 'FETCH_CONTRACT_DETAILS', payload: response }) 
     } catch (error) {
         console.log('User get request failed', error);
     }

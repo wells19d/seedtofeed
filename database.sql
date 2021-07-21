@@ -162,10 +162,8 @@ ALTER TABLE "field_transactions" ADD CONSTRAINT "field_transactions_fk1" FOREIGN
 ALTER TABLE "user_field" ADD CONSTRAINT "user_field_fk0" FOREIGN KEY ("field_id") REFERENCES "field"("id") ON DELETE CASCADE;
 ALTER TABLE "user_field" ADD CONSTRAINT "user_field_fk1" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE;
 ALTER TABLE "arbitrary_data" ADD CONSTRAINT "arbitrary_data_fk0" FOREIGN KEY ("field_trans_id") REFERENCES "field_transactions"("id") ON DELETE CASCADE;
--- NEW CONNECTIONS!!!
 ALTER TABLE "buyer_field" ADD CONSTRAINT "buyer_field_fk0" FOREIGN KEY ("field_id") REFERENCES "field"("id") ON DELETE CASCADE;
 ALTER TABLE "buyer_field" ADD CONSTRAINT "buyer_field_fk1" FOREIGN KEY ("buyer_id") REFERENCES "user"("id") ON DELETE CASCADE;
--- MORE NEW CONNECTIONS!!!
 ALTER TABLE "contract" ADD CONSTRAINT "contract_fk3" FOREIGN KEY ("buyer_id") REFERENCES "user"("id") ON DELETE CASCADE;
 
 
@@ -213,29 +211,6 @@ INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('8', 't
 INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('9', 'feed', '/images/009.png');
 INSERT INTO "transaction_type" ("id", "name") VALUES ('10', 'contract');
 
-
--- need inserts to target images
-
--- not sure if this is doing what it should be doing
--- SELECT * FROM "contract"
--- JOIN "user" ON ("user"."id"="contract"."user_field_id");
-
-
--- This would get us the user information AND the field information on the contract
--- Tying contract to field
--- This gets all farmers for the field
--- This works IF the contract table uses "field_id"
-
--- before fix
--- SELECT * FROM "contract"
--- JOIN "field" ON ("field"."id"="contract"."field_id")
--- JOIN "user_field" ON ("user_field"."field_id"="field"."id")
--- JOIN "user" ON ("user"."id"="user_field"."user_id")
--- WHERE "user"."farmer"=true;
-
--- Tying contract to user_field
--- This gets only a single farmer
--- This works IF the contract table uses "user_field_id"
 SELECT * FROM "contract"
 JOIN "user_field" ON ("user_field"."id"="contract"."user_field_id")
 JOIN "user" ON ("user"."id"="user_field"."user_id")

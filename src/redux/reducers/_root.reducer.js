@@ -8,7 +8,6 @@ import fieldTransactionsReducer from './fieldTransactions.reducer';
 import fieldNIRReducer from './fieldNIR.reducer';
 import cropListReducer from './cropList.reducer';
 import contractListReducer from './contractList.reducer';
-import contractDetailsReducer from './contractDetails.reducer';
 import contractStatusReducer from './contractStatus.reducer';
 import transactionTypesReducer from './transactionTypes.reducer';
 import uploadReducer from './uploadReducer';
@@ -34,7 +33,6 @@ const rootReducer = combineReducers({
   fieldNIRReducer,
   cropListReducer,
   contractListReducer,
-  contractDetailsReducer,
   contractStatusReducer,
   transactionTypesReducer,
   userListReducer,

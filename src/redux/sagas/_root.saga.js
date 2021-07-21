@@ -10,7 +10,6 @@ import fieldNIRSaga from './fieldNIR.saga';
 import cropListSaga from './cropList.saga';
 
 import contractListSaga from './contractList.saga';
-import contractDetailsSaga from './contractDetails.saga';
 import contractStatusSaga from './contractStatus.saga';
 import contractShortListSaga from './getContractShortList.saga';
 
@@ -63,7 +62,6 @@ export default function* rootSaga() {
     cropListSaga(),
 
     contractListSaga(),
-    contractDetailsSaga(),
     contractStatusSaga(),
     contractShortListSaga(), 
 

@@ -11,7 +11,7 @@ import photo6 from './images/6.png';
 import photo7 from './images/7.png';
 import photo8 from './images/8.png';
 
-import { Button, Grid, ImageList, ImageListItem } from '@material-ui/core/';
+import { Button, Grid, ImageList, ImageListItem, ImageListItemBar } from '@material-ui/core/';
 
 
 function AboutPage() {
