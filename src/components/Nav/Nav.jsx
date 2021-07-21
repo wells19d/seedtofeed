@@ -4,9 +4,7 @@ import './Nav.css';
 import { useSelector, useDispatch } from 'react-redux';
 import logo from './Logos/seedtofeed-badge_1-color-Texture (1).png';
 
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import { Menu, MenuItem } from '@material-ui/core/';
 
 function Nav() {
   const dispatch = useDispatch();

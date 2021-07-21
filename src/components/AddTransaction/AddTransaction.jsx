@@ -3,11 +3,7 @@ import { useSelector } from 'react-redux';
 import { HashRouter as Router, useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
+import { TextField, Button, Select, MenuItem, FormControl } from '@material-ui/core';
 
 function AddTransaction() {
   const dispatch = useDispatch();

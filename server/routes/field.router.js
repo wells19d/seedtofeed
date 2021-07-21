@@ -297,7 +297,7 @@ router.post('/create_NIR', rejectUnauthenticated, (req, res) => {
       pool
         .query(queryTransaction, [field_id, fieldStatus, transaction])
         .then((result) => {
-          console.log('Updating transaction table with NIR', result.rows); // DO WE NEED THIS CONSOLE.LOG???
+          console.log('Updating transaction table with NIR', result.rows); // DO WE NEED THIS CONSOLE.LOG...no.
         })
         .catch((error) => {
           console.log(`Error updating table with NIR`, error);

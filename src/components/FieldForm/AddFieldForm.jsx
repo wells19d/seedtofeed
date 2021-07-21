@@ -4,11 +4,7 @@ import { HashRouter as Router, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useScript } from '../../hooks/useScript';
 
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
+import { TextField, Button, Select, MenuItem, FormControl } from '@material-ui/core';
 
 function AddFieldForm() {
   const dispatch = useDispatch();

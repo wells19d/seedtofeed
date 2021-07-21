@@ -4,7 +4,7 @@ import axios from 'axios';
 function* updateNIR(action) {
     try {
         const response = yield axios.put(`/api/field/update_NIR`, action.payload)
-        yield put({ type: 'FETCH_FIELD_NIR', payload: action.payload.field_id }) // Change INSERT to field ID. Cannot remember how to do so at the moment.
+        yield put({ type: 'FETCH_FIELD_NIR', payload: action.payload.field_id })
     } catch (error) {
         console.log('User get request failed', error);
     }

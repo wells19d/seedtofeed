@@ -4,7 +4,7 @@ import axios from 'axios';
 function* addBuyer(action) {
     try {
         const response = yield axios.post(`/api/user/addBuyer`, action.payload)
-        yield put({ type: 'FETCH_FIELD_LIST', payload: action.payload}) // Change INSERT to user ID. Cannot remember how to do so at the moment.
+        yield put({ type: 'FETCH_FIELD_LIST', payload: action.payload})
     } catch (error) {
         console.log('User get request failed', error);
     }

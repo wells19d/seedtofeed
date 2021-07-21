@@ -11,18 +11,8 @@ import photo6 from './images/6.png';
 import photo7 from './images/7.png';
 import photo8 from './images/8.png';
 
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import ImageList from '@material-ui/core/ImageList';
-import ImageListItem from '@material-ui/core/ImageListItem';
-import ImageListItemBar from '@material-ui/core/ImageListItemBar';
+import { Button, Grid, ImageList, ImageListItem } from '@material-ui/core/';
 
-const standardButtons = {
-  border: 'solid black 0px',
-  boxShadow: '2px 2px 3px 0px grey',
-  minWidth: '1px',
-};
 
 function AboutPage() {
   const history = useHistory();

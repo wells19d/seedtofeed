@@ -12,22 +12,6 @@ import {
   TextField,
 } from '@material-ui/core';
 
-const cards = {
-  border: 'solid black 2px',
-  fontFamily: 'Montserrat',
-  overflow: 'auto',
-  fontSize: '14px',
-  boxShadow: '3px 3px 4px 1px grey',
-  width: '400px',
-  padding: '20px',
-};
-
-const standardButtons = {
-  border: 'solid black 0px',
-  boxShadow: '2px 2px 3px 0px grey',
-  minWidth: '1px',
-};
-
 function AddContract(params) {
   const userID = params.userID;
   const dispatch = useDispatch();
@@ -56,7 +40,6 @@ function AddContract(params) {
       type: 'FETCH_FIELD_LIST',
       payload: userID,
     });
-
     dispatch({
       type: 'FETCH_USER_LIST',
     });

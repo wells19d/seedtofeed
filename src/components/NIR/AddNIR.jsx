@@ -3,8 +3,7 @@ import { HashRouter as Router } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { Button, TextField} from '@material-ui/core/';
 
 function AddNIR() {
   const dispatch = useDispatch();

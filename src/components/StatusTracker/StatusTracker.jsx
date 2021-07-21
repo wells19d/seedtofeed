@@ -29,7 +29,7 @@ function StatusTracker(params) {
   const userContract = contracts?.filter(
     (contract) => contract.userID === user.id && contract.fieldID === fieldID
   );
-  const currentTransaction = transactions[0]; //the fieldTransaction endpoin is sorted in DESC order by timestamp
+  const currentTransaction = transactions[0]; //the fieldTransaction endpoint is sorted in DESC order by timestamp
 
   useEffect(() => {
     dispatch({

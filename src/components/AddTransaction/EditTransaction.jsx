@@ -48,27 +48,40 @@ function EditTransaction() {
           field_id: field_id,
           transaction_id: transaction_id,
           status_notes: notes,
-          transaction_type: transactionType,
+          transaction_type: transactionType
         },
       });
 
       history.push(`/field_details/${field_id}`);
     }
+  }
+  
 
-    useEffect(() => {
-      dispatch({
-        type: 'FETCH_TRANSACTION_TYPES',
-      });
-      dispatch({
-        type: 'FETCH_FIELD_TRANSACTIONS',
-        payload: field_id,
-      });
-    }, []);
+  useEffect(() => {
+    dispatch({
+      type: 'FETCH_TRANSACTION_TYPES',
+    });
+    dispatch({
+      type: 'FETCH_FIELD_TRANSACTIONS',
+      payload: field_id,
+    });
+  }, []);
 
-    return (
-      <center>
-        <Router>
-          <center>
+  return (
+    <>
+      <Router>
+          
+      </Router>
+    </>
+  );
+}
+
+export default EditTransaction;
+
+
+/*
+
+<center>
             <Card className="cards card-width">
               <h1>Edit Transaction</h1>
               <TextField
@@ -129,10 +142,5 @@ function EditTransaction() {
               ⬅ Go Back
             </Button>
           </center>
-        </Router>
-      </center>
-    );
-  }
-}
 
-export default EditTransaction;
+*/
