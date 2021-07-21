@@ -12,7 +12,7 @@ Seed to Feed was created to help increase profitability for farmers and feed pro
 The Seed to Feed App is a tracker and dashboard that will show the process of seed to feed while including information about quality of the commodity. This will be done by allowing producers to enter information about the planting and growing process up until elevator delivery.  After the grain is delivered we will be aggregating information from already existing players (Grand Farm, Bushel, AgriDigital, Geora) and displaying that information as a way to further market grain by showing the added value received from purchasing Seed to Feed product.
 
 <!--This will be for screen shots once we have views created-->
-## Screen Shot
+## Wireframes
 
 Farmer's Home View
 ---
