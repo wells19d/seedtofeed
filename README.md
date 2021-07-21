@@ -16,26 +16,30 @@ The Seed to Feed App is a tracker and dashboard that will show the process of se
 
 Farmer's Home View
 ---
-![farmer home page](image-link)
+![image](https://user-images.githubusercontent.com/73319716/126553018-9870fae5-8a0a-4e68-8719-901511023d9c.png)
+
 
 Farmer's Detailed View of a Field
 ---
-![farmer detailed view of field selected](image-link)
+![image](https://user-images.githubusercontent.com/73319716/126553152-0eea1660-3d6b-4df4-b866-0fc76b5ca1d3.png)
 
 Buyer's Home view
 ---
-![](image-link)
----
+![image](https://user-images.githubusercontent.com/73319716/126553207-a0d27906-7531-402e-8be5-3377399415b7.png)
 
 NIR Table
 ---
-![NIR Analysis Table ](image-link)   
----
+![image](https://user-images.githubusercontent.com/73319716/126553267-50593b16-18d4-4a1e-87c1-2a27862f9319.png)
 
 Create a Contract
 ---
-![](image-link)
+![image](https://user-images.githubusercontent.com/73319716/126553313-64b7e213-dd19-423b-a059-77117b622992.png)
+
+View a Contract
 ---
+
+![image](https://user-images.githubusercontent.com/73319716/126553379-3e1cef45-a994-42ef-9298-9b186ff8f4bb.png)
+
 
 ## Summary of Features
 - Farmer can log in and add a field that they will be able to track
