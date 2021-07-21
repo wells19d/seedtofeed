@@ -24,7 +24,6 @@ import { faTrashAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 import '../App/App.css';
 
-
 const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
 const details = <FontAwesomeIcon icon={faInfoCircle} />;
 
@@ -34,44 +33,43 @@ function ViewContractList(params) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-  
+    setAnchorEl(event.currentTarget);
+  };
+
   const handleClose = () => {
-      setAnchorEl(null);
-    };
-  
+    setAnchorEl(null);
+  };
+
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined; 
+  const id = open ? 'simple-popover' : undefined;
 
   const userID = params.userID;
-  console.log('Here is the user in ViewContractList:', userID);
 
   const user = useSelector((store) => store.user);
 
   useEffect(() => {
     if (user.farmer === true) {
       dispatch({
-        type: 'FETCH_CONTRACT_LIST'
+        type: 'FETCH_CONTRACT_LIST',
       });
 
       dispatch({
-        type: 'FETCH_CONTRACT_SHORTLIST'
-      })
+        type: 'FETCH_CONTRACT_SHORTLIST',
+      });
     }
     if (user.buyer === true) {
       dispatch({
-        type: 'FETCH_BUYER_CONTRACT_LIST'
+        type: 'FETCH_BUYER_CONTRACT_LIST',
       });
     }
   }, [user]);
 
   // REDUCER STORE
   const contractList = useSelector((store) => store.contractListReducer);
-  console.log('The contractList', contractList);
 
-  const contractShortList = useSelector((store) => store.contractShortListReducer); //just for list of contract on this page
-  console.log('The contract Short List', contractShortList);
+  const contractShortList = useSelector(
+    (store) => store.contractShortListReducer
+  );
 
   function deleteButton(contractID) {
     let remove = confirm(
@@ -80,9 +78,8 @@ function ViewContractList(params) {
     if (remove == true) {
       dispatch({
         type: 'DELETE_CONTRACT',
-        payload: contractID
+        payload: contractID,
       });
-      // history.push(`/contract`);
     } else {
       return;
     }
@@ -90,121 +87,120 @@ function ViewContractList(params) {
 
   return (
     <>
-    <center>
-      <div className="title-indent">
-        <h1>Contract List</h1>
+      <center>
+        <div className="title-indent">
+          <h1>Contract List</h1>
 
-        <h4>
-          A list of your contracts appear below, click details for more
-          information. If you want to add, please select Add New Contract
-        </h4>
-      </div>
-      <Grid container spacing={3}>
-        <Grid item xs={1} />
-        <Grid item xs={10}>
-          <TableContainer component={Paper}>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Contract #</TableCell>
-                  <TableCell>Field Name</TableCell>
-                  <TableCell>Location</TableCell>
-                  <TableCell>Status</TableCell>
-                  <TableCell>Commodity</TableCell>
+          <h4>
+            A list of your contracts appear below, click details for more
+            information. If you want to add, please select Add New Contract
+          </h4>
+        </div>
+        <Grid container spacing={3}>
+          <Grid item xs={1} />
+          <Grid item xs={10}>
+            <TableContainer component={Paper}>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Contract #</TableCell>
+                    <TableCell>Field Name</TableCell>
+                    <TableCell>Location</TableCell>
+                    <TableCell>Status</TableCell>
+                    <TableCell>Commodity</TableCell>
 
-                  {user.farmer &&
-                  <TableCell>Details Delete</TableCell>}
+                    {user.farmer && <TableCell>Details Delete</TableCell>}
 
-                  {user.buyer &&
-                  <TableCell>Details</TableCell>}
-
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {contractShortList.map((contract) => (
-                  <TableRow key={contract.contractID}>
-                    <TableCell>{contract.contractID}</TableCell>
-                    <TableCell>
-                      <Button
-                        className='submit-buttons'
-                        size="small"
-                        onClick={() =>
-                          history.push(`/field_details/${contract.fieldID}`)
-                        }
-                      >
-                        {contract.field_name}
-                      </Button>
-                    </TableCell>
-                    <TableCell>{contract.location}</TableCell>
-                    <TableCell>{contract.name}</TableCell>
-                    <TableCell>{contract.crop_type}</TableCell>
-                    <TableCell>
-                      <Button
-                        className='standard-buttons'
-                        size="large"
-                        title="Details"
-                        color="default"
-                        onClick={() =>
-                          history.push(
-                            `/contract_details/${contract.contractID}`
-                          )
-                        }
-                      >
-                        {details}
-                      </Button>
-
-
-                      {user.farmer &&
-                        <Button
-                          className='standard-buttons'
-                          size='large'
-                          title='Delete'
-                          color='default'
-                          onClick={() => deleteButton(contract.contractID)}
-                        >
-
-                          {trashCan}
-                        </Button>}
-
-                    </TableCell>
+                    {user.buyer && <TableCell>Details</TableCell>}
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <p>
-            {user.farmer && (
-              <>
-              <Button
-                className='submit-buttons'
-                size="small"
-                onClick={() => history.push(`/contract_form/`)}
-              >
-                Add New Contract
-              </Button>
-              </>
-            )}
-          </p>
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'center',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-          >
-            <Typography ><Card className='popup-cards'><AddContract/></Card></Typography>
-          </Popover>
-        </Grid>
+                </TableHead>
+                <TableBody>
+                  {contractShortList.map((contract) => (
+                    <TableRow key={contract.contractID}>
+                      <TableCell>{contract.contractID}</TableCell>
+                      <TableCell>
+                        <Button
+                          className="submit-buttons"
+                          size="small"
+                          onClick={() =>
+                            history.push(`/field_details/${contract.fieldID}`)
+                          }
+                        >
+                          {contract.field_name}
+                        </Button>
+                      </TableCell>
+                      <TableCell>{contract.location}</TableCell>
+                      <TableCell>{contract.name}</TableCell>
+                      <TableCell>{contract.crop_type}</TableCell>
+                      <TableCell>
+                        <Button
+                          className="standard-buttons"
+                          size="large"
+                          title="Details"
+                          color="default"
+                          onClick={() =>
+                            history.push(
+                              `/contract_details/${contract.contractID}`
+                            )
+                          }
+                        >
+                          {details}
+                        </Button>
+
+                        {user.farmer && (
+                          <Button
+                            className="standard-buttons"
+                            size="large"
+                            title="Delete"
+                            color="default"
+                            onClick={() => deleteButton(contract.contractID)}
+                          >
+                            {trashCan}
+                          </Button>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <p>
+              {user.farmer && (
+                <>
+                  <Button
+                    className="submit-buttons"
+                    size="small"
+                    onClick={() => history.push(`/contract_form/`)}
+                  >
+                    Add New Contract
+                  </Button>
+                </>
+              )}
+            </p>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'center',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+            >
+              <Typography>
+                <Card className="popup-cards">
+                  <AddContract />
+                </Card>
+              </Typography>
+            </Popover>
+          </Grid>
         </Grid>
       </center>
-      <Button style={standardButtons} onClick={() => history.goBack()}>
+      <Button className="submit-buttons" onClick={() => history.goBack()}>
         ⬅ Go Back
       </Button>
     </>

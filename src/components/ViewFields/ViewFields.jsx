@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-
 import ViewFieldRows from './ViewFieldRows';
 import AddFieldForm from '../FieldForm/AddFieldForm';
 
@@ -17,7 +16,6 @@ import {
   TableRow,
   Paper,
   Button,
-
   Card,
 } from '@material-ui/core';
 
@@ -41,7 +39,6 @@ function ViewFields(params) {
   const id = open ? 'simple-popover' : undefined;
 
   const fieldList = useSelector((store) => store.fieldListReducer);
-  // console.log('The fieldList', fieldList);
 
   const userID = params.userID;
   console.log('here is the userID in ViewFields', userID);
@@ -49,22 +46,21 @@ function ViewFields(params) {
   useEffect(() => {
     dispatch({
       type: 'FETCH_FIELD_LIST',
-      payload: userID
+      payload: userID,
     });
   }, []);
 
   return (
     <center>
-      <h4 className='page-title'>
+      <h4 className="page-title">
         This is a list of all of your current fields. Please click field to see
         more details or add new field to enter a new field.
       </h4>
       <br />
       <TableContainer>
-        <Table size='small'>
+        <Table size="small">
           <TableHead>
             <TableRow>
-
               <TableCell width="16%">
                 <b>Field Name</b>
               </TableCell>
@@ -105,7 +101,6 @@ function ViewFields(params) {
         </Table>
       </TableContainer>
       <p>
-
         <Button className="submit-buttons" onClick={handleClick}>
           Add New Field
         </Button>

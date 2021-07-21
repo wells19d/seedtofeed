@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-// worker Saga: will be fired on "FETCH_USER" actions
+// this saga is get api JSON info from the stream table
 function* fetchStreams() {
   try {
      yield put({ type: 'FETCHING_STREAMS_START'})

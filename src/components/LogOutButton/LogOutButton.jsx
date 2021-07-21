@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import '../Nav/Nav.css';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 function LogOutButton(props) {
   const dispatch = useDispatch();

@@ -32,23 +32,22 @@ import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 const trashCan = <FontAwesomeIcon icon={faTrashAlt} />;
 const edit = <FontAwesomeIcon icon={faEdit} />;
 
-
 function FieldNIR(params) {
   const history = useHistory();
   const dispatch = useDispatch();
 
   // -- Add NIR Popup
-const [anchorEl, setAnchorEl] = React.useState(null);
-const handleClick = (event) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-const handleClose = () => {
+  const handleClose = () => {
     setAnchorEl(null);
   };
 
-const open = Boolean(anchorEl);
-const id = open ? 'simple-popover' : undefined; 
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   const fieldNIR = useSelector((store) => store.fieldNIRReducer);
   const user = useSelector((store) => store.user);
@@ -74,8 +73,8 @@ const id = open ? 'simple-popover' : undefined;
 
   return (
     <center>
-      <Typography className='card-header'>NIR Analysis:</Typography>
-      <Card className='cards'>
+      <Typography className="card-header">NIR Analysis:</Typography>
+      <Card className="cards">
         <center>
           <TableContainer component={Paper}>
             <Table size="small">
@@ -93,10 +92,10 @@ const id = open ? 'simple-popover' : undefined;
                   <TableCell>
                     <b>Protein</b>
                   </TableCell>
-                  <TableCell >
+                  <TableCell>
                     <b>Energy</b>
                   </TableCell>
-                  <TableCell >
+                  <TableCell>
                     <b>Amino Acids</b>
                   </TableCell>
                   {user.farmer && (
@@ -134,7 +133,7 @@ const id = open ? 'simple-popover' : undefined;
                       {user.farmer && (
                         <TableCell>
                           <Button
-                            className='standard-buttons'
+                            className="standard-buttons"
                             title="Edit"
                             color="default"
                             onClick={() =>
@@ -145,7 +144,7 @@ const id = open ? 'simple-popover' : undefined;
                           </Button>
                           {`\u00A0\u00A0\u00A0\u00A0`}
                           <Button
-                            className='standard-buttons'
+                            className="standard-buttons"
                             title="Delete"
                             color="default"
                             onClick={() => deleteButton(test.id)}
@@ -164,30 +163,34 @@ const id = open ? 'simple-popover' : undefined;
         <br />
         {user.farmer && (
           <>
-          <Button className='submit-buttons' onClick={handleClick}>
-            Add NIR Data
-          </Button>
+            <Button className="submit-buttons" onClick={handleClick}>
+              Add NIR Data
+            </Button>
           </>
         )}
         <br />
         <br />
       </Card>
       <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'center',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-          >
-            <Typography ><Card className='popup-cards'><AddNIR/></Card></Typography>
-          </Popover>
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'center',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+      >
+        <Typography>
+          <Card className="popup-cards">
+            <AddNIR />
+          </Card>
+        </Typography>
+      </Popover>
     </center>
   );
 }

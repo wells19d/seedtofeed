@@ -29,8 +29,6 @@
 - Footer
     - [-] - Footer.jsx
 
-- InfoPage
-    - [ ] - InfoPage.jsx
 
 - LandingPage
     - [/] - LandingPage.jsx

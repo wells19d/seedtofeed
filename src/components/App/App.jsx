@@ -3,7 +3,7 @@ import {
   HashRouter as Router,
   Route,
   Redirect,
-  Switch
+  Switch,
 } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
@@ -15,7 +15,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -57,70 +56,70 @@ function App() {
         <br />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-          <Redirect exact from='/' to='/home' />
+          <Redirect exact from="/" to="/home" />
 
           {/* Visiting localhost:3000/about will show the about page. */}
           <Route
             // shows AboutPage at all times (logged in or not)
             exact
-            path='/about'
+            path="/about"
           >
             <AboutPage />
           </Route>
-          <Route exact path='/fieldDB'>
+          <Route exact path="/fieldDB">
             <FieldDB />
           </Route>
 
-          <Route exact path='/viewfields/:userID'>
+          <Route exact path="/viewfields/:userID">
             <ViewFields />
           </Route>
 
-          <Route exact path='/field_details/:fieldID'>
+          <Route exact path="/field_details/:fieldID">
             <ViewFieldDetails />
           </Route>
 
-          <Route exact path='/contract'>
+          <Route exact path="/contract">
             <ViewContractList />
           </Route>
 
-          <Route exact path='/contract_details/:contractID'>
+          <Route exact path="/contract_details/:contractID">
             <ViewContract />
           </Route>
 
-          <Route exact path='/edit_NIR/:fieldID/:NIRID'>
+          <Route exact path="/edit_NIR/:fieldID/:NIRID">
             <EditNIR />
           </Route>
 
-          <Route exact path='/edit_transaction/:fieldID/:transactionID'>
+          <Route exact path="/edit_transaction/:fieldID/:transactionID">
             <EditTransaction />
           </Route>
 
-          <Route exact path='/contract_form'>
+          <Route exact path="/contract_form">
             <AddContract />
           </Route>
 
-          <Route exact path='/NIR_form/:fieldID'>
+          <Route exact path="/NIR_form/:fieldID">
             <AddNIR />
           </Route>
 
-          <Route exact path='/edit_contract/:contractID'>
+          <Route exact path="/edit_contract/:contractID">
             <EditContract />
           </Route>
 
-          <Route exact path='/edit_field/:fieldID'>
+          <Route exact path="/edit_field/:fieldID">
             {/* <Route exact path="/edit_field/:fieldID"> */}
             <EditFieldForm />
           </Route>
 
-          <Route exact path='/add_field/'>
+          <Route exact path="/add_field/">
             <AddFieldForm />
           </Route>
 
-          <Route exact path='/add_transaction/:fieldID'>
+          <Route exact path="/add_transaction/:fieldID">
             <AddTransaction />
           </Route>
 
-          <Route exact path = '/signum'>
+          <Route exact path="/signum">
             <Signum />
           </Route>
 
@@ -131,19 +130,11 @@ function App() {
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
-            path='/user'
+            path="/user"
           >
             <UserPage />
           </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path='/info'
-          >
-            <InfoPage />
-          </ProtectedRoute>
-
+          
           {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
             be taken to the component and path supplied. */}
@@ -152,8 +143,8 @@ function App() {
             // - if logged in, redirects to "/user"
             // - else shows LoginPage at /login
             exact
-            path='/login'
-            authRedirect='/user'
+            path="/login"
+            authRedirect="/user"
           >
             <LoginPage />
           </ProtectedRoute>
@@ -163,8 +154,8 @@ function App() {
             // - if logged in, redirects to "/user"
             // - else shows RegisterPage at "/registration"
             exact
-            path='/registration'
-            authRedirect='/user'
+            path="/registration"
+            authRedirect="/user"
           >
             <RegisterPage />
           </ProtectedRoute>
@@ -174,8 +165,8 @@ function App() {
             // - if logged in, redirects to "/user"
             // - else shows LandingPage at "/home"
             exact
-            path='/home'
-            authRedirect='/user'
+            path="/home"
+            authRedirect="/user"
           >
             <LandingPage />
           </ProtectedRoute>

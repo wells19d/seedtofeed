@@ -20,7 +20,6 @@ function BuyerViewFields(params) {
 
   const fieldList = useSelector((store) => store.fieldListReducer);
   const userList = useSelector((store) => store.userListReducer);
-  // console.log('The fieldList', fieldList);
 
   useEffect(() => {
     dispatch({

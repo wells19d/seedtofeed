@@ -2,12 +2,9 @@ import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* addContract(action) {
-    console.log('Here is the added contract:', action.payload);
-    
-
     try {
         const response = yield axios.post(`/api/contract/add_contract`, action.payload)
-        yield put({ type: 'FETCH_CONTRACT_LIST', payload: action.payload}) // Change INSERT to user ID. Cannot remember how to do so at the moment.
+        yield put({ type: 'FETCH_CONTRACT_LIST', payload: action.payload}) 
     } catch (error) {
         console.log('User get request failed', error);
     }

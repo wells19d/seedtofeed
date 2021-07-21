@@ -14,10 +14,8 @@ import Button from '@material-ui/core/Button';
 const standardButtons = {
   border: 'solid black 0px',
   boxShadow: '2px 2px 3px 0px grey',
-  minWidth: '1px'
+  minWidth: '1px',
 };
-
-// NEED TO CREATE AND IMPORT STATUSTRACKER COMPONENT
 
 function ViewFieldDetails() {
   const dispatch = useDispatch();
@@ -26,7 +24,7 @@ function ViewFieldDetails() {
   useEffect(() => {
     dispatch({
       type: 'FETCH_FIELD_DETAILS',
-      payload: fieldID
+      payload: fieldID,
     });
   }, []);
 
@@ -34,24 +32,28 @@ function ViewFieldDetails() {
   const fieldID = params.fieldID;
 
   return (
-
     <center>
       <Grid container spacing={2} display>
-
         <Grid item xs={1} />
-        <Grid item xs={10}><StatusTracker fieldID={fieldID} /></Grid>
+        <Grid item xs={10}>
+          <StatusTracker fieldID={fieldID} />
+        </Grid>
         <Grid item xs={1} />
 
         <Grid item xs={2} />
-        <Grid item xs={8}><ViewTransactions fieldID={fieldID} /></Grid>
+        <Grid item xs={8}>
+          <ViewTransactions fieldID={fieldID} />
+        </Grid>
         <Grid item xs={2} />
 
         <Grid item xs={2} />
-        <Grid item xs={8}><FieldNIR fieldID={fieldID} /></Grid>
+        <Grid item xs={8}>
+          <FieldNIR fieldID={fieldID} />
+        </Grid>
         <Grid item xs={2} />
-
       </Grid>
- <Button className="submit-buttons" onClick={() => history.goBack()}>
+      <br />
+      <Button className="submit-buttons" onClick={() => history.goBack()}>
         ⬅ Go Back
       </Button>
     </center>
