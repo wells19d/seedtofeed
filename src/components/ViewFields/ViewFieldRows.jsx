@@ -15,72 +15,73 @@ const edit = <FontAwesomeIcon icon={faEdit} />;
 
 import '../../index.css';
 
-function ViewFieldRows(param){
-    const dispatch = useDispatch();
-    const history = useHistory();
+function ViewFieldRows(param) {
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-    const field = param.field;
+  const field = param.field;
 
-    const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-    const togglePopup = () => {
-        setIsOpen(!isOpen);
-    };
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
 
-    function deleteButton(fieldID) {
-        if (confirm('Are you sure you would like to delete this field?')) {
-          dispatch({
-            type: 'DELETE_FIELD',
-            payload: fieldID,
-          });
-        }
-      }
+  function deleteButton(fieldID) {
+    if (confirm('Are you sure you would like to delete this field?')) {
+      dispatch({
+        type: 'DELETE_FIELD',
+        payload: fieldID,
+      });
+    }
+  }
 
-    return (
-        <>
-             <TableCell>
-                <Button className="submit-buttons"
-                    onClick={() => history.push(`/field_details/${field.id}`)}
-                >
-                    {field.name}
-                </Button>
-                </TableCell>
-                <TableCell>{field.location}</TableCell>
-                <TableCell className='capitalize'>{field.field_status}</TableCell>
-                <TableCell>{field.field_note}</TableCell>
-                <TableCell>
-                No buyers yet
-                {isOpen && (
-                    <SetBuyer togglePopup={togglePopup} fieldID={field.id} />
-                )}
-                </TableCell>
+  return (
+    <>
+      <TableCell>
+        <Button
+          className="submit-buttons"
+          onClick={() => history.push(`/field_details/${field.id}`)}
+        >
+          {field.name}
+        </Button>
+      </TableCell>
+      <TableCell>{field.location}</TableCell>
+      <TableCell className="capitalize">{field.field_status}</TableCell>
+      <TableCell>{field.field_note}</TableCell>
+      <TableCell>
+        No buyers
+        {isOpen && <SetBuyer togglePopup={togglePopup} fieldID={field.id} />}
+      </TableCell>
 
-                <TableCell align='center'>
-                {/* <Button className='submitButton' onClick={() => togglePopup()}>Add Buyer</Button> */}
-                <Button className='submit-buttons' onClick={() => togglePopup()}>Add</Button>
-                </TableCell>
-                <TableCell>
-                <Button
-                    className='standard-buttons'
-                    title="Edit"
-                    color="default"
-                    onClick={() => history.push(`/edit_field/${field.id}`)}
-                >
-                    {edit}
-                </Button>
-                </TableCell>
-                <TableCell>
-                <Button 
-                    className='standard-buttons'
-                    title="Delete"
-                    color="default"
-                    onClick={() => deleteButton(field.id)}
-                >
-                    {trashCan}
-                </Button>
-            </TableCell>
-        </>
-    )
+      <TableCell align="center">
+        {/* <Button className='submitButton' onClick={() => togglePopup()}>Add Buyer</Button> */}
+        <Button className="submit-buttons" onClick={() => togglePopup()}>
+          Add
+        </Button>
+      </TableCell>
+      <TableCell>
+        <Button
+          className="standard-buttons"
+          title="Edit"
+          color="default"
+          onClick={() => history.push(`/edit_field/${field.id}`)}
+        >
+          {edit}
+        </Button>
+      </TableCell>
+      <TableCell>
+        <Button
+          className="standard-buttons"
+          title="Delete"
+          color="default"
+          onClick={() => deleteButton(field.id)}
+        >
+          {trashCan}
+        </Button>
+      </TableCell>
+    </>
+  );
 }
 
 export default ViewFieldRows;

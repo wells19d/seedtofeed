@@ -64,19 +64,17 @@ function StatusTracker(params) {
   return (
     <center>
       {/* {JSON.stringify(details)} */}
+      <h1>{detail?.field_name} Dashboard</h1>
 
-      <h1>Dashboard</h1>
       <Card className="status-tracker">
         <br />
         <Grid container spacing={0}>
-          <Grid item xs={3}><b>Field Name: {detail?.field_name}</b></Grid>
+          {/* <Grid item xs={3}><b></b></Grid> */}
           <Grid item xs={3}><b>Location: {field?.location}</b></Grid>
           <Grid item xs={3}><b>Crop Type: {detail?.crop_type}</b></Grid>
-          <Grid item xs={3}><b>Acres: {field?.acres}</b></Grid>
-
-
+          <Grid item xs={1}><b>Acres: {field?.acres}</b></Grid>
           {userContract?.length >= 1 && <>
-            <Grid item xs={3}><b>Contract Number: {userContract[0]?.bushel_uid}</b></Grid>
+            <Grid item xs={2}><b>Contract Number: {userContract[0]?.bushel_uid}</b></Grid>
             <Grid item xs={3}><b>Contract Status: {userContract[0]?.name}</b></Grid>
           </>}
         </Grid>
