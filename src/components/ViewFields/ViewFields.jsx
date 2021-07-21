@@ -14,7 +14,6 @@ import {
   TableBody,
   TableHead,
   TableRow,
-  Paper,
   Button,
   Card
 } from '@material-ui/core';

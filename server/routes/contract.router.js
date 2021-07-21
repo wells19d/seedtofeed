@@ -122,7 +122,7 @@ router.get('/getBuyerContractShortList', rejectUnauthenticated, (req, res) => {
     JOIN "field" ON ("field"."id" = "user_field"."field_id")
     JOIN "crop" ON ("field"."crop_id" = "crop"."id")
     JOIN "contract_status" ON ("contract"."open_status" = "contract_status"."id")
-    WHERE "user"."id" = $1;`;
+    WHERE "contract"."buyer_id" = $1;`;
 
   pool
     .query(queryText, [userID])

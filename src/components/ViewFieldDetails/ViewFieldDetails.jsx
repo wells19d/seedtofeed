@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import FieldNIR from '../NIR/FieldNIR.jsx';
 import ViewTransactions from '../ViewTransactions/ViewTransactions.jsx';
-import ViewContract from '../ViewContract/ViewContract';
 
 import StatusTracker from '../StatusTracker/StatusTracker.jsx';
 import { useDispatch } from 'react-redux';
 
-import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 

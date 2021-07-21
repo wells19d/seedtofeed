@@ -58,16 +58,15 @@ function EditTransaction() {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_TRANSACTION_TYPES',
+      type: 'FETCH_TRANSACTION_TYPES'
     });
     dispatch({
       type: 'FETCH_FIELD_TRANSACTIONS',
-      payload: field_id,
+      payload: field_id
     });
   }, []);
 
   return (
-    <React.Fragment>
     <Router>
       <center>
         <Card className="cards card-width">
@@ -127,11 +126,12 @@ function EditTransaction() {
           >
             Submit
           </Button>
+
+
         </Card>
       </center>
-    </Router>
-    </React.Fragment>
 
+    </Router>
   );
 }
 

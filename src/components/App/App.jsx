@@ -12,6 +12,7 @@ import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import FarmerProtectedRoute from '../ProtectedRoute/FarmerProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
@@ -82,9 +83,13 @@ function App() {
             <ViewContract />
           </Route>
 
-          <Route exact path="/edit_NIR/:fieldID/:NIRID">
+          {/* <Route exact path="/edit_NIR/:fieldID/:NIRID">
             <EditNIR />
-          </Route>
+          </Route> */}
+
+          <FarmerProtectedRoute exact path="/edit_NIR/:fieldID/:NIRID">
+            <EditNIR />
+          </FarmerProtectedRoute>
 
           <Route exact path="/edit_transaction/:fieldID/:transactionID">
             <EditTransaction />
@@ -103,7 +108,6 @@ function App() {
           </Route>
 
           <Route exact path="/edit_field/:fieldID">
-            {/* <Route exact path="/edit_field/:fieldID"> */}
             <EditFieldForm />
           </Route>
 

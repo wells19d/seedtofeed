@@ -5,7 +5,6 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 
 import AddTransaction from '../AddTransaction/AddTransaction';
-import EditTransaction from '../AddTransaction/EditTransaction';
 
 import {
   Grid,
