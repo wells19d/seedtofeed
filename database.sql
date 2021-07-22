@@ -14,9 +14,6 @@ CREATE TABLE "user" (
   OIDS=FALSE
 );
 
--- "access_level" VARCHAR (6) DEFAULT 'Member'
-
-
 CREATE TABLE "field" (
 	"id" serial NOT NULL,
 	"year" INT,
@@ -33,7 +30,6 @@ CREATE TABLE "field" (
   OIDS=FALSE
 );
 
-
 CREATE TABLE "crop" (
 	"id" serial NOT NULL,
 	"crop_type" varchar(255) NOT NULL,
@@ -41,7 +37,6 @@ CREATE TABLE "crop" (
 ) WITH (
   OIDS=FALSE
 );
-
 
 CREATE TABLE "transaction_type" (
 	"id" integer NOT NULL,
@@ -51,7 +46,6 @@ CREATE TABLE "transaction_type" (
 ) WITH (
   OIDS=FALSE
 );
-
 
 CREATE TABLE "contract" (
 	"id" serial NOT NULL,
@@ -73,7 +67,6 @@ CREATE TABLE "contract" (
   OIDS=FALSE
 );
 
-
 CREATE TABLE "NIR" (
 	"id" serial NOT NULL,
 	"field_id" integer NOT NULL,
@@ -88,7 +81,6 @@ CREATE TABLE "NIR" (
   OIDS=FALSE
 );
 
-
 CREATE TABLE "field_transactions" (
 	"id" serial NOT NULL,
 	"field_id" integer NOT NULL,
@@ -102,7 +94,6 @@ CREATE TABLE "field_transactions" (
   OIDS=FALSE
 );
 
-
 CREATE TABLE "user_field" (
 	"id" serial NOT NULL,
 	"field_id" integer NOT NULL,
@@ -112,7 +103,6 @@ CREATE TABLE "user_field" (
   OIDS=FALSE
 );
 
--- NEW TABLE!!!
 CREATE TABLE "buyer_field" (
 	"id" serial NOT NULL,
 	"field_id" integer NOT NULL,
@@ -121,7 +111,6 @@ CREATE TABLE "buyer_field" (
 ) WITH (
   OIDS=FALSE
 );
-
 
 CREATE TABLE "arbitrary_data" (
 	"id" serial NOT NULL,
@@ -132,7 +121,6 @@ CREATE TABLE "arbitrary_data" (
 ) WITH (
   OIDS=FALSE
 );
-
 
 CREATE TABLE "contract_status" (
 	"id" serial NOT NULL,
@@ -151,7 +139,6 @@ CREATE TABLE "stream" (
 "raw" JSONB
 );
 
-
 ALTER TABLE "field" ADD CONSTRAINT "field_fk0" FOREIGN KEY ("crop_id") REFERENCES "crop"("id") ON DELETE CASCADE;
 ALTER TABLE "contract" ADD CONSTRAINT "contract_fk0" FOREIGN KEY ("user_field_id") REFERENCES "user_field"("id") ON DELETE CASCADE;
 ALTER TABLE "contract" ADD CONSTRAINT "contract_fk1" FOREIGN KEY ("commodity") REFERENCES "crop"("id") ON DELETE CASCADE;
@@ -166,23 +153,13 @@ ALTER TABLE "buyer_field" ADD CONSTRAINT "buyer_field_fk0" FOREIGN KEY ("field_i
 ALTER TABLE "buyer_field" ADD CONSTRAINT "buyer_field_fk1" FOREIGN KEY ("buyer_id") REFERENCES "user"("id") ON DELETE CASCADE;
 ALTER TABLE "contract" ADD CONSTRAINT "contract_fk3" FOREIGN KEY ("buyer_id") REFERENCES "user"("id") ON DELETE CASCADE;
 
-
-
-
 -- Crop Drop Setup
 INSERT INTO "crop" (crop_type) VALUES ('Barley'), ('Corn'), ('Oats'), ('Soybeans'), ('Sugarbeets'), ('Wheat');
 
--- workflow steps of the supply chain: pre-planting, plant, application, harvest (farm & elevator), processing, transit, feed
-
-
 -- this is the insert for the contract statuses - however you need to change the "order" to nullable, not sure what that is
-
 INSERT INTO "contract_status" ("name") VALUES ('Created'), ('Pending'), ('Signed'), ('Delivered'), ('Paid'), ('Fulfilled');
-
 INSERT INTO "user" ("username", "password", "farmer", "buyer", "first_name", "last_name", "super_admin") VALUES ('jim@field.com','$2a$10$ltsNjdSwfCN76GDV4fcDD.VW9LG8lsjqGkdz5X/8fX97FglhYOHgy','true','true','James','Doe','false');
-
 INSERT INTO "field" ("year", "location", "acres", "field_note", "name", "image", "shape_file", "gmo", "crop_id") VALUES ('2021', 'grandfarm', 5,'testing plot','test plot 1', null , null, 'true','1');
-
 INSERT INTO "user_field" ("field_id", "user_id") VALUES ('1', '1');
 
 -- Joining the user to the field table
@@ -211,110 +188,5 @@ INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('8', 't
 INSERT INTO "transaction_type" ("id", "name", "workflow_images") VALUES ('9', 'feed', '/images/009.png');
 INSERT INTO "transaction_type" ("id", "name") VALUES ('10', 'contract');
 
-SELECT * FROM "contract"
-JOIN "user_field" ON ("user_field"."id"="contract"."user_field_id")
-JOIN "user" ON ("user"."id"="user_field"."user_id")
-JOIN "field" ON ("field"."id"="user_field"."field_id");
-
 INSERT INTO "field_transactions" ("field_id", "timestamp", "status_notes", "image", "field_status", "transaction_type") VALUES ('1', '04-24-2021', 'fertilizer', 'none', 'pre-planting', '3');
-
-SELECT * FROM "field_transactions";
-
-/* 
-
-Test Farmers
-
-jim@field.com   1234
-jason@field.com  1234
-
-*/
-
-
--- -- Insert's from T's DB
--- INSERT INTO "public"."user"("id","username","password","farmer","buyer","first_name","last_name","super_admin")
--- VALUES
--- (6,'peter@seedtofeed.com','$2a$10$iiCZhTDpfBQ52ccMJW1AgOrfYnEUG2elBzH2h3XW4rCvAOiLXbfBu','TRUE','FALSE','Peter','Schott',NULL);
-
--- INSERT INTO "public"."user"("id","username","password","farmer","buyer","first_name","last_name","super_admin")
--- VALUES
--- (7,'nci@field.com','$2a$10$L1Zorq0G91YvgGbbOxcp7.kRHdWWB4kwkRam8NrqVRHUWoBYSyv9y','FALSE','TRUE','NCI','Elevator',NULL);
-
--- INSERT INTO "public"."contract"("id","buyer_id","user_field_id","commodity","open_status","bushel_uid","quantity_fulfilled","price","protein","oil","moisture","contract_quantity","container_serial","contract_handler")
--- VALUES
--- (4,7,7,4,1,'0720-ps-0001',NULL,15,35,15,NULL,5,99,'Bushel');
-
--- INSERT INTO "public"."field"("id","year","location","acres","field_note","name","image","shape_file","gmo","crop_id")
--- VALUES
--- (7,2021,'Grand Farm',5,'Fertilizer was spread April 24th. The rate was 100N-55P-22K-15S-1.4Zn (lb/A)','Soybean Test Plot','https://res.cloudinary.com/eda-demo/image/upload/v1626704851/3004000_n1twnk.jpg',NULL,NULL,4);
-
-
-
--- INSERT INTO "public"."user_field"("id","field_id","user_id")
--- VALUES
--- (2,7,6),
--- (3,8,2);
-
--- INSERT INTO "public"."buyer_field"("id","field_id","buyer_id")
--- VALUES
--- (2,7,7),
--- (3,7,7);
-
--- INSERT INTO "public"."contract_status"("id","name")
--- VALUES
--- (1,'Created'),
--- (2,'Pending'),
--- (3,'Signed'),
--- (4,'Delivered'),
--- (5,'Paid'),
--- (6,'Fulfilled');
-
--- INSERT INTO "public"."crop"("id","crop_type")
--- VALUES
--- (1,'Barley'),
--- (2,'Corn'),
--- (3,'Oats'),
--- (4,'Soybeans'),
--- (5,'Sugarbeets'),
--- (6,'Wheat');
-
-
--- INSERT INTO "public"."field_transactions"("id","field_id","timestamp","status_notes","image","field_status","transaction_type")
--- VALUES
--- (70,7,'2021-04-24 11:36:29.428817','Field Created',NULL,'pre-planting',1),
--- (71,7,'2021-05-11 11:40:00.257472','Seeded  May 11 - North half is Proseed 10-73EL. South half is Proseed G0840E.',NULL,'plant',2),
--- (72,7,'2021-05-11 18:50:16.785146','PRE Herbicide May 11 - Brawl at 2 pt/A',NULL,'application',3),
--- (73,7,'2021-06-15 23:37:30.752727','POST Herbicide June 15 - Liberty @ 32 fl oz/A + Outlook @12 fl oz/A + AMS @ 3 lb/A + Justified @ 4 fl oz/A',NULL,'application',3),
--- (74,7,'2021-04-24 11:39:38.416487','Fertilizer was spread April 24th. The rate was 100N-55P-22K-15S-1.4Zn (lb/A)	',NULL,'application',3),
--- (75,7,'2021-07-18 23:52:12.37607','contract created during field status: application',NULL,'application',3),
--- (76,8,'2021-07-19 09:27:41.387679','Field Created',NULL,'pre-planting',1);
-
--- INSERT INTO "public"."transaction_type"("id","name","workflow_images")
--- VALUES
--- (1,'Pre-Planting','/images/001.png'),
--- (2,'Plant','/images/002.png'),
--- (3,'Application','/images/003.png'),
--- (4,'Harvest_Farm','/images/004.png'),
--- (5,'Elevator_Transit','/images/005.png'),
--- (6,'Elevator','/images/006.png'),
--- (7,'Processing','/images/007.png'),
--- (8,'Transit','/images/008.png'),
--- (9,'Feed','/images/009.png'),
--- (10,'Contract',NULL);
-
-
-Field Transaction's Peter's Field:
-peter@seedtofeed.com		TRUE	FALSE	Peter	Schott	
-nci@field.com	FALSE	TRUE	NCI	Elevator	
-
-2021-04-24 11:36:29.428817	Field Created						pre-planting	1
-2021-05-11 11:40:00.257472	Seeded  May 11 - North half is Proseed 10-73EL. South half is Proseed G0840E.		plant	2
-2021-05-11 18:50:16.785146	PRE Herbicide May 11 - Brawl at 2 pt/A		application	3
-2021-06-15 23:37:30.752727	POST Herbicide June 15 - Liberty @ 32 fl oz/A + Outlook @12 fl oz/A + AMS @ 3 lb/A + Justified @ 4 fl oz/A		application	3
-2021-04-24 11:39:38.416487	Fertilizer was spread April 24th. The rate was 100N-55P-22K-15S-1.4Zn (lb/A) 		application	3
-2021-07-18 23:52:12.37607	contract created during field status: application		application	3
-2021-07-19 09:27:41.387679	Field Created		pre-planting	1
-
-
-contract: 
-4	1	0720-ps-0001		15	35	15		5	99	Bushel
 
