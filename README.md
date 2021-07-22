@@ -50,6 +50,9 @@ View a Contract
 - Stretch goals include third party API integration and pushing to blockchain platforms.
 
 
+## Heroku Live View
+- https://seed2feed.herokuapp.com
+
 
 # Prerequisites
 
