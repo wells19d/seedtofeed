@@ -89,6 +89,11 @@ After running the login route above, you can try any other route you've created 
 4. A farmer can create a contract to send to a buyer
 5. There is a Dashboard for the user to watch the progress of a field
 
+## Next Steps
+- In order to make the tracker more streamlined, all steps in the workflow update automatically from the partners that gather the data straight to the user          without the user having to manually update forms.
+- More data tables on the dashboard that show the state of the field and commodity as well as weather and other useful information.
+- Create the ability for a potential buyer to actually make an offer through the app.
+
 
 # Deployment
 - npm run server
